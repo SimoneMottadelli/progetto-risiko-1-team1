@@ -9,8 +9,8 @@ public class FrontController1 {
 
 	@RequestMapping(value="/prova1")
 	@ResponseBody
-	public String Prova() {
-		return "ciao1";
+	public String prova() {
+		return "ciao";
 	}
 	
 }
