@@ -6,26 +6,23 @@ import java.util.List;
 public class CardManager {
 
 	private List<Card> missionCards;
+	private CardManager instance;
 	
 	
-	public CardManager() {
+	private CardManager() {
 		missionCards = new LinkedList<>();
 	}
 	
 	
-	public CardManager(List<Card> missionCards) {
-		this();
-		setMissionCards(missionCards);
+	public CardManager getInstance() {
+		if (instance == null)
+			instance = new CardManager();
+		return instance;
 	}
-
-
+	
+	
 	public List<Card> getMissionCards() {
 		return missionCards;
-	}
-
-
-	public void setMissionCards(List<Card> missionCards) {
-		this.missionCards = missionCards;
 	}
 	
 }

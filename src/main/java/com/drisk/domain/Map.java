@@ -1,31 +1,30 @@
 package com.drisk.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Map {
 
-	private Continent[] continents;
+	private List<Continent> continents;
+	private Map map;
 	
+	private Map() {
+		continents = new ArrayList<>();
+	}
 	
-	public Map() {
-		
+	public Map getInstance() {
+		if (map == null)
+			map = new Map();
+		return map;
 	}
 
 	
-	public Map(int numberOfContinents) {
-		continents = new Continent[numberOfContinents];
-	}
-	
-	
-	public Map(Continent[] continents) {
-		this.continents = continents;
-	}
-
-	
-	public Continent[] getContinents() {
+	public List<Continent> getContinents() {
 		return continents;
 	}
 
 	
-	public void setContinents(Continent[] continents) {
+	public void setContinents(List<Continent> continents) {
 		this.continents = continents;
 	}
 	

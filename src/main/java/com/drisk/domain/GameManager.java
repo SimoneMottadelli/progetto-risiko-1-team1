@@ -3,31 +3,39 @@ package com.drisk.domain;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class GameManager {
-	
 	
 	private List<Player> players;
 	private Map map;
+	private GameManager instance;
 	
 	
-	public GameManager() {
+	private GameManager() {
 		players = new LinkedList<>();
 	}
 	
-	public GameManager(List<Player> players, Map map) {
-		this();
-		setPlayers(players);
-		setMap(map);
+	
+	public GameManager getInstance() {
+		if (instance == null)
+			instance = new GameManager();
+		return instance;
 	}
 	
 	
-	public GameManager(List<Player> players) {
-		this(players, null);
+	public void initGame(String playersJson, String mapJson) {
+		initPlayers(playersJson);
+		initMap(mapJson);
 	}
 	
 	
-	public GameManager(Map map) {
-		this(null, map);
+	private void initPlayers(String playersJson) {
+		//Crea i giocatori a partire da playersJson
+	}
+	
+	
+	private void initMap(String mapJson) {
+		//Crea la mappa a partire da mapJson
 	}
 	
 	
@@ -36,18 +44,8 @@ public class GameManager {
 	}
 
 
-	public void setPlayers(List<Player> players) {
-		this.players = players;
-	}
-
-
 	public Map getMap() {
 		return map;
-	}
-
-	
-	public void setMap(Map map) {
-		this.map = map;
 	}
 	
 	
