@@ -1,5 +1,8 @@
 package com.drisk.domain;
 
-public class Continent {
+import java.util.List;
 
+public class Continent {
+	
+	private List<Territory> nations;
 }
