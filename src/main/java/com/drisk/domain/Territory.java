@@ -6,6 +6,8 @@ import java.util.List;
 public class Territory {
 
 	private String name;
+	private Player player;
+	private int numberOfTanks;
 	private List<Territory> adjacentTerritories;
 	
 	
@@ -14,15 +16,52 @@ public class Territory {
 	}
 	
 	
-	public Territory(String name) {
+	public Territory(String name, Player player, int numberOfTanks, List<Territory> adjacentTerritories) {
 		this();
 		setName(name);
+		setPlayer(player);
+		setNumberOfTanks(numberOfTanks);
+		setAdjacentTerritories(adjacentTerritories);
 	}
 	
-
+	
+	public Territory(String name) {
+		this(name, null, 0, null);
+	}
+	
+	
+	public Territory(String name, Player player) {
+		this(name, player, 0, null);
+	}
+	
+	
+	public Territory(String name, Player player, int numberOfTanks) {
+		this(name, player, numberOfTanks, null);
+	}
+	
+	
 	public Territory(String name, List<Territory> adjacentTerritories) {
-		this(name);
-		setAdjacentTerritories(adjacentTerritories);
+		this(name, null, 0, adjacentTerritories);
+	}
+	
+	
+	public Player getPlayer() {
+		return player;
+	}
+
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+
+	public int getNumberOfTanks() {
+		return numberOfTanks;
+	}
+
+
+	public void setNumberOfTanks(int numberOfTanks) {
+		this.numberOfTanks = numberOfTanks;
 	}
 	
 	

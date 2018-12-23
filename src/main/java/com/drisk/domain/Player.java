@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Player {
 	
+	private String nickname;
 	private Color color;
 	private MissionCard missionCard;
 	private List<TerritoryCard> territoryCards;
@@ -15,24 +16,39 @@ public class Player {
 	}
 	
 	
-	public Player(Color color) {
+	public Player(String nickname, Color color, MissionCard missionCard, List<TerritoryCard> territoryCards) {
 		this();
+		setNickname(nickname);
 		setColor(color);
-	}
-	
-	
-	public Player(Color color, MissionCard missionCard) {
-		this(color);
 		setMissionCard(missionCard);
-	}
-	
-	
-	public Player(Color color, MissionCard missionCard, List<TerritoryCard> territoryCards) {
-		this(color, missionCard);
 		setTerritoryCards(territoryCards);
 	}
 	
+	public Player(String nickname, Color color) {
+		this(nickname, color, null, null);
+	}
 	
+	
+	public Player(String nickname, Color color, MissionCard missionCard) {
+		this(nickname, color, missionCard, null);
+	}
+	
+	
+	public Player(String nickname, Color color, List<TerritoryCard> territoryCards) {
+		this(nickname, color, null, territoryCards);
+	}
+	
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+
 	public Color getColor() {
 		return color;
 	}

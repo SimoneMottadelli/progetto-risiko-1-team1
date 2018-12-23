@@ -1,6 +1,6 @@
 package com.drisk.dice;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -14,7 +14,8 @@ public class DiceTest {
 		int n;
 		for(int i = 0; i < 100; i++) {
 			n = dice.rollDice();
-			assertTrue(n >= 1 && n <= 6);
+			if (n < 1 || n > 6)
+				fail("The result of the dice is " + n);
 		}
 	}
 	
