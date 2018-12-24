@@ -1,4 +1,4 @@
-package com.drisk.dice;
+package com.drisk.domain;
 
 import static org.junit.Assert.fail;
 
