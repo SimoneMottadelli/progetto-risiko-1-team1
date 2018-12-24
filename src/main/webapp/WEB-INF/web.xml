@@ -11,10 +11,6 @@
 			org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>FrontController</servlet-name>
-		<url-pattern>/Contr/*</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>FrontController1</servlet-name>
@@ -22,6 +18,12 @@
 			org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
 	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FrontController</servlet-name>
+		<url-pattern>/Contr/*</url-pattern>
+	</servlet-mapping>
+
 	<servlet-mapping>
 		<servlet-name>FrontController1</servlet-name>
 		<url-pattern>/Contr1/*</url-pattern>

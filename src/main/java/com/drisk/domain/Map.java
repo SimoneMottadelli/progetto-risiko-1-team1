@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Map {
 
-	private Map map;
+	private static Map instance;
 	private String difficulty;
 	private List<Continent> continents;
 	private List<Territory> territories;
@@ -20,10 +20,10 @@ public class Map {
 		territories = new ArrayList<>();
 	}
 
-	public Map getInstance() {
-		if (map == null)
-			map = new Map();
-		return map;
+	public static Map getInstance() {
+		if (instance == null)
+			instance = new Map();
+		return instance;
 	}
 
 	public void createMap(String difficulty) {

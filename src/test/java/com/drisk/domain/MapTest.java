@@ -6,8 +6,8 @@ public class MapTest {
 
 	@Test
 	public void mapTest() {
-		Map map = new Map("");
-		map.createMap();
+		Map map = Map.getInstance();
+		map.createMap("hard");
 	}
 	
 }
