@@ -31,8 +31,10 @@ public class Territory {
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
-			return false;
+		} 
+		else if (!name.equals(other.name)) {
+			return false;		
+		}
 		return true;
 	}
 	
