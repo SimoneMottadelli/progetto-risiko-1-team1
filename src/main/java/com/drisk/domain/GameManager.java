@@ -2,13 +2,13 @@ package com.drisk.domain;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import com.google.gson.Gson;
 
 public class GameManager {
 	
 	private List<Player> players;
 	private Map map;
-	private GameManager instance;
+	private static GameManager instance;
 	
 	
 	private GameManager() {
@@ -16,26 +16,39 @@ public class GameManager {
 	}
 	
 	
-	public GameManager getInstance() {
+	public static GameManager getInstance() {
 		if (instance == null)
 			instance = new GameManager();
 		return instance;
 	}
 	
 	
-	public void initGame(String playersJson, String mapJson) {
+	public void initGame(List<String> playersJson, String mapJson) {
 		initPlayers(playersJson);
 		initMap(mapJson);
 	}
 	
 	
-	private void initPlayers(String playersJson) {
-		//Crea i giocatori a partire da playersJson
+	public void initPlayers(List<String> players) { //Da occuparsi col json
+		Color[] colors = Color.values();
+		for (int i = 0; i < players.size(); ++i) {
+			Player player = new Player(players.get(i), colors[i]);
+			this.players.add(player);
+		}
 	}
 	
 	
-	private void initMap(String mapJson) {
+	public void initMap(String mapJson) {
 		//Crea la mappa a partire da mapJson
+	}
+	
+	public void initTerritories() {
+		
+		List<Territory> cloneTerritories = map.getTerritories();
+		for (int i = 0, j = 0; i < cloneTerritories.size(); ++i, ++j) {
+			cloneTerritories.get(i).setPlayer(players.get(j % players.size()));
+		}
+		
 	}
 	
 	
@@ -48,8 +61,4 @@ public class GameManager {
 		return map;
 	}
 	
-	
-	public void addPlayer(Player player) {
-		players.add(player);
-	}
 }

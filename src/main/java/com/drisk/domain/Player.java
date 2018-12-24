@@ -16,27 +16,29 @@ public class Player {
 	}
 	
 	
-	public Player(String nickname, Color color, MissionCard missionCard, List<TerritoryCard> territoryCards) {
+	/*public Player(String nickname, Color color, MissionCard missionCard, List<TerritoryCard> territoryCards) {
 		this();
 		setNickname(nickname);
 		setColor(color);
 		setMissionCard(missionCard);
 		setTerritoryCards(territoryCards);
-	}
+	}*/
 	
 	public Player(String nickname, Color color) {
-		this(nickname, color, null, null);
+		this();
+		setNickname(nickname);
+		setColor(color);
 	}
 	
 	
-	public Player(String nickname, Color color, MissionCard missionCard) {
+	/*public Player(String nickname, Color color, MissionCard missionCard) {
 		this(nickname, color, missionCard, null);
 	}
 	
 	
 	public Player(String nickname, Color color, List<TerritoryCard> territoryCards) {
 		this(nickname, color, null, territoryCards);
-	}
+	}*/
 	
 	
 	public String getNickname() {
