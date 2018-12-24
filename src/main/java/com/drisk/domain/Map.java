@@ -27,30 +27,25 @@ public class Map {
 		return instance;
 	}
 
-	public void createMap(String difficulty) {
+	public void createMap(String difficulty) throws SQLException {
 		setDifficulty(difficulty);
-		Connection c = null;
-		try {
-			c = DriverManager.getConnection("jdbc:sqlite:driskdb.db");
+		try (Connection c = DriverManager.getConnection("jdbc:sqlite:driskdb.db")) {
 			Statement state = c.createStatement();
 			createContinents(state);
 			createTerritories(state);
-			createNeighbour(state);			
+			createNeighbour(state);				
 		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		
 	}
 	
 	private void createNeighbour(Statement state) throws SQLException {
 		String query = SQLQuery.extractNeighbours(difficulty);
-		ResultSet result = state.executeQuery(query);
-		while(result.next()) {
-			String territoryName = result.getString("territory");
-			String neighbourName = result.getString("neighbour");
-			Territory t = findTerritoryByName(territoryName);
-			t.addNeighbour(findTerritoryByName(neighbourName));
+		try (ResultSet result = state.executeQuery(query)) {
+			while(result.next()) {
+				String territoryName = result.getString("territory");
+				String neighbourName = result.getString("neighbour");
+				Territory t = findTerritoryByName(territoryName);
+				t.addNeighbour(findTerritoryByName(neighbourName));
+			}		
 		}
 	}
 	
@@ -74,23 +69,24 @@ public class Map {
 	
 	private void createTerritories(Statement state) throws SQLException {
 		String query = SQLQuery.extractTerritories(difficulty);
-		ResultSet result = state.executeQuery(query);
-		while(result.next()) {
-			String territoryName = result.getString("name");
-			String continentName = result.getString("continent");
-			Territory t = new Territory(territoryName, findContinentByName(continentName));
-			addTerritory(t);
+		try (ResultSet result = state.executeQuery(query)) {
+			while(result.next()) {
+				String territoryName = result.getString("name");
+				String continentName = result.getString("continent");
+				Territory t = new Territory(territoryName, findContinentByName(continentName));
+				addTerritory(t);
+			}	
 		}
-		
 	}
 	
 	private void createContinents(Statement state) throws SQLException {
 		String query = SQLQuery.extractContinents(difficulty);
-		ResultSet result = state.executeQuery(query);
-		while(result.next()) {
-			String continentName = result.getString("name");
-			Continent c = new Continent(continentName);
-			addContinent(c);
+		try (ResultSet result = state.executeQuery(query)) {
+			while(result.next()) {
+				String continentName = result.getString("name");
+				Continent c = new Continent(continentName);
+				addContinent(c);
+			}		
 		}
 	}
 	
