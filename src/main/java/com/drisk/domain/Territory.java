@@ -6,27 +6,48 @@ import java.util.List;
 public class Territory {
 
 	private String name;
+	private Continent continent;
 	private Player player;
 	private int numberOfTanks;
 	private List<Territory> adjacentTerritories;
 	
 	
-	public Territory() {
-		this.adjacentTerritories = new LinkedList<>();
+	public Territory(String name, Continent continent) {
+		this.name = name;
+		this.continent = continent;
+		adjacentTerritories = new LinkedList<>();
+	}
+	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Territory other = (Territory) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 	
 	
+	public void addNeighbour(Territory territory) {
+		if(!adjacentTerritories.contains(territory))
+			adjacentTerritories.add(territory);
+	}
+
+
 	public Territory(String name, Player player, int numberOfTanks, List<Territory> adjacentTerritories) {
-		this();
 		setName(name);
 		setPlayer(player);
 		setNumberOfTanks(numberOfTanks);
 		setAdjacentTerritories(adjacentTerritories);
-	}
-	
-	
-	public Territory(String name) {
-		this(name, null, 0, null);
 	}
 	
 	
