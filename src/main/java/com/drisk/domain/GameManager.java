@@ -22,9 +22,16 @@ public class GameManager {
 	}
 	
 	
-	public void initGame(List<String> playersJson, String mapJson) {
+	
+	public void startGame(List<String> playersJson, String mapJson) {
 		initPlayers(playersJson);
-		initMap(mapJson);
+		initPlayersTerritories();
+	}
+	
+	
+	public void initMap() {
+		map = Map.getInstance();
+		map.createMap("easy");
 	}
 	
 	
@@ -37,27 +44,34 @@ public class GameManager {
 	}
 	
 	
-	public void initMap(String mapJson) {
-		//Crea la mappa a partire da mapJson
-	}
-	
-	public void initTerritories() {
-		
-		List<Territory> cloneTerritories = map.getTerritories();
-		for (int i = 0, j = 0; i < cloneTerritories.size(); ++i, ++j) {
-			cloneTerritories.get(i).setPlayer(players.get(j % players.size()));
+	public void initPlayersTerritories() {
+		List<Territory> territories = map.getTerritories();
+		for (int i = 0, j = 0; i < territories.size(); ++i, ++j) {
+			territories.get(i).setPlayer(players.get(j % players.size()));
 		}
 		
 	}
 	
 	
-	public List<Player> getPlayers() {
-		return players;
+	public boolean checkWin(Player currentPlayer) {
+		List<Territory> territories = map.getTerritories();
+		int totalNumberOfTerritories = territories.size();
+		
+		int currentPlayerNumberOfTerritories = 0;
+		for (Territory t : territories) 
+			if (t.getPlayer().equals(currentPlayer))
+				++currentPlayerNumberOfTerritories;
+		
+		int playerTerritoriesRate = currentPlayerNumberOfTerritories / totalNumberOfTerritories;
+		if (playerTerritoriesRate >= (2 / 3))
+			return true;
+		else
+			return false;	
 	}
 
 
-	public Map getMap() {
-		return map;
+	public List<Player> getPlayers() {
+		return players;
 	}
 	
 }
