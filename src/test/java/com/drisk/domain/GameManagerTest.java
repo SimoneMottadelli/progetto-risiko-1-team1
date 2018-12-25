@@ -31,15 +31,15 @@ public class GameManagerTest {
 		
 		gm.initPlayers(playersName);	
 		
-		assertEquals(gm.getPlayers().get(0).getNickname(), "Zucca");
-		assertEquals(gm.getPlayers().get(1).getNickname(), "Matteo");
-		assertEquals(gm.getPlayers().get(2).getNickname(), "Claudio");
-		assertEquals(gm.getPlayers().get(3).getNickname(), "Simo");
+		assertEquals("Zucca", gm.getPlayers().get(0).getNickname());
+		assertEquals("Matteo", gm.getPlayers().get(1).getNickname());
+		assertEquals("Claudio", gm.getPlayers().get(2).getNickname());
+		assertEquals("Simo", gm.getPlayers().get(3).getNickname());
 		
-		assertEquals(gm.getPlayers().get(0).getColor(), Color.RED);
-		assertEquals(gm.getPlayers().get(1).getColor(), Color.YELLOW);
-		assertEquals(gm.getPlayers().get(2).getColor(), Color.GREEN);
-		assertEquals(gm.getPlayers().get(3).getColor(), Color.BLACK);
+		assertEquals(Color.RED, gm.getPlayers().get(0).getColor());
+		assertEquals(Color.YELLOW, gm.getPlayers().get(1).getColor());
+		assertEquals(Color.GREEN, gm.getPlayers().get(2).getColor());
+		assertEquals(Color.BLACK, gm.getPlayers().get(3).getColor());
 	}
 	
 	

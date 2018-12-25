@@ -28,7 +28,7 @@ public class Map {
 		setDifficulty(difficuly);
 		createContinents();
 		createTerritories();
-		createNeighbour();	
+		createNeighbours();	
 	}
 
 	private void setDifficulty(String difficulty) {
@@ -66,7 +66,7 @@ public class Map {
 		}	
 	}
 	
-	private void createNeighbour() {
+	private void createNeighbours() {
 		List<String[]> territoriesAndNeighboursName = MapDataMapper.getTerritoriesAndNeighboursNames(difficulty);
 		for(String[] territoryAndNeighbourName : territoriesAndNeighboursName) {
 			String territoryName = territoryAndNeighbourName[0];
