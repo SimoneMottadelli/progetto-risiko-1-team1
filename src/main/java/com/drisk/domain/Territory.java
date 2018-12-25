@@ -9,13 +9,13 @@ public class Territory {
 	private Continent continent;
 	private Player player;
 	private int numberOfTanks;
-	private List<Territory> adjacentTerritories;
+	private List<Territory> neighbours;
 	
 	
 	public Territory(String name, Continent continent) {
 		this.name = name;
 		this.continent = continent;
-		adjacentTerritories = new LinkedList<>();
+		neighbours = new LinkedList<>();
 	}
 	
 
@@ -40,8 +40,8 @@ public class Territory {
 	
 	
 	public void addNeighbour(Territory territory) {
-		if(!adjacentTerritories.contains(territory))
-			adjacentTerritories.add(territory);
+		if(!neighbours.contains(territory))
+			neighbours.add(territory);
 	}
 
 
@@ -94,7 +94,7 @@ public class Territory {
 	
 	
 	public void setAdjacentTerritories(List<Territory> adjacentTerritories) {
-		this.adjacentTerritories = adjacentTerritories;
+		this.neighbours = adjacentTerritories;
 	}
 
 
@@ -104,12 +104,12 @@ public class Territory {
 	
 	
 	public List<Territory> getAdjacentTerritories() {
-		return adjacentTerritories;
+		return neighbours;
 	}
 	
 	
 	public void addTerritory(Territory territory) {
-		adjacentTerritories.add(territory);
+		neighbours.add(territory);
 	}
 	
 }

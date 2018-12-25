@@ -1,12 +1,9 @@
-package com.drisk.domain;
+package com.drisk.technicalservice;
 
 public final class SQLQuery {
 	
 	
-	private SQLQuery() {
-		
-	}
-	
+	private SQLQuery() {}
 	
 	public static String extractContinents(String difficulty) {
 		return "SELECT * FROM continent as c JOIN map_continent" 
@@ -14,12 +11,12 @@ public final class SQLQuery {
 				+ " m.difficulty = '" + difficulty + "'";
 	}
 	
-	public static String extractTerritories(String difficulty) {
+	public static String extractTerritoriesAndContinents(String difficulty) {
 		return "SELECT * FROM territory as t JOIN territory_map as tm ON t.name = tm.territory"
 				+ " JOIN map as m on tm.map = m.difficulty WHERE m.difficulty = '" + difficulty + "'";
 	}
 	
-	public static String extractNeighbours(String difficulty) {
+	public static String extractTerritoriesAndNeighbours(String difficulty) {
 		return "SELECT * FROM neighbourhood as n JOIN map as m on n.map = m.difficulty"
 				+ " WHERE m.difficulty = '" + difficulty + "'";
 	}

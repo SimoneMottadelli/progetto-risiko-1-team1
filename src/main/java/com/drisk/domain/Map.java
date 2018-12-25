@@ -1,12 +1,9 @@
 package com.drisk.domain;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.drisk.technicalservice.MapDataMapper;
 
 public class Map {
 
@@ -26,29 +23,14 @@ public class Map {
 			instance = new Map();
 		return instance;
 	}
+	
+	public void createMap(String difficuly) {
+		setDifficulty(difficuly);
+		createContinents();
+		createTerritories();
+		createNeighbour();	
+	}
 
-	public void createMap(String difficulty) throws SQLException {
-		setDifficulty(difficulty);
-		try (Connection c = DriverManager.getConnection("jdbc:sqlite:driskdb.db")) {
-			Statement state = c.createStatement();
-			createContinents(state);
-			createTerritories(state);
-			createNeighbour(state);				
-		}
-	}
-	
-	private void createNeighbour(Statement state) throws SQLException {
-		String query = SQLQuery.extractNeighbours(difficulty);
-		try (ResultSet result = state.executeQuery(query)) {
-			while(result.next()) {
-				String territoryName = result.getString("territory");
-				String neighbourName = result.getString("neighbour");
-				Territory t = findTerritoryByName(territoryName);
-				t.addNeighbour(findTerritoryByName(neighbourName));
-			}		
-		}
-	}
-	
 	private void setDifficulty(String difficulty) {
 		this.difficulty = difficulty;
 	}
@@ -62,31 +44,35 @@ public class Map {
 		return territories;
 	}
 
-	
 	public void setContinents(List<Continent> continents) {
 		this.continents = continents;
 	}
 	
-	private void createTerritories(Statement state) throws SQLException {
-		String query = SQLQuery.extractTerritories(difficulty);
-		try (ResultSet result = state.executeQuery(query)) {
-			while(result.next()) {
-				String territoryName = result.getString("name");
-				String continentName = result.getString("continent");
-				Territory t = new Territory(territoryName, findContinentByName(continentName));
-				addTerritory(t);
-			}	
-		}
+	private void createContinents() {
+		List<String> continentsName = MapDataMapper.getContinentsNames(difficulty);
+		for(String continentName : continentsName) {
+			Continent c = new Continent(continentName);
+			addContinent(c);
+		}	
 	}
 	
-	private void createContinents(Statement state) throws SQLException {
-		String query = SQLQuery.extractContinents(difficulty);
-		try (ResultSet result = state.executeQuery(query)) {
-			while(result.next()) {
-				String continentName = result.getString("name");
-				Continent c = new Continent(continentName);
-				addContinent(c);
-			}		
+	private void createTerritories() {
+		List<String[]> territoriesAndContinentsNames = MapDataMapper.getTerritoriesAndContinentsNames(difficulty);
+		for(String[] territoryAndContinentName : territoriesAndContinentsNames) {
+			String territoryName = territoryAndContinentName[0];
+			Continent continent = findContinentByName(territoryAndContinentName[1]);
+			Territory territory = new Territory(territoryName, continent);
+			addTerritory(territory);
+		}	
+	}
+	
+	private void createNeighbour() {
+		List<String[]> territoriesAndNeighboursName = MapDataMapper.getTerritoriesAndNeighboursNames(difficulty);
+		for(String[] territoryAndNeighbourName : territoriesAndNeighboursName) {
+			String territoryName = territoryAndNeighbourName[0];
+			String neighbourName = territoryAndNeighbourName[1];
+			Territory t = findTerritoryByName(territoryName);
+			t.addNeighbour(findTerritoryByName(neighbourName));
 		}
 	}
 	
