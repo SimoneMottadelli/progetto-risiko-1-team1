@@ -5,38 +5,37 @@ import java.util.List;
 
 public class GameManager {
 	
-	private List<Player> players;
-	private Map map;
-	private static GameManager instance;
+	private List<Player> players;			//Lista giocatori in partita
+	private Map map;						//Mappa di gioco
+	private static GameManager instance;	
 	
 	
 	private GameManager() {
 		players = new LinkedList<>();
 	}
 	
-	
 	public static GameManager getInstance() {
 		if (instance == null)
 			instance = new GameManager();
 		return instance;
 	}
-	
-	
-	
+
 	public void startGame(List<String> playersJson, String mapJson) {
 		initPlayers(playersJson);
+		initMap();
 		initPlayersTerritories();
 	}
-	
 	
 	public void initMap() {
 		map = Map.getInstance();
 		map.createMap("easy");
 	}
 	
-	
-	public void initPlayers(List<String> players) { //Da occuparsi col json
+	//DA IMPLEMENTARE CON SINGOLA STRINGA JSON
+	public void initPlayers(List<String> players) { 
+		
 		Color[] colors = Color.values();
+		
 		for (int i = 0; i < players.size(); ++i) {
 			Player player = new Player(players.get(i), colors[i]);
 			this.players.add(player);

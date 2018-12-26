@@ -8,21 +8,13 @@ public class Player {
 	private String nickname;
 	private Color color;
 	private MissionCard missionCard;
-	private List<TerritoryCard> territoryCards;
+	private List<TerritoryCard> territoryCards; //il nome confonde! queste carte non sono i territori che possiede il giocatore, ma solo le carte che ha pescato per fare le combinazioni
+	private int territoriesOwned;
 	
 	
 	public Player() {
 		this.territoryCards = new LinkedList<>();
 	}
-	
-	
-	/*public Player(String nickname, Color color, MissionCard missionCard, List<TerritoryCard> territoryCards) {
-		this();
-		setNickname(nickname);
-		setColor(color);
-		setMissionCard(missionCard);
-		setTerritoryCards(territoryCards);
-	}*/
 	
 	public Player(String nickname, Color color) {
 		this();
@@ -30,25 +22,6 @@ public class Player {
 		setColor(color);
 	}
 	
-	
-	/*public Player(String nickname, Color color, MissionCard missionCard) {
-		this(nickname, color, missionCard, null);
-	}
-	
-	
-	public Player(String nickname, Color color, List<TerritoryCard> territoryCards) {
-		this(nickname, color, null, territoryCards);
-	}*/
-	
-	
-	
-	
-	
-	public String getNickname() {
-		return nickname;
-	}
-
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -63,39 +36,44 @@ public class Player {
 		return true;
 	}
 
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public String getNickname() {
+		return nickname;
 	}
-
-
+	
 	public Color getColor() {
 		return color;
 	}
 	
-
-	public MissionCard getMissionCard() {
-		return missionCard;
+	public int getTerritoriesOwned() {
+		return territoriesOwned;
 	}
 	
-
+	public MissionCard getMissionCard() {
+		return missionCard;
+	}	
+	
 	public List<TerritoryCard> getTerritoryCards() {
 		return territoryCards;
 	}
-
+	
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
 	public void setColor(Color color) {
 		this.color = color;
 	}
-
-
+	
+	public void setTerritoriesOwned(int territoriesOwned) {
+		this.territoriesOwned = territoriesOwned;
+	}
+	
 	public void setMissionCard(MissionCard missionCard) {
 		this.missionCard = missionCard;
 	}
-
-
+	
 	public void setTerritoryCards(List<TerritoryCard> territoryCards) {
 		this.territoryCards = territoryCards;
 	}	
-	
+
 }

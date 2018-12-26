@@ -28,13 +28,16 @@ public class Map {
 		setDifficulty(difficuly);
 		createContinents();
 		createTerritories();
-		createNeighbours();	
+		createNeighbours();
 	}
 
 	private void setDifficulty(String difficulty) {
 		this.difficulty = difficulty;
 	}
 
+	public void setContinents(List<Continent> continents) {
+		this.continents = continents;
+	}
 	
 	public List<Continent> getContinents() {
 		return continents;
@@ -42,10 +45,6 @@ public class Map {
 	
 	public List<Territory> getTerritories() {
 		return territories;
-	}
-
-	public void setContinents(List<Continent> continents) {
-		this.continents = continents;
 	}
 	
 	private void createContinents() {

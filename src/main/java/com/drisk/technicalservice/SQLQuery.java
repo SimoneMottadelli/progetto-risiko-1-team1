@@ -2,7 +2,6 @@ package com.drisk.technicalservice;
 
 public final class SQLQuery {
 	
-	
 	private SQLQuery() {}
 	
 	public static String extractContinents(String difficulty) {

@@ -5,14 +5,15 @@ import java.util.List;
 
 public class CardManager {
 
-	private List<Card> missionCards;
+	private List<MissionCard> missionCards;
+	private List<TerritoryCard> territoryCards;
 	private CardManager instance;
 	
 	
 	private CardManager() {
 		missionCards = new LinkedList<>();
+		territoryCards = new LinkedList<>();
 	}
-	
 	
 	public CardManager getInstance() {
 		if (instance == null)
@@ -20,9 +21,21 @@ public class CardManager {
 		return instance;
 	}
 	
-	
-	public List<Card> getMissionCards() {
+	public List<MissionCard> getMissionCards() {
 		return missionCards;
 	}
+
+	public List<TerritoryCard> getTerritoryCards() {
+		return territoryCards;
+	}
+
+	public void setTerritoryCards(List<TerritoryCard> territoryCards) {
+		this.territoryCards = territoryCards;
+	}
+
+	public void setMissionCards(List<MissionCard> missionCards) {
+		this.missionCards = missionCards;
+	}
+	
 	
 }
