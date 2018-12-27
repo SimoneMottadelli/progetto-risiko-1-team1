@@ -20,15 +20,18 @@ public class MapTest {
 	
 	@Test
 	public void createTerritoriesTest() {
-		assertEquals(25, Map.getInstance().getTerritories().size());
+		int numberOfTerritories = 0;
+		for(Continent c : Map.getInstance().getContinents())
+			numberOfTerritories = numberOfTerritories + c.getTerritories().size();
+		assertEquals(25, numberOfTerritories);
 	}
 	
 	@Test
 	public void createNeighboursTest() {
 		Territory t = Map.getInstance().findTerritoryByName("china");
-		assertEquals(6, t.getAdjacentTerritories().size());
+		assertEquals(6, t.getNeighbours().size());
 		Territory t1 = Map.getInstance().findTerritoryByName("mongolia");
-		assertEquals(5, t1.getAdjacentTerritories().size());
+		assertEquals(5, t1.getNeighbours().size());
 	}
 	
 }

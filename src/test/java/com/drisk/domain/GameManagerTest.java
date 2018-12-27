@@ -54,17 +54,8 @@ public class GameManagerTest {
 		
 		List<Player> players = gm.getPlayers();
 		
-		int[] numberOfTerritoriesPerPlayer = new int[4];
-		
-		for (Territory t : map.getTerritories()) {
-			int index = players.indexOf(t.getPlayer());
-			++numberOfTerritoriesPerPlayer[index];
-		}
-		
-		// In totale ci sono 25 territori del database; quindi all'inizio ogni giocatore 
-		// deve avere almeno 10 territori a testa.
-		for (int i = 0; i < numberOfTerritoriesPerPlayer.length; ++i)
-			if (numberOfTerritoriesPerPlayer[i] < 6)
+		for(Player p : players)
+			if(p.getNumberOfTerritoriesOwned() < 6)
 				fail();
 	}
 	
@@ -78,9 +69,8 @@ public class GameManagerTest {
 		//Simone has now 17 territories. He has completed the objective:
 		// "conquer at least 2/3 of the world".
 		//Note: there are 25 territories in the database right now.
-		for (int i = 0; i < 17; ++i) {
-			territories.get(i).setPlayer(p1);
-		}
+		for (int i = 0; i < 17; ++i)
+			p1.addTerritoryOwned(territories.get(i));
 		assertTrue(gm.checkWin(p1));
 		
 		

@@ -8,20 +8,20 @@ public class Player {
 	private String nickname;
 	private Color color;
 	private MissionCard missionCard;
-	private List<TerritoryCard> territoryCards; //il nome confonde! queste carte non sono i territori che possiede il giocatore, ma solo le carte che ha pescato per fare le combinazioni
-	private int territoriesOwned;
-	
-	
-	public Player() {
-		this.territoryCards = new LinkedList<>();
-	}
+	private List<TerritoryCard> territoryCards; 
+	private List<Territory> territoriesOwned;
 	
 	public Player(String nickname, Color color) {
-		this();
-		setNickname(nickname);
-		setColor(color);
+		this.nickname = nickname;
+		this.color = color;
+		this.territoryCards = new LinkedList<>();
+		territoriesOwned = new LinkedList<>();
 	}
 	
+	public List<Territory> getTerritoriesOwned() {
+		return territoriesOwned;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -44,9 +44,10 @@ public class Player {
 		return color;
 	}
 	
-	public int getTerritoriesOwned() {
-		return territoriesOwned;
+	public int getNumberOfTerritoriesOwned() {
+		return territoriesOwned.size();
 	}
+	
 	
 	public MissionCard getMissionCard() {
 		return missionCard;
@@ -56,24 +57,18 @@ public class Player {
 		return territoryCards;
 	}
 	
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
-	
-	public void setTerritoriesOwned(int territoriesOwned) {
-		this.territoriesOwned = territoriesOwned;
-	}
-	
 	public void setMissionCard(MissionCard missionCard) {
 		this.missionCard = missionCard;
 	}
 	
-	public void setTerritoryCards(List<TerritoryCard> territoryCards) {
-		this.territoryCards = territoryCards;
+	public void addTerritoryCards(TerritoryCard territoryCard) {
+		if(!territoryCards.contains(territoryCard))
+			territoryCards.add(territoryCard);
 	}	
+	
+	public void addTerritoryOwned(Territory territory) {
+		if(!territoriesOwned.contains(territory))
+			territoriesOwned.add(territory);
+	}
 
 }

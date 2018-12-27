@@ -5,8 +5,7 @@ import java.util.List;
 
 public class GameManager {
 	
-	private List<Player> players;			//Lista giocatori in partita
-	private Map map;						//Mappa di gioco
+	private List<Player> players;
 	private static GameManager instance;	
 	
 	
@@ -27,40 +26,31 @@ public class GameManager {
 	}
 	
 	public void initMap() {
-		map = Map.getInstance();
-		map.createMap("easy");
+		Map.getInstance().createMap("easy");
 	}
 	
-	//DA IMPLEMENTARE CON SINGOLA STRINGA JSON
-	public void initPlayers(List<String> players) { 
-		
+	public void initPlayers(List<String> playersNickname) { 
 		Color[] colors = Color.values();
-		
-		for (int i = 0; i < players.size(); ++i) {
-			Player player = new Player(players.get(i), colors[i]);
-			this.players.add(player);
+		for (int i = 0; i < playersNickname.size(); ++i) {
+			Player player = new Player(playersNickname.get(i), colors[i]);
+			players.add(player);
 		}
 	}
 	
 	
 	public void initPlayersTerritories() {
-		List<Territory> territories = map.getTerritories();
-		for (int i = 0, j = 0; i < territories.size(); ++i, ++j) {
-			territories.get(i).setPlayer(players.get(j % players.size()));
+		List<Territory> territories = Map.getInstance().getTerritories();
+		for (int i = 0; i < territories.size(); ++i) {
+			players.get(i % players.size()).addTerritoryOwned(territories.get(i));
 		}
-		
 	}
 	
 	
 	public boolean checkWin(Player currentPlayer) {
-		List<Territory> territories = map.getTerritories();
+		List<Territory> territories = Map.getInstance().getTerritories();
 		int totalNumberOfTerritories = territories.size();
 		
-		int currentPlayerNumberOfTerritories = 0;
-		for (Territory t : territories) 
-			if (t.getPlayer().equals(currentPlayer))
-				++currentPlayerNumberOfTerritories;
-		
+		int currentPlayerNumberOfTerritories = currentPlayer.getNumberOfTerritoriesOwned();
 		double playerTerritoriesRate = (double) currentPlayerNumberOfTerritories / totalNumberOfTerritories;
 		if (playerTerritoriesRate >= (double) 2 / 3)
 			return true;

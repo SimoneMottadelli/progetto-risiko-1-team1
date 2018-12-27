@@ -6,15 +6,12 @@ import java.util.List;
 public class Territory {
 
 	private String name;
-	private Continent continent;
-	private Player player;
 	private int numberOfTanks;
 	private List<Territory> neighbours;
 	
 	
-	public Territory(String name, Continent continent) {
+	public Territory(String name) {
 		this.name = name;
-		this.continent = continent;
 		neighbours = new LinkedList<>();
 	}
 	
@@ -45,39 +42,6 @@ public class Territory {
 	}
 
 
-	public Territory(String name, Player player, int numberOfTanks, List<Territory> adjacentTerritories) {
-		setName(name);
-		setPlayer(player);
-		setNumberOfTanks(numberOfTanks);
-		setAdjacentTerritories(adjacentTerritories);
-	}
-	
-	
-	public Territory(String name, Player player) {
-		this(name, player, 0, null);
-	}
-	
-	
-	public Territory(String name, Player player, int numberOfTanks) {
-		this(name, player, numberOfTanks, null);
-	}
-	
-	
-	public Territory(String name, List<Territory> adjacentTerritories) {
-		this(name, null, 0, adjacentTerritories);
-	}
-	
-	
-	public Player getPlayer() {
-		return player;
-	}
-
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
-
 	public int getNumberOfTanks() {
 		return numberOfTanks;
 	}
@@ -86,16 +50,6 @@ public class Territory {
 	public void setNumberOfTanks(int numberOfTanks) {
 		this.numberOfTanks = numberOfTanks;
 	}
-	
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	
-	public void setAdjacentTerritories(List<Territory> adjacentTerritories) {
-		this.neighbours = adjacentTerritories;
-	}
 
 
 	public String getName() {
@@ -103,13 +57,14 @@ public class Territory {
 	}
 	
 	
-	public List<Territory> getAdjacentTerritories() {
+	public List<Territory> getNeighbours() {
 		return neighbours;
 	}
 	
 	
 	public void addTerritory(Territory territory) {
-		neighbours.add(territory);
+		if(!neighbours.contains(territory))
+			neighbours.add(territory);
 	}
 	
 }

@@ -1,6 +1,6 @@
 package com.drisk.domain;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.drisk.technicalservice.MapDataMapper;
@@ -10,12 +10,10 @@ public class Map {
 	private static Map instance;
 	private String difficulty;
 	private List<Continent> continents;
-	private List<Territory> territories;
 	
 	private Map() {
 		difficulty = null;
-		continents = new ArrayList<>();
-		territories = new ArrayList<>();
+		continents = new LinkedList<>();
 	}
 
 	public static Map getInstance() {
@@ -35,17 +33,10 @@ public class Map {
 		this.difficulty = difficulty;
 	}
 
-	public void setContinents(List<Continent> continents) {
-		this.continents = continents;
-	}
-	
 	public List<Continent> getContinents() {
 		return continents;
 	}
 	
-	public List<Territory> getTerritories() {
-		return territories;
-	}
 	
 	private void createContinents() {
 		List<String> continentsName = MapDataMapper.getContinentsNames(difficulty);
@@ -59,9 +50,9 @@ public class Map {
 		List<String[]> territoriesAndContinentsNames = MapDataMapper.getTerritoriesAndContinentsNames(difficulty);
 		for(String[] territoryAndContinentName : territoriesAndContinentsNames) {
 			String territoryName = territoryAndContinentName[0];
+			Territory territory = new Territory(territoryName);
 			Continent continent = findContinentByName(territoryAndContinentName[1]);
-			Territory territory = new Territory(territoryName, continent);
-			addTerritory(territory);
+			continent.addTerritory(territory);
 		}	
 	}
 	
@@ -80,10 +71,6 @@ public class Map {
 			continents.add(continent);
 	}
 	
-	private void addTerritory(Territory territory) {
-		if(!territories.contains(territory))
-			territories.add(territory);
-	}
 	
 	public Continent findContinentByName(String continentName) {
 		for(Continent c : continents)
@@ -93,10 +80,18 @@ public class Map {
 	}
 	
 	public Territory findTerritoryByName(String territoryName) {
-		for(Territory t : territories)
-			if(t.getName().equals(territoryName))
-				return t;
+		for(Continent c : continents)
+			for(Territory t : c.getTerritories())
+				if(t.getName().equals(territoryName))
+					return t;
 		return null;
+	}
+	
+	public List<Territory> getTerritories() {
+		List<Territory> territories = new LinkedList<>();
+		for(Continent c : continents)
+			territories.addAll(c.getTerritories());
+		return territories;
 	}
 	
 }

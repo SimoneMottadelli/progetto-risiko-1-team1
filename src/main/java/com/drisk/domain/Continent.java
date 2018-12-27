@@ -44,12 +44,11 @@ public class Continent {
 	public List<Territory> getTerritories() {
 		return territories;
 	}
-
 	
-	public void setTerritories(List<Territory> territories) {
-		this.territories = territories;
+	public void addTerritory(Territory territory) {
+		if(!territories.contains(territory))
+			territories.add(territory);
 	}
-	
-	
+
 	
 }

@@ -51,7 +51,6 @@ public class MapDataMapper {
 					territoriesAndContinentsNames.add(territoryAndContinent);
 				}		
 			}
-			
 		}
 		catch (SQLException e) {
 			String msg = "Failed to execute getTerritoriesAndContinentsNames method in MapMapper: SQLException";
