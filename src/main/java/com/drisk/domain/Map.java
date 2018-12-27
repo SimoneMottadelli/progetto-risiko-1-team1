@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.drisk.technicalservice.MapDataMapper;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 public class Map {
 
@@ -92,6 +94,16 @@ public class Map {
 		for(Continent c : continents)
 			territories.addAll(c.getTerritories());
 		return territories;
+	}
+	
+	public JsonObject toJson() {
+		JsonObject jsonMap = new JsonObject();
+		jsonMap.addProperty("difficulty", difficulty);
+		JsonArray arrayContinents = new JsonArray();
+		for(Continent c : continents)
+			arrayContinents.add(c.toJson());
+		jsonMap.add("continents", arrayContinents);
+		return jsonMap;
 	}
 	
 }

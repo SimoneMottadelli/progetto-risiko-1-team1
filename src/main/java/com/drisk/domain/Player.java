@@ -31,9 +31,7 @@ public class Player {
 		if (getClass() != obj.getClass())
 			return false;
 		Player other = (Player) obj;
-		if (color != other.color)
-			return false;
-		return true;
+		return color == other.color;
 	}
 
 	public String getNickname() {

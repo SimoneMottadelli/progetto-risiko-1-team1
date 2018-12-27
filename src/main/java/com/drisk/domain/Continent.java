@@ -3,6 +3,9 @@ package com.drisk.domain;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 public class Continent {
 	
 	private String name;
@@ -48,6 +51,16 @@ public class Continent {
 	public void addTerritory(Territory territory) {
 		if(!territories.contains(territory))
 			territories.add(territory);
+	}
+	
+	public JsonObject toJson() {
+		JsonObject jsonContinent = new JsonObject();
+		jsonContinent.addProperty("name", name);
+		JsonArray arrayTerritories = new JsonArray();
+		for(Territory t : territories)
+			arrayTerritories.add(t.toJson());
+		jsonContinent.add("territories", arrayTerritories);
+		return jsonContinent;
 	}
 
 	

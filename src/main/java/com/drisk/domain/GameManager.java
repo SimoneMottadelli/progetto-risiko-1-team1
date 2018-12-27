@@ -52,10 +52,7 @@ public class GameManager {
 		
 		int currentPlayerNumberOfTerritories = currentPlayer.getNumberOfTerritoriesOwned();
 		double playerTerritoriesRate = (double) currentPlayerNumberOfTerritories / totalNumberOfTerritories;
-		if (playerTerritoriesRate >= (double) 2 / 3)
-			return true;
-		else
-			return false;	
+		return playerTerritoriesRate >= (double) 2 / 3;	
 	}
 
 
