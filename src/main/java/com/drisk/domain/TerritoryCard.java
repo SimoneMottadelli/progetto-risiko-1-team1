@@ -3,14 +3,14 @@ package com.drisk.domain;
 public class TerritoryCard extends Card {
 	
 	private Territory territory;
-	private Type simbol;
+	private TerritoryCardType simbol;
 	
 	
 	public TerritoryCard() {
 		
 	}
 	
-	public TerritoryCard(Territory territory, Type simbol) {
+	public TerritoryCard(Territory territory, TerritoryCardType simbol) {
 		setTerritory(territory);
 		setSimbol(simbol);
 	}
@@ -21,7 +21,7 @@ public class TerritoryCard extends Card {
 	}
 
 
-	public Type getSimbol() {
+	public TerritoryCardType getSimbol() {
 		return simbol;
 	}
 
@@ -31,7 +31,7 @@ public class TerritoryCard extends Card {
 	}
 
 
-	public void setSimbol(Type simbol) {
+	public void setSimbol(TerritoryCardType simbol) {
 		this.simbol = simbol;
 	}
 	

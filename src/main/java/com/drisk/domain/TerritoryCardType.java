@@ -1,6 +1,6 @@
 package com.drisk.domain;
 
-public enum Type {
+public enum TerritoryCardType {
 		INFANTRY,
 		CAVALRY,
 		ARTILLERY	
