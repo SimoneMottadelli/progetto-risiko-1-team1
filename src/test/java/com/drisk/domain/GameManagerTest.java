@@ -28,7 +28,7 @@ public class GameManagerTest {
 		playersName.add("Simo");
 	}
 	
-	@Test
+	/*@Test
 	public void initPlayersTest() {
 		
 		gm.initPlayers(playersName);	
@@ -78,5 +78,5 @@ public class GameManagerTest {
 		Player p2 = new Player("Claudio", Color.BLACK);
 		assertFalse(gm.checkWin(p2));
 		
-	}
+	}*/
 }

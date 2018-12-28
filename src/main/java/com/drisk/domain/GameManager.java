@@ -7,11 +7,9 @@ public class GameManager {
 	
 	private List<Player> players;
 	private static GameManager instance;	
-	private boolean matchStarted;
 	
 	private GameManager() {
 		players = new LinkedList<>();
-		matchStarted = false;
 	}
 	
 	public static GameManager getInstance() {
@@ -21,30 +19,36 @@ public class GameManager {
 	}
 	
 	
-	public boolean isMatchStarted() {
-		return matchStarted;
+	public void startGame() {
+		initPlayers();
+		initMap();
+		// ..... another init methods
+	}
+	
+	private void initPlayers() {
+		players = MatchManager.getInstance().getPlayers();
 	}
 	
 	
 	//"template" perchè posso inizializzare il gioco sia attraverso il database
 	//con una mappa predefinita, sia inizializzando una mappa nuova passata come
 	//json dal client. Quindi in realtà ci saranno due implementaizoni diverse.
-	public void initGameTemplate(List<String> playersNames) {
+	/*public void initGameTemplate(List<String> playersNames) {
 		initPlayers(playersNames);
 		initMap();
 		initCards();
 		initPlayersMission();
 		initPlayersTerritories();
 		initTanks();
-	}
+	}*/
 	
-	public void initPlayers(List<String> playersNickname) { 
+	/*public void initPlayers(List<String> playersNickname) { 
 		Color[] colors = Color.values();
 		for (int i = 0; i < playersNickname.size(); ++i) {
 			Player player = new Player(playersNickname.get(i), colors[i]);
 			players.add(player);
 		}
-	}
+	}*/
 	
 	public void initMap() {
 		Map.getInstance().createMap("easy");
@@ -67,14 +71,6 @@ public class GameManager {
 	
 	public void initTanks() {
 		//da implementare TODO
-	}
-	
-	public void startGame() {
-		//da implementare TODO
-	}
-	
-	public void joinGame() {
-		
 	}
 	
 	public boolean checkWin(Player currentPlayer) {

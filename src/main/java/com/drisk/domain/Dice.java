@@ -10,7 +10,7 @@ public class Dice {
 	}
 	
 	public int rollDice() {
-		return -1; //da implementare TODO
+		return generateNumber();
 	}
 	
 }
