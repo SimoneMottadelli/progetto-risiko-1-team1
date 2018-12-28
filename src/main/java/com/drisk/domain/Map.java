@@ -30,14 +30,6 @@ public class Map {
 		createTerritories();
 		createNeighbours();
 	}
-
-	private void setDifficulty(String difficulty) {
-		this.difficulty = difficulty;
-	}
-
-	public List<Continent> getContinents() {
-		return continents;
-	}
 	
 	
 	private void createContinents() {
@@ -89,11 +81,19 @@ public class Map {
 		return null;
 	}
 	
+	private void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
+	}
+	
 	public List<Territory> getTerritories() {
 		List<Territory> territories = new LinkedList<>();
 		for(Continent c : continents)
 			territories.addAll(c.getTerritories());
 		return territories;
+	}
+
+	public List<Continent> getContinents() {
+		return continents;
 	}
 	
 	public JsonObject toJson() {

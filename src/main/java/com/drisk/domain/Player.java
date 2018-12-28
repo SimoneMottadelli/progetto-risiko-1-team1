@@ -10,6 +10,7 @@ public class Player {
 	private MissionCard missionCard;
 	private List<TerritoryCard> territoryCards; 
 	private List<Territory> territoriesOwned;
+	private int availableTanks;
 	
 	public Player(String nickname, Color color) {
 		this.nickname = nickname;
@@ -69,4 +70,11 @@ public class Player {
 			territoriesOwned.add(territory);
 	}
 
+	public int getAvailableTanks() {
+		return availableTanks;
+	}
+
+	public void setAvailableTanks(int availableTanks) {
+		this.availableTanks = availableTanks;
+	}
 }

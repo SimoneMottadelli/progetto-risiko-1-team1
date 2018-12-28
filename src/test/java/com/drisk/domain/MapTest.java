@@ -1,6 +1,7 @@
 package com.drisk.domain;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,16 @@ public class MapTest {
 		assertEquals(6, t.getNeighbours().size());
 		Territory t1 = Map.getInstance().findTerritoryByName("mongolia");
 		assertEquals(5, t1.getNeighbours().size());
+	}
+	
+	
+	@Test
+	public void getTerritoriesTest() {
+		assertEquals(25, Map.getInstance().getTerritories().size());
+		for (Territory t : Map.getInstance().getTerritories()) {
+			if (t == null)
+				fail();
+		}
 	}
 	
 }
