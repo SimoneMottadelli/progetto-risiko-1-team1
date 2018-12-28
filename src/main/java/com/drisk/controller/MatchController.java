@@ -8,7 +8,8 @@ import com.drisk.domain.MatchManager;
 
 @Controller
 public class MatchController {
-
+	
+	private int x = 0;
 	
 	@GetMapping(value="/join")
 	@ResponseBody
@@ -19,7 +20,7 @@ public class MatchController {
 		else if(mm.isMatchFull())
 			return "match full";
 		else {
-			mm.joinGame();
+			mm.joinGame("Player" + x++);
 			return "ok";
 		}
 	}

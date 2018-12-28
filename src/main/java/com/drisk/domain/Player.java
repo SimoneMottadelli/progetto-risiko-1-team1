@@ -6,12 +6,14 @@ import java.util.List;
 public class Player {
 	
 	private Color color;
+	private String nickname;
 	private MissionCard missionCard;
 	private List<TerritoryCard> territoryCards; 
 	private List<Territory> territoriesOwned;
 	private int availableTanks;
 	
-	public Player(Color color) {
+	public Player(Color color, String nickname) {
+		this.nickname = nickname;
 		this.color = color;
 		this.territoryCards = new LinkedList<>();
 		territoriesOwned = new LinkedList<>();
@@ -19,6 +21,10 @@ public class Player {
 	
 	public List<Territory> getTerritoriesOwned() {
 		return territoriesOwned;
+	}
+	
+	public String getNickname() {
+		return nickname;
 	}
 
 	@Override
