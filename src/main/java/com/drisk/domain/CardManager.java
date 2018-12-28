@@ -8,9 +8,9 @@ import com.drisk.technicalservice.CardDataMapper;
 
 public class CardManager {
 
-	private LinkedList<MissionCard> missionCards;
-	private LinkedList<TerritoryCard> territoryCards;
-	private LinkedList<TerritoryCard> discardedCards;
+	private LinkedList<Card> missionCards;
+	private LinkedList<Card> territoryCards;
+	private LinkedList<Card> discardedCards;
 	private static CardManager instance;
 	
 	
@@ -26,8 +26,14 @@ public class CardManager {
 		return instance;
 	}
 	
-	public void initMissionCards() {
-		//da implementare TODO
+	//DA MODIFICARE
+	public void initMissionCards(String difficulty) {	
+		List<String> missionCardString = CardDataMapper.getMissionCard(difficulty);
+		int id = 0;
+		for(String text : missionCardString) {
+			MissionCard card = new MissionCard(id++, text);
+			missionCards.add(card);
+		}
 	}
 	
 	public void initTerritoryCards(String difficulty) {
@@ -40,21 +46,24 @@ public class CardManager {
 		}
 	}
 	
-	private void addCard(List<Card> deck, Card card) {
-		if(!deck.contains(card))
-			deck.add(card);
-	}
+
+//	private void addCard(List<Card> deck, Card card) {
+//		if(!deck.contains(card))
+//			deck.add(card);
+//	}
 	
-	public void shuffleDeck(List<Card> cards) {
+	
+	public void shuffleDeck(LinkedList<Card> cards) {
 		Collections.shuffle(cards);
 	}
 	
-	public Card drawCard(List<Card> cards) {
-		return null; //da implementare TODO
+	public Card drawCard(LinkedList<Card> cards) {
+		return cards.remove(0);
 	}
 	
 	public void refillDeck() {
-		//da implementare TODO 
+		setTerritoryCards(discardedCards);
+		shuffleDeck(territoryCards);
 	}
 	
 	public boolean checkTris(Player player) {
@@ -66,22 +75,22 @@ public class CardManager {
 	}
 	
 	public void removeCard(Player player, TerritoryCard card) {
-		//da implementare TODO
+		player.getTerritoryCards().remove(card);
 	}
 	
-	public List<MissionCard> getMissionCards() {
+	public LinkedList<Card> getMissionCards() {
 		return missionCards;
 	}
 
-	public List<TerritoryCard> getTerritoryCards() {
+	public LinkedList<Card> getTerritoryCards() {
 		return territoryCards;
 	}
 
-	public void setTerritoryCards(LinkedList<TerritoryCard> territoryCards) {
+	public void setTerritoryCards(LinkedList<Card> territoryCards) {
 		this.territoryCards = territoryCards;
 	}
 
-	public void setMissionCards(LinkedList<MissionCard> missionCards) {
+	public void setMissionCards(LinkedList<Card> missionCards) {
 		this.missionCards = missionCards;
 	}
 	

@@ -38,4 +38,22 @@ public class CardDataMapper {
 		}
 		return territoryCard;
 	}
+	
+	public static List<String> getMissionCard(String difficulty) {
+		List<String> missionCard = new LinkedList<>();
+		try (Connection connection = DriverManager.getConnection(DBCONNECTION); 
+				Statement state = connection.createStatement()) {
+			String query = SQLQuery.extractMissionCard(difficulty);
+			try (ResultSet result = state.executeQuery(query)) {
+				while(result.next()) {
+					missionCard.add(result.getString("text"));
+				}
+			}
+		}
+		catch (SQLException e) {
+			String msg = "Failed to execute getTerritoriesAndContinentsNames method in MapMapper: SQLException";
+			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.SEVERE, msg);
+		}
+		return missionCard;
+	}
 }

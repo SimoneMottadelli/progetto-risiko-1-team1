@@ -2,16 +2,22 @@ package com.drisk.domain;
 
 public class MissionCard extends Card {
 	
-	private String mission;
+	private int id;
+	private String text;
+
 	
-	
-	public MissionCard(String mission) {
-		this.mission = mission;
+	public MissionCard(int id, String text) {
+		this.id = id;
+		this.text = text;
 	}
 	
 	
-	public String getMission() {
-		return mission;
-	}	
+	public int getMission() {
+		return id;
+	}
+	
+	public String getMissionText() {
+		return text;
+	}
 	
 }

@@ -28,4 +28,10 @@ public final class SQLQuery {
 				"WHERE m.difficulty = '" + difficulty + "'";
 	}
 	
+	public static String extractMissionCard(String difficulty) {
+		return "SELECT *" + 
+				"FROM mission_card" +
+				"WHERE difficulty = '" + difficulty + "'";
+	}
+	
 }
