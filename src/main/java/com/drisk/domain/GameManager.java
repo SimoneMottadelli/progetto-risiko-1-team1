@@ -17,38 +17,22 @@ public class GameManager {
 			instance = new GameManager();
 		return instance;
 	}
-	
-	
-	public void startGame() {
-		initPlayers();
-		initMap();
-		// ..... another init methods
-	}
-	
-	private void initPlayers() {
-		players = MatchManager.getInstance().getPlayers();
-	}
-	
-	
+		
 	//"template" perchè posso inizializzare il gioco sia attraverso il database
 	//con una mappa predefinita, sia inizializzando una mappa nuova passata come
 	//json dal client. Quindi in realtà ci saranno due implementaizoni diverse.
-	/*public void initGameTemplate(List<String> playersNames) {
-		initPlayers(playersNames);
+	public void initGameTemplate() {
+		initPlayers();
 		initMap();
 		initCards();
 		initPlayersMission();
 		initPlayersTerritories();
 		initTanks();
-	}*/
-	
-	/*public void initPlayers(List<String> playersNickname) { 
-		Color[] colors = Color.values();
-		for (int i = 0; i < playersNickname.size(); ++i) {
-			Player player = new Player(playersNickname.get(i), colors[i]);
-			players.add(player);
-		}
-	}*/
+	}
+
+	private void initPlayers() {
+		players = MatchManager.getInstance().getPlayers();
+	}
 	
 	public void initMap() {
 		Map.getInstance().createMap("easy");
