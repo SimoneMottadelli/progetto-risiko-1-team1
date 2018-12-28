@@ -19,15 +19,12 @@ public class TankManager {
 	}
 	
 	public void placeTanks(Territory whereTerritory, int numTanks) {
-		//da implementare TODO
+		whereTerritory.addNumberOfTanks(numTanks);
 	}
 	
 	public void removeTanks(Territory whereTerritory, int numTanks) {
-		//da implementare TODO
-	}
-	
-	public void assignTanks(Player player) {
-		//da implementare TODO
+		whereTerritory.removeNumberOfTanks(numTanks);
 	}
 	
 }
+

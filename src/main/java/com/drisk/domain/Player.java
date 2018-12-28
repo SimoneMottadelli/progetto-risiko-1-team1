@@ -9,7 +9,7 @@ public class Player {
 	private String nickname;
 	private MissionCard missionCard;
 	private List<TerritoryCard> territoryCards; 
-	private List<Territory> territoriesOwned;
+	private LinkedList<Territory> territoriesOwned;
 	private int availableTanks;
 	
 	public Player(Color color, String nickname) {
@@ -19,7 +19,7 @@ public class Player {
 		territoriesOwned = new LinkedList<>();
 	}
 	
-	public List<Territory> getTerritoriesOwned() {
+	public LinkedList<Territory> getTerritoriesOwned() {
 		return territoriesOwned;
 	}
 	
@@ -75,7 +75,7 @@ public class Player {
 		return availableTanks;
 	}
 
-	public void setAvailableTanks(int availableTanks) {
-		this.availableTanks = availableTanks;
+	public void addAvailableTanks(int availableTanks) {
+		this.availableTanks += availableTanks;
 	}
 }

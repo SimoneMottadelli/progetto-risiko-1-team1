@@ -50,10 +50,18 @@ public class Territory {
 	}
 
 
-	public void setNumberOfTanks(int numberOfTanks) {
-		this.numberOfTanks = numberOfTanks;
+	public void addNumberOfTanks(int numberOfTanks) {
+		this.numberOfTanks += numberOfTanks;
 	}
-
+	
+	public void removeNumberOfTanks(int numberOfTanks) {
+		int difference = this.numberOfTanks - numberOfTanks;
+		if (difference >= 0) {
+			this.numberOfTanks = difference;
+		} else {
+			this.numberOfTanks = 0;
+		}
+	}
 
 	public String getName() {
 		return name;

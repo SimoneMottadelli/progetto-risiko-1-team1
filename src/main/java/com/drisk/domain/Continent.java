@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
 public class Continent {
 	
 	private String name;
-	private List<Territory> territories;
+	private LinkedList<Territory> territories;
 	
 	
 	public Continent(String name) {
@@ -44,7 +44,7 @@ public class Continent {
 	}
 
 
-	public List<Territory> getTerritories() {
+	public LinkedList<Territory> getTerritories() {
 		return territories;
 	}
 	

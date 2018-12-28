@@ -11,7 +11,7 @@ public class Map {
 
 	private static Map instance;
 	private String difficulty;
-	private List<Continent> continents;
+	private LinkedList<Continent> continents;
 	
 	private Map() {
 		difficulty = null;
@@ -92,7 +92,7 @@ public class Map {
 		return territories;
 	}
 
-	public List<Continent> getContinents() {
+	public LinkedList<Continent> getContinents() {
 		return continents;
 	}
 	
