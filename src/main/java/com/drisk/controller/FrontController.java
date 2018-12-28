@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.drisk.domain.GameManager;
 import com.drisk.domain.Map;
 import com.drisk.domain.MatchManager;
 import com.google.gson.JsonObject;
@@ -24,7 +23,7 @@ public class FrontController {
 		else if(mm.isMatchFull())
 			page = "paginaGiocoPieno.html";
 		else {
-			mm.joinGame();
+			//mm.joinGame();
 			page = "paginaGioco.html";
 		}
 		return page;

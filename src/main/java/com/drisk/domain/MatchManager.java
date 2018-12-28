@@ -8,13 +8,13 @@ public class MatchManager {
 	private static MatchManager instance;
 	private boolean matchStarted;
 	private boolean matchFull;
-	private List<Color> colorAvailableList;
+	private List<Color> colorsAvailablesList;
 	private List<Player> players;
 	
 	private MatchManager() {
 		matchStarted = false;
 		matchFull = false;
-		colorAvailableList = createColorAvailableList();
+		colorsAvailablesList = createColorAvailableList();
 		players = new LinkedList<>();
 	}
 	
@@ -30,10 +30,10 @@ public class MatchManager {
 		return players;
 	}
 
-	public void joinGame() {
+	public void joinGame(String nickName) {
 		if(!isMatchFull()) {
 			Color color = findFreeColor();
-			Player player = new Player(color);
+			Player player = new Player(color, nickName);
 			addPlayer(player);
 		}
 	}
@@ -43,7 +43,7 @@ public class MatchManager {
 		GameManager.getInstance().initGameTemplate();
 	}
 	
-	public void addPlayer(Player player) {
+	private void addPlayer(Player player) {
 		if(!players.contains(player))
 			players.add(player);
 		if(players.size() >= 6)
@@ -51,8 +51,7 @@ public class MatchManager {
 	}
 
 	private Color findFreeColor() {
-		Color color = colorAvailableList.remove(0);
-		return color;
+		return colorsAvailablesList.remove(0);
 	}
 	
 	private List<Color> createColorAvailableList() {
