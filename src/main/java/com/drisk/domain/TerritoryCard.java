@@ -6,10 +6,6 @@ public class TerritoryCard extends Card {
 	private TerritoryCardType simbol;
 	
 	
-	public TerritoryCard() {
-		
-	}
-	
 	public TerritoryCard(Territory territory, TerritoryCardType simbol) {
 		setTerritory(territory);
 		setSimbol(simbol);
