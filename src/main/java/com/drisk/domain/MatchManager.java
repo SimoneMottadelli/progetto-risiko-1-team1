@@ -40,7 +40,7 @@ public class MatchManager {
 	
 	public void startGame() {
 		matchStarted = true;
-		GameManager.getInstance().initGameTemplate();
+		GameManager.getInstance().startGame();
 	}
 	
 	private void addPlayer(Player player) {

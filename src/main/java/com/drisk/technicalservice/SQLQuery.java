@@ -20,12 +20,4 @@ public final class SQLQuery {
 				+ " WHERE m.difficulty = '" + difficulty + "'";
 	}
 	
-	public static String extractTerritoryCard(String difficulty) {
-		return "SELECT territoryName, cardSymbol" +
-				"FROM ((map as m join map_continent as mc on m.difficulty = mc.map)" +
-						"join territory as t on mc.continent = t.continent)" +
-						"join territory_card as tc on tc.territoryName = t.name" +
-				"WHERE m.difficulty = '" + difficulty + "'";
-	}
-	
 }
