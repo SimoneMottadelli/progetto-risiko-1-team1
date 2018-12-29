@@ -70,8 +70,16 @@ public class CardManager {
 		return false;//da implementare TODO
 	}
 	
-	public int useTris(Player player, TerritoryCard[] tris) {
-		return 0;//da implementare TODO	
+	public TerritoryCardType[] useTris(Player player, TerritoryCard[] tris) {
+		TerritoryCardType[] simbols = null;
+		if (tris.length == 3) {
+			simbols = new TerritoryCardType[3];
+			for (int i = 0; i < tris.length; ++i) {
+				simbols[i] = tris[i].getSimbol();
+				removeCard(player, tris[i]);
+			}
+		}
+		return simbols;
 	}
 	
 	public void removeCard(Player player, TerritoryCard card) {

@@ -1,7 +1,6 @@
 package com.drisk.domain;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class AssignTanksPhase implements Phase {
 
@@ -16,7 +15,7 @@ public class AssignTanksPhase implements Phase {
 		Turn.getInstance().setCurrentPhase(new TankPlacementPhase());
 	}
 	
-	public int assignTanks(Player player) {
+	public void assignTanks(Player player) {
 		
 		//Ogni giocatore avrà almeno un tank di base all'inizio del turno,
 		//anche se dovesse avere meno di 3 territori.
@@ -58,7 +57,7 @@ public class AssignTanksPhase implements Phase {
 			}
 		}
 		
-		return tanks;
+		player.addAvailableTanks(tanks);
 	}
 	
 }
