@@ -72,6 +72,11 @@ public class Player {
 		if(!territoriesOwned.contains(territory))
 			territoriesOwned.add(territory);
 	}
+	
+	public void removeTerritoryOwned(Territory territory) {
+		if(territoriesOwned.contains(territory))
+			territoriesOwned.remove(territory);
+	}
 
 	public int getAvailableTanks() {
 		return availableTanks;

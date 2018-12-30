@@ -27,11 +27,20 @@ public class AssignTanksPhase implements Phase {
 			tanks = numberTerritoriesOwned / 3;
 		}
 		
+		tanks += getTanksPerContinent(player);
+		
+		player.addAvailableTanks(tanks);
+		
+	}
+	
+	
+	public int getTanksPerContinent (Player player) {
+		
+		int tanks = 0;
 		List<Territory> territoriesOwned = player.getTerritoriesOwned();
 		List<Continent> continents = Map.getInstance().getContinents();
 		for(Continent c: continents) {
 			List<Territory> territories = c.getTerritories();
-			//da analizzare se va bene oppure no la condizione dell'if
 			if (territoriesOwned.containsAll(territories)) {
 				switch(c.getName()) {
 				case "africa": 
@@ -41,24 +50,21 @@ public class AssignTanksPhase implements Phase {
 					tanks += 7;
 					break;
 				case "australia":
+				case "south america":
 					tanks += 2;
 					break;
 				case "europe":
-					tanks += 5;
-					break;
 				case "north america":
 					tanks += 5;
-					break;
-				case "south america":
-					tanks += 2;
 					break;
 				default:
 					tanks += 0;
 				}
 			}
-		}
+		}	
 		
-		player.addAvailableTanks(tanks);
+		return tanks;
+		
 	}
 	
 }
