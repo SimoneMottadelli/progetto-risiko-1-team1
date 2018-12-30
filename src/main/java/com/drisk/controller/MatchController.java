@@ -19,12 +19,12 @@ public class MatchController {
 	@ResponseBody
 	public String join(HttpServletRequest request) {		
 		MatchManager mm = MatchManager.getInstance();
-		if(MatchManager.getInstance().isMatchStarted())
+		if(mm.isMatchStarted())
 			return "The match has already started!";
 		else if(mm.isMatchFull())
 			return "There are enough players!";
 		else {
-			mm.joinGame(request.getParameter("name"));
+			mm.joinGame(request.getParameter("name").trim());
 			return "You've joined the game!";
 		}
 	}
@@ -32,13 +32,21 @@ public class MatchController {
 	
 	@GetMapping(value="/players")
 	@ResponseBody
-	public JsonObject getPlayers(HttpServletResponse response) {
+	public JsonObject getPlayers() {
 		JsonArray jsonArrayPlayers = new JsonArray();
 		for(Player p : MatchManager.getInstance().getPlayers())
 			jsonArrayPlayers.add(p.toJson());
 		JsonObject jsonResult = new JsonObject();
 		jsonResult.add("playersArray", jsonArrayPlayers);
 		return jsonResult;
+	}
+	
+	
+	@PostMapping(value="/exit")
+	@ResponseBody
+	public String exit(HttpServletRequest request) {				
+		MatchManager.getInstance().exitGame(request.getParameter("name"));
+		return "You've exited from the game!";
 	}
 	
 	

@@ -38,6 +38,15 @@ public class MatchManager {
 		}
 	}
 	
+	public void exitGame(String nickName) {
+		for (Player p : players)
+			if (p.getNickname().equals(nickName)) {
+				Color playerColor = p.getColor();
+				colorsAvailablesList.add(playerColor);
+				removePlayer(p);
+			}
+	}
+	
 	public void startGame() {
 		matchStarted = true;
 		GameManager.getInstance().initGameTemplate();
@@ -48,6 +57,13 @@ public class MatchManager {
 			players.add(player);
 		if(players.size() >= 6)
 			matchFull = true;
+	}
+	
+	private void removePlayer(Player player) {
+		if(players.contains(player))
+			players.remove(player);
+		if(players.size() < 6)
+			matchFull = false;
 	}
 
 	private Color findFreeColor() {
