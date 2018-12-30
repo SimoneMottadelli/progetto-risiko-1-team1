@@ -1,15 +1,15 @@
 package com.drisk.domain;
 
-import java.util.LinkedList;
-import java.util.List;
 
+import java.util.List;
+import java.util.LinkedList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class Continent {
 	
 	private String name;
-	private LinkedList<Territory> territories;
+	private List<Territory> territories;
 	
 	
 	public Continent(String name) {
@@ -44,7 +44,7 @@ public class Continent {
 	}
 
 
-	public LinkedList<Territory> getTerritories() {
+	public List<Territory> getTerritories() {
 		return territories;
 	}
 	

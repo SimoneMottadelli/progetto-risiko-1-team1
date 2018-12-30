@@ -13,7 +13,6 @@
     		
     		$("#textName").keyup(function() {
     			var name = $("#textName").val();
-    			console.log(name);
     			if (name != "")	
     				$('#joinButton').removeAttr("disabled");
     			else

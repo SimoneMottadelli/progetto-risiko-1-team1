@@ -1,6 +1,6 @@
 package com.drisk.domain;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public class AssignTanksPhase implements Phase {
 
@@ -27,10 +27,10 @@ public class AssignTanksPhase implements Phase {
 			tanks = numberTerritoriesOwned / 3;
 		}
 		
-		LinkedList<Territory> territoriesOwned = player.getTerritoriesOwned();
-		LinkedList<Continent> continents = Map.getInstance().getContinents();
+		List<Territory> territoriesOwned = player.getTerritoriesOwned();
+		List<Continent> continents = Map.getInstance().getContinents();
 		for(Continent c: continents) {
-			LinkedList<Territory> territories = c.getTerritories();
+			List<Territory> territories = c.getTerritories();
 			//da analizzare se va bene oppure no la condizione dell'if
 			if (territoriesOwned.containsAll(territories)) {
 				switch(c.getName()) {
@@ -52,6 +52,8 @@ public class AssignTanksPhase implements Phase {
 				case "south america":
 					tanks += 2;
 					break;
+				default:
+					tanks += 0;
 				}
 			}
 		}

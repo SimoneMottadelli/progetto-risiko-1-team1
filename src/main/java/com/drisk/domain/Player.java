@@ -11,7 +11,7 @@ public class Player {
 	private String nickname;
 	private MissionCard missionCard;
 	private List<TerritoryCard> territoryCards; 
-	private LinkedList<Territory> territoriesOwned;
+	private List<Territory> territoriesOwned;
 	private int availableTanks;
 	
 	public Player(Color color, String nickname) {
@@ -21,7 +21,7 @@ public class Player {
 		territoriesOwned = new LinkedList<>();
 	}
 	
-	public LinkedList<Territory> getTerritoriesOwned() {
+	public List<Territory> getTerritoriesOwned() {
 		return territoriesOwned;
 	}
 	
@@ -81,9 +81,13 @@ public class Player {
 		this.availableTanks += availableTanks;
 	}
 	
+	public void removeAvailableTanks() {
+		this.availableTanks = 0;
+	}
+	
 	public JsonObject toJson() {
 		JsonObject jsonPlayer = new JsonObject();
-		jsonPlayer.addProperty("nickname", getNickname().toString());
+		jsonPlayer.addProperty("nickname", getNickname());
 		String colorProperty = this.color.toString().toLowerCase();
 		jsonPlayer.addProperty("color", colorProperty);
 		return jsonPlayer;

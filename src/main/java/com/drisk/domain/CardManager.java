@@ -8,9 +8,9 @@ import com.drisk.technicalservice.CardDataMapper;
 
 public class CardManager {
 
-	private LinkedList<Card> missionCards;
-	private LinkedList<Card> territoryCards;
-	private LinkedList<Card> discardedCards;
+	private List<Card> missionCards;
+	private List<Card> territoryCards;
+	private List<Card> discardedCards;
 	private static CardManager instance;
 	
 	
@@ -40,7 +40,7 @@ public class CardManager {
 		List<String[]> territoryCardString = CardDataMapper.getTerritoryCard(difficulty);
 		for(String[] tc : territoryCardString) {
 			Territory territory = Map.getInstance().findTerritoryByName(tc[0]);
-			TerritoryCardType symbol = TerritoryCardType.valueOf(tc[1]);
+			TerritoryCardSymbol symbol = TerritoryCardSymbol.valueOf(tc[1]);
 			TerritoryCard card = new TerritoryCard(territory, symbol);
 			territoryCards.add(card);
 		}
@@ -53,11 +53,11 @@ public class CardManager {
 //	}
 	
 	
-	public void shuffleDeck(LinkedList<Card> cards) {
+	public void shuffleDeck(List<Card> cards) {
 		Collections.shuffle(cards);
 	}
 	
-	public Card drawCard(LinkedList<Card> cards) {
+	public Card drawCard(List<Card> cards) {
 		return cards.remove(0);
 	}
 	
@@ -66,39 +66,28 @@ public class CardManager {
 		shuffleDeck(territoryCards);
 	}
 	
-	public boolean checkTris(Player player) {
-		return false;//da implementare TODO
-	}
-	
-	public TerritoryCardType[] useTris(Player player, TerritoryCard[] tris) {
-		TerritoryCardType[] simbols = null;
-		if (tris.length == 3) {
-			simbols = new TerritoryCardType[3];
-			for (int i = 0; i < tris.length; ++i) {
-				simbols[i] = tris[i].getSimbol();
-				removeCard(player, tris[i]);
-			}
-		}
-		return simbols;
+	public void removeCards(Player player, TerritoryCard[] tris) {
+		for (int i = 0; i < tris.length; ++i)
+			removeCard(player, tris[i]);
 	}
 	
 	public void removeCard(Player player, TerritoryCard card) {
 		player.getTerritoryCards().remove(card);
 	}
 	
-	public LinkedList<Card> getMissionCards() {
+	public List<Card> getMissionCards() {
 		return missionCards;
 	}
 
-	public LinkedList<Card> getTerritoryCards() {
+	public List<Card> getTerritoryCards() {
 		return territoryCards;
 	}
 
-	public void setTerritoryCards(LinkedList<Card> territoryCards) {
+	public void setTerritoryCards(List<Card> territoryCards) {
 		this.territoryCards = territoryCards;
 	}
 
-	public void setMissionCards(LinkedList<Card> missionCards) {
+	public void setMissionCards(List<Card> missionCards) {
 		this.missionCards = missionCards;
 	}
 	

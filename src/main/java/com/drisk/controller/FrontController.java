@@ -23,7 +23,6 @@ public class FrontController {
 		else if(mm.isMatchFull())
 			page = "paginaGiocoPieno.html";
 		else {
-			//mm.joinGame();
 			page = "paginaGioco.html";
 		}
 		return page;

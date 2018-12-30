@@ -1,14 +1,14 @@
 package com.drisk.domain;
 
-public class TerritoryCard extends Card {
+public class TerritoryCard implements Card, Comparable<TerritoryCard> {
 	
 	private Territory territory;
-	private TerritoryCardType simbol;
+	private TerritoryCardSymbol symbol;
 	
 	
-	public TerritoryCard(Territory territory, TerritoryCardType simbol) {
+	public TerritoryCard(Territory territory, TerritoryCardSymbol simbol) {
 		setTerritory(territory);
-		setSimbol(simbol);
+		setSymbol(simbol);
 	}
 
 
@@ -17,8 +17,8 @@ public class TerritoryCard extends Card {
 	}
 
 
-	public TerritoryCardType getSimbol() {
-		return simbol;
+	public TerritoryCardSymbol getSymbol() {
+		return symbol;
 	}
 
 
@@ -27,8 +27,34 @@ public class TerritoryCard extends Card {
 	}
 
 
-	public void setSimbol(TerritoryCardType simbol) {
-		this.simbol = simbol;
+	public void setSymbol(TerritoryCardSymbol simbol) {
+		this.symbol = simbol;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TerritoryCard other = (TerritoryCard) obj;
+		if (symbol != other.symbol)
+			return false;
+		if (territory == null) {
+			if (other.territory != null)
+				return false;
+		} 
+		else if (!territory.equals(other.territory))
+			return false;
+		return true;
+	}
+
+
+	@Override
+	public int compareTo(TerritoryCard o) {
+		return this.getSymbol().compareTo(o.getSymbol());	
 	}
 	
 }

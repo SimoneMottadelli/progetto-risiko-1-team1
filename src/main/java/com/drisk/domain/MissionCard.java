@@ -1,6 +1,6 @@
 package com.drisk.domain;
 
-public class MissionCard extends Card {
+public class MissionCard implements Card {
 	
 	private int id;
 	private String text;

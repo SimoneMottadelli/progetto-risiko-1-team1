@@ -1,7 +1,10 @@
 package com.drisk.domain;
 
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class AssignBonusTanksPhase implements Phase{
 
@@ -14,83 +17,77 @@ public class AssignBonusTanksPhase implements Phase{
 	public void nextPhase() {
 		Turn.getInstance().setCurrentPhase(new AssignTanksPhase());
 	}
-
-	public void assignBonusTanks(Player player, TerritoryCard[] tris) {
-		
-		//checkTris()?
-		boolean trisAvailable = true;
-		TerritoryCardType[] simbols = CardManager.getInstance().useTris(player, tris);
-		//ordino i simboli in base a come sono disposti nell'enum TerritoryCardType (?)
-		Arrays.sort(simbols);
-		
-		int tanks = assignTanksPerTris(simbols);
-		if (tanks == 0) {
-			trisAvailable = false;
-		}
-		
-		LinkedList<Territory> territoriesOwned = player.getTerritoriesOwned();
-		for(int i = 0; i < 3; ++i) {
-			if (territoriesOwned.contains(tris[i].getTerritory()) && trisAvailable) {
-				tanks += 2;
-			}
-			if (!trisAvailable) {
-				//se il tris non è valido, ridai le carte indietro al giocatore
-				//(tolte nel metodo useTris in CardManager)
-				player.addTerritoryCards(tris[i]);
+	
+	public void useTris(Player player, TerritoryCard[] tris) {
+		if (tris.length == 3) {
+			Arrays.sort(tris);
+			
+			List<TerritoryCardSymbol> trisSymbols = new LinkedList<>();
+			for (int i = 0; i < 3; ++i)
+				trisSymbols.add(tris[i].getSymbol());
+			
+			Integer bonusTanks = getTrisWithValue().get(trisSymbols);
+			
+			if (bonusTanks != null) { // ...then the tris exists...
+				
+				// +2 tanks if the player has a territory printed on a specific territory card used
+				for (TerritoryCard t : tris)
+					if (player.getTerritoriesOwned().contains(t.getTerritory()))
+						bonusTanks += 2;
+				player.addAvailableTanks(bonusTanks);
+				CardManager.getInstance().removeCards(player, tris);
 			}
 		}
-		
-		player.addAvailableTanks(tanks);
-		
 	}
 	
-	// Metodo che restituisce, in base al tris che ho, il numero di truppe associato
-	public int assignTanksPerTris(TerritoryCardType[] simbols) {
+	public Map<List<TerritoryCardSymbol>, Integer> getTrisWithValue() {
+		Map<List<TerritoryCardSymbol>, Integer> trisWithValue = new HashMap<>();
 		
-		TerritoryCardType[] types = TerritoryCardType.values();
-		int tanks = 0;
+		//3 cannons = 4 tanks
+		List<TerritoryCardSymbol> tris1 = new LinkedList<>();
+		for (int i = 0; i < 3; ++i)
+			tris1.add(TerritoryCardSymbol.ARTILLERY);
+		trisWithValue.put(tris1, 4);
 		
-		/*Possible cases:
-		 *case1 -> 3 artilleries
-		 *case2 -> 3 infantries
-		 *case3 -> 3 cavalries
-		 *case4 -> 1 infantry, 1 cavalry, 1 artillery
-		 *case5, case6, case7 -> 2 same types + wildcard
-		 */
+		//3 infantrymen = 6 tanks
+		List<TerritoryCardSymbol> tris2 = new LinkedList<>();
+		for (int i = 0; i < 3; ++i)
+			tris2.add(TerritoryCardSymbol.INFANTRY);
+		trisWithValue.put(tris2, 6);
 		
-		TerritoryCardType[] case1 = {types[2], types[2], types[2]};
-		TerritoryCardType[] case2 = {types[0], types[0], types[0]};
-		TerritoryCardType[] case3 = {types[1], types[1], types[1]};
-		TerritoryCardType[] case4 = {types[0], types[1], types[2]};
-		TerritoryCardType[] case5 = {types[0], types[0], types[3]};
-		TerritoryCardType[] case6 = {types[1], types[1], types[3]};
-		TerritoryCardType[] case7 = {types[2], types[2], types[3]};
+		//3 knights = 6 tanks
+		List<TerritoryCardSymbol> tris3 = new LinkedList<>();
+		for (int i = 0; i < 3; ++i)
+			tris3.add(TerritoryCardSymbol.CAVALRY);
+		trisWithValue.put(tris3, 8);
 		
-		if (simbols.equals(case1)) {
-			tanks = 4;
-		} else {
-			if (simbols.equals(case2)) {
-				tanks = 6;
-			} else {
-				if (simbols.equals(case3)) {
-					tanks = 8;
-				} else {
-					if (simbols.equals(case4)) {
-						tanks = 10;
-					} else {
-						if (simbols.equals(case5) || simbols.equals(case6) ||
-								simbols.equals(case7)) {
-							tanks = 12;
-						} else {
-							System.out.println("Not a valid tris!");
-							tanks = 0;
-						}
-					}
-				}
-			}
-		}
+		// 2 cannons (or infantrymen or knights) + jolly = 12 tanks
+		List<TerritoryCardSymbol> tris4 = new LinkedList<>();
+		for (int i = 0; i < 2; ++i)
+			tris4.add(TerritoryCardSymbol.ARTILLERY);
+		tris4.add(TerritoryCardSymbol.JOLLY);
+		trisWithValue.put(tris4, 12);
 		
-		return tanks;
-	}
+		List<TerritoryCardSymbol> tris5 = new LinkedList<>();
+		for (int i = 0; i < 2; ++i)
+			tris5.add(TerritoryCardSymbol.INFANTRY);
+		tris5.add(TerritoryCardSymbol.JOLLY);
+		trisWithValue.put(tris5, 12);
+		
+		List<TerritoryCardSymbol> tris6 = new LinkedList<>();
+		for (int i = 0; i < 2; ++i)
+			tris6.add(TerritoryCardSymbol.CAVALRY);
+		tris6.add(TerritoryCardSymbol.JOLLY);
+		trisWithValue.put(tris6, 12);
+		
+		//artillery + infantry + cavalry = 10 tanks		
+		List<TerritoryCardSymbol> tris7 = new LinkedList<>();
+		tris7.add(TerritoryCardSymbol.INFANTRY);
+		tris7.add(TerritoryCardSymbol.CAVALRY);
+		tris7.add(TerritoryCardSymbol.ARTILLERY);
+		trisWithValue.put(tris7, 10);
+		
+		return trisWithValue;
+	}	
 	
 }
