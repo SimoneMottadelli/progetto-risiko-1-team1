@@ -7,7 +7,6 @@ public class AssignTanksPhase implements Phase {
 	@Override
 	public void startPhase() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

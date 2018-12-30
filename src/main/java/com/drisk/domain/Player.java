@@ -3,6 +3,8 @@ package com.drisk.domain;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gson.JsonObject;
+
 public class Player {
 	
 	private Color color;
@@ -77,5 +79,13 @@ public class Player {
 
 	public void addAvailableTanks(int availableTanks) {
 		this.availableTanks += availableTanks;
+	}
+	
+	public JsonObject toJson() {
+		JsonObject jsonPlayer = new JsonObject();
+		jsonPlayer.addProperty("nickname", getNickname().toString());
+		String colorProperty = this.color.toString().toLowerCase();
+		jsonPlayer.addProperty("color", colorProperty);
+		return jsonPlayer;
 	}
 }

@@ -1,34 +1,47 @@
 package com.drisk.controller;
 
+
+import java.io.BufferedReader;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.drisk.domain.MatchManager;
+import com.drisk.domain.Player;
 import com.drisk.domain.Turn;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 @Controller
 public class MatchController {
 	
-	private int x = 0;
-	
 	@PostMapping(value="/join")
 	@ResponseBody
-	public String join(HttpServletRequest request, HttpServletResponse response) {
+	public String join(HttpServletRequest request) {		
 		MatchManager mm = MatchManager.getInstance();
-		if(mm.isMatchStarted())
-			return "match started";
+		if(MatchManager.getInstance().isMatchStarted())
+			return "The match has already started!";
 		else if(mm.isMatchFull())
-			return "match full";
+			return "There are enough players!";
 		else {
-			String playerName = request.getParameter("name");
-			mm.joinGame(playerName);
-			x++;
-			return  playerName + " has joined the game! Number of players: " + x;
+			mm.joinGame(request.getParameter("name"));
+			return "You've joined the game!";
 		}
+	}
+	
+	
+	@GetMapping(value="/players")
+	@ResponseBody
+	public JsonObject getPlayers(HttpServletResponse response) {
+		JsonArray jsonArrayPlayers = new JsonArray();
+		for(Player p : MatchManager.getInstance().getPlayers())
+			jsonArrayPlayers.add(p.toJson());
+		JsonObject jsonResult = new JsonObject();
+		jsonResult.add("playersArray", jsonArrayPlayers);
+		return jsonResult;
 	}
 	
 	
