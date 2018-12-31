@@ -24,17 +24,7 @@ public class CardManager {
 		if (instance == null)
 			instance = new CardManager();
 		return instance;
-	}
-	
-	//DA MODIFICARE
-	public void initMissionCards(String difficulty) {	
-		List<String> missionCardString = CardDataMapper.getMissionCard(difficulty);
-		int id = 0;
-		for(String text : missionCardString) {
-			MissionCard card = new MissionCard(id++, text);
-			missionCards.add(card);
-		}
-	}
+	}	
 	
 	public void initTerritoryCards(String difficulty) {
 		List<String[]> territoryCardString = CardDataMapper.getTerritoryCard(difficulty);
@@ -46,12 +36,15 @@ public class CardManager {
 		}
 	}
 	
-
-//	private void addCard(List<Card> deck, Card card) {
-//		if(!deck.contains(card))
-//			deck.add(card);
-//	}
-	
+	//DA MODIFICARE
+	public void initMissionCards(String difficulty) {	
+		List<String> missionCardString = CardDataMapper.getMissionCard(difficulty);
+		int id = 0;
+		for(String text : missionCardString) {
+			MissionCard card = new MissionCard(id++, text);
+			missionCards.add(card);
+		}
+	}
 	
 	public void shuffleDeck(List<Card> cards) {
 		Collections.shuffle(cards);

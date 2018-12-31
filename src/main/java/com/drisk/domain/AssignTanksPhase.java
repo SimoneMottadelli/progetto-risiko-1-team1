@@ -43,22 +43,22 @@ public class AssignTanksPhase implements Phase {
 			List<Territory> territories = c.getTerritories();
 			if (territoriesOwned.containsAll(territories)) {
 				switch(c.getName()) {
-				case "africa": 
-					tanks += 3;
-					break;
-				case "asia":
-					tanks += 7;
-					break;
-				case "australia":
-				case "south america":
-					tanks += 2;
-					break;
-				case "europe":
-				case "north america":
-					tanks += 5;
-					break;
-				default:
-					tanks += 0;
+					case "africa": 
+						tanks += 3;
+						break;
+					case "asia":
+						tanks += 7;
+						break;
+					case "australia":
+					case "south america":
+						tanks += 2;
+						break;
+					case "europe":
+					case "north america":
+						tanks += 5;
+						break;
+					default:
+						tanks += 0;
 				}
 			}
 		}	

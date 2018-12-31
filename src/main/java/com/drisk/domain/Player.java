@@ -68,7 +68,7 @@ public class Player {
 		return territoryCards;
 	}
 	
-	public void setMissionCard(MissionCard missionCard) {
+	public void setMission(MissionCard missionCard) {
 		this.missionCard = missionCard;
 	}
 	

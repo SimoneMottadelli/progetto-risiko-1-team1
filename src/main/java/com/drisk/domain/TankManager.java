@@ -14,8 +14,8 @@ public class TankManager {
 		return instance;
 	}
 	
-	public void initTanks() {
-		//da implementare TODO
+	public void initTanks(String difficulty) {
+		
 	}
 	
 	public void placeTanks(Territory whereTerritory, int numTanks) {

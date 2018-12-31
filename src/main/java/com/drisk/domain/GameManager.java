@@ -1,5 +1,6 @@
 package com.drisk.domain;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,22 +40,36 @@ public class GameManager {
 	}
 	
 	public void initCards() {
-		//da implementare TODO
+		CardManager.getInstance().initTerritoryCards("easy");
+		CardManager.getInstance().initMissionCards("easy");
+		
+		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getTerritoryCards());
+		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getMissionCards());
 	}
 	
 	public void initPlayersMission() {
-		//da implementare TODO
+		boolean singleMission = true; //temporaneamente impostiamo una missione comune a tutti
+		
+		if(singleMission) {
+			MissionCard mission = (MissionCard) CardManager.getInstance().getMissionCards().get(0);
+			for(Player p : players) 
+				p.setMission(mission);
+		} else {
+			
+		}
 	}
 	
 	public void initPlayersTerritories() {
 		List<Territory> territories = Map.getInstance().getTerritories();
+		Collections.shuffle(territories);
+		
 		for (int i = 0; i < territories.size(); ++i) {
 			players.get(i % players.size()).addTerritoryOwned(territories.get(i));
 		}
 	}
-	
+
 	public void initTanks() {
-		//da implementare TODO
+			TankManager.getInstance().initTanks("easy");
 	}
 	
 	public boolean checkWin(Player currentPlayer) {
