@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>Home</title>
+  	<meta charset="ISO-8859-1">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src=javascript/index.js></script>
+  	<link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
+  </head>
+  <body>
+	<div id="playersDiv" hidden="hidden">
+		<b>Players who joined the game</b>
+		<br>
+		<table id="playersTable">
+		  <tr>
+		   <th>Name</th>
+		   <th>Color</th>
+		  </tr>
+		</table>
+	</div>
+	<div id="inputsDiv">
+		<form id="nameForm">
+			<input id="textName" name="name" type="text" placeholder="Enter your name here...">
+		</form>
+		<div id="buttonsDiv">
+			<button id="joinButton" disabled="disabled" type="button">Join game</button>
+			<button id="exitButton" hidden="hidden">Exit</button>
+			<button id="readyButton" hidden="hidden">Ready</button>
+			<button id="notReadyButton" hidden="hidden">Not ready</button>
+		</div>
+	</div>
+  </body>
+</html>

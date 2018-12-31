@@ -9,6 +9,7 @@ public class Player {
 	
 	private Color color;
 	private String nickname;
+	private boolean ready;
 	private MissionCard missionCard;
 	private List<TerritoryCard> territoryCards; 
 	private List<Territory> territoriesOwned;
@@ -16,6 +17,7 @@ public class Player {
 	
 	public Player(Color color, String nickname) {
 		this.nickname = nickname;
+		this.ready = false;
 		this.color = color;
 		this.territoryCards = new LinkedList<>();
 		territoriesOwned = new LinkedList<>();
@@ -40,8 +42,15 @@ public class Player {
 		Player other = (Player) obj;
 		return color == other.color;
 	}
-
 	
+	public boolean isReady() {
+		return ready;
+	}
+
+	public void setReady(boolean ready) {
+		this.ready = ready;
+	}
+
 	public Color getColor() {
 		return color;
 	}

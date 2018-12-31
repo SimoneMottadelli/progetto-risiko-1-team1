@@ -47,6 +47,13 @@ public class MatchManager {
 			}
 	}
 	
+	
+	public void setPlayerReady(String nickname, boolean ready) {
+		for (Player p : players)
+			if (p.getNickname().equals(nickname))
+				p.setReady(ready);
+	}
+	
 	public void startGame() {
 		matchStarted = true;
 		GameManager.getInstance().initGameTemplate();
