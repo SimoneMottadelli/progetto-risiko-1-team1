@@ -4,6 +4,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +37,7 @@ public class MatchController {
 	}
     	     
 	@GetMapping("/players")
-    public SseEmitter handleSse() {
+    public SseEmitter handleSse(HttpServletResponse response) {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
@@ -43,9 +45,9 @@ public class MatchController {
 				for(Player p : MatchManager.getInstance().getPlayers())
 					jsonArrayPlayers.add(p.toJson());
 				JsonObject jsonResult = new JsonObject();
-				jsonResult.add("playersArray", jsonArrayPlayers);
+				jsonResult.add("playersArray", jsonArrayPlayers);				
 				emitter.send(jsonResult);
-				emitter.complete();
+				emitter.complete();	
 			} catch (Exception ex) {
 				emitter.completeWithError(ex);
 			}
@@ -54,30 +56,24 @@ public class MatchController {
     }   
 	
 	
-	/*@GetMapping(value="/players")
-	@ResponseBody
-	public JsonObject getPlayers() {
-		JsonArray jsonArrayPlayers = new JsonArray();
-		for(Player p : MatchManager.getInstance().getPlayers())
-			jsonArrayPlayers.add(p.toJson());
-		JsonObject jsonResult = new JsonObject();
-		jsonResult.add("playersArray", jsonArrayPlayers);
-		return jsonResult;
-	}*/
-	
-	
 	@PostMapping(value="/exit")
 	@ResponseBody
 	public String exit(HttpServletRequest request) {				
 		MatchManager.getInstance().exitGame(request.getParameter("name"));
+		if (MatchManager.getInstance().isEveryoneReady()) {
+			MatchManager.getInstance().startGame();
+		}
 		return "You've exited from the game!";
 	}
 	
 	
 	@PostMapping(value="/ready")
 	@ResponseBody
-	public String ready(HttpServletRequest request) {
+	public String ready(HttpServletRequest request, HttpServletResponse response) {
 		MatchManager.getInstance().setPlayerReady(request.getParameter("name"), true);
+		if (MatchManager.getInstance().isEveryoneReady()) {
+			MatchManager.getInstance().startGame();
+		}
 		return "The game will start when everyone is ready!";
 	}
 	

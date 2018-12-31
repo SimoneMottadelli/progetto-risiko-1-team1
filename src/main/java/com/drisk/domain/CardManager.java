@@ -30,7 +30,7 @@ public class CardManager {
 		List<String[]> territoryCardString = CardDataMapper.getTerritoryCard(difficulty);
 		for(String[] tc : territoryCardString) {
 			Territory territory = Map.getInstance().findTerritoryByName(tc[0]);
-			TerritoryCardSymbol symbol = TerritoryCardSymbol.valueOf(tc[1]);
+			TerritoryCardSymbol symbol = TerritoryCardSymbol.valueOf(tc[1].toUpperCase().trim());
 			TerritoryCard card = new TerritoryCard(territory, symbol);
 			territoryCards.add(card);
 		}

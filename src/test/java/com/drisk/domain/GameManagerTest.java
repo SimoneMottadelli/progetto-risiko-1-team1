@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import com.drisk.domain.TerritoryCardSymbol;
+import com.drisk.technicalservice.CardDataMapper;
 
 public class GameManagerTest {	
 	
@@ -21,6 +23,11 @@ public class GameManagerTest {
 		assertTrue(GameManager.getInstance().getPlayers().size() == 6);
 		assertTrue(Map.getInstance().getContinents().size() == 3);
 		assertTrue(Map.getInstance().getTerritories().size() == 25);
+	}
+	
+	@Test
+	public void initCardsTest() {
+		GameManager.getInstance().initCards();
 	}
 	
 	/*

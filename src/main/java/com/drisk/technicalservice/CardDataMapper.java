@@ -24,10 +24,10 @@ public class CardDataMapper {
 			try (ResultSet result = state.executeQuery(query)) {
 				while(result.next()) {
 					String territoryName = result.getString("territoryName");
-					String continentName = result.getString("cardSymbol");
+					String cardSymbol = result.getString("cardSymbol");
 					String[] territoryInfo = new String[2];
 					territoryInfo[0] = territoryName;
-					territoryInfo[1] = continentName;
+					territoryInfo[1] = cardSymbol;
 					territoryCard.add(territoryInfo);
 				}		
 			}

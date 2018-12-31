@@ -46,7 +46,6 @@ $(document).ready(
 					url : "./match/notready",
 					data : $("#nameForm").serialize(),
 					success : function(result) {
-						alert(result);
 						$("#notReadyButton").hide();
 						$("#readyButton").show();
 					}
@@ -54,34 +53,42 @@ $(document).ready(
 			}
 
 			function joinGame() {
-
+				var matchStarted = true;
 				$.ajax({
 					type : "POST",
 					url : "./match/join",
 					data : $("#nameForm").serialize(),
 					success : function(result) {
 						alert(result);
+						if (result != "The match has already started!") {
+							matchStarted = false;
+							source = new EventSource("./match/players");
+							source.onmessage = function(evt) {
+								refreshPlayersTable(JSON.parse(evt.data).playersArray);
+							};	
+						}
 					}
 				});
-
-				source = new EventSource("./match/players");
-				source.onmessage = function(evt) {
-					var objResponse = JSON.parse(evt.data);
-					$("tr").remove();// clear the table
-					$("#playersTable").append("<tr><th>Name</th><th>Color</th></tr>");
-					for (var i = 0; i < objResponse.playersArray.length; ++i) {
-						$("#playersTable").append(
-								"<tr><td>" + objResponse.playersArray[i].nickname + "</td>" +
-									"<td>" + objResponse.playersArray[i].color + "</td></tr>"
-						);
-					}
-				};
-
-				$("#joinButton").hide();
-				$("#textName").hide();
-				$("#exitButton").show();
-				$("#readyButton").show();
-				$("#playersDiv").show();
+				
+				if (!matchStarted) {
+					$("#joinButton").hide();
+					$("#textName").hide();
+					$("#exitButton").show();
+					$("#readyButton").show();
+					$("#playersDiv").show();
+				}
+				
+			}
+			
+			function refreshPlayersTable(playersArray) {
+				$("tr").remove();
+				$("#playersTable").append("<tr><th>Name</th><th>Color</th></tr>");
+				for (var i = 0; i < playersArray.length; ++i) {
+					$("#playersTable").append(
+							"<tr><td>" + playersArray[i].nickname + "</td>" +
+							"<td>" + playersArray[i].color + "</td></tr>"
+					);
+				}
 			}
 
 			function exitGame() {
@@ -89,18 +96,16 @@ $(document).ready(
 					type : "POST",
 					url : "./match/exit",
 					data : $("#nameForm").serialize(),
-					success : function(result) {
-						alert(result);
-						source.close();
-						$("li").remove();// clear the unordered list
-						$("#joinButton").show();
-						$("#textName").show();
-						$("#exitButton").hide();
-						$("#readyButton").hide();
-						$("#notReadyButton").hide();
-						$("#readyButton").hide();
-						$("#playersDiv").hide();
-					}
 				});
+				if (source != null)
+					source.close();
+				$("tr").remove(); //clear players table
+				$("#joinButton").show();
+				$("#textName").show();
+				$("#exitButton").hide();
+				$("#readyButton").hide();
+				$("#notReadyButton").hide();
+				$("#readyButton").hide();
+				$("#playersDiv").hide();
 			}
 		});

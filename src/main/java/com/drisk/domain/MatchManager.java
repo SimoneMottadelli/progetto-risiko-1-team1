@@ -54,6 +54,14 @@ public class MatchManager {
 				p.setReady(ready);
 	}
 	
+	public boolean isEveryoneReady() {
+		boolean everyoneReady = true;
+		for (Player p : players)
+			if (!p.isReady())
+				everyoneReady = false;
+		return everyoneReady;
+	}
+	
 	public void startGame() {
 		matchStarted = true;
 		GameManager.getInstance().initGameTemplate();

@@ -19,5 +19,4 @@ public class MissionCard implements Card {
 	public String getMissionText() {
 		return text;
 	}
-	
 }
