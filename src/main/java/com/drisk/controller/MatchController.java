@@ -62,6 +62,8 @@ public class MatchController {
 		MatchManager.getInstance().exitGame(request.getParameter("name"));
 		if (MatchManager.getInstance().isEveryoneReady()) {
 			MatchManager.getInstance().startGame();
+			//qua bisogna trovare il modo di reindirizzare tutti i client sulla pagina di gameplay
+			//con la mappa e le varie cose che servono per giocare
 		}
 		return "You've exited from the game!";
 	}
@@ -73,6 +75,8 @@ public class MatchController {
 		MatchManager.getInstance().setPlayerReady(request.getParameter("name"), true);
 		if (MatchManager.getInstance().isEveryoneReady()) {
 			MatchManager.getInstance().startGame();
+			//qua bisogna trovare il modo di reindirizzare tutti i client sulla pagina di gameplay
+			//con la mappa e le varie cose che servono per giocare
 		}
 		return "The game will start when everyone is ready!";
 	}

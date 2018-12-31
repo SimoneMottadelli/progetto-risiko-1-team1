@@ -67,17 +67,15 @@ $(document).ready(
 								refreshPlayersTable(JSON.parse(evt.data).playersArray);
 							};	
 						}
+						if (!matchStarted) {
+							$("#joinButton").hide();
+							$("#textName").hide();
+							$("#exitButton").show();
+							$("#readyButton").show();
+							$("#playersDiv").show();
+						}
 					}
-				});
-				
-				if (!matchStarted) {
-					$("#joinButton").hide();
-					$("#textName").hide();
-					$("#exitButton").show();
-					$("#readyButton").show();
-					$("#playersDiv").show();
-				}
-				
+				});				
 			}
 			
 			function refreshPlayersTable(playersArray) {
