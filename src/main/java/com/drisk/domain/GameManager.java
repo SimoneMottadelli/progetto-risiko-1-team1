@@ -69,7 +69,7 @@ public class GameManager {
 	}
 
 	public void initTanks() {
-			TankManager.getInstance().initTanks("easy");
+			TankManager.getInstance().initTanks("easy", getPlayers());
 	}
 	
 	public boolean checkWin(Player currentPlayer) {
