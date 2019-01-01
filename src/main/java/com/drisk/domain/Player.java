@@ -104,6 +104,7 @@ public class Player {
 		jsonPlayer.addProperty("nickname", getNickname());
 		String colorProperty = this.color.toString().toLowerCase();
 		jsonPlayer.addProperty("color", colorProperty);
+		jsonPlayer.addProperty("ready", ready);
 		return jsonPlayer;
 	}
 }

@@ -80,11 +80,12 @@ $(document).ready(
 			
 			function refreshPlayersTable(playersArray) {
 				$("tr").remove();
-				$("#playersTable").append("<tr><th>Name</th><th>Color</th></tr>");
+				$("#playersTable").append("<tr><th>Name</th><th>Color</th><th>Ready</th></tr>");
 				for (var i = 0; i < playersArray.length; ++i) {
 					$("#playersTable").append(
 							"<tr><td>" + playersArray[i].nickname + "</td>" +
-							"<td>" + playersArray[i].color + "</td></tr>"
+							"<td>" + playersArray[i].color + "</td>" +
+							"<td>" + playersArray[i].ready + "</td></tr>"
 					);
 				}
 			}

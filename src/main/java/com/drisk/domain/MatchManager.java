@@ -55,10 +55,13 @@ public class MatchManager {
 	}
 	
 	public boolean isEveryoneReady() {
-		boolean everyoneReady = true;
-		for (Player p : players)
-			if (!p.isReady())
-				everyoneReady = false;
+		boolean everyoneReady = false;
+		if (players.size() != 0 ) {
+			everyoneReady = true;
+			for (Player p : players)
+				if (!p.isReady())
+					everyoneReady = false;
+		}
 		return everyoneReady;
 	}
 	

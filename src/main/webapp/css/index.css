@@ -1,12 +1,14 @@
 @charset "ISO-8859-1";
 body {
     background-image: url("../resources/tank.jpg");
-    background-size:cover
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-b {
+caption {
 	color: #ffffcc;
-	font-size: 44px
+	font-size: 24px
 }
 
 ul {
@@ -20,13 +22,11 @@ li {
 
 table {
   border-collapse: collapse;
-  width: 100%;
-  top: 15px;
 }
 
 th, td {
   text-align: left;
-  padding: 8px;
+  padding: 12px;
 }
 
 tr:nth-child(even){background-color: #ff6666}
@@ -39,8 +39,8 @@ th {
 
 #playersDiv {
   position: absolute;
-  top: 110px;
-  left: 520px;
+  top: 20%;
+  left: 45%;
 }
 
 button:hover {
@@ -71,12 +71,8 @@ input[type=text] {
   box-sizing: border-box;
 }
 
-#buttonsDiv {
-	padding: 10px;
-}
-
 #inputsDiv {
   position: absolute;
-  top: 550px;
-  left: 650px;
+  top: 70%;
+  left: 45%;
 }
