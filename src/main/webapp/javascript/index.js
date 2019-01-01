@@ -64,7 +64,12 @@ $(document).ready(
 							matchStarted = false;
 							source = new EventSource("./match/players");
 							source.onmessage = function(evt) {
-								refreshPlayersTable(JSON.parse(evt.data).playersArray);
+								var playersArray = JSON.parse(evt.data).playersArray;
+								if (isEveryoneReady(playersArray)) {
+									location.replace("http://localhost:8080/drisk/pages/game.html");
+								} 
+								else
+									refreshPlayersTable(playersArray);
 							};	
 						}
 						if (!matchStarted) {
@@ -76,6 +81,14 @@ $(document).ready(
 						}
 					}
 				});				
+			}
+			
+			function isEveryoneReady(playersArray) {
+				var ready = true;
+				for (var i = 0; i < playersArray.length; ++i)
+					if (!playersArray[i].ready)
+						ready = false;
+				return ready;
 			}
 			
 			function refreshPlayersTable(playersArray) {

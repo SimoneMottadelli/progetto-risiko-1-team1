@@ -89,18 +89,6 @@ public class MatchController {
 	}
 	
 	
-	@GetMapping(value="/startGame")
-	@ResponseBody
-	public String startGame() {
-		MatchManager mm = MatchManager.getInstance();
-		if (!mm.isMatchStarted()) {
-			mm.startGame();
-			return "Game's just started!";
-		}
-		return "The game has already begun!";
-	}
-	
-	
 	@GetMapping(value="/nextPhase")
 	@ResponseBody
 	public String nextPhase() {
