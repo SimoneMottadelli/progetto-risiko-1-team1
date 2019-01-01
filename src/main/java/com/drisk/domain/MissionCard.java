@@ -11,7 +11,6 @@ public class MissionCard implements Card {
 		this.text = text;
 	}
 	
-	
 	public int getMission() {
 		return id;
 	}

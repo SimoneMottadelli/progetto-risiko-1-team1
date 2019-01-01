@@ -9,6 +9,9 @@ $(document).ready(function() {
 							data: { id: 'Italy' }
 						},
 						{ // node a
+							data: { id: 'Switzerland' }
+						},
+						{ // node a
 							data: { id: 'Germany' }
 						},
 						{ // node b
@@ -26,8 +29,8 @@ $(document).ready(function() {
 						{
 							selector: 'node',
 							style: {
-								'width': 120,
-								'height': 120,
+								'width': 90,
+								'height': 90,
 								'text-halign': 'center',
 								'text-valign': 'center'
 							}

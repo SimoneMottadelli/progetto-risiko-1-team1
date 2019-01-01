@@ -13,36 +13,34 @@ public class AssignBonusTanksPhaseTest {
 	
 	@Test
 	public void getTrisWithValueTest() {
-		Map<List<TerritoryCardSymbol>, Integer> trisWithValue = new AssignBonusTanksPhase().getTrisWithValue();
+		Map<List<TerritoryCardSymbol>, Integer> trisMap = CardManager.getInstance().getTrisWithValue();
 		List<TerritoryCardSymbol> tris = new LinkedList<>();
 		
-		assertEquals(7, trisWithValue.size());
+		assertEquals(7, trisMap.size());
 		
 		tris.add(TerritoryCardSymbol.CAVALRY);
 		tris.add(TerritoryCardSymbol.CAVALRY);
 		tris.add(TerritoryCardSymbol.CAVALRY);
-		assertEquals(8, (int)(trisWithValue.get(tris)));
+		assertEquals(8, (int)(trisMap.get(tris)));
 		tris.clear();
 		
 		tris.add(TerritoryCardSymbol.INFANTRY);
 		tris.add(TerritoryCardSymbol.INFANTRY);
 		tris.add(TerritoryCardSymbol.JOLLY);
-		assertEquals(12, (int)(trisWithValue.get(tris)));
+		assertEquals(12, (int)(trisMap.get(tris)));
 		tris.clear();
 		
 		tris.add(TerritoryCardSymbol.INFANTRY);
 		tris.add(TerritoryCardSymbol.CAVALRY);
 		tris.add(TerritoryCardSymbol.ARTILLERY);
-		assertEquals(10, (int)(trisWithValue.get(tris)));
+		assertEquals(10, (int)(trisMap.get(tris)));
 		tris.clear();
-		
 		
 		tris.add(TerritoryCardSymbol.ARTILLERY);
 		tris.add(TerritoryCardSymbol.JOLLY);
 		tris.add(TerritoryCardSymbol.JOLLY);
-		assertNull(trisWithValue.get(tris));
-	}
-	
+		assertNull(trisMap.get(tris));
+	}	
 	
 	@Test
 	public void useTrisTest() {
@@ -76,8 +74,8 @@ public class AssignBonusTanksPhaseTest {
 		Territory t = new Territory("NomeTerritorio");
 		player.getTerritoriesOwned().add(t);
 		tris[0] = new TerritoryCard(t, TerritoryCardSymbol.CAVALRY);
-		tris[1] = new TerritoryCard(null, TerritoryCardSymbol.CAVALRY);
 		tris[2] = new TerritoryCard(null, TerritoryCardSymbol.JOLLY);
+		tris[1] = new TerritoryCard(null, TerritoryCardSymbol.CAVALRY);
 		phase.useTris(player, tris);
 		assertEquals(14, player.getAvailableTanks());
 		player.removeAvailableTanks();

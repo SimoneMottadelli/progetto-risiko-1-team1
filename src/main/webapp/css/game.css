@@ -1,20 +1,24 @@
 @charset "ISO-8859-1";
 
 body {
-    background-image: url("../resources/Risiko.jpg");
+    background-image: url("../resources/sfondo_body.jpg");
     background-size:cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    cursor: pointer;
 }
 
 #cy {
-	width: 93%;
-	height: 67%;
+	cursor: pointer;
+	width: 85%;
+	height: 64%;
 	position: absolute;
-	top: 0%;
-	left: 3%;
+	top: 4%;
+	left: 7%;
 	border-color: #000000;
   	border-width: 5px;
   	border-style: inset;
-  	background-image: url("../resources/tinta-unita-crema.jpg");
+  	background-image: url("../resources/cartina_sfondo.jpg");
+  	background-repeat: no-repeat;
+  	background-size:cover;
 }
