@@ -1,0 +1,20 @@
+@charset "ISO-8859-1";
+
+body {
+    background-image: url("../resources/Risiko.jpg");
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#cy {
+	width: 93%;
+	height: 67%;
+	position: absolute;
+	top: 0%;
+	left: 3%;
+	border-color: #000000;
+  	border-width: 5px;
+  	border-style: inset;
+  	background-image: url("../resources/tinta-unita-crema.jpg");
+}

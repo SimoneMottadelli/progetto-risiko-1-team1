@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
 import com.drisk.domain.MatchManager;
 import com.drisk.domain.Player;
 import com.drisk.domain.Turn;
@@ -62,8 +64,6 @@ public class MatchController {
 		MatchManager.getInstance().exitGame(request.getParameter("name"));
 		if (MatchManager.getInstance().isEveryoneReady()) {
 			MatchManager.getInstance().startGame();
-			//qua bisogna trovare il modo di reindirizzare tutti i client sulla pagina di gameplay
-			//con la mappa e le varie cose che servono per giocare
 		}
 		return "You've exited from the game!";
 	}
@@ -71,12 +71,10 @@ public class MatchController {
 	
 	@PostMapping(value="/ready")
 	@ResponseBody
-	public String ready(HttpServletRequest request, HttpServletResponse response) {
+	public String ready(HttpServletRequest request) {
 		MatchManager.getInstance().setPlayerReady(request.getParameter("name"), true);
 		if (MatchManager.getInstance().isEveryoneReady()) {
 			MatchManager.getInstance().startGame();
-			//qua bisogna trovare il modo di reindirizzare tutti i client sulla pagina di gameplay
-			//con la mappa e le varie cose che servono per giocare
 		}
 		return "The game will start when everyone is ready!";
 	}

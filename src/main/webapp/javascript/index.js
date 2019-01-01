@@ -65,9 +65,8 @@ $(document).ready(
 							source = new EventSource("./match/players");
 							source.onmessage = function(evt) {
 								var playersArray = JSON.parse(evt.data).playersArray;
-								if (isEveryoneReady(playersArray)) {
+								if (isEveryoneReady(playersArray)) 
 									location.replace("http://localhost:8080/drisk/pages/game.html");
-								} 
 								else
 									refreshPlayersTable(playersArray);
 							};	
