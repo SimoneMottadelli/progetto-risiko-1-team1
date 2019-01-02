@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import com.drisk.domain.Color;
 import com.drisk.domain.MatchManager;
 import com.drisk.domain.Player;
 import com.drisk.domain.Turn;
@@ -22,19 +24,34 @@ import com.google.gson.JsonObject;
 public class MatchController {
 	
     private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
+    private static final String SESSION_ATTRIBUTE = "color";
 	
 	@PostMapping(value="/join")
 	@ResponseBody
-	public String join(HttpServletRequest request) {		
+	public JsonObject join(HttpServletRequest request) {
 		MatchManager mm = MatchManager.getInstance();
 		if(mm.isMatchStarted())
-			return "The match has already started!";
+			return createResponseObj(-1, "The match has already started!");
 		else if(mm.isMatchFull())
-			return "There are enough players!";
+			return createResponseObj(-1, "There are enough players!");
 		else {
-			mm.joinGame(request.getParameter("name").trim());
-			return "You've joined the game!";
+			HttpSession session = request.getSession(false);
+			if(session == null) {
+				mm.joinGame(request.getParameter("name").trim());
+				session = request.getSession();
+				session.setAttribute(SESSION_ATTRIBUTE, mm.getPlayers().get(mm.getPlayers().size() - 1).getColor());
+				return createResponseObj(0, "You've joined the game!");
+			}
+			else
+				return createResponseObj(-1, "You've already joined to the game");
 		}
+	}
+	
+	private JsonObject createResponseObj(int responseCode, String responseMessage) {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("responseCode", responseCode);
+		obj.addProperty("responseMessage", responseMessage);
+		return obj;
 	}
     	     
 	@GetMapping("/players")
@@ -59,8 +76,10 @@ public class MatchController {
 	
 	@PostMapping(value="/exit")
 	@ResponseBody
-	public String exit(HttpServletRequest request) {				
-		MatchManager.getInstance().exitGame(request.getParameter("name"));
+	public String exit(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		MatchManager.getInstance().exitGame((Color) session.getAttribute(SESSION_ATTRIBUTE));
+		session.invalidate();
 		if (MatchManager.getInstance().isEveryoneReady()) {
 			MatchManager.getInstance().startGame();
 		}
@@ -70,7 +89,8 @@ public class MatchController {
 	@PostMapping(value="/ready")
 	@ResponseBody
 	public String ready(HttpServletRequest request) {
-		MatchManager.getInstance().setPlayerReady(request.getParameter("name"), true);
+		HttpSession session = request.getSession(false);
+		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE), true);
 		if (MatchManager.getInstance().isEveryoneReady()) {
 			MatchManager.getInstance().startGame();
 		}
@@ -80,7 +100,8 @@ public class MatchController {
 	@PostMapping(value="/notready")
 	@ResponseBody
 	public String notReady(HttpServletRequest request) {
-		MatchManager.getInstance().setPlayerReady(request.getParameter("name"), false);
+		HttpSession session = request.getSession(false);
+		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE), false);
 		return "The game will start when everyone is ready!";
 	}
 	

@@ -38,25 +38,23 @@ public class MatchManager {
 		}
 	}
 	
-	public void exitGame(String nickName) {
+	public void exitGame(Color color) {
 		for (Player p : players)
-			if (p.getNickname().equals(nickName)) {
-				Color playerColor = p.getColor();
-				colorsAvailablesList.add(playerColor);
+			if (p.getColor().equals(color)) {
+				colorsAvailablesList.add(color);
 				removePlayer(p);
 			}
 	}
 	
-	
-	public void setPlayerReady(String nickname, boolean ready) {
+	public void setPlayerReady(Color color, boolean ready) {
 		for (Player p : players)
-			if (p.getNickname().equals(nickname))
+			if (p.getColor().equals(color))
 				p.setReady(ready);
 	}
 	
 	public boolean isEveryoneReady() {
 		boolean everyoneReady = false;
-		if (players.size() != 0 ) {
+		if (!players.isEmpty()) {
 			everyoneReady = true;
 			for (Player p : players)
 				if (!p.isReady())

@@ -33,7 +33,7 @@ $(document).ready(
 					url : "./match/ready",
 					data : $("#nameForm").serialize(),
 					success : function(result) {
-						alert(result);
+						alert(result.responseMessage)
 						$("#readyButton").hide();
 						$("#notReadyButton").show();
 					}
@@ -59,8 +59,8 @@ $(document).ready(
 					url : "./match/join",
 					data : $("#nameForm").serialize(),
 					success : function(result) {
-						alert(result);
-						if (result != "The match has already started!") {
+						alert(result.responseMessage)
+						if (result.responseCode != -1) {
 							matchStarted = false;
 							source = new EventSource("./match/players");
 							source.onmessage = function(evt) {

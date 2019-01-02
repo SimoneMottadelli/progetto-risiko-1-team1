@@ -32,9 +32,8 @@ public class TankManager {
 			case 5:
 				p.addAvailableTanks(25);
 				break;
-			case 6:
+			default:
 				p.addAvailableTanks(20);
-				break;
 			}
 		}
 	}

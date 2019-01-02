@@ -2,12 +2,11 @@ package com.drisk.domain;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
-import com.drisk.domain.TerritoryCardSymbol;
-import com.drisk.technicalservice.CardDataMapper;
 
 public class GameManagerTest {	
 	
@@ -17,6 +16,8 @@ public class GameManagerTest {
 			MatchManager.getInstance().joinGame("Player" + i);
 		MatchManager.getInstance().startGame();
 	}
+	
+	// TODO controllare che ci siano almeno 2 giocatori nella partita
 	
 	@Test
 	public void startGameTest() {
@@ -30,15 +31,15 @@ public class GameManagerTest {
 		GameManager.getInstance().initCards();
 	}
 	
-	/*
+	
 	@Test
 	public void initPlayersTerritoriesTest() {
 		List<Player> players = GameManager.getInstance().getPlayers();
 		for(Player p : players)
-			if(p.getNumberOfTerritoriesOwned() < 6)
+			if(p.getNumberOfTerritoriesOwned() < 4)
 				fail();
 	}
-*/
+
 	@Test
 	public void checkWinTest() {
 		
