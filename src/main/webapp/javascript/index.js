@@ -6,6 +6,22 @@ $(document).ready(
 			$("#joinButton").click(function() {
 				joinGame();
 			});
+			
+			$("span.close").click(function() {
+				$("#modalWindow").css("display", "none");
+			});
+			
+			$("#modifyButton").click(function() {
+				applyMapChanges();
+			});
+			
+			$("#customRadio").click(function() {
+				$("#difficultyDiv").attr("class", "hidden");
+			});
+			
+			$("#defaultRadio").click(function() {
+				$("#difficultyDiv").attr("class", "shown");
+			});
 
 			$("#exitButton").click(function() {
 				exitGame();
@@ -28,28 +44,48 @@ $(document).ready(
 			});
 
 			function setReady() {
+				$.get("./match/ready", function(result) {
+						$("div.modal-body").html("<h2>" + result.responseMessage + "</h2>");
+						$("#modalWindow").css("display", "block");
+						$("#readyButton").attr("class", "hidden");
+						$("#notReadyButton").attr("class", "shown");
+					}
+				);
+			}
+			
+			function applyMapChanges() {
+				var isMapDefault = $('input[name=mapConfigRadio]:checked', '#mapForm').val() == "default";
+				console.log(isMapDefault);
+				if (isMapDefault) {
+					var jsonGameConfig = {'difficulty': $("#difficultySelect").val()};
+					jsonGameConfig['territories'] = [];
+					jsonGameConfig['continents'] = [];
+					jsonGameConfig['membership'] = [];
+					jsonGameConfig['neighbourhood'] = [];
+				} else {
+					var jsonGameConfig = {'difficulty': 'custom'};
+					jsonGameConfig['territories'] = [];
+					jsonGameConfig['continents'] = [];
+					jsonGameConfig['membership'] = [];
+					jsonGameConfig['neighbourhood'] = [];
+				}
+				console.log(JSON.stringify(jsonGameConfig));
+
 				$.ajax({
 					type : "POST",
-					url : "./match/ready",
-					data : $("#nameForm").serialize(),
-					success : function(result) {
-						alert(result.responseMessage)
-						$("#readyButton").hide();
-						$("#notReadyButton").show();
-					}
+					url : "./match/gameConfig",
+					contentType: 'application/json',
+		            dataType: 'json',
+					data: JSON.stringify(jsonGameConfig)
 				});
 			}
 
 			function setNotReady() {
-				$.ajax({
-					type : "POST",
-					url : "./match/notready",
-					data : $("#nameForm").serialize(),
-					success : function(result) {
-						$("#notReadyButton").hide();
-						$("#readyButton").show();
-					}
-				});
+				$.get("./match/notready", function(result) {
+												$("#notReadyButton").attr("class", "hidden");
+												$("#readyButton").attr("class", "shown");
+										   }
+				);
 			}
 
 			function joinGame() {
@@ -59,7 +95,8 @@ $(document).ready(
 					url : "./match/join",
 					data : $("#nameForm").serialize(),
 					success : function(result) {
-						alert(result.responseMessage)
+						$("div.modal-body").html("<h2>" + result.responseMessage + "</h2>");
+						$("#modalWindow").css("display", "block");
 						if (result.responseCode != -1) {
 							matchStarted = false;
 							source = new EventSource("./match/players");
@@ -72,11 +109,12 @@ $(document).ready(
 							};	
 						}
 						if (!matchStarted) {
-							$("#joinButton").hide();
-							$("#textName").hide();
-							$("#exitButton").show();
-							$("#readyButton").show();
-							$("#playersDiv").show();
+							$("#joinButton").attr("class", "hidden");
+							$("#exitButton").attr("class", "shown");
+							$("#readyButton").attr("class", "shown");
+							$("#textName").attr("class", "hidden");
+							$("#playersTable").attr("class", "shown");
+							$("#rightContentDiv").attr("class", "shown");
 						}
 					}
 				});				
@@ -103,20 +141,17 @@ $(document).ready(
 			}
 
 			function exitGame() {
-				$.ajax({
-					type : "POST",
-					url : "./match/exit",
-					data : $("#nameForm").serialize(),
-				});
+				$.get("./match/exit");
 				if (source != null)
 					source.close();
 				$("tr").remove(); //clear players table
-				$("#joinButton").show();
-				$("#textName").show();
-				$("#exitButton").hide();
-				$("#readyButton").hide();
-				$("#notReadyButton").hide();
-				$("#readyButton").hide();
-				$("#playersDiv").hide();
+				$("#joinButton").attr("class", "shown");
+				$("#textName").attr("class", "shown");
+				$("#exitButton").attr("class", "hidden");
+				$("#readyButton").attr("class", "hidden");
+				$("#notReadyButton").attr("class", "hidden");
+				$("#readyButton").attr("class", "hidden");
+				$("#playersTable").attr("class", "hidden");
+				$("#rightContentDiv").attr("class", "hidden");
 			}
 		});

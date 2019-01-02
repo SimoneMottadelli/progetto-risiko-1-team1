@@ -1,16 +1,36 @@
 @charset "ISO-8859-1";
+
 body {
     background-image: url("../resources/tank.jpg");
     background-size:cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+ 	font-family: Arial, Helvetica, sans-serif;
+ 	font-size: 13px;
 }
 
-#mapInfoDiv {
-    display: inline-block;
+button {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 15px 28px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 16px;
 }
 
-caption {
+button:hover {
+	background-color: #FF4500
+}
+
+button:active {
+  background-color: #800000;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+caption, label {
 	color: #ffffcc;
 	font-size: 24px
 }
@@ -22,10 +42,6 @@ ul {
 li {
 	color: white;
 	font-size: 44px
-}
-
-table {
-  border-collapse: collapse;
 }
 
 th, td {
@@ -41,42 +57,89 @@ th {
   color: white;
 }
 
-#playersDiv {
-  position: absolute;
-  top: 20%;
-  left: 45%;
-}
-
-button:hover {
-	background-color: #FF4500
-}
-
-button:active {
-  background-color: #800000;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-
-button {
-  background-color: #f44336;
-  border: none;
-  color: white;
-  padding: 15px 28px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 12px;
-  font-size: 16px;
-}
-
-input[type=text] {
+input[type=text], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
 }
 
-#inputsDiv {
+input[type=radio] {
+	width: 1.5em;
+    height: 1.5em;
+}
+
+table {
+  border-collapse: collapse;
   position: absolute;
-  top: 70%;
-  left: 45%;
+  top: 20%;
+  left: 23%
+}
+
+#joinDiv {
+    position: absolute;
+	top: 70%;
+	left: 23%
+} 
+
+.hidden {
+	display: none;
+}
+.show {
+	display: inline-block;
+}
+
+#rightContentDiv {
+    position: absolute;
+	top: 33%;
+	left: 50%;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 30%;
+  height: 15%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #330000;
+  color: white;
+}
+
+.modal-body {
+	padding: 2px 16px;
+	background-color: #b30000;
 }

@@ -1,46 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  	<title>Home</title>
-  	<meta charset="ISO-8859-1">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  	<script src=javascript/index.js></script>
-  	<link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
-  </head>
-  <body>
-	<div id="playersDiv" hidden="hidden">
-		<br>
-		<table id="playersTable">
-		  <caption>Players List</caption>
-		  <tr>
-		   <th>Name</th>
-		   <th>Color</th>
-		   <th>Ready</th>
-		  </tr>
+<head>
+<title>Home</title>
+<meta charset="ISO-8859-1">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src=javascript/index.js></script>
+<link rel="stylesheet" type="text/css" href="css/index.css"
+	media="screen" />
+</head>
+<body>
+
+	<div id="leftContentDiv">
+		<table id="playersTable" class="hidden">
+			<caption>Players List</caption>
+			<tr>
+				<th>Name</th>
+				<th>Color</th>
+				<th>Ready</th>
+			</tr>
 		</table>
-	</div>
-	<div id="inputsDiv">
-		<form id="nameForm">
-			<input id="textName" name="name" type="text" placeholder="Enter your name here...">
-		</form>
-		<form id="mapForm">
-			<div id="mapInfoDiv">
-				<select>
-					  <option value="easy">Easy</option>
-					  <option value="medium">Medium</option>
-					  <option value="hard">Hard</option>
-				</select>
-				<input type="radio" name="mapConfig" value="default" checked="checked">Default
-				<input type="radio" name="mapConfig" value="custom">Custom
+		<div id="joinDiv">
+			<form id="nameForm">
+				<input class="shown" id="textName" name="name" type="text" placeholder="Enter your name here...">
+			</form>
+			<div>
+				<button id="joinButton" disabled="disabled" type="button" class="shown">Join game</button>
+				<button id="exitButton" class="hidden">Exit</button>
+				<button id="readyButton" class="hidden">Ready</button>
+				<button id="notReadyButton" class="hidden">Not ready</button>
 			</div>
-		</form>
-		<button id="buttonApplyChanges">Apply changes</button>
-		<div id="buttonsDiv">
-			<button id="joinButton" disabled="disabled" type="button">Join game</button>
-			<button id="exitButton" hidden="hidden">Exit</button>
-			<button id="readyButton" hidden="hidden">Ready</button>
-			<button id="notReadyButton" hidden="hidden">Not ready</button>
 		</div>
 	</div>
-  </body>
+
+	<div id="rightContentDiv" class="hidden">
+		<label>Map:</label>
+		<form id="mapForm">
+			<input type="radio" id="defaultRadio" name="mapConfigRadio" value="default" checked="checked"><font color="white">Default</font> 
+			<input type="radio"	id="customRadio" name="mapConfigRadio" value="custom"><font color="white">Custom </font>
+		</form>
+		<br>
+		<div id="difficultyDiv">
+			<label>Difficulty:</label> 
+			<select id="difficultySelect">
+				<option value="easy">Easy</option>
+				<option value="medium">Medium</option>
+				<option value="hard">Hard</option>
+			</select>
+		</div>
+		<br>
+		<br> 
+		<button id="modifyButton">Apply changes</button>
+	</div>
+	
+	<div id="modalWindow" class="modal">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <span class="close">&times;</span>
+	      <h1>Information!</h1>
+	    </div>
+	    <div class="modal-body">
+	    </div>
+	  </div>
+	
+	</div>
+	
+</body>
 </html>
