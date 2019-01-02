@@ -56,20 +56,20 @@ $(document).ready(
 			function applyMapChanges() {
 				var isMapDefault = $('input[name=mapConfigRadio]:checked', '#mapForm').val() == "default";
 				console.log(isMapDefault);
+				var jsonGameConfig;
 				if (isMapDefault) {
-					var jsonGameConfig = {'difficulty': $("#difficultySelect").val()};
+					jsonGameConfig = {'difficulty': $("#difficultySelect").val()};
 					jsonGameConfig['territories'] = [];
 					jsonGameConfig['continents'] = [];
 					jsonGameConfig['membership'] = [];
 					jsonGameConfig['neighbourhood'] = [];
 				} else {
-					var jsonGameConfig = {'difficulty': 'custom'};
+					jsonGameConfig = {'difficulty': 'custom'};
 					jsonGameConfig['territories'] = [];
 					jsonGameConfig['continents'] = [];
 					jsonGameConfig['membership'] = [];
 					jsonGameConfig['neighbourhood'] = [];
 				}
-				console.log(JSON.stringify(jsonGameConfig));
 
 				$.ajax({
 					type : "POST",

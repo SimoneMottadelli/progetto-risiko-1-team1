@@ -44,9 +44,6 @@ public class AttackPhase implements Phase {
 		
 		boolean condition1 = territoryAttacker.getNumberOfTanks() > 1;
 		boolean condition2 = territoryAttacker.getNeighbours().contains(territoryDefender);
-		if (condition1 && condition2) {
-			return true;
-		}
-		return false;
+		return condition1 && condition2;
 	}
 }
