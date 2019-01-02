@@ -79,7 +79,7 @@ public class MatchController {
 	}
 	
 	
-	@PostMapping(value="/exit")
+	@GetMapping(value="/exit")
 	@ResponseBody
 	public String exit(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
@@ -91,7 +91,7 @@ public class MatchController {
 		return "You've exited from the game!";
 	}
 	
-	@PostMapping(value="/ready")
+	@GetMapping(value="/ready")
 	@ResponseBody
 	public JsonObject ready(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
@@ -102,36 +102,12 @@ public class MatchController {
 		return createResponseJson(0, "The game will start when everyone is ready!");
 	}
 	
-	@PostMapping(value="/notready")
+	@GetMapping(value="/notready")
 	@ResponseBody
 	public JsonObject notReady(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE), false);
 		return createResponseJson(0, "The game will start when everyone is ready!");
-	}
-	
-	
-	@GetMapping(value="/nextPhase")
-	@ResponseBody
-	public String nextPhase() {
-		MatchManager mm = MatchManager.getInstance();
-		if (mm.isMatchStarted()) {
-			Turn.getInstance().getCurrentPhase().nextPhase();
-			return "Going to the next phase!";
-		}
-		return "Couldn't go to the next phase!";
-	}
-	
-	
-	@GetMapping(value="/playPhase")
-	@ResponseBody
-	public String playPhase() {
-		MatchManager mm = MatchManager.getInstance();
-		if (mm.isMatchStarted()) {
-			Turn.getInstance().getCurrentPhase().startPhase();
-			return "playing the phase...";
-		}
-		return "Couldn't play the phase!";
 	}
 	
 }
