@@ -13,6 +13,14 @@
 	</servlet>
 	
 	<servlet>
+		<servlet-name>GameController</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<async-supported>true</async-supported>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>MatchController</servlet-name>
 		<servlet-class>
 			org.springframework.web.servlet.DispatcherServlet
@@ -30,6 +38,11 @@
 	<servlet-mapping>
 		<servlet-name>FrontController</servlet-name>
 		<url-pattern>/Contr/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>GameController</servlet-name>
+		<url-pattern>/game/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

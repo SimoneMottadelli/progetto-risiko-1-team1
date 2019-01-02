@@ -4,7 +4,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -31,23 +30,23 @@ public class MatchController {
 	public JsonObject join(HttpServletRequest request) {
 		MatchManager mm = MatchManager.getInstance();
 		if(mm.isMatchStarted())
-			return createResponseObj(-1, "The match has already started!");
+			return createResponseJson(-1, "The match has already started!");
 		else if(mm.isMatchFull())
-			return createResponseObj(-1, "There are enough players!");
+			return createResponseJson(-1, "There are enough players!");
 		else {
 			HttpSession session = request.getSession(false);
 			if(session == null) {
 				mm.joinGame(request.getParameter("name").trim());
 				session = request.getSession();
-				session.setAttribute(SESSION_ATTRIBUTE, mm.getPlayers().get(mm.getPlayers().size() - 1).getColor());
-				return createResponseObj(0, "You've joined the game!");
+				session.setAttribute(SESSION_ATTRIBUTE, mm.findLastPlayerColor());
+				return createResponseJson(0, "You've joined the game!");
 			}
 			else
-				return createResponseObj(-1, "You've already joined to the game");
+				return createResponseJson(-1, "You've already joined to the game");
 		}
 	}
 	
-	private JsonObject createResponseObj(int responseCode, String responseMessage) {
+	private JsonObject createResponseJson(int responseCode, String responseMessage) {
 		JsonObject obj = new JsonObject();
 		obj.addProperty("responseCode", responseCode);
 		obj.addProperty("responseMessage", responseMessage);
@@ -55,23 +54,29 @@ public class MatchController {
 	}
     	     
 	@GetMapping("/players")
-    public SseEmitter handleSse(HttpServletResponse response) {
+    public SseEmitter handleSse() {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
-				JsonArray jsonArrayPlayers = new JsonArray();
-				for(Player p : MatchManager.getInstance().getPlayers())
-					jsonArrayPlayers.add(p.toJson());
-				JsonObject jsonResult = new JsonObject();
-				jsonResult.add("playersArray", jsonArrayPlayers);				
-				emitter.send(jsonResult);
+				JsonObject playersJson = createResponsePlayersJson();
+				emitter.send(playersJson);
 				emitter.complete();	
 			} catch (Exception ex) {
 				emitter.completeWithError(ex);
 			}
 		});
 		return emitter;
-    }   
+    }
+	
+	// used by handleSse for creating the response
+	private JsonObject createResponsePlayersJson() {
+		JsonArray jsonArrayPlayers = new JsonArray();
+		for(Player p : MatchManager.getInstance().getPlayers())
+			jsonArrayPlayers.add(p.toJson());
+		JsonObject jsonResult = new JsonObject();
+		jsonResult.add("playersArray", jsonArrayPlayers);
+		return jsonResult;
+	}
 	
 	
 	@PostMapping(value="/exit")
@@ -88,21 +93,21 @@ public class MatchController {
 	
 	@PostMapping(value="/ready")
 	@ResponseBody
-	public String ready(HttpServletRequest request) {
+	public JsonObject ready(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE), true);
 		if (MatchManager.getInstance().isEveryoneReady()) {
 			MatchManager.getInstance().startGame();
 		}
-		return "The game will start when everyone is ready!";
+		return createResponseJson(0, "The game will start when everyone is ready!");
 	}
 	
 	@PostMapping(value="/notready")
 	@ResponseBody
-	public String notReady(HttpServletRequest request) {
+	public JsonObject notReady(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE), false);
-		return "The game will start when everyone is ready!";
+		return createResponseJson(0, "The game will start when everyone is ready!");
 	}
 	
 	

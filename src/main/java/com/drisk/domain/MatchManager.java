@@ -38,6 +38,10 @@ public class MatchManager {
 		}
 	}
 	
+	public Color findLastPlayerColor() {
+		return players.get(players.size() - 1).getColor();
+	}
+	
 	public void exitGame(Color color) {
 		for (Player p : players)
 			if (p.getColor().equals(color)) {
