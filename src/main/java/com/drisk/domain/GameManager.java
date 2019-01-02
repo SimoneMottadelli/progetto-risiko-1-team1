@@ -29,6 +29,7 @@ public class GameManager {
 		initPlayersMission();
 		initPlayersTerritories();
 		initTanks();
+		initPlaceTanks();
 	}
 
 	private void initPlayers() {
@@ -69,7 +70,11 @@ public class GameManager {
 	}
 
 	public void initTanks() {
-			TankManager.getInstance().initTanks("easy", getPlayers());
+		TankManager.getInstance().initTanks(getPlayers());
+	}
+	
+	public void initPlaceTanks() {
+		//TODO
 	}
 	
 	public boolean checkWin(Player currentPlayer) {
