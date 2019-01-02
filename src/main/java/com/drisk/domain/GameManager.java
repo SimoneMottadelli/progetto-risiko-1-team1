@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gson.JsonObject;
+
 public class GameManager {
 	
 	private List<Player> players;
@@ -22,9 +24,9 @@ public class GameManager {
 	//"template" perchè posso inizializzare il gioco sia attraverso il database
 	//con una mappa predefinita, sia inizializzando una mappa nuova passata come
 	//json dal client. Quindi in realtà ci saranno due implementaizoni diverse.
-	public void initGameTemplate() {
+	public void initGame(JsonObject gameConfig) {
 		initPlayers();
-		initMap();
+		initMap(gameConfig);
 		initCards();
 		initPlayersMission();
 		initPlayersTerritories();
@@ -35,8 +37,8 @@ public class GameManager {
 		players = MatchManager.getInstance().getPlayers();
 	}
 	
-	public void initMap() {
-		Map.getInstance().createMap("easy");
+	public void initMap(JsonObject gameConfig) {
+		Map.getInstance().createMap(gameConfig);
 	}
 	
 	public void initCards() {

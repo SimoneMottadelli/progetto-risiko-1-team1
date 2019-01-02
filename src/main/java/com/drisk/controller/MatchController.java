@@ -2,6 +2,7 @@ package com.drisk.controller;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import com.drisk.domain.Color;
 import com.drisk.domain.MatchManager;
 import com.drisk.domain.Player;
 import com.drisk.domain.Turn;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -23,7 +25,7 @@ import com.google.gson.JsonObject;
 public class MatchController {
 	
     private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
-    private static final String SESSION_ATTRIBUTE = "color";
+    private static final String SESSION_ATTRIBUTE_COLOR = "color";
 	
 	@PostMapping(value="/join")
 	@ResponseBody
@@ -38,7 +40,7 @@ public class MatchController {
 			if(session == null) {
 				mm.joinGame(request.getParameter("name").trim());
 				session = request.getSession();
-				session.setAttribute(SESSION_ATTRIBUTE, mm.findLastPlayerColor());
+				session.setAttribute(SESSION_ATTRIBUTE_COLOR, mm.findLastPlayerColor());
 				return createResponseJson(0, "You've joined the game!");
 			}
 			else
@@ -51,6 +53,20 @@ public class MatchController {
 		obj.addProperty("responseCode", responseCode);
 		obj.addProperty("responseMessage", responseMessage);
 		return obj;
+	}
+	
+	@PostMapping("/gameConfig")
+	@ResponseBody
+	public JsonObject gameConfig(HttpServletRequest request) {
+		try {
+			String body = request.getReader().lines().collect(Collectors.joining());
+			Gson converter = new Gson();
+			JsonObject obj = converter.fromJson(body, JsonObject.class);
+			MatchManager.getInstance().setGameConfig(obj);
+			return createResponseJson(0, "gameConfig correctly configured");
+		} catch (Exception e) {
+			return createResponseJson(-1, "An error was occurred during the parse of gameConfigRequest");
+		}
 	}
     	     
 	@GetMapping("/players")
@@ -83,7 +99,7 @@ public class MatchController {
 	@ResponseBody
 	public String exit(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		MatchManager.getInstance().exitGame((Color) session.getAttribute(SESSION_ATTRIBUTE));
+		MatchManager.getInstance().exitGame((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
 		session.invalidate();
 		if (MatchManager.getInstance().isEveryoneReady()) {
 			MatchManager.getInstance().startGame();
@@ -95,7 +111,7 @@ public class MatchController {
 	@ResponseBody
 	public JsonObject ready(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE), true);
+		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), true);
 		if (MatchManager.getInstance().isEveryoneReady()) {
 			MatchManager.getInstance().startGame();
 		}
@@ -106,7 +122,7 @@ public class MatchController {
 	@ResponseBody
 	public JsonObject notReady(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE), false);
+		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), false);
 		return createResponseJson(0, "The game will start when everyone is ready!");
 	}
 	

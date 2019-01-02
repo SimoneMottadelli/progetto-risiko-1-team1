@@ -1,48 +1,49 @@
 package com.drisk.domain;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 public class MapTest {
 	
 	@Before
-	public void createMap() {
-		Map map = Map.getInstance();
-		map.createMap("easy");
+	public void createMapTest() {
+		Map.getInstance();
+		String s = "{'difficulty' : 'easy', 'continents' : ['africa', 'europe'], 'territories' : ['italy', 'france', 'egypt', 'north africa'],"
+				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north africa']}],"
+				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}]}";
+		Gson json = new Gson();
+		JsonObject obj = json.fromJson(s, JsonObject.class); 
+		Map.getInstance().createMap(obj);
 	}
-
+	
 	@Test
-	public void createContinentsTest() {
-		assertEquals(3, Map.getInstance().getContinents().size());
+	public void createContinentTest() {
+		assertEquals(2, Map.getInstance().getContinents().size());
 	}
 	
 	@Test
 	public void createTerritoriesTest() {
-		int numberOfTerritories = 0;
-		for(Continent c : Map.getInstance().getContinents())
-			numberOfTerritories = numberOfTerritories + c.getTerritories().size();
-		assertEquals(25, numberOfTerritories);
+		assertEquals(4, Map.getInstance().getTerritories().size());
+		Continent c = Map.getInstance().findContinentByName("europe");
+		assertEquals(2, c.getTerritories().size());
+		Territory t = Map.getInstance().findTerritoryByName("italy");
+		assertEquals(2, t.getNeighbours().size());
+		t = Map.getInstance().findTerritoryByName("egypt");
+		assertTrue(t.getNeighbours().contains(new Territory("north africa")));
 	}
 	
 	@Test
-	public void createNeighboursTest() {
-		Territory t = Map.getInstance().findTerritoryByName("china");
-		assertEquals(6, t.getNeighbours().size());
-		Territory t1 = Map.getInstance().findTerritoryByName("mongolia");
-		assertEquals(5, t1.getNeighbours().size());
-	}
-	
-	
-	@Test
-	public void getTerritoriesTest() {
-		assertEquals(25, Map.getInstance().getTerritories().size());
-		for (Territory t : Map.getInstance().getTerritories()) {
-			if (t == null)
-				fail();
-		}
+	public void toJsonTest() {
+		JsonObject obj = Map.getInstance().toJson();
+		assertEquals("easy", obj.get("difficulty").toString().replace("\"", ""));
+		assertEquals(2, obj.getAsJsonArray("continents").size());
+		assertEquals(4, obj.getAsJsonArray("neighbourhood").size());
 	}
 	
 }
