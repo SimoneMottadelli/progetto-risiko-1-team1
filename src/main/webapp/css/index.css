@@ -6,6 +6,10 @@ body {
     background-attachment: fixed;
 }
 
+#mapInfoDiv {
+    display: inline-block;
+}
+
 caption {
 	color: #ffffcc;
 	font-size: 24px

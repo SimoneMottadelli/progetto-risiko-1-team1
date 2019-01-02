@@ -23,6 +23,18 @@
 		<form id="nameForm">
 			<input id="textName" name="name" type="text" placeholder="Enter your name here...">
 		</form>
+		<form id="mapForm">
+			<div id="mapInfoDiv">
+				<select>
+					  <option value="easy">Easy</option>
+					  <option value="medium">Medium</option>
+					  <option value="hard">Hard</option>
+				</select>
+				<input type="radio" name="mapConfig" value="default" checked="checked">Default
+				<input type="radio" name="mapConfig" value="custom">Custom
+			</div>
+		</form>
+		<button id="buttonApplyChanges">Apply changes</button>
 		<div id="buttonsDiv">
 			<button id="joinButton" disabled="disabled" type="button">Join game</button>
 			<button id="exitButton" hidden="hidden">Exit</button>
