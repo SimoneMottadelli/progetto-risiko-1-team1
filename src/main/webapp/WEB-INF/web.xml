@@ -4,13 +4,6 @@
 
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
-
-	<servlet>
-		<servlet-name>FrontController</servlet-name>
-		<servlet-class>
-			org.springframework.web.servlet.DispatcherServlet
-		</servlet-class>
-	</servlet>
 	
 	<servlet>
 		<servlet-name>GameController</servlet-name>
@@ -27,18 +20,6 @@
 		</servlet-class>
 		<async-supported>true</async-supported>
 	</servlet>
-
-	<servlet>
-		<servlet-name>FrontController1</servlet-name>
-		<servlet-class>
-			org.springframework.web.servlet.DispatcherServlet
-		</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>FrontController</servlet-name>
-		<url-pattern>/Contr/*</url-pattern>
-	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>GameController</servlet-name>
@@ -50,8 +31,4 @@
 		<url-pattern>/match/*</url-pattern>
 	</servlet-mapping>
 
-	<servlet-mapping>
-		<servlet-name>FrontController1</servlet-name>
-		<url-pattern>/Contr1/*</url-pattern>
-	</servlet-mapping>
 </web-app>

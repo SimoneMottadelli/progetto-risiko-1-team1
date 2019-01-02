@@ -3,7 +3,7 @@ package com.drisk.domain;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.drisk.technicalservice.MapDataMapper;
+import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -14,7 +14,6 @@ public class Map {
 	private List<Continent> continents;
 	
 	private Map() {
-		difficulty = null;
 		continents = new LinkedList<>();
 	}
 
@@ -24,39 +23,42 @@ public class Map {
 		return instance;
 	}
 	
-	public void createMap(String difficuly) {
-		setDifficulty(difficuly);
-		createContinents();
-		createTerritories();
-		createNeighbours();
+	public String getDifficulty() {
+		return difficulty;
 	}
 	
+	public void createMap(JsonObject gameConfig) {
+		setDifficulty(JsonHelper.difficultyFromJson(gameConfig));
+		createContinents(JsonHelper.getContinentsFromJson(gameConfig));
+		createTerritories(JsonHelper.getMembershipFromJson(gameConfig));
+		createNeighbours(JsonHelper.getNeighbourhoodFromJson(gameConfig));
+	}
 	
-	private void createContinents() {
-		List<String> continentsName = MapDataMapper.getContinentsNames(difficulty);
-		for(String continentName : continentsName) {
+	private void createContinents(List<String> continentsNames) {
+		for(String continentName : continentsNames) {
 			Continent c = new Continent(continentName);
 			addContinent(c);
 		}	
 	}
 	
-	private void createTerritories() {
-		List<String[]> territoriesAndContinentsNames = MapDataMapper.getTerritoriesAndContinentsNames(difficulty);
-		for(String[] territoryAndContinentName : territoriesAndContinentsNames) {
-			String territoryName = territoryAndContinentName[0];
-			Territory territory = new Territory(territoryName);
-			Continent continent = findContinentByName(territoryAndContinentName[1]);
-			continent.addTerritory(territory);
-		}	
+	private void createTerritories(java.util.Map<String, List<String>> relation) {
+		for(java.util.Map.Entry<String, List<String>> entry : relation.entrySet()) {
+			Continent c = findContinentByName(entry.getKey());
+			for(String territoryName : relation.get(c.getName())) {
+				Territory t = new Territory(territoryName);
+				c.addTerritory(t);
+			}
+		}
 	}
 	
-	private void createNeighbours() {
-		List<String[]> territoriesAndNeighboursName = MapDataMapper.getTerritoriesAndNeighboursNames(difficulty);
-		for(String[] territoryAndNeighbourName : territoriesAndNeighboursName) {
-			String territoryName = territoryAndNeighbourName[0];
-			String neighbourName = territoryAndNeighbourName[1];
-			Territory t = findTerritoryByName(territoryName);
-			t.addNeighbour(findTerritoryByName(neighbourName));
+	private void createNeighbours(java.util.Map<String, List<String>> relation) {
+		for(java.util.Map.Entry<String, List<String>> entry : relation.entrySet()) {
+			Territory t = findTerritoryByName(entry.getKey());
+			for(String neighbourName : relation.get(t.getName())) {
+				Territory neighbour = findTerritoryByName(neighbourName);
+				t.addNeighbour(neighbour);
+				neighbour.addNeighbour(t);
+			}
 		}
 	}
 	
@@ -64,7 +66,6 @@ public class Map {
 		if(!continents.contains(continent))
 			continents.add(continent);
 	}
-	
 	
 	public Continent findContinentByName(String continentName) {
 		for(Continent c : continents)
@@ -96,7 +97,7 @@ public class Map {
 		return continents;
 	}
 	
-	public JsonObject toJson() {
+	public JsonObject toJson1() {
 		JsonObject jsonMap = new JsonObject();
 		jsonMap.addProperty("difficulty", difficulty);
 		JsonArray arrayContinents = new JsonArray();
@@ -104,6 +105,10 @@ public class Map {
 			arrayContinents.add(c.toJson());
 		jsonMap.add("continents", arrayContinents);
 		return jsonMap;
+	}
+	
+	public JsonObject toJson() {
+		return JsonHelper.mapToJson(difficulty, continents, getTerritories());
 	}
 	
 }

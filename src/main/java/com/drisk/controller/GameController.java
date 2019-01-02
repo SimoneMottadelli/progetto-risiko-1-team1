@@ -3,10 +3,15 @@ package com.drisk.controller;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import com.drisk.domain.Color;
 import com.drisk.domain.Map;
 import com.google.gson.JsonObject;
 
@@ -14,7 +19,7 @@ import com.google.gson.JsonObject;
 public class GameController {
 	
 	private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
-	private static final String SESSION_ATTRIBUTE = "color";
+	private static final String SESSION_ATTRIBUTE_COLOR = "color";
 	
 	@GetMapping("/map")
     public SseEmitter handleSse() {
@@ -29,6 +34,14 @@ public class GameController {
 			}
 		});
 		return emitter;
-    } 
+    }
+	
+	@GetMapping("/test")
+	@ResponseBody
+	public String test(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		Color c = (Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR);
+		return c.toString();
+	}
 	
 }

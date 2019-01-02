@@ -3,6 +3,8 @@ package com.drisk.domain;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gson.JsonObject;
+
 public class MatchManager {
 
 	private static MatchManager instance;
@@ -10,6 +12,7 @@ public class MatchManager {
 	private boolean matchFull;
 	private List<Color> colorsAvailablesList;
 	private List<Player> players;
+	private JsonObject gameConfig;
 	
 	private MatchManager() {
 		matchStarted = false;
@@ -18,6 +21,10 @@ public class MatchManager {
 		players = new LinkedList<>();
 	}
 	
+	public void setGameConfig(JsonObject gameConfig) {
+		this.gameConfig = gameConfig;
+	}
+
 	public boolean isMatchStarted() {
 		return matchStarted;
 	}
@@ -69,7 +76,7 @@ public class MatchManager {
 	
 	public void startGame() {
 		matchStarted = true;
-		GameManager.getInstance().initGameTemplate();
+		GameManager.getInstance().initGame(gameConfig);
 	}
 	
 	private void addPlayer(Player player) {
