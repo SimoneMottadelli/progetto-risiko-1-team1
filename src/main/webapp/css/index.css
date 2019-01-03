@@ -85,6 +85,7 @@ table {
 .hidden {
 	display: none;
 }
+
 .show {
 	display: inline-block;
 }

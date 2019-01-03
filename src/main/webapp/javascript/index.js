@@ -99,13 +99,17 @@ $(document).ready(
 						$("#modalWindow").css("display", "block");
 						if (result.responseCode != -1) {
 							matchStarted = false;
-							source = new EventSource("./match/players");
+							source = new EventSource("./match/info");
 							source.onmessage = function(evt) {
 								var playersArray = JSON.parse(evt.data).playersArray;
-								if (isEveryoneReady(playersArray)) 
+								var isMapReady = JSON.parse(evt.data).mapReady;
+								if (isEveryoneReady(playersArray) && isMapReady) 
 									location.replace("http://localhost:8080/drisk/pages/game.html");
-								else
-									refreshPlayersTable(playersArray);
+								else if (isEveryoneReady(playersArray) && !isMapReady){
+									$("div.modal-body").html("<h2>Everyone is ready but the map hasn't been created yet</h2>");
+									$("#modalWindow").css("display", "block");
+								}
+								refreshPlayersTable(playersArray);
 							};	
 						}
 						if (!matchStarted) {
