@@ -30,5 +30,5 @@ public class Turn {
 
 	public void setCurrentPhase(Phase currentPhase) {
 		this.currentPhase = currentPhase;
-	}	
+	}
 }

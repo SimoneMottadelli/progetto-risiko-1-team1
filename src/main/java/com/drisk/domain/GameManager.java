@@ -36,8 +36,9 @@ public class GameManager {
 	}
 	
 	public void initCards() {
-		CardManager.getInstance().initTerritoryCards("easy");
-		CardManager.getInstance().initMissionCards("easy");
+		CardManager.getInstance().initTerritoryCards();
+		Difficulty dif = Difficulty.EASY;
+		CardManager.getInstance().initMissionCards(dif);
 		
 		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getTerritoryCards());
 		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getMissionCards());
@@ -73,16 +74,11 @@ public class GameManager {
 	}
 	
 	public boolean checkWin(Player currentPlayer) {
-		List<Territory> territories = Map.getInstance().getTerritories();
-		int totalNumberOfTerritories = territories.size();
-		
-		int currentPlayerNumberOfTerritories = currentPlayer.getNumberOfTerritoriesOwned();
-		double playerTerritoriesRate = (double) currentPlayerNumberOfTerritories / totalNumberOfTerritories;
-		return playerTerritoriesRate >= (double) 2 / 3;	
+		return currentPlayer.getMissionCard().checkWin();
 	}
 	
 	public boolean checkLoss() {
-		//da implementare TODO
+		
 		return false;
 	}
 

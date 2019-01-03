@@ -26,16 +26,16 @@ public class CardManager {
 		return instance;
 	}	
 	
-	public void initTerritoryCards1(String difficulty) {
-		List<String[]> territoryCardString = CardDataMapper.getTerritoryCard(difficulty);
-		for(String[] tc : territoryCardString) {
-			Territory territory = com.drisk.domain.Map.getInstance().findTerritoryByName(tc[0]);
-			TerritoryCardSymbol symbol = TerritoryCardSymbol.valueOf(tc[1].toUpperCase().trim());
-			TerritoryCard card = new TerritoryCard(territory, symbol);
-			if(!territoryCards.contains(card))
-				territoryCards.add(card);
-		}
-	}
+//	public void initTerritoryCards1(String difficulty) {
+//		List<String[]> territoryCardString = CardDataMapper.getTerritoryCard(difficulty);
+//		for(String[] tc : territoryCardString) {
+//			Territory territory = com.drisk.domain.Map.getInstance().findTerritoryByName(tc[0]);
+//			TerritoryCardSymbol symbol = TerritoryCardSymbol.valueOf(tc[1].toUpperCase().trim());
+//			TerritoryCard card = new TerritoryCard(territory, symbol);
+//			if(!territoryCards.contains(card))
+//				territoryCards.add(card);
+//		}
+//	}
 	
 	public void initTerritoryCards() {
 		TerritoryCardSymbol[] symbols = {TerritoryCardSymbol.ARTILLERY, TerritoryCardSymbol.CAVALRY, TerritoryCardSymbol.INFANTRY};
@@ -53,14 +53,23 @@ public class CardManager {
 			territoryCards.add(tc);
 	}
 	
-	//DA MODIFICARE
-	public void initMissionCards(String difficulty) {	
-		List<String> missionCardString = CardDataMapper.getMissionCard(difficulty);
-		int id = 0;
-		for(String text : missionCardString) {
-			MissionCard card = new MissionCard(id++, text);
-			if(!missionCards.contains(card))
-				missionCards.add(card);
+	public void initMissionCards(Difficulty dif) {
+		switch(dif) {
+		case EASY:
+			MissionCard missionEasy = new ConquestTerritoryMissionCard(14);
+			missionCards.add(missionEasy);
+			break;
+		case MEDIUM:
+			MissionCard missionMedium = new ConquestTerritoryMissionCard(19);
+			missionCards.add(missionMedium);
+			break;
+		case HARD:
+			MissionCard missionHard = new ConquestTerritoryMissionCard(24);
+			missionCards.add(missionHard);
+			break;
+		case CUSTOM:
+			MissionCard missionCustom = new ConquestTerritoryMissionCard(10);
+			missionCards.add(missionCustom);
 		}
 	}
 	
