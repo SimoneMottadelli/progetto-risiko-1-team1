@@ -5,7 +5,11 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+<<<<<<< HEAD
 import com.drisk.domain.exceptions.SyntaxException;
+=======
+import com.drisk.technicalservice.SyntaxException;
+>>>>>>> branch 'master' of git@github.com:UnimibSoftEngCourse1819/progetto-risiko-1-team1.git
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -19,7 +23,7 @@ public class AssignTanksPhaseTest {
 		Gson json = new Gson();
 		JsonObject obj = json.fromJson(s, JsonObject.class); 
 		try {
-			Map.getInstance().createMap(obj);
+			MatchManager.getInstance().createMap(obj);
 		} catch (SyntaxException e) {
 			e.printStackTrace();
 		}
