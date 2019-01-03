@@ -26,17 +26,6 @@ public class CardManager {
 		return instance;
 	}	
 	
-	public void initTerritoryCards1(String difficulty) {
-		List<String[]> territoryCardString = CardDataMapper.getTerritoryCard(difficulty);
-		for(String[] tc : territoryCardString) {
-			Territory territory = com.drisk.domain.Map.getInstance().findTerritoryByName(tc[0]);
-			TerritoryCardSymbol symbol = TerritoryCardSymbol.valueOf(tc[1].toUpperCase().trim());
-			TerritoryCard card = new TerritoryCard(territory, symbol);
-			if(!territoryCards.contains(card))
-				territoryCards.add(card);
-		}
-	}
-	
 	public void initTerritoryCards() {
 		TerritoryCardSymbol[] symbols = {TerritoryCardSymbol.ARTILLERY, TerritoryCardSymbol.CAVALRY, TerritoryCardSymbol.INFANTRY};
 		int i = 0;
