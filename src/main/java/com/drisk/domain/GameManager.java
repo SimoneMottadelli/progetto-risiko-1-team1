@@ -94,4 +94,16 @@ public class GameManager {
 		return players;
 	}
 	
+	public void newTurn(Player Oldplayer) {
+		int currentPlayerPositionInPlayers = players.indexOf(Oldplayer);
+		if(currentPlayerPositionInPlayers == players.size() - 1)
+			Turn.getInstance().setCurrentPlayer(players.get(0));
+		else
+			Turn.getInstance().setCurrentPlayer(players.get(currentPlayerPositionInPlayers + 1));
+	}
+	
+	public Color getColorOfCurrentPlayer() {
+		return Turn.getInstance().getCurrentPlayer().getColor();
+	}
+	
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.drisk.domain.Color;
+import com.drisk.domain.GameManager;
 import com.drisk.domain.Map;
 import com.drisk.domain.MatchManager;
 import com.drisk.domain.Turn;
@@ -24,12 +25,26 @@ public class GameController {
 	private static final String SESSION_ATTRIBUTE_COLOR = "color";
 	
 	@GetMapping("/map")
-    public SseEmitter handleSse() {
+    public SseEmitter handleSseMap() {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
 				JsonObject map = Map.getInstance().toJson();
 				emitter.send(map);
+				emitter.complete();	
+			} catch (Exception ex) {
+				emitter.completeWithError(ex);
+			}
+		});
+		return emitter;
+    }
+	
+	@GetMapping("/turn")
+    public SseEmitter handleSseTurn() {
+		SseEmitter emitter = new SseEmitter();
+		nonBlockingService.execute(() -> {
+			try {
+				emitter.send(GameManager.getInstance().getColorOfCurrentPlayer());
 				emitter.complete();	
 			} catch (Exception ex) {
 				emitter.completeWithError(ex);
