@@ -21,9 +21,7 @@ public class DestroyEnemyMissionCard implements MissionCard {
 
 	@Override
 	public boolean checkWin() {
-		if(enemy.getNumberOfTerritoriesOwned() == 0)
-			return true;
-		return false;
+		return enemy.getNumberOfTerritoriesOwned() == 0;
 	}
 
 }

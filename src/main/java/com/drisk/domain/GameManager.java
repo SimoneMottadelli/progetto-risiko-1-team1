@@ -82,12 +82,7 @@ public class GameManager {
 	}
 	
 	public boolean checkWin(Player currentPlayer) {
-		List<Territory> territories = Map.getInstance().getTerritories();
-		int totalNumberOfTerritories = territories.size();
-		
-		int currentPlayerNumberOfTerritories = currentPlayer.getNumberOfTerritoriesOwned();
-		double playerTerritoriesRate = (double) currentPlayerNumberOfTerritories / totalNumberOfTerritories;
-		return playerTerritoriesRate >= (double) 2 / 3;	
+		return currentPlayer.getMissionCard().checkWin();
 	}
 	
 	public boolean checkLoss() {

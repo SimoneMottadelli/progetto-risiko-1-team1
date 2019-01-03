@@ -162,7 +162,7 @@ public class MapTest {
 	
 	@After
 	public void destroyMapTest() {
-		Map.getInstance().destroy();
+		Map.destroy();
 	}
 	
 }

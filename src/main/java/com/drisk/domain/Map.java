@@ -14,6 +14,8 @@ public class Map {
 	private List<Continent> continents;
 	private boolean ready;
 	
+	private static final String SYNTAXERROR = "SyntaxError: ";
+	
 	private Map() {
 		continents = new LinkedList<>();
 		ready = false;
@@ -48,7 +50,7 @@ public class Map {
 		for(java.util.Map.Entry<String, List<String>> entry : relation.entrySet()) {
 			Continent c = findContinentByName(entry.getKey());
 			if (c == null)
-				throw new SyntaxException("Syntax error: " + entry.getKey() + " is not a valid continent");
+				throw new SyntaxException(SYNTAXERROR + entry.getKey() + " is not a valid continent");
 			for(String territoryName : relation.get(c.getName())) {
 				Territory t = new Territory(territoryName);
 				c.addTerritory(t);
@@ -60,12 +62,12 @@ public class Map {
 		for(java.util.Map.Entry<String, List<String>> entry : relation.entrySet()) {
 			Territory t = findTerritoryByName(entry.getKey());
 			if (t == null)
-				throw new SyntaxException("Syntax error: " + entry.getKey() + " is not a valid territory");
+				throw new SyntaxException(SYNTAXERROR + entry.getKey() + " is not a valid territory");
 			
 			for(String neighbourName : relation.get(t.getName())) {
 				Territory neighbour = findTerritoryByName(neighbourName);
 				if (neighbour == null)
-					throw new SyntaxException("Syntax error: " + neighbourName + 
+					throw new SyntaxException(SYNTAXERROR + neighbourName + 
 							" is not a valid neighbour territory for " + t.getName());
 				t.addNeighbour(neighbour);
 				neighbour.addNeighbour(t);
@@ -127,7 +129,7 @@ public class Map {
 		}
 	}
 	
-	public void destroy() {
+	public static void destroy() {
 		instance = null;
 	}
 	
