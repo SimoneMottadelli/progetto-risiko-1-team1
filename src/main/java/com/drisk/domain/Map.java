@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.drisk.domain.exceptions.SyntaxException;
 import com.drisk.technicalservice.JsonHelper;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class Map {
@@ -109,22 +108,27 @@ public class Map {
 		return continents;
 	}
 	
-	public JsonObject toJson1() {
-		JsonObject jsonMap = new JsonObject();
-		jsonMap.addProperty("difficulty", difficulty);
-		JsonArray arrayContinents = new JsonArray();
-		for(Continent c : continents)
-			arrayContinents.add(c.toJson());
-		jsonMap.add("continents", arrayContinents);
-		return jsonMap;
-	}
-	
 	public JsonObject toJson() {
 		return JsonHelper.mapToJson(difficulty, continents, getTerritories());
 	}
 
 	public boolean isReady() {
 		return ready;
+	}
+
+	public void testCreateMap(JsonObject gameConfig) throws SyntaxException {
+		try {
+			createMap(gameConfig);	
+			destroy();
+		}
+		catch(SyntaxException e) {
+			destroy();
+			throw new SyntaxException(e.getMessage());
+		}
+	}
+	
+	public void destroy() {
+		instance = null;
 	}
 	
 }
