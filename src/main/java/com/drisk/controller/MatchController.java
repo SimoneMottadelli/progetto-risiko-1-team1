@@ -30,7 +30,7 @@ public class MatchController {
 	
 	@PostMapping(value="/join")
 	@ResponseBody
-	public JsonObject join(HttpServletRequest request) {
+	public synchronized JsonObject join(HttpServletRequest request) {
 		MatchManager mm = MatchManager.getInstance();
 		if(mm.isMatchStarted())
 			return createResponseJson(-1, "The match has already started!");
@@ -104,7 +104,7 @@ public class MatchController {
 	
 	@GetMapping(value="/exit")
 	@ResponseBody
-	public String exit(HttpServletRequest request) {
+	public synchronized String exit(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		MatchManager.getInstance().exitGame((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
 		session.invalidate();
@@ -118,7 +118,7 @@ public class MatchController {
 	
 	@GetMapping(value="/ready")
 	@ResponseBody
-	public JsonObject ready(HttpServletRequest request) {
+	public synchronized JsonObject ready(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), true);
 		tryToStartGame();
@@ -127,7 +127,7 @@ public class MatchController {
 	
 	@GetMapping(value="/notready")
 	@ResponseBody
-	public JsonObject notReady(HttpServletRequest request) {
+	public synchronized JsonObject notReady(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), false);
 		return createResponseJson(0, "The game will start when everyone is ready!");
