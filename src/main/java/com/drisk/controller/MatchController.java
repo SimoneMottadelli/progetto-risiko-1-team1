@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import com.drisk.domain.Color;
 import com.drisk.domain.MatchManager;
 import com.drisk.domain.Player;
-import com.drisk.technicalservice.SyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

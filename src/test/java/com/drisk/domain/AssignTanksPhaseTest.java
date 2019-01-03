@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.drisk.technicalservice.SyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -17,7 +18,11 @@ public class AssignTanksPhaseTest {
 				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}]}";
 		Gson json = new Gson();
 		JsonObject obj = json.fromJson(s, JsonObject.class); 
-		Map.getInstance().createMap(obj);
+		try {
+			Map.getInstance().createMap(obj);
+		} catch (SyntaxException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
