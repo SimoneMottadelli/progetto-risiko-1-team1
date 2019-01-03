@@ -16,9 +16,9 @@ public class TankManagerTest {
 
 	@Before
 	public void initialize() {
-		String s = "{'difficulty' : 'easy', 'continents' : ['africa', 'europe'], 'territories' : ['italy', 'france', 'egypt', 'north africa'],"
-				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north africa']}],"
-				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}]}";
+		String s = "{'difficulty' : 'easy', 'continents' : ['africa', 'europe', 'asia'], 'territories' : ['italy', 'france', 'egypt', 'north africa', 'kamchatka', 'china', 'japan', 'india', 'middle east'],"
+				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north africa']}, {'name' : 'asia', 'territories' : ['china', 'kamchatka', 'japan', 'india', 'middle east']}],"
+				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}, {'name' : 'china', 'territories' : ['india', 'japan']}, {'name' : 'middle east', 'territories' : ['india']}]}";
 		Gson json = new Gson();
 		JsonObject obj = json.fromJson(s, JsonObject.class); 
 		try {
@@ -38,7 +38,7 @@ public class TankManagerTest {
 		players.add(new Player(null, "Simo"));
 		
 		TankManager.getInstance().initTanks(players);
-		assertEquals(17, players.get(0).getAvailableTanks());
+		assertEquals(6, players.get(0).getAvailableTanks());
 		
 		for (Player p: players) {
 			p.removeAvailableTanks();
@@ -46,7 +46,7 @@ public class TankManagerTest {
 		
 		players.add(new Player(null, "Ale"));
 		TankManager.getInstance().initTanks(players);
-		assertEquals(14, players.get(0).getAvailableTanks());
+		assertEquals(5, players.get(0).getAvailableTanks());
 		
 		for (Player p: players) {
 			p.removeAvailableTanks();
@@ -54,7 +54,7 @@ public class TankManagerTest {
 		
 		players.add(new Player(null, "Burt"));
 		TankManager.getInstance().initTanks(players);
-		assertEquals(11, players.get(0).getAvailableTanks());
+		assertEquals(4, players.get(0).getAvailableTanks());
 		
 		for (Player p: players) {
 			p.removeAvailableTanks();
