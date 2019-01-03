@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.drisk.technicalservice.SyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -22,7 +23,11 @@ public class CardManagerTest {
 				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}]}";
 		Gson json = new Gson();
 		JsonObject obj = json.fromJson(s, JsonObject.class); 
-		Map.getInstance().createMap(obj);
+		try {
+			MatchManager.getInstance().createMap(obj);
+		} catch (SyntaxException e) {
+			e.printStackTrace();
+		}
 		CardManager.getInstance().initTerritoryCards("easy");
 		CardManager.getInstance().initMissionCards("easy");
 	}
