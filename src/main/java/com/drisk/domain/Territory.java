@@ -56,7 +56,16 @@ public class Territory {
 		return numberOfTanks;
 	}
 
-
+	public Player findPlayer() {
+		List<Player> players = MatchManager.getInstance().getPlayers();
+		for (Player p: players) {
+			if (p.getTerritoriesOwned().contains(this)) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
 	public void addNumberOfTanks(int numberOfTanks) {
 		this.numberOfTanks += numberOfTanks;
 	}

@@ -1,21 +1,6 @@
 package com.drisk.domain;
 
-public class MissionCard implements Card {
+public interface MissionCard extends Card {
 	
-	private int id;
-	private String text;
-
-	
-	public MissionCard(int id, String text) {
-		this.id = id;
-		this.text = text;
-	}
-	
-	public int getMission() {
-		return id;
-	}
-	
-	public String getMissionText() {
-		return text;
-	}
+	public boolean checkWin();
 }

@@ -42,14 +42,23 @@ public class CardManager {
 			territoryCards.add(tc);
 	}
 	
-	//DA MODIFICARE
-	public void initMissionCards(String difficulty) {	
-		List<String> missionCardString = CardDataMapper.getMissionCard(difficulty);
-		int id = 0;
-		for(String text : missionCardString) {
-			MissionCard card = new MissionCard(id++, text);
-			if(!missionCards.contains(card))
-				missionCards.add(card);
+	public void initMissionCards(Difficulty dif) {
+		switch(dif) {
+		case EASY:
+			MissionCard missionEasy = new ConquestTerritoryMissionCard(14);
+			missionCards.add(missionEasy);
+			break;
+		case MEDIUM:
+			MissionCard missionMedium = new ConquestTerritoryMissionCard(19);
+			missionCards.add(missionMedium);
+			break;
+		case HARD:
+			MissionCard missionHard = new ConquestTerritoryMissionCard(24);
+			missionCards.add(missionHard);
+			break;
+		case CUSTOM:
+			MissionCard missionCustom = new ConquestTerritoryMissionCard(10);
+			missionCards.add(missionCustom);
 		}
 	}
 	

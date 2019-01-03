@@ -25,27 +25,23 @@ public class GameManager {
 	//"template" perchè posso inizializzare il gioco sia attraverso il database
 	//con una mappa predefinita, sia inizializzando una mappa nuova passata come
 	//json dal client. Quindi in realtà ci saranno due implementaizoni diverse.
-	public void initGame(JsonObject gameConfig, List<Player> players) throws SyntaxException {
-		initPlayers(players);
-		initMap(gameConfig);
+	public void initGame() {
+		initPlayers();
 		initCards();
 		initPlayersMission();
 		initPlayersTerritories();
 		initTanks();
 		initPlaceTanks();
 	}
-	
-	private void initMap(JsonObject gameConfig) throws SyntaxException {
-		Map.getInstance().createMap(gameConfig);
-	}
 
-	private void initPlayers(List<Player> players) {
-		this.players = players;
+	private void initPlayers() {
+		players = MatchManager.getInstance().getPlayers();
 	}
 	
 	public void initCards() {
 		CardManager.getInstance().initTerritoryCards();
-		CardManager.getInstance().initMissionCards("easy");
+		Difficulty dif = Difficulty.EASY;
+		CardManager.getInstance().initMissionCards(dif);
 		
 		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getTerritoryCards());
 		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getMissionCards());
@@ -58,9 +54,8 @@ public class GameManager {
 			MissionCard mission = (MissionCard) CardManager.getInstance().getMissionCards().get(0);
 			for(Player p : players) 
 				p.setMission(mission);
-		} else {
-			
 		}
+		
 	}
 	
 	public void initPlayersTerritories() {
@@ -81,16 +76,11 @@ public class GameManager {
 	}
 	
 	public boolean checkWin(Player currentPlayer) {
-		List<Territory> territories = Map.getInstance().getTerritories();
-		int totalNumberOfTerritories = territories.size();
-		
-		int currentPlayerNumberOfTerritories = currentPlayer.getNumberOfTerritoriesOwned();
-		double playerTerritoriesRate = (double) currentPlayerNumberOfTerritories / totalNumberOfTerritories;
-		return playerTerritoriesRate >= (double) 2 / 3;	
+		return currentPlayer.getMissionCard().checkWin();
 	}
 	
 	public boolean checkLoss() {
-		//da implementare TODO
+		
 		return false;
 	}
 
