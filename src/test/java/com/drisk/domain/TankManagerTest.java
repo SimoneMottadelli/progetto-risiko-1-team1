@@ -8,11 +8,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-<<<<<<< HEAD
 import com.drisk.domain.exceptions.SyntaxException;
-=======
-import com.drisk.technicalservice.SyntaxException;
->>>>>>> branch 'master' of git@github.com:UnimibSoftEngCourse1819/progetto-risiko-1-team1.git
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
