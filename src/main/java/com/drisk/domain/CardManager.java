@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.drisk.technicalservice.CardDataMapper;
-
 public class CardManager {
 
 	private List<Card> missionCards;
@@ -28,7 +26,7 @@ public class CardManager {
 		return instance;
 	}	
 	
-	public void initTerritoryCards(String difficulty) {
+	public void initTerritoryCards1(String difficulty) {
 		List<String[]> territoryCardString = CardDataMapper.getTerritoryCard(difficulty);
 		for(String[] tc : territoryCardString) {
 			Territory territory = com.drisk.domain.Map.getInstance().findTerritoryByName(tc[0]);
@@ -37,6 +35,22 @@ public class CardManager {
 			if(!territoryCards.contains(card))
 				territoryCards.add(card);
 		}
+	}
+	
+	public void initTerritoryCards() {
+		TerritoryCardSymbol[] symbols = {TerritoryCardSymbol.ARTILLERY, TerritoryCardSymbol.CAVALRY, TerritoryCardSymbol.INFANTRY};
+		int i = 0;
+		for(Territory t : com.drisk.domain.Map.getInstance().getTerritories()) {
+			TerritoryCard tc = new TerritoryCard(t, symbols[i++]);
+			addTerritoryCard(tc);
+			if(i >= 3)
+				i = 0;
+		}
+	}
+	
+	private void addTerritoryCard(TerritoryCard tc) {
+		if(!territoryCards.contains(tc))
+			territoryCards.add(tc);
 	}
 	
 	//DA MODIFICARE

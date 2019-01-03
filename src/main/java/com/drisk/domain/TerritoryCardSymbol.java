@@ -1,5 +1,5 @@
 package com.drisk.domain;
 
 public enum TerritoryCardSymbol {
-	INFANTRY, CAVALRY, ARTILLERY, JOLLY;
+	INFANTRY, CAVALRY, ARTILLERY, JOLLY
 }
