@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

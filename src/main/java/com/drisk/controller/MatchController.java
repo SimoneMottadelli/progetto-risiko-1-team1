@@ -63,8 +63,8 @@ public class MatchController {
 			String body = request.getReader().lines().collect(Collectors.joining());
 			Gson converter = new Gson();
 			JsonObject obj = converter.fromJson(body, JsonObject.class);
-			MatchManager.getInstance().createMap(obj);
-			return createResponseJson(0, "gameConfig correctly configured");
+			MatchManager.getInstance().setGameConfig(obj);
+			return createResponseJson(0, "gameConfig correctly parsed");
 		} 
 		catch (JsonSyntaxException e)
 		{
@@ -81,7 +81,7 @@ public class MatchController {
 		nonBlockingService.execute(() -> {
 			try {
 				JsonObject jsonResponse = createResponsePlayersJson();
-				jsonResponse.addProperty("mapReady", MatchManager.getInstance().isMapCreated());
+				jsonResponse.addProperty("mapReady", MatchManager.getInstance().isGameConfigured());
 				emitter.send(jsonResponse);
 				emitter.complete();	
 			} catch (Exception ex) {
@@ -108,10 +108,12 @@ public class MatchController {
 		HttpSession session = request.getSession(false);
 		MatchManager.getInstance().exitGame((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
 		session.invalidate();
-		if (MatchManager.getInstance().isEveryoneReady()) {
-			MatchManager.getInstance().startGame();
-		}
 		return "You've exited from the game!";
+	}
+	
+	private void tryToStartGame(){
+		if (MatchManager.getInstance().isEveryoneReady() && MatchManager.getInstance().isGameConfigured())
+			MatchManager.getInstance().startGame();
 	}
 	
 	@GetMapping(value="/ready")
@@ -119,9 +121,7 @@ public class MatchController {
 	public JsonObject ready(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), true);
-		if (MatchManager.getInstance().isEveryoneReady()) {
-			MatchManager.getInstance().startGame();
-		}
+		tryToStartGame();
 		return createResponseJson(0, "The game will start when everyone is ready!");
 	}
 	

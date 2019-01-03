@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.drisk.domain.exceptions.SyntaxException;
+import com.google.gson.JsonObject;
+
 public class GameManager {
 	
 	private List<Player> players;
@@ -22,21 +25,26 @@ public class GameManager {
 	//"template" perchè posso inizializzare il gioco sia attraverso il database
 	//con una mappa predefinita, sia inizializzando una mappa nuova passata come
 	//json dal client. Quindi in realtà ci saranno due implementaizoni diverse.
-	public void initGame() {
-		initPlayers();
+	public void initGame(JsonObject gameConfig, List<Player> players) throws SyntaxException {
+		initPlayers(players);
+		initMap(gameConfig);
 		initCards();
 		initPlayersMission();
 		initPlayersTerritories();
 		initTanks();
 		initPlaceTanks();
 	}
+	
+	private void initMap(JsonObject gameConfig) throws SyntaxException {
+		Map.getInstance().createMap(gameConfig);
+	}
 
-	private void initPlayers() {
-		players = MatchManager.getInstance().getPlayers();
+	private void initPlayers(List<Player> players) {
+		this.players = players;
 	}
 	
 	public void initCards() {
-		CardManager.getInstance().initTerritoryCards("easy");
+		CardManager.getInstance().initTerritoryCards();
 		CardManager.getInstance().initMissionCards("easy");
 		
 		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getTerritoryCards());

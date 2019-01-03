@@ -13,12 +13,18 @@ public class MatchManager {
 	private boolean matchFull;
 	private List<Color> colorsAvailablesList;
 	private List<Player> players;
-	
+	private JsonObject gameConfig;
+
 	private MatchManager() {
 		matchStarted = false;
 		matchFull = false;
 		colorsAvailablesList = createColorAvailableList();
 		players = new LinkedList<>();
+	}
+	
+	public void setGameConfig(JsonObject gameConfig) throws SyntaxException {
+		Map.getInstance().testCreateMap(gameConfig);
+		this.gameConfig = gameConfig;
 	}
 
 	public boolean isMatchStarted() {
@@ -70,9 +76,13 @@ public class MatchManager {
 		return everyoneReady;
 	}
 	
-	public void startGame() {
+	public void startGame(){
 		matchStarted = true;
-		GameManager.getInstance().initGame();
+		try {
+			GameManager.getInstance().initGame(gameConfig, players);
+		} catch (SyntaxException e) {
+			// we are sure that no exception will be thrown because we have already checked the correctness of the map
+		}
 	}
 	
 	private void addPlayer(Player player) {
@@ -107,12 +117,8 @@ public class MatchManager {
 		return instance;
 	}
 
-	public boolean isMapCreated() {
-		return Map.getInstance().isReady();
-	}
-
-	public void createMap(JsonObject obj) throws SyntaxException {
-		Map.getInstance().createMap(obj);
+	public boolean isGameConfigured() {
+		return gameConfig != null;
 	}
 	
 }
