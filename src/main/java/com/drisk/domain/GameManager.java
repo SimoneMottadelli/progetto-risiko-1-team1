@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.drisk.domain.exceptions.SyntaxException;
+import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
 public class GameManager {
@@ -25,23 +26,27 @@ public class GameManager {
 	//"template" perchè posso inizializzare il gioco sia attraverso il database
 	//con una mappa predefinita, sia inizializzando una mappa nuova passata come
 	//json dal client. Quindi in realtà ci saranno due implementaizoni diverse.
-	public void initGame() {
-		initPlayers();
-		initCards();
+	public void initGame(JsonObject gameConfig, List<Player> players) throws SyntaxException {
+		initPlayers(players);
+		initMap(gameConfig);
+		initCards(gameConfig);
 		initPlayersMission();
 		initPlayersTerritories();
 		initTanks();
 		initPlaceTanks();
 	}
+	
+	private void initMap(JsonObject gameConfig) throws SyntaxException {
+		Map.getInstance().createMap(gameConfig);
+	}
 
-	private void initPlayers() {
-		players = MatchManager.getInstance().getPlayers();
+	private void initPlayers(List<Player> players) {
+		this.players = players;
 	}
 	
-	public void initCards() {
+	public void initCards(JsonObject gameConfig) {
 		CardManager.getInstance().initTerritoryCards();
-		Difficulty dif = Difficulty.EASY;
-		CardManager.getInstance().initMissionCards(dif);
+		CardManager.getInstance().initMissionCards(Difficulty.valueOf(JsonHelper.difficultyFromJson(gameConfig)));
 		
 		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getTerritoryCards());
 		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getMissionCards());
@@ -54,8 +59,9 @@ public class GameManager {
 			MissionCard mission = (MissionCard) CardManager.getInstance().getMissionCards().get(0);
 			for(Player p : players) 
 				p.setMission(mission);
+		} else {
+			
 		}
-		
 	}
 	
 	public void initPlayersTerritories() {
@@ -76,11 +82,16 @@ public class GameManager {
 	}
 	
 	public boolean checkWin(Player currentPlayer) {
-		return currentPlayer.getMissionCard().checkWin();
+		List<Territory> territories = Map.getInstance().getTerritories();
+		int totalNumberOfTerritories = territories.size();
+		
+		int currentPlayerNumberOfTerritories = currentPlayer.getNumberOfTerritoriesOwned();
+		double playerTerritoriesRate = (double) currentPlayerNumberOfTerritories / totalNumberOfTerritories;
+		return playerTerritoriesRate >= (double) 2 / 3;	
 	}
 	
 	public boolean checkLoss() {
-		
+		//da implementare TODO
 		return false;
 	}
 
