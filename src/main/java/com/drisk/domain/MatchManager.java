@@ -3,7 +3,7 @@ package com.drisk.domain;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.drisk.technicalservice.SyntaxException;
+import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.JsonObject;
 
 public class MatchManager {

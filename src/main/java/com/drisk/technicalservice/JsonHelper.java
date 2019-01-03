@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.drisk.domain.Continent;
 import com.drisk.domain.Territory;
+import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
