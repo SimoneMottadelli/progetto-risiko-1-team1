@@ -10,6 +10,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.drisk.domain.exceptions.SyntaxException;
+import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -23,12 +25,20 @@ public class CardManagerTest {
 		Gson json = new Gson();
 		JsonObject obj = json.fromJson(s, JsonObject.class); 
 		try {
-			MatchManager.getInstance().createMap(obj);
+			MatchManager.getInstance().setGameConfig(obj);
 		} catch (SyntaxException e) {
 			e.printStackTrace();
 		}
-		CardManager.getInstance().initTerritoryCards("easy");
-		CardManager.getInstance().initMissionCards("easy");
+		for(int i = 1; i <= 6; i++)
+			MatchManager.getInstance().joinGame("Player" + i);
+		MatchManager.getInstance().startGame();
+		CardManager.getInstance().initTerritoryCards();
+		CardManager.getInstance().initMissionCards(Difficulty.valueOf(JsonHelper.difficultyFromJson(obj).toUpperCase()));
+	}
+	
+	@Test
+	public void initTerritoryCardsTest() {
+		assertEquals(4, CardManager.getInstance().getTerritoryCards().size());
 	}
 	
 	@Test

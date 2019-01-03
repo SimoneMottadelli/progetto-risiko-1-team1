@@ -22,10 +22,13 @@ public class TankManagerTest {
 		Gson json = new Gson();
 		JsonObject obj = json.fromJson(s, JsonObject.class); 
 		try {
-			MatchManager.getInstance().createMap(obj);
+			MatchManager.getInstance().setGameConfig(obj);
 		} catch (SyntaxException e) {
 			e.printStackTrace();
 		}
+		for(int i = 1; i <= 6; i++)
+			MatchManager.getInstance().joinGame("Player" + i);
+		MatchManager.getInstance().startGame();
 	}
 	
 	@Test

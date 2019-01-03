@@ -4,9 +4,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.drisk.domain.exceptions.SyntaxException;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 public class GameManagerTest {	
 	
@@ -14,6 +21,14 @@ public class GameManagerTest {
 	public void init() {
 		for(int i = 1; i <= 6; i++)
 			MatchManager.getInstance().joinGame("Player" + i);
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("default_map_easy.json"));
+			Gson json = new Gson();
+			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class); 
+			MatchManager.getInstance().setGameConfig(obj);
+		} catch (FileNotFoundException | SyntaxException e) {
+			e.printStackTrace();
+		}
 		MatchManager.getInstance().startGame();
 	}
 	
@@ -26,10 +41,12 @@ public class GameManagerTest {
 		assertTrue(Map.getInstance().getTerritories().size() == 25);
 	}
 	
+	/*
 	@Test
 	public void initCardsTest() {
 		GameManager.getInstance().initCards();
 	}
+	*/
 	
 	
 	@Test

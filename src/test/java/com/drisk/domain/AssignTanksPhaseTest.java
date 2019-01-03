@@ -20,10 +20,13 @@ public class AssignTanksPhaseTest {
 		JsonObject obj = json.fromJson(s, JsonObject.class); 
 		try {
 			//waiting for implement of createMap
-			MatchManager.getInstance().createMap(obj);
+			MatchManager.getInstance().setGameConfig(obj);
 		} catch (SyntaxException e) {
 			e.printStackTrace();
 		}
+		for(int i = 1; i <= 6; i++)
+			MatchManager.getInstance().joinGame("Player" + i);
+		MatchManager.getInstance().startGame();
 	}
 	
 	@Test

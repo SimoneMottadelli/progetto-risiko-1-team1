@@ -46,7 +46,7 @@ public class GameManager {
 	
 	public void initCards(JsonObject gameConfig) {
 		CardManager.getInstance().initTerritoryCards();
-		CardManager.getInstance().initMissionCards(Difficulty.valueOf(JsonHelper.difficultyFromJson(gameConfig)));
+		CardManager.getInstance().initMissionCards(Difficulty.valueOf(JsonHelper.difficultyFromJson(gameConfig).toUpperCase()));
 		
 		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getTerritoryCards());
 		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getMissionCards());
