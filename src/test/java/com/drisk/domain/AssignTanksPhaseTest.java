@@ -19,6 +19,7 @@ public class AssignTanksPhaseTest {
 		Gson json = new Gson();
 		JsonObject obj = json.fromJson(s, JsonObject.class); 
 		try {
+			//waiting for implement of createMap
 			MatchManager.getInstance().createMap(obj);
 		} catch (SyntaxException e) {
 			e.printStackTrace();

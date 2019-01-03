@@ -1,4 +1,5 @@
 var source = null; // used to open Server Sent Event connection
+var warningAlreadyDisplayed = false;
 
 $(document).ready(
 		function() {
@@ -86,6 +87,7 @@ $(document).ready(
 												$("#readyButton").attr("class", "shown");
 										   }
 				);
+				warningAlreadyDisplayed = false;
 			}
 
 			function joinGame() {
@@ -105,9 +107,10 @@ $(document).ready(
 								var isMapReady = JSON.parse(evt.data).mapReady;
 								if (isEveryoneReady(playersArray) && isMapReady) 
 									location.replace("http://localhost:8080/drisk/pages/game.html");
-								else if (isEveryoneReady(playersArray) && !isMapReady){
+								else if (!warningAlreadyDisplayed && isEveryoneReady(playersArray) && !isMapReady){
 									$("div.modal-body").html("<h2>Everyone is ready but the map hasn't been created yet</h2>");
 									$("#modalWindow").css("display", "block");
+									warningAlreadyDisplayed = true;
 								}
 								refreshPlayersTable(playersArray);
 							};	
