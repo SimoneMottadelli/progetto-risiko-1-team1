@@ -131,8 +131,4 @@ public class Map {
 		instance = null;
 	}
 	
-	public void destroy() {
-		instance = null;
-	}
-	
 }
