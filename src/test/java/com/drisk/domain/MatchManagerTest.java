@@ -21,8 +21,8 @@ public class MatchManagerTest {
 		for(int i = 0; i < 3; i++) {
 			assertTrue(MatchManager.getInstance().isMatchFull());
 		}
-	}
-	
+	}	
+
 	@Test 
 	public void colorPlayersTest() {
 		Color[] colors = Color.values();

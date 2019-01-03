@@ -56,7 +56,11 @@ public class JsonHelper {
 			throw new SyntaxException("Syntax error: " + relation + " is not valid keyword for a map");
 		for(int i = 0; i < array.size(); ++i) {
 			JsonObject obj = array.get(i).getAsJsonObject();
-			String continentName = obj.get(NAME).toString().replace("\"", "");
+			JsonElement continentElement = obj.get(NAME); 
+			if (continentElement == null)
+				throw new SyntaxException("Syntax error: in membership or neighbourhood object there is an unknown keyword." + 
+											" It should contain the following keywords: \"name\" and \"territories\"");
+			String continentName = continentElement.toString().replace("\"", "");
 			List<String> territoriesNames = getTerritoriesFromJson(obj);
 			map.put(continentName, territoriesNames);
 		}

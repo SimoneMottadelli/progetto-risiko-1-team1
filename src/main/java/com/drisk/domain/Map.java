@@ -127,4 +127,8 @@ public class Map {
 		return ready;
 	}
 	
+	public void destroy() {
+		instance = null;
+	}
+	
 }
