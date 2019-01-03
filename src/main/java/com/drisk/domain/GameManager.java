@@ -3,7 +3,6 @@ package com.drisk.domain;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import com.google.gson.JsonObject;
 
 public class GameManager {
@@ -24,9 +23,8 @@ public class GameManager {
 	//"template" perchè posso inizializzare il gioco sia attraverso il database
 	//con una mappa predefinita, sia inizializzando una mappa nuova passata come
 	//json dal client. Quindi in realtà ci saranno due implementaizoni diverse.
-	public void initGame(JsonObject gameConfig) {
+	public void initGame() {
 		initPlayers();
-		initMap(gameConfig);
 		initCards();
 		initPlayersMission();
 		initPlayersTerritories();
@@ -36,10 +34,6 @@ public class GameManager {
 
 	private void initPlayers() {
 		players = MatchManager.getInstance().getPlayers();
-	}
-	
-	public void initMap(JsonObject gameConfig) {
-		Map.getInstance().createMap(gameConfig);
 	}
 	
 	public void initCards() {

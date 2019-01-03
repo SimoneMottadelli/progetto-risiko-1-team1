@@ -1,0 +1,303 @@
+{
+	"difficulty": "easy",
+	"territories": [
+		"iceland",
+		"scandinavia",
+		"great britain",
+		"ukraine",
+		"north europe",
+		"south europe",
+		"west europe",
+		"north africa",
+		"egypt",
+		"east africa",
+		"congo",
+		"south africa",
+		"madagascar",
+		"middle east",
+		"india",
+		"afghanistan",
+		"china",
+		"ural",
+		"siberia",
+		"siam",
+		"mongolia",
+		"japan",
+		"kamchatka",
+		"yakursk",
+		"irkutsk"
+	],
+	"continents": [
+		"europe",
+		"asia",
+		"africa"
+	],
+	"membership": [
+		{
+			"name": "europe",
+			"territories": [
+				"iceland",
+				"scandinavia",
+				"great britain",
+				"ukraine",
+				"north europe",
+				"south europe",
+				"west europe"
+			]
+		},
+		{
+			"name": "africa",
+			"territories": [
+				"north africa",
+				"egypt",
+				"east africa",
+				"congo",
+				"south africa",
+				"madagascar"
+			]
+		},
+		{
+			"name": "asia",
+			"territories": [
+				"middle east",
+				"india",
+				"afghanistan",
+				"china",
+				"ural",
+				"siberia",
+				"siam",
+				"mongolia",
+				"japan",
+				"kamchatka",
+				"yakursk",
+				"irkutsk"
+			]
+		}
+	],
+	"neighbourhood": [
+		{
+			"name": "afghanistan",
+			"territories": [
+				"china",
+				"india",
+				"middle east",
+				"ukraine",
+				"ural"
+			]
+		},
+		{
+			"name": "china",
+			"territories": [
+				"afghanistan",
+				"india",
+				"mongolia",
+				"siam",
+				"siberia",
+				"ural"
+			]
+		},
+		{
+			"name": "congo",
+			"territories": [
+				"east africa",
+				"north africa",
+				"south africa"
+			]
+		},
+		{
+			"name": "east africa",
+			"territories": [
+				"congo",
+				"egypt",
+				"madagascar",
+				"middle east",
+				"north africa"
+			]
+		},
+		{
+			"name": "egypt",
+			"territories": [
+				"east africa",
+				"middle east",
+				"north africa",
+				"south europe"
+			]
+		},
+		{
+			"name": "great britain",
+			"territories": [
+				"iceland",
+				"north europe",
+				"scandinavia",
+				"south europe"
+			]
+		},
+		{
+			"name": "iceland",
+			"territories": [
+				"great britain",
+				"scandinavia"
+			]
+		},
+		{
+			"name": "india",
+			"territories": [
+				"afghanistan",
+				"china",
+				"middle east",
+				"siam"
+			]
+		},
+		{
+			"name": "irkutsk",
+			"territories": [
+				"kamchatka",
+				"mongolia",
+				"siberia",
+				"yakursk"
+			]
+		},
+		{
+			"name": "japan",
+			"territories": [
+				"kamchatka",
+				"mongolia"
+			]
+		},
+		{
+			"name": "madagascar",
+			"territories": [
+				"east africa",
+				"south africa"
+			]
+		},
+		{
+			"name": "middle east",
+			"territories": [
+				"afghanistan",
+				"east africa",
+				"egypt",
+				"india",
+				"south europe",
+				"ukraine"
+			]
+		},
+		{
+			"name": "mongolia",
+			"territories": [
+				"china",
+				"irkutsk",
+				"japan",
+				"kamchatka",
+				"siberia"
+			]
+		},
+		{
+			"name": "north africa",
+			"territories": [
+				"congo",
+				"east africa",
+				"egypt",
+				"west europe"
+			]
+		},
+		{
+			"name": "north europe",
+			"territories": [
+				"great britain",
+				"south europe",
+				"ukraine",
+				"west europe"
+			]
+		},
+		{
+			"name": "scandinavia",
+			"territories": [
+				"great britain",
+				"iceland",
+				"ukraine"
+			]
+		},
+		{
+			"name": "siam",
+			"territories": [
+				"china",
+				"india"
+			]
+		},
+		{
+			"name": "siberia",
+			"territories": [
+				"china",
+				"irkutsk",
+				"mongolia",
+				"ural",
+				"yakursk"
+			]
+		},
+		{
+			"name": "south africa",
+			"territories": [
+				"congo",
+				"east africa",
+				"madagascar"
+			]
+		},
+		{
+			"name": "south europe",
+			"territories": [
+				"egypt",
+				"middle east",
+				"north europe",
+				"ukraine",
+				"west europe"
+			]
+		},
+		{
+			"name": "ukraine",
+			"territories": [
+				"afghanistan",
+				"middle east",
+				"north europe",
+				"scandinavia",
+				"south europe",
+				"ural"
+			]
+		},
+		{
+			"name": "ural",
+			"territories": [
+				"afghanistan",
+				"china",
+				"siberia",
+				"ukraine"
+			]
+		},
+		{
+			"name": "west europe",
+			"territories": [
+				"great britain",
+				"north africa",
+				"north europe",
+				"south europe"
+			]
+		},
+		{
+			"name": "yakursk",
+			"territories": [
+				"irkutsk",
+				"kamchatka",
+				"siberia"
+			]
+		},
+		{
+			"name": "kamchatka",
+			"territories": [
+				"yakursk",
+				"irkutsk",
+				"mongolia",
+				"japan"
+			]
+		}
+	]
+}

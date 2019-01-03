@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.drisk.technicalservice.JsonHelper;
+import com.drisk.technicalservice.SyntaxException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -12,9 +13,11 @@ public class Map {
 	private static Map instance;
 	private String difficulty;
 	private List<Continent> continents;
+	private boolean ready;
 	
 	private Map() {
 		continents = new LinkedList<>();
+		ready = false;
 	}
 
 	public static Map getInstance() {
@@ -27,11 +30,12 @@ public class Map {
 		return difficulty;
 	}
 	
-	public void createMap(JsonObject gameConfig) {
+	public void createMap(JsonObject gameConfig) throws SyntaxException {
 		setDifficulty(JsonHelper.difficultyFromJson(gameConfig));
 		createContinents(JsonHelper.getContinentsFromJson(gameConfig));
 		createTerritories(JsonHelper.getMembershipFromJson(gameConfig));
 		createNeighbours(JsonHelper.getNeighbourhoodFromJson(gameConfig));
+		ready = true;
 	}
 	
 	private void createContinents(List<String> continentsNames) {
@@ -41,9 +45,11 @@ public class Map {
 		}	
 	}
 	
-	private void createTerritories(java.util.Map<String, List<String>> relation) {
+	private void createTerritories(java.util.Map<String, List<String>> relation) throws SyntaxException {
 		for(java.util.Map.Entry<String, List<String>> entry : relation.entrySet()) {
 			Continent c = findContinentByName(entry.getKey());
+			if (c == null)
+				throw new SyntaxException("Syntax error: " + entry.getKey() + " is not a valid continent");
 			for(String territoryName : relation.get(c.getName())) {
 				Territory t = new Territory(territoryName);
 				c.addTerritory(t);
@@ -51,11 +57,17 @@ public class Map {
 		}
 	}
 	
-	private void createNeighbours(java.util.Map<String, List<String>> relation) {
+	private void createNeighbours(java.util.Map<String, List<String>> relation) throws SyntaxException {
 		for(java.util.Map.Entry<String, List<String>> entry : relation.entrySet()) {
 			Territory t = findTerritoryByName(entry.getKey());
+			if (t == null)
+				throw new SyntaxException("Syntax error: " + entry.getKey() + " is not a valid territory");
+			
 			for(String neighbourName : relation.get(t.getName())) {
 				Territory neighbour = findTerritoryByName(neighbourName);
+				if (neighbour == null)
+					throw new SyntaxException("Syntax error: " + neighbourName + 
+							" is not a valid neighbour territory for " + t.getName());
 				t.addNeighbour(neighbour);
 				neighbour.addNeighbour(t);
 			}
@@ -109,6 +121,10 @@ public class Map {
 	
 	public JsonObject toJson() {
 		return JsonHelper.mapToJson(difficulty, continents, getTerritories());
+	}
+
+	public boolean isReady() {
+		return ready;
 	}
 	
 }

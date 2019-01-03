@@ -1,5 +1,6 @@
 package com.drisk.controller;
 
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -16,9 +17,11 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import com.drisk.domain.Color;
 import com.drisk.domain.MatchManager;
 import com.drisk.domain.Player;
+import com.drisk.technicalservice.SyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 @Controller
 public class MatchController {
@@ -61,20 +64,26 @@ public class MatchController {
 			String body = request.getReader().lines().collect(Collectors.joining());
 			Gson converter = new Gson();
 			JsonObject obj = converter.fromJson(body, JsonObject.class);
-			MatchManager.getInstance().setGameConfig(obj);
+			MatchManager.getInstance().createMap(obj);
 			return createResponseJson(0, "gameConfig correctly configured");
-		} catch (Exception e) {
-			return createResponseJson(-1, "An error was occurred during the parse of gameConfigRequest");
+		} 
+		catch (JsonSyntaxException e)
+		{
+			return createResponseJson(-1, "Syntax error: cannot parse json object");
+		}
+		catch (Exception e) {
+			return createResponseJson(-1, e.getMessage());
 		}
 	}
     	     
-	@GetMapping("/players")
+	@GetMapping("/info")
     public SseEmitter handleSse() {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
-				JsonObject playersJson = createResponsePlayersJson();
-				emitter.send(playersJson);
+				JsonObject jsonResponse = createResponsePlayersJson();
+				jsonResponse.addProperty("mapReady", MatchManager.getInstance().isMapCreated());
+				emitter.send(jsonResponse);
 				emitter.complete();	
 			} catch (Exception ex) {
 				emitter.completeWithError(ex);

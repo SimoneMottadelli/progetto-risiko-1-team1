@@ -27,9 +27,12 @@ public class JsonHelper {
 		return gameConfig.get(DIFFICULTY).getAsString();
 	}
 	
-	private static List<String> getListFromJson(JsonObject gameConfig, String memberName) {
+	private static List<String> getListFromJson(JsonObject gameConfig, String memberName) throws SyntaxException {
 		List<String> list = new LinkedList<>();
 		JsonArray array = gameConfig.getAsJsonArray(memberName);
+		if (array == null)
+			throw new SyntaxException("Syntax error: " + memberName + " is not valid keyword for a map");
+
 		for(JsonElement name : array) {
 			String nameFormatted = name.toString().replace("\"", "");
 			if(!list.contains(nameFormatted))
@@ -38,17 +41,19 @@ public class JsonHelper {
 		return list;
 	}
 	
-	public static List<String> getTerritoriesFromJson(JsonObject gameConfig){
+	public static List<String> getTerritoriesFromJson(JsonObject gameConfig) throws SyntaxException{
 		return getListFromJson(gameConfig, TERRITORIES);
 	}
 	
-	public static List<String> getContinentsFromJson(JsonObject gameConfig){
+	public static List<String> getContinentsFromJson(JsonObject gameConfig) throws SyntaxException{
 		return getListFromJson(gameConfig, CONTINENTS);
 	}
 	
-	private static Map<String, List<String>> getRelationshipFromJson(JsonObject gameConfig, String relation) {
+	private static Map<String, List<String>> getRelationshipFromJson(JsonObject gameConfig, String relation) throws SyntaxException {
 		Map<String, List<String>> map = new HashMap<>();
 		JsonArray array = gameConfig.getAsJsonArray(relation);
+		if (array == null)
+			throw new SyntaxException("Syntax error: " + relation + " is not valid keyword for a map");
 		for(int i = 0; i < array.size(); ++i) {
 			JsonObject obj = array.get(i).getAsJsonObject();
 			String continentName = obj.get(NAME).toString().replace("\"", "");
@@ -58,11 +63,11 @@ public class JsonHelper {
 		return map;
 	}
 	
-	public static Map<String, List<String>> getNeighbourhoodFromJson(JsonObject gameConfig) {
+	public static Map<String, List<String>> getNeighbourhoodFromJson(JsonObject gameConfig) throws SyntaxException {
 		return getRelationshipFromJson(gameConfig, NEIGHBOURHOOD);
 	}
 	
-	public static Map<String, List<String>> getMembershipFromJson(JsonObject gameConfig) {
+	public static Map<String, List<String>> getMembershipFromJson(JsonObject gameConfig) throws SyntaxException {
 		return getRelationshipFromJson(gameConfig, MEMBERSHIP);
 	}
 	
