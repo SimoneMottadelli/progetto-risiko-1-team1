@@ -11,6 +11,10 @@ public class TerritoryCard implements Card, Comparable<TerritoryCard> {
 		setSymbol(simbol);
 	}
 
+	@Override
+	public String toString() {
+		return "TerritoryCard [territory=" + territory.toString() + ", symbol=" + symbol + "]";
+	}
 
 	public Territory getTerritory() {
 		return territory;

@@ -39,6 +39,13 @@ public class Territory {
 	}
 	
 	
+	
+	@Override
+	public String toString() {
+		return "[name= " + name + "]";
+	}
+
+
 	public void addNeighbour(Territory territory) {
 		if(!neighbours.contains(territory))
 			neighbours.add(territory);

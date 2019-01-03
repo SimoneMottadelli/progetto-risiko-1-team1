@@ -34,7 +34,8 @@ public class CardManager {
 			Territory territory = com.drisk.domain.Map.getInstance().findTerritoryByName(tc[0]);
 			TerritoryCardSymbol symbol = TerritoryCardSymbol.valueOf(tc[1].toUpperCase().trim());
 			TerritoryCard card = new TerritoryCard(territory, symbol);
-			territoryCards.add(card);
+			if(!territoryCards.contains(card))
+				territoryCards.add(card);
 		}
 	}
 	
@@ -44,7 +45,8 @@ public class CardManager {
 		int id = 0;
 		for(String text : missionCardString) {
 			MissionCard card = new MissionCard(id++, text);
-			missionCards.add(card);
+			if(!missionCards.contains(card))
+				missionCards.add(card);
 		}
 	}
 	
@@ -57,8 +59,11 @@ public class CardManager {
 	}
 	
 	public void refillDeck() {
-		setTerritoryCards(discardedCards);
-		shuffleDeck(territoryCards);
+		if(territoryCards.isEmpty()) {
+			setTerritoryCards(discardedCards);
+			discardedCards.clear();
+			shuffleDeck(territoryCards);
+		}
 	}
 	
 	public void removeCards(Player player, TerritoryCard[] tris) {
@@ -67,7 +72,10 @@ public class CardManager {
 	}
 	
 	public void removeCard(Player player, TerritoryCard card) {
-		player.getTerritoryCards().remove(card);
+		if(player.getTerritoryCardsHand().contains(card)) {
+			player.getTerritoryCardsHand().remove(card);
+			discardedCards.add(card);
+		}
 	}
 	
 	public List<Card> getMissionCards() {
@@ -77,13 +85,24 @@ public class CardManager {
 	public List<Card> getTerritoryCards() {
 		return territoryCards;
 	}
-
-	public void setTerritoryCards(List<Card> territoryCards) {
-		this.territoryCards = territoryCards;
+	
+	public List<Card> getDiscardedCards() {
+		return discardedCards;
 	}
 
-	public void setMissionCards(List<Card> missionCards) {
-		this.missionCards = missionCards;
+	public void setDiscardedCards(List<Card> cards) {
+		this.discardedCards.clear();
+		this.discardedCards.addAll(cards);
+	}
+
+	public void setTerritoryCards(List<Card> cards) {
+		this.territoryCards.clear();
+		this.territoryCards.addAll(cards);
+	}
+
+	public void setMissionCards(List<Card> cards) {
+		this.missionCards.clear();
+		this.missionCards.addAll(cards);
 	}
 	
 	public Map<List<TerritoryCardSymbol>, Integer> getTrisWithValue() {

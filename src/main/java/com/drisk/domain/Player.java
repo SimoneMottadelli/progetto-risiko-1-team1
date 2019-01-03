@@ -11,7 +11,7 @@ public class Player {
 	private String nickname;
 	private boolean ready;
 	private MissionCard missionCard;
-	private List<TerritoryCard> territoryCards; 
+	private List<TerritoryCard> territoryCardsHand; 
 	private List<Territory> territoriesOwned;
 	private int availableTanks;
 	
@@ -19,7 +19,7 @@ public class Player {
 		this.nickname = nickname;
 		this.ready = false;
 		this.color = color;
-		this.territoryCards = new LinkedList<>();
+		this.territoryCardsHand = new LinkedList<>();
 		territoriesOwned = new LinkedList<>();
 	}
 	
@@ -64,8 +64,8 @@ public class Player {
 		return missionCard;
 	}	
 	
-	public List<TerritoryCard> getTerritoryCards() {
-		return territoryCards;
+	public List<TerritoryCard> getTerritoryCardsHand() {
+		return territoryCardsHand;
 	}
 	
 	public void setMission(MissionCard missionCard) {
@@ -73,8 +73,8 @@ public class Player {
 	}
 	
 	public void addTerritoryCards(TerritoryCard territoryCard) {
-		if(!territoryCards.contains(territoryCard))
-			territoryCards.add(territoryCard);
+		if(!territoryCardsHand.contains(territoryCard))
+			territoryCardsHand.add(territoryCard);
 	}	
 	
 	public void addTerritoryOwned(Territory territory) {

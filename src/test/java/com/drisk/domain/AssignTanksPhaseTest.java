@@ -5,11 +5,19 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 public class AssignTanksPhaseTest {
 	
 	@Before
 	public void initialize() {
-		GameManager.getInstance().initMap();
+		String s = "{'difficulty' : 'easy', 'continents' : ['africa', 'europe'], 'territories' : ['italy', 'france', 'egypt', 'north africa'],"
+				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north africa']}],"
+				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}]}";
+		Gson json = new Gson();
+		JsonObject obj = json.fromJson(s, JsonObject.class); 
+		Map.getInstance().createMap(obj);
 	}
 	
 	@Test
