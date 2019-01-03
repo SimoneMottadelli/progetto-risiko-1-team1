@@ -3,6 +3,7 @@ package com.drisk.domain;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.drisk.technicalservice.SyntaxException;
 import com.google.gson.JsonObject;
 
 public class MatchManager {
@@ -12,17 +13,12 @@ public class MatchManager {
 	private boolean matchFull;
 	private List<Color> colorsAvailablesList;
 	private List<Player> players;
-	private JsonObject gameConfig;
 	
 	private MatchManager() {
 		matchStarted = false;
 		matchFull = false;
 		colorsAvailablesList = createColorAvailableList();
 		players = new LinkedList<>();
-	}
-	
-	public void setGameConfig(JsonObject gameConfig) {
-		this.gameConfig = gameConfig;
 	}
 
 	public boolean isMatchStarted() {
@@ -76,7 +72,7 @@ public class MatchManager {
 	
 	public void startGame() {
 		matchStarted = true;
-		GameManager.getInstance().initGame(gameConfig);
+		GameManager.getInstance().initGame();
 	}
 	
 	private void addPlayer(Player player) {
@@ -109,6 +105,14 @@ public class MatchManager {
 		if(instance == null)
 			instance = new MatchManager();
 		return instance;
+	}
+
+	public boolean isMapCreated() {
+		return Map.getInstance().isReady();
+	}
+
+	public void createMap(JsonObject obj) throws SyntaxException {
+		Map.getInstance().createMap(obj);
 	}
 	
 }
