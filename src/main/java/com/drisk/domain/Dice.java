@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.lang.Math;
 
 public class Dice {
 	
@@ -29,7 +28,7 @@ public class Dice {
 		Arrays.sort(attackerDicesResults, Collections.reverseOrder());
 		Arrays.sort(defenderDicesResults, Collections.reverseOrder());
 		
-		List<Integer[]> results = new LinkedList<Integer[]>();
+		List<Integer[]> results = new LinkedList<>();
 		results.add(attackerDicesResults);
 		results.add(defenderDicesResults);
 		return compareDices(results);

@@ -58,9 +58,8 @@ public class GameManager {
 			MissionCard mission = (MissionCard) CardManager.getInstance().getMissionCards().get(0);
 			for(Player p : players) 
 				p.setMission(mission);
-		} else {
-			
 		}
+		
 	}
 	
 	public void initPlayersTerritories() {

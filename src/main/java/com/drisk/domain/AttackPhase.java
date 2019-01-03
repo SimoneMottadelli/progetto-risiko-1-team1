@@ -13,26 +13,10 @@ public class AttackPhase implements Phase {
 		Turn.getInstance().setCurrentPhase(new TankMovementPhase());
 	}
 
-	//Bisognerà spostare i controlli da qualche altra parte, attackEnemyTerritory
-	//avrà già tutte le informazioni necessarie
 	public void attackEnemyTerritory(Territory territoryAttacker, Territory territoryDefender, int attackerTanks) {
 
 		Player attacker = territoryAttacker.findPlayer();
 		Player defender = territoryDefender.findPlayer();
-
-		//while (checkAttackAvailability(attacker, defender, territoryAttacker, territoryDefender)) {
-
-			/*int tanksAvailable = territoryAttacker.getNumberOfTanks();
-			if (tanksAvailable == 2) {
-				if (attackerTanks >= tanksAvailable) {
-					attackerTanks = 1;
-				}
-			}
-			if (tanksAvailable == 3) {
-				if (attackerTanks >= tanksAvailable) {
-					attackerTanks = 2;
-				}
-			}*/
 
 			int defenderTanks = territoryDefender.getNumberOfTanks();
 			if (defenderTanks > 3) {
@@ -50,7 +34,6 @@ public class AttackPhase implements Phase {
 				tm.placeTanks(territoryDefender, 1);
 				tm.removeTanks(territoryAttacker, 1);
 			}
-		//}
 		
 	}
 	
