@@ -16,9 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.drisk.domain.Color;
 import com.drisk.domain.MatchManager;
-import com.drisk.domain.Player;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
@@ -80,27 +78,14 @@ public class MatchController {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
-				JsonObject jsonResponse = createResponsePlayersJson();
-				jsonResponse.addProperty("mapReady", MatchManager.getInstance().isGameConfigured());
-				emitter.send(jsonResponse);
+				emitter.send(MatchManager.getInstance().toJson());
 				emitter.complete();	
 			} catch (Exception ex) {
 				emitter.completeWithError(ex);
 			}
 		});
 		return emitter;
-    }
-	
-	// used by handleSse for creating the response
-	private synchronized JsonObject createResponsePlayersJson() {
-		JsonArray jsonArrayPlayers = new JsonArray();
-		for(Player p : MatchManager.getInstance().getPlayers())
-			jsonArrayPlayers.add(p.toJson());
-		JsonObject jsonResult = new JsonObject();
-		jsonResult.add("playersArray", jsonArrayPlayers);
-		return jsonResult;
 	}
-	
 	
 	@GetMapping(value="/exit")
 	@ResponseBody

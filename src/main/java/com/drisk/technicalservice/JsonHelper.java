@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.drisk.domain.Continent;
+import com.drisk.domain.MatchManager;
+import com.drisk.domain.Player;
 import com.drisk.domain.Territory;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.JsonArray;
@@ -24,9 +26,35 @@ public class JsonHelper {
 	private static final String MEMBERSHIP = "membership";
 	private static final String NUMBEROFTANKS = "numberOfTanks";
 	private static final String OWNER = "owner";
+	private static final String CURRENT_PLAYER_COLOR = "currentPlayersColor";
 	
 	public static String difficultyFromJson(JsonObject gameConfig) {
 		return gameConfig.get(DIFFICULTY).getAsString();
+	}
+	
+	public static JsonObject gameManagerToJson(String color) {
+		JsonObject result = new JsonObject();
+		result.addProperty(CURRENT_PLAYER_COLOR, color);
+		return result;
+	}
+	
+	public static JsonObject playerToJson(String nickname, String color, boolean ready) {
+		JsonObject jsonPlayer = new JsonObject();
+		jsonPlayer.addProperty("nickname", nickname);
+		String colorProperty = color.toLowerCase();
+		jsonPlayer.addProperty("color", colorProperty);
+		jsonPlayer.addProperty("ready", ready);
+		return jsonPlayer;
+	}
+	
+	public static JsonObject matchManagerToJson(List<Player> players) {
+		JsonObject result = new JsonObject();
+		JsonArray jsonArrayPlayers = new JsonArray();
+		for(Player p : players)
+			jsonArrayPlayers.add(p.toJson());
+		result.add("playersArray", jsonArrayPlayers);
+		result.addProperty("mapReady", MatchManager.getInstance().isGameConfigured());
+		return result;
 	}
 	
 	private static List<String> getListFromJson(JsonObject gameConfig, String memberName) throws SyntaxException {

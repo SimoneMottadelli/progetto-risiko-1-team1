@@ -23,7 +23,7 @@ public class ConquestTerritoryMissionCard implements MissionCard {
 
 	@Override
 	public boolean checkWin() {
-		return Turn.getInstance().getCurrentPlayer().getNumberOfTerritoriesOwned() >= toConquest;
+		return TurnManager.getInstance().getCurrentPlayer().getNumberOfTerritoriesOwned() >= toConquest;
 	}
 
 }

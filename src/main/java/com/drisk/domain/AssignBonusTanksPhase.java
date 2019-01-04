@@ -13,7 +13,7 @@ public class AssignBonusTanksPhase implements Phase{
 
 	@Override
 	public void nextPhase() {
-		Turn.getInstance().setCurrentPhase(new AssignTanksPhase());
+		TurnManager.getInstance().setCurrentPhase(new AssignTanksPhase());
 	}
 	
 	public void useTris(Player player, TerritoryCard[] tris) {

@@ -3,6 +3,7 @@ package com.drisk.domain;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
 public class Player {
@@ -111,11 +112,6 @@ public class Player {
 	}
 	
 	public JsonObject toJson() {
-		JsonObject jsonPlayer = new JsonObject();
-		jsonPlayer.addProperty("nickname", getNickname());
-		String colorProperty = this.color.toString().toLowerCase();
-		jsonPlayer.addProperty("color", colorProperty);
-		jsonPlayer.addProperty("ready", ready);
-		return jsonPlayer;
+		return JsonHelper.playerToJson(nickname, color.toString(), ready);
 	}
 }

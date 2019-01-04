@@ -10,12 +10,12 @@ public class AttackPhase implements Phase {
 
 	@Override
 	public void nextPhase() {
-		Turn.getInstance().setCurrentPhase(new TankMovementPhase());
+		TurnManager.getInstance().setCurrentPhase(new TankMovementPhase());
 	}
 
 	public void attackEnemyTerritory(Territory territoryAttacker, Territory territoryDefender, int attackerTanks) {
 
-		Player attacker = Turn.getInstance().getCurrentPlayer();
+		Player attacker = TurnManager.getInstance().getCurrentPlayer();
 		Player defender = territoryDefender.findPlayer();
 
 			int defenderTanks = territoryDefender.getNumberOfTanks();

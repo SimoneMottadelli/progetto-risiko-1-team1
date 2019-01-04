@@ -10,7 +10,7 @@ public class TankPlacementPhase implements Phase {
 
 	@Override
 	public void nextPhase() {
-		Turn.getInstance().setCurrentPhase(new AttackPhase());
+		TurnManager.getInstance().setCurrentPhase(new AttackPhase());
 	}
 
 }

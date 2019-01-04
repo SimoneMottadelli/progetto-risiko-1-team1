@@ -11,7 +11,7 @@ public class AssignTanksPhase implements Phase {
 
 	@Override
 	public void nextPhase() {
-		Turn.getInstance().setCurrentPhase(new TankPlacementPhase());
+		TurnManager.getInstance().setCurrentPhase(new TankPlacementPhase());
 	}
 	
 	public void assignTanks(Player player) {

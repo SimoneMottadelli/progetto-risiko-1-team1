@@ -26,7 +26,7 @@ public class ConquestContinentMissionCard implements MissionCard {
 
 	@Override
 	public boolean checkWin() {
-		Player current = Turn.getInstance().getCurrentPlayer();
+		Player current = TurnManager.getInstance().getCurrentPlayer();
 		List<Territory> playerTerritories = current.getTerritoriesOwned();
 		
 		for(Continent c: toConquest) {

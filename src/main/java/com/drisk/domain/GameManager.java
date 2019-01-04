@@ -99,13 +99,17 @@ public class GameManager {
 	public void newTurn(Player oldPlayer) {
 		int currentPlayerPositionInPlayers = players.indexOf(oldPlayer);
 		if(currentPlayerPositionInPlayers == players.size() - 1)
-			Turn.getInstance().setCurrentPlayer(players.get(0));
+			TurnManager.getInstance().setCurrentPlayer(players.get(0));
 		else
-			Turn.getInstance().setCurrentPlayer(players.get(currentPlayerPositionInPlayers + 1));
+			TurnManager.getInstance().setCurrentPlayer(players.get(currentPlayerPositionInPlayers + 1));
 	}
 	
-	public Color getColorOfCurrentPlayer() {
-		return Turn.getInstance().getCurrentPlayer().getColor();
+	private Color getColorOfCurrentPlayer() {
+		return TurnManager.getInstance().getCurrentPlayer().getColor();
+	}
+	
+	public JsonObject toJson() {
+		return JsonHelper.gameManagerToJson(getColorOfCurrentPlayer().toString());
 	}
 	
 }

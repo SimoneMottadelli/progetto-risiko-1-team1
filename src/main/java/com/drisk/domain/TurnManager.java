@@ -1,18 +1,18 @@
 package com.drisk.domain;
 
-public class Turn {
+public class TurnManager {
 	
-	private static Turn instance;
+	private static TurnManager instance;
 	private Player currentPlayer;
 	private Phase currentPhase;
 	
-	private Turn() {
+	private TurnManager() {
 		currentPhase = new AssignBonusTanksPhase();
 	}
 	
-	public static Turn getInstance() {
+	public static TurnManager getInstance() {
 		if (instance == null)
-			instance = new Turn();
+			instance = new TurnManager();
 		return instance;
 	}
 

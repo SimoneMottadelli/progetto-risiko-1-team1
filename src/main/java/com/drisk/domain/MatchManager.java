@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.drisk.domain.exceptions.SyntaxException;
+import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
 public class MatchManager {
@@ -124,6 +125,10 @@ public class MatchManager {
 
 	public boolean isGameConfigured() {
 		return gameConfig != null;
+	}
+	
+	public JsonObject toJson() {
+		return JsonHelper.matchManagerToJson(players);
 	}
 	
 }
