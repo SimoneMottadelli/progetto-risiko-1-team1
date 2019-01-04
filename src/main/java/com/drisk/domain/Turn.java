@@ -31,4 +31,8 @@ public class Turn {
 	public void setCurrentPhase(Phase currentPhase) {
 		this.currentPhase = currentPhase;
 	}
+	
+	public static void destroy() {
+		instance = null;
+	}
 }

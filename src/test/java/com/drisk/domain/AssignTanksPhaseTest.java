@@ -2,6 +2,9 @@ package com.drisk.domain;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.FileNotFoundException;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +16,7 @@ public class AssignTanksPhaseTest {
 	
 	@Before
 	public void initialize() {
-		String s = "{'difficulty' : 'easy', 'continents' : ['africa', 'europe', 'asia'], 'territories' : ['italy', 'france', 'egypt', 'north africa', 'kamchatka', 'china', 'japan', 'india', 'middle east'],"
+		String s = "{'difficulty' : 'custom', 'continents' : ['africa', 'europe', 'asia'], 'territories' : ['italy', 'france', 'egypt', 'north africa', 'kamchatka', 'china', 'japan', 'india', 'middle east'],"
 				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north africa']}, {'name' : 'asia', 'territories' : ['china', 'kamchatka', 'japan', 'india', 'middle east']}],"
 				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}, {'name' : 'china', 'territories' : ['india', 'japan']}, {'name' : 'middle east', 'territories' : ['india']}]}";
 		Gson json = new Gson();
@@ -21,9 +24,7 @@ public class AssignTanksPhaseTest {
 		try {
 			//waiting for implement of createMap
 			MatchManager.getInstance().setGameConfig(obj);
-		} catch (SyntaxException e) {
-			e.printStackTrace();
-		}
+		} catch (SyntaxException | FileNotFoundException e) {}
 		for(int i = 1; i <= 6; i++)
 			MatchManager.getInstance().joinGame("Player" + i);
 		MatchManager.getInstance().startGame();
@@ -76,6 +77,11 @@ public class AssignTanksPhaseTest {
 		numberOfTanks = new AssignTanksPhase().getTanksPerContinent(player);
 		assertEquals(5, numberOfTanks);	
 		
+	}
+	
+	@After
+	public void destroyMap() {
+		Map.destroy();
 	}
 	
 }

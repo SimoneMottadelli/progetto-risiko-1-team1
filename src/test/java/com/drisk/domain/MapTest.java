@@ -24,11 +24,9 @@ public class MapTest {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader("default_map_easy.json"));
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class); 
-			System.out.println(obj);
+			Map.destroy();
 			Map.getInstance().createMap(obj);
-		} catch (FileNotFoundException | SyntaxException e) {
-			e.printStackTrace();
-		}
+		} catch (FileNotFoundException | SyntaxException e) {}
 	}
 
 	@Test
@@ -58,7 +56,7 @@ public class MapTest {
 	@Test
 	public void syntaxErrorNeighbourhoodKeywordCreateMapTest() {
 		try {
-			String s = "{'difficulty' : 'easy', " +
+			String s = "{'difficulty' : 'custom', " +
 						"'continents' : ['africa', 'europe'], " + 
 						"'territories' : ['italy','france', 'egypt', 'north africa']," +
 						"'membership' : [{'name' : 'europe', " + 
@@ -70,16 +68,15 @@ public class MapTest {
 
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(s, JsonObject.class); 
-			System.out.println(obj);
 			Map.getInstance().createMap(obj);
 			fail();
-		} catch (SyntaxException e) {}
+		} catch (SyntaxException | FileNotFoundException e) {}
 	}
 	
 	@Test
 	public void syntaxErrorNameKeywordCreateMapTest() {
 		try {
-			String s = "{'difficulty' : 'easy', " +
+			String s = "{'difficulty' : 'custom', " +
 						"'continents' : ['africa', 'europe'], " + 
 						"'territories' : ['italy','france', 'egypt', 'north africa']," +
 						"'membership' : [{'name' : 'europe', " + 
@@ -91,16 +88,15 @@ public class MapTest {
 
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(s, JsonObject.class); 
-			System.out.println(obj);
 			Map.getInstance().createMap(obj);
 			fail();
-		} catch (SyntaxException e) {}
+		} catch (SyntaxException | FileNotFoundException e) {}
 	}
 	
 	@Test
 	public void syntaxErrorNotExistingTerritoryFoundInNeighbourhoodCreateMapTest() {
 		try {
-			String s = "{'difficulty' : 'easy', " +
+			String s = "{'difficulty' : 'custom', " +
 						"'continents' : ['africa', 'europe'], " + 
 						"'territories' : ['italy','france', 'egypt', 'north africa']," +
 						"'membership' : [{'name' : 'europe', " + 
@@ -112,16 +108,15 @@ public class MapTest {
 
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(s, JsonObject.class); 
-			System.out.println(obj);
 			Map.getInstance().createMap(obj);
 			fail();
-		} catch (SyntaxException e) {}
+		} catch (SyntaxException | FileNotFoundException e) {}
 	}
 	
 	@Test
 	public void syntaxErrorNotExistingTerritoryFoundInMembershipCreateMapTest() {
 		try {
-			String s = "{'difficulty' : 'easy', " +
+			String s = "{'difficulty' : 'custom', " +
 						"'continents' : ['africa', 'europe'], " + 
 						"'territories' : ['italy','france', 'egypt', 'north africa']," +
 						"'membership' : [{'name' : 'djsfs', " + 
@@ -133,16 +128,15 @@ public class MapTest {
 
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(s, JsonObject.class); 
-			System.out.println(obj);
 			Map.getInstance().createMap(obj);
 			fail();
-		} catch (SyntaxException e) {}
+		} catch (SyntaxException | FileNotFoundException e) {}
 	}
 	
 	@Test
 	public void syntaxErrorTerritoriesKeywordCreateMapTest() {
 		try {
-			String s = "{'difficulty' : 'easy', " +
+			String s = "{'difficulty' : 'custom', " +
 						"'continents' : ['africa', 'europe'], " + 
 						"'territories' : ['italy','france', 'egypt', 'north africa']," +
 						"'membership' : [{'name' : 'europe', " + 
@@ -154,10 +148,9 @@ public class MapTest {
 
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(s, JsonObject.class); 
-			System.out.println(obj);
 			Map.getInstance().createMap(obj);
 			fail();
-		} catch (SyntaxException e) {}
+		} catch (SyntaxException | FileNotFoundException e) {}
 	}
 	
 	@After

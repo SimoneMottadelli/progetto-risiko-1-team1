@@ -1,10 +1,14 @@
 package com.drisk.domain;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.drisk.domain.exceptions.SyntaxException;
 import com.drisk.technicalservice.JsonHelper;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class Map {
@@ -31,13 +35,35 @@ public class Map {
 		return difficulty;
 	}
 	
-	public void createMap(JsonObject gameConfig) throws SyntaxException {
+	public void createMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
 		setDifficulty(JsonHelper.difficultyFromJson(gameConfig));
+		if(difficulty.equals("custom"))
+			createMapComponents(gameConfig);
+		else
+			createMapComponents(readDefaultMapFile());
+	}
+	
+	private JsonObject readDefaultMapFile() throws FileNotFoundException {
+		BufferedReader bufferedReader;
+		FileReader file;
+		try {
+			file = new FileReader("default_map_" + difficulty + ".json");
+		} catch (FileNotFoundException e) {
+			throw new FileNotFoundException("FileNotFound: The map " + difficulty + "can't be loader");
+		}
+		bufferedReader = new BufferedReader(file);
+		Gson json = new Gson();
+		return json.fromJson(bufferedReader, JsonObject.class); 
+	}
+	
+	private void createMapComponents(JsonObject gameConfig) throws SyntaxException {
 		createContinents(JsonHelper.getContinentsFromJson(gameConfig));
 		createTerritories(JsonHelper.getMembershipFromJson(gameConfig));
 		createNeighbours(JsonHelper.getNeighbourhoodFromJson(gameConfig));
 		ready = true;
 	}
+	
+	
 	
 	private void createContinents(List<String> continentsNames) {
 		for(String continentName : continentsNames) {
@@ -118,7 +144,7 @@ public class Map {
 		return ready;
 	}
 
-	public void testCreateMap(JsonObject gameConfig) throws SyntaxException {
+	public void testCreateMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
 		try {
 			createMap(gameConfig);	
 			destroy();
@@ -126,6 +152,10 @@ public class Map {
 		catch(SyntaxException e) {
 			destroy();
 			throw new SyntaxException(e.getMessage());
+		}
+		catch(FileNotFoundException e) {
+			destroy();
+			throw new FileNotFoundException();
 		}
 	}
 	

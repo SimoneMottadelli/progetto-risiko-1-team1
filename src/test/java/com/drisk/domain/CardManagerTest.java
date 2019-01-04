@@ -4,9 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,16 +21,14 @@ public class CardManagerTest {
 	
 	@Before
 	public void init() {
-		String s = "{'difficulty' : 'easy', 'continents' : ['africa', 'europe'], 'territories' : ['italy', 'france', 'egypt', 'north africa'],"
+		String s = "{'difficulty' : 'custom', 'continents' : ['africa', 'europe'], 'territories' : ['italy', 'france', 'egypt', 'north africa'],"
 				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north africa']}],"
 				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}]}";
 		Gson json = new Gson();
 		JsonObject obj = json.fromJson(s, JsonObject.class); 
 		try {
 			MatchManager.getInstance().setGameConfig(obj);
-		} catch (SyntaxException e) {
-			e.printStackTrace();
-		}
+		} catch (SyntaxException | FileNotFoundException e) {}
 		for(int i = 1; i <= 6; i++)
 			MatchManager.getInstance().joinGame("Player" + i);
 		MatchManager.getInstance().startGame();
@@ -80,6 +80,12 @@ public class CardManagerTest {
 		Card drawn = CardManager.getInstance().drawCard(territory);
 
 		assertFalse(territory.contains(drawn));
+	}
+	
+	@After
+	public void destroy() {
+		Map.destroy();
+		CardManager.destroy();
 	}
 	
 }

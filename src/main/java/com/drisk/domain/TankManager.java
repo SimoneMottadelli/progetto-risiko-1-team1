@@ -16,6 +16,10 @@ public class TankManager {
 		return instance;
 	}
 	
+	public static void destroy() {
+		instance = null;
+	}
+	
 	public void initTanks(List<Player> players) {
 		int numberTerritories = Map.getInstance().getTerritories().size();
 		//the number of tanks is proportional to the number of territories 

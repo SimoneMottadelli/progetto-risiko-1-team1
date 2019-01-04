@@ -1,5 +1,6 @@
 package com.drisk.domain;
 
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class MatchManager {
 		players = new LinkedList<>();
 	}
 	
-	public void setGameConfig(JsonObject gameConfig) throws SyntaxException {
+	public void setGameConfig(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
 		Map.getInstance().testCreateMap(gameConfig);
 		this.gameConfig = gameConfig;
 	}
@@ -80,7 +81,7 @@ public class MatchManager {
 		matchStarted = true;
 		try {
 			GameManager.getInstance().initGame(gameConfig, players);
-		} catch (SyntaxException e) {
+		} catch (SyntaxException | FileNotFoundException e) {
 			// we are sure that no exception will be thrown because we have already checked the correctness of the map
 		}
 	}

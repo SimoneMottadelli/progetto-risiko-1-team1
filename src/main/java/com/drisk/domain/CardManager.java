@@ -26,6 +26,10 @@ public class CardManager {
 		return instance;
 	}	
 	
+	public static void destroy() {
+		instance = null;
+	}
+	
 	public void initTerritoryCards() {
 		TerritoryCardSymbol[] symbols = {TerritoryCardSymbol.ARTILLERY, TerritoryCardSymbol.CAVALRY, TerritoryCardSymbol.INFANTRY};
 		int i = 0;

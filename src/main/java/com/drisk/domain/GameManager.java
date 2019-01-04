@@ -1,5 +1,6 @@
 package com.drisk.domain;
 
+import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,11 +23,15 @@ public class GameManager {
 			instance = new GameManager();
 		return instance;
 	}
+	
+	public static void destroy() {
+		instance = null;
+	}
 		
 	//"template" perchè posso inizializzare il gioco sia attraverso il database
 	//con una mappa predefinita, sia inizializzando una mappa nuova passata come
 	//json dal client. Quindi in realtà ci saranno due implementaizoni diverse.
-	public void initGame(JsonObject gameConfig, List<Player> players) throws SyntaxException {
+	public void initGame(JsonObject gameConfig, List<Player> players) throws SyntaxException, FileNotFoundException {
 		initPlayers(players);
 		initMap(gameConfig);
 		initCards(gameConfig);
@@ -36,7 +41,7 @@ public class GameManager {
 		initPlaceTanks();
 	}
 	
-	private void initMap(JsonObject gameConfig) throws SyntaxException {
+	private void initMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
 		Map.getInstance().createMap(gameConfig);
 	}
 
@@ -94,8 +99,8 @@ public class GameManager {
 		return players;
 	}
 	
-	public void newTurn(Player Oldplayer) {
-		int currentPlayerPositionInPlayers = players.indexOf(Oldplayer);
+	public void newTurn(Player oldPlayer) {
+		int currentPlayerPositionInPlayers = players.indexOf(oldPlayer);
 		if(currentPlayerPositionInPlayers == players.size() - 1)
 			Turn.getInstance().setCurrentPlayer(players.get(0));
 		else
