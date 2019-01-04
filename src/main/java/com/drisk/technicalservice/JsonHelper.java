@@ -10,6 +10,7 @@ import com.drisk.domain.MatchManager;
 import com.drisk.domain.Player;
 import com.drisk.domain.Territory;
 import com.drisk.domain.exceptions.SyntaxException;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -30,6 +31,19 @@ public class JsonHelper {
 	
 	public static String difficultyFromJson(JsonObject gameConfig) {
 		return gameConfig.get(DIFFICULTY).getAsString();
+	}
+	
+	public static JsonObject createResponseJson(int responseCode, String responseMessage) {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("responseCode", responseCode);
+		obj.addProperty("responseMessage", responseMessage);
+		return obj;
+	}
+	
+	public static JsonObject parseGameConfig(String body) {
+		Gson converter = new Gson();
+		JsonObject obj = converter.fromJson(body, JsonObject.class);
+		return obj;
 	}
 	
 	public static JsonObject gameManagerToJson(String color) {

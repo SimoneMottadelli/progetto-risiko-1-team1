@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.drisk.domain.Color;
 import com.drisk.domain.MatchManager;
-import com.google.gson.Gson;
+import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
@@ -31,27 +31,20 @@ public class MatchController {
 	public synchronized JsonObject join(HttpServletRequest request) {
 		MatchManager mm = MatchManager.getInstance();
 		if(mm.isMatchStarted())
-			return createResponseJson(-1, "The match has already started!");
+			return JsonHelper.createResponseJson(-1, "The match has already started!");
 		else if(mm.isMatchFull())
-			return createResponseJson(-1, "There are enough players!");
+			return JsonHelper.createResponseJson(-1, "There are enough players!");
 		else {
 			HttpSession session = request.getSession(false);
 			if(session == null) {
 				mm.joinGame(request.getParameter("name").trim());
 				session = request.getSession();
 				session.setAttribute(SESSION_ATTRIBUTE_COLOR, mm.findLastPlayerColor());
-				return createResponseJson(0, "You've joined the game!");
+				return JsonHelper.createResponseJson(0, "You've joined the game!");
 			}
 			else
-				return createResponseJson(0, "Welcome back to joining room");
+				return JsonHelper.createResponseJson(0, "Welcome back to joining room");
 		}
-	}
-	
-	private synchronized JsonObject createResponseJson(int responseCode, String responseMessage) {
-		JsonObject obj = new JsonObject();
-		obj.addProperty("responseCode", responseCode);
-		obj.addProperty("responseMessage", responseMessage);
-		return obj;
 	}
 	
 	@PostMapping("/gameConfig")
@@ -59,17 +52,15 @@ public class MatchController {
 	public JsonObject gameConfig(HttpServletRequest request) {
 		try {
 			String body = request.getReader().lines().collect(Collectors.joining());
-			Gson converter = new Gson();
-			JsonObject obj = converter.fromJson(body, JsonObject.class);
-			MatchManager.getInstance().setGameConfig(obj);
-			return createResponseJson(0, "gameConfig correctly parsed");
+			MatchManager.getInstance().setGameConfig(JsonHelper.parseGameConfig(body));
+			return JsonHelper.createResponseJson(0, "gameConfig correctly parsed");
 		} 
 		catch (JsonSyntaxException e)
 		{
-			return createResponseJson(-1, "Syntax error: cannot parse json object");
+			return JsonHelper.createResponseJson(-1, "Syntax error: cannot parse json object");
 		}
 		catch (Exception e) {
-			return createResponseJson(-1, e.getMessage());
+			return JsonHelper.createResponseJson(-1, e.getMessage());
 		}
 	}
     	     
@@ -108,7 +99,7 @@ public class MatchController {
 		HttpSession session = request.getSession(false);
 		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), true);
 		tryToStartGame();
-		return createResponseJson(0, "The game will start when everyone is ready!");
+		return JsonHelper.createResponseJson(0, "The game will start when everyone is ready!");
 	}
 	
 	@GetMapping(value="/notready")
@@ -116,7 +107,7 @@ public class MatchController {
 	public synchronized JsonObject notReady(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), false);
-		return createResponseJson(0, "The game will start when everyone is ready!");
+		return JsonHelper.createResponseJson(0, "The game will start when everyone is ready!");
 	}
 	
 }
