@@ -20,27 +20,41 @@ public class Continent {
 	public String getName() {
 		return name;
 	}
-
-
+	
 	@Override
 	public boolean equals(Object obj) {
-		
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		
 		Continent other = (Continent) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} 
 		else if (!name.equals(other.name))
-			return false;	
-		
+			return false;
 		return true;
+	}
+
+	public Player findPlayer() {
+		List<Player> players = GameManager.getInstance().getPlayers();
+		int i = 0;
+		int j = 0;
+		while(i < players.size()) {
+			boolean isMine = true;
+			while(j < territories.size() && isMine) {
+				if(!territories.get(j).findPlayer().equals(players.get(i)))
+					isMine = false;
+				++j;
+			}
+			if(isMine)
+				return players.get(i);
+			++i;
+		}
+		return null;
 	}
 
 
@@ -62,6 +76,5 @@ public class Continent {
 		jsonContinent.add("territories", arrayTerritories);
 		return jsonContinent;
 	}
-
 	
 }

@@ -30,6 +30,17 @@ public class Player {
 	public String getNickname() {
 		return nickname;
 	}
+	
+	public boolean isMyTerritory(Territory t) {
+		return territoriesOwned.contains(t);
+	}
+	
+	public boolean isMyContinent(Continent c) {
+		for(Territory t : c.getTerritories())
+			if(!territoriesOwned.contains(t))
+				return false;
+		return true;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

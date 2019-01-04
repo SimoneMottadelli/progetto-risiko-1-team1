@@ -24,7 +24,7 @@ public class MatchManager {
 	}
 	
 	public void setGameConfig(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
-		Map.getInstance().testCreateMap(gameConfig);
+		MapManager.getInstance().testCreateMap(gameConfig);
 		this.gameConfig = gameConfig;
 	}
 
@@ -75,6 +75,10 @@ public class MatchManager {
 					everyoneReady = false;
 		}
 		return everyoneReady;
+	}
+	
+	public boolean areThereAtLeastTwoPlayers() {
+		return players.size() >= 2;
 	}
 	
 	public void startGame(){

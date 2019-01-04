@@ -11,23 +11,23 @@ import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class Map {
+public class MapManager {
 
-	private static Map instance;
+	private static MapManager instance;
 	private String difficulty;
 	private List<Continent> continents;
 	private boolean ready;
 	
 	private static final String SYNTAXERROR = "SyntaxError: ";
 	
-	private Map() {
+	private MapManager() {
 		continents = new LinkedList<>();
 		ready = false;
 	}
 
-	public static Map getInstance() {
+	public static MapManager getInstance() {
 		if (instance == null)
-			instance = new Map();
+			instance = new MapManager();
 		return instance;
 	}
 	

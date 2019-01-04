@@ -84,7 +84,7 @@ public class CardManagerTest {
 	
 	@After
 	public void destroy() {
-		Map.destroy();
+		MapManager.destroy();
 		CardManager.destroy();
 	}
 	

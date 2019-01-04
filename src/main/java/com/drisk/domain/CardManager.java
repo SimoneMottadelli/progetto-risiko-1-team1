@@ -33,7 +33,7 @@ public class CardManager {
 	public void initTerritoryCards() {
 		TerritoryCardSymbol[] symbols = {TerritoryCardSymbol.ARTILLERY, TerritoryCardSymbol.CAVALRY, TerritoryCardSymbol.INFANTRY};
 		int i = 0;
-		for(Territory t : com.drisk.domain.Map.getInstance().getTerritories()) {
+		for(Territory t : MapManager.getInstance().getTerritories()) {
 			TerritoryCard tc = new TerritoryCard(t, symbols[i++]);
 			addTerritoryCard(tc);
 			if(i >= 3)

@@ -17,7 +17,6 @@ public class Territory {
 		this.name = name;
 		neighbours = new LinkedList<>();
 	}
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -33,16 +32,8 @@ public class Territory {
 				return false;
 		} 
 		else if (!name.equals(other.name))
-			return false;		
-		
+			return false;
 		return true;
-	}
-	
-	
-	
-	@Override
-	public String toString() {
-		return "[name= " + name + "]";
 	}
 
 
@@ -57,7 +48,7 @@ public class Territory {
 	}
 
 	public Player findPlayer() {
-		List<Player> players = MatchManager.getInstance().getPlayers();
+		List<Player> players = GameManager.getInstance().getPlayers();
 		for (Player p: players) {
 			if (p.getTerritoriesOwned().contains(this)) {
 				return p;

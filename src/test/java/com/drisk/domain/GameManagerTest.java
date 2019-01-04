@@ -30,7 +30,7 @@ public class GameManagerTest {
 		} catch (FileNotFoundException | SyntaxException e) {
 			e.printStackTrace();
 		}
-		Map.destroy();
+		MapManager.destroy();
 		MatchManager.getInstance().startGame();
 	}
 	
@@ -39,8 +39,8 @@ public class GameManagerTest {
 	@Test
 	public void startGameTest() {
 		assertTrue(GameManager.getInstance().getPlayers().size() == 6);
-		assertTrue(Map.getInstance().getContinents().size() == 3);
-		assertTrue(Map.getInstance().getTerritories().size() == 25);
+		assertTrue(MapManager.getInstance().getContinents().size() == 3);
+		assertTrue(MapManager.getInstance().getTerritories().size() == 25);
 	}
 	
 	/*
@@ -82,7 +82,7 @@ public class GameManagerTest {
 	
 	@After
 	public void destroyMap() {
-		Map.destroy();
+		MapManager.destroy();
 	}
 
 }

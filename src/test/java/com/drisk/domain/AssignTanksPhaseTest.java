@@ -81,7 +81,7 @@ public class AssignTanksPhaseTest {
 	
 	@After
 	public void destroyMap() {
-		Map.destroy();
+		MapManager.destroy();
 	}
 	
 }

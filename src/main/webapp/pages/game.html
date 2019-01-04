@@ -9,10 +9,20 @@
 		<!--<link rel="stylesheet" type="text/css" href="../css/game.css" media="screen" /> -->
 	</head>
 	<body>
-		<!-- questo <div> conterrà la mappa -->
-		<div>
-			<div id="cy"></div>
-			<button id="button">Click</button>
+		<div id="mapDiv">
+			Continents:
+			<div id="continentsDiv"></div><hr>
+			Territories:
+			<div id="territoriesDiv"></div><hr>
+			Membership:
+			<div id="membershipDiv"></div><hr>
+			Neighbourhood:
+			<div id="neighbourhoodDiv"></div><hr>
 		</div>
+		<form id="placeTanksForm">
+			WHERE <input type="text" id="from">
+			HOW MUCH <input type="number" id="howMuch" value=0 min=0 max=10> 
+		</form>
+		<button id="placeTanksButton">PlaceTanks</button>
 	</body>
 </html>

@@ -45,11 +45,11 @@ public class MatchController {
 				return createResponseJson(0, "You've joined the game!");
 			}
 			else
-				return createResponseJson(-1, "You've already joined to the game");
+				return createResponseJson(0, "Welcome back to joining room");
 		}
 	}
 	
-	private JsonObject createResponseJson(int responseCode, String responseMessage) {
+	private synchronized JsonObject createResponseJson(int responseCode, String responseMessage) {
 		JsonObject obj = new JsonObject();
 		obj.addProperty("responseCode", responseCode);
 		obj.addProperty("responseMessage", responseMessage);
@@ -92,7 +92,7 @@ public class MatchController {
     }
 	
 	// used by handleSse for creating the response
-	private JsonObject createResponsePlayersJson() {
+	private synchronized JsonObject createResponsePlayersJson() {
 		JsonArray jsonArrayPlayers = new JsonArray();
 		for(Player p : MatchManager.getInstance().getPlayers())
 			jsonArrayPlayers.add(p.toJson());
@@ -111,8 +111,9 @@ public class MatchController {
 		return "You've exited from the game!";
 	}
 	
-	private void tryToStartGame(){
-		if (MatchManager.getInstance().isEveryoneReady() && MatchManager.getInstance().isGameConfigured())
+	private synchronized void tryToStartGame(){
+		MatchManager mm = MatchManager.getInstance();
+		if (mm.isEveryoneReady() && mm.isGameConfigured() && mm.areThereAtLeastTwoPlayers())
 			MatchManager.getInstance().startGame();
 	}
 	

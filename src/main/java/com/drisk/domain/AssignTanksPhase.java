@@ -38,7 +38,7 @@ public class AssignTanksPhase implements Phase {
 		
 		int tanks = 0;
 		List<Territory> territoriesOwned = player.getTerritoriesOwned();
-		List<Continent> continents = Map.getInstance().getContinents();
+		List<Continent> continents = MapManager.getInstance().getContinents();
 		for(Continent c: continents) {
 			List<Territory> territories = c.getTerritories();
 			if (territoriesOwned.containsAll(territories)) {

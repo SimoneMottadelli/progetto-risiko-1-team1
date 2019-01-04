@@ -24,30 +24,30 @@ public class MapTest {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader("default_map_easy.json"));
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class); 
-			Map.destroy();
-			Map.getInstance().createMap(obj);
+			MapManager.destroy();
+			MapManager.getInstance().createMap(obj);
 		} catch (FileNotFoundException | SyntaxException e) {}
 	}
 
 	@Test
 	public void createContinentTest() {
-		assertEquals(3, Map.getInstance().getContinents().size());
+		assertEquals(3, MapManager.getInstance().getContinents().size());
 	}
 	
 	@Test
 	public void createTerritoriesTest() {
-		assertEquals(25, Map.getInstance().getTerritories().size());
-		Continent c = Map.getInstance().findContinentByName("europe");
+		assertEquals(25, MapManager.getInstance().getTerritories().size());
+		Continent c = MapManager.getInstance().findContinentByName("europe");
 		assertEquals(7, c.getTerritories().size());
-		Territory t = Map.getInstance().findTerritoryByName("congo");
+		Territory t = MapManager.getInstance().findTerritoryByName("congo");
 		assertEquals(3, t.getNeighbours().size());
-		t = Map.getInstance().findTerritoryByName("egypt");
+		t = MapManager.getInstance().findTerritoryByName("egypt");
 		assertTrue(t.getNeighbours().contains(new Territory("north africa")));
 	}
 	
 	@Test
 	public void toJsonTest() {
-		JsonObject obj = Map.getInstance().toJson();
+		JsonObject obj = MapManager.getInstance().toJson();
 		assertEquals("easy", obj.get("difficulty").toString().replace("\"", ""));
 		assertEquals(3, obj.getAsJsonArray("continents").size());
 		assertEquals(25, obj.getAsJsonArray("neighbourhood").size());
@@ -68,7 +68,7 @@ public class MapTest {
 
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(s, JsonObject.class); 
-			Map.getInstance().createMap(obj);
+			MapManager.getInstance().createMap(obj);
 			fail();
 		} catch (SyntaxException | FileNotFoundException e) {}
 	}
@@ -88,7 +88,7 @@ public class MapTest {
 
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(s, JsonObject.class); 
-			Map.getInstance().createMap(obj);
+			MapManager.getInstance().createMap(obj);
 			fail();
 		} catch (SyntaxException | FileNotFoundException e) {}
 	}
@@ -108,7 +108,7 @@ public class MapTest {
 
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(s, JsonObject.class); 
-			Map.getInstance().createMap(obj);
+			MapManager.getInstance().createMap(obj);
 			fail();
 		} catch (SyntaxException | FileNotFoundException e) {}
 	}
@@ -128,7 +128,7 @@ public class MapTest {
 
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(s, JsonObject.class); 
-			Map.getInstance().createMap(obj);
+			MapManager.getInstance().createMap(obj);
 			fail();
 		} catch (SyntaxException | FileNotFoundException e) {}
 	}
@@ -148,14 +148,14 @@ public class MapTest {
 
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(s, JsonObject.class); 
-			Map.getInstance().createMap(obj);
+			MapManager.getInstance().createMap(obj);
 			fail();
 		} catch (SyntaxException | FileNotFoundException e) {}
 	}
 	
 	@After
 	public void destroyMapTest() {
-		Map.destroy();
+		MapManager.destroy();
 	}
 	
 }

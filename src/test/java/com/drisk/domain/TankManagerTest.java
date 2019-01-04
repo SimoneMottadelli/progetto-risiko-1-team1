@@ -28,7 +28,7 @@ public class TankManagerTest {
 		} catch (SyntaxException | FileNotFoundException e) {}
 		for(int i = 1; i <= 6; i++)
 			MatchManager.getInstance().joinGame("Player" + i);
-		Map.destroy();
+		MapManager.destroy();
 		MatchManager.getInstance().startGame();
 	}
 	
@@ -100,6 +100,6 @@ public class TankManagerTest {
 	
 	@After
 	public void destroyMap() {
-		Map.destroy();
+		MapManager.destroy();
 	}
 }

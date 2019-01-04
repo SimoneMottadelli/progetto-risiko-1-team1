@@ -27,10 +27,7 @@ public class GameManager {
 	public static void destroy() {
 		instance = null;
 	}
-		
-	//"template" perchè posso inizializzare il gioco sia attraverso il database
-	//con una mappa predefinita, sia inizializzando una mappa nuova passata come
-	//json dal client. Quindi in realtà ci saranno due implementaizoni diverse.
+
 	public void initGame(JsonObject gameConfig, List<Player> players) throws SyntaxException, FileNotFoundException {
 		initPlayers(players);
 		initMap(gameConfig);
@@ -42,7 +39,7 @@ public class GameManager {
 	}
 	
 	private void initMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
-		Map.getInstance().createMap(gameConfig);
+		MapManager.getInstance().createMap(gameConfig);
 	}
 
 	private void initPlayers(List<Player> players) {
@@ -70,7 +67,7 @@ public class GameManager {
 	}
 	
 	public void initPlayersTerritories() {
-		List<Territory> territories = Map.getInstance().getTerritories();
+		List<Territory> territories = MapManager.getInstance().getTerritories();
 		Collections.shuffle(territories);
 		
 		for (int i = 0; i < territories.size(); ++i) {

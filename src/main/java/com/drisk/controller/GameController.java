@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.drisk.domain.Color;
 import com.drisk.domain.GameManager;
-import com.drisk.domain.Map;
+import com.drisk.domain.MapManager;
 import com.drisk.domain.MatchManager;
 import com.drisk.domain.Turn;
 import com.google.gson.JsonObject;
@@ -29,7 +29,7 @@ public class GameController {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
-				JsonObject map = Map.getInstance().toJson();
+				JsonObject map = MapManager.getInstance().toJson();
 				emitter.send(map);
 				emitter.complete();	
 			} catch (Exception ex) {
@@ -38,6 +38,23 @@ public class GameController {
 		});
 		return emitter;
     }
+	
+	@GetMapping("/getColorFromSession")
+	@ResponseBody
+	public JsonObject getColorSession(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(session == null)
+			return createResponseJson(-1, "You are not a player because you haven't a color assigned");
+		else
+			return createResponseJson(0, session.getAttribute(SESSION_ATTRIBUTE_COLOR).toString());
+	}
+	
+	private JsonObject createResponseJson(int responseCode, String responseMessage) {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("responseCode", responseCode);
+		obj.addProperty("responseMessage", responseMessage);
+		return obj;
+	}
 	
 	@GetMapping("/turn")
     public SseEmitter handleSseTurn() {

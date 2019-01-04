@@ -15,7 +15,7 @@ public class AttackPhase implements Phase {
 
 	public void attackEnemyTerritory(Territory territoryAttacker, Territory territoryDefender, int attackerTanks) {
 
-		Player attacker = territoryAttacker.findPlayer();
+		Player attacker = Turn.getInstance().getCurrentPlayer();
 		Player defender = territoryDefender.findPlayer();
 
 			int defenderTanks = territoryDefender.getNumberOfTanks();
