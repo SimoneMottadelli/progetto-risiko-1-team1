@@ -2,7 +2,11 @@ package com.drisk.domain;
 
 import java.util.List;
 
-public class AssignTanksPhase implements Phase {
+public class AssignTanksPhase extends Phase {
+
+	public AssignTanksPhase() {
+		super(2);
+	}
 
 	@Override
 	public void startPhase() {

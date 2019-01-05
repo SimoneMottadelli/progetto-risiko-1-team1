@@ -31,7 +31,7 @@ public class GameManagerTest {
 			e.printStackTrace();
 		}
 		MapManager.destroy();
-		MatchManager.getInstance().startGame();
+		MatchManager.getInstance().initGame();
 	}
 	
 	// TODO controllare che ci siano almeno 2 giocatori nella partita

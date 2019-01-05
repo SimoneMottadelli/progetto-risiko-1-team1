@@ -4,13 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Arrays;
 
-public class AssignBonusTanksPhase implements Phase{
+public class AssignBonusTanksPhase extends Phase{
 	
+	public AssignBonusTanksPhase() {
+		super(1);
+	}
+
 	@Override
 	public void startPhase() {
 		//da implementare TODO		
 	}
-
+	
 	@Override
 	public void nextPhase() {
 		TurnManager.getInstance().setCurrentPhase(new AssignTanksPhase());
@@ -32,9 +36,10 @@ public class AssignBonusTanksPhase implements Phase{
 				for (TerritoryCard t : tris)
 					if (player.getTerritoriesOwned().contains(t.getTerritory()))
 						bonusTanks += 2;
-				player.addAvailableTanks(bonusTanks);
+				TankManager.getInstance().addTanksToPlayer(bonusTanks, player);
 				CardManager.getInstance().removeCards(player, tris);
 			}
 		}
-	}	
+	}
+	
 }

@@ -24,6 +24,15 @@ public class Player {
 		territoriesOwned = new LinkedList<>();
 	}
 	
+	public int placeTanks(int tanks) {
+		if(tanks > availableTanks)
+			return 0;
+		else {
+			availableTanks = availableTanks - tanks;
+			return tanks;
+		}
+	}
+	
 	public List<Territory> getTerritoriesOwned() {
 		return territoriesOwned;
 	}
@@ -112,6 +121,6 @@ public class Player {
 	}
 	
 	public JsonObject toJson() {
-		return JsonHelper.playerToJson(nickname, color.toString(), ready);
+		return JsonHelper.playerToJson(nickname, color.toString(), availableTanks, ready);
 	}
 }

@@ -1,6 +1,10 @@
 package com.drisk.domain;
 
-public class TankPlacementPhase implements Phase {
+public class TankPlacementPhase extends Phase {
+
+	public TankPlacementPhase() {
+		super(3);
+	}
 
 	@Override
 	public void startPhase() {

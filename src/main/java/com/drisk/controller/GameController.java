@@ -1,13 +1,16 @@
 package com.drisk.controller;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -15,7 +18,10 @@ import com.drisk.domain.Color;
 import com.drisk.domain.GameManager;
 import com.drisk.domain.MapManager;
 import com.drisk.domain.MatchManager;
+import com.drisk.domain.Player;
+import com.drisk.domain.TankManager;
 import com.drisk.domain.TurnManager;
+import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -39,9 +45,25 @@ public class GameController {
 		return emitter;
     }
 	
+	@PostMapping("/placeTanks")
+	@ResponseBody
+	public synchronized JsonObject placeTanks(HttpServletRequest request) {
+		try {
+			String body = request.getReader().lines().collect(Collectors.joining());
+			JsonObject obj = JsonHelper.parseJson(body);
+			String territoryName = obj.getAsJsonPrimitive("where").getAsString();
+			int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
+			Player p = GameManager.getInstance().findPlayerByColor((Color) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR));
+			TankManager.getInstance().placeTanks(MapManager.getInstance().findTerritoryByName(territoryName), p.placeTanks(numOfTanks));
+			return JsonHelper.createResponseJson(0, "tanks placed");
+		} catch (IOException e) {
+			return JsonHelper.createResponseJson(-1, e.getMessage());
+		}
+	}
+	
 	@GetMapping("/getColorFromSession")
 	@ResponseBody
-	public JsonObject getColorSession(HttpServletRequest request) {
+	public synchronized JsonObject getColorSession(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(session == null)
 			return createResponseJson(-1, "You are not a player because you haven't a color assigned");
@@ -56,7 +78,7 @@ public class GameController {
 		return obj;
 	}
 	
-	@GetMapping("/turn")
+	@GetMapping("/turnStatus")
     public SseEmitter handleSseTurn() {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
@@ -81,7 +103,7 @@ public class GameController {
 	
 	@GetMapping(value="/nextPhase")
 	@ResponseBody
-	public String nextPhase() {
+	public synchronized String nextPhase() {
 		MatchManager mm = MatchManager.getInstance();
 		if (mm.isMatchStarted()) {
 			TurnManager.getInstance().getCurrentPhase().nextPhase();
@@ -93,7 +115,7 @@ public class GameController {
 	
 	@GetMapping(value="/playPhase")
 	@ResponseBody
-	public String playPhase() {
+	public synchronized String playPhase() {
 		MatchManager mm = MatchManager.getInstance();
 		if (mm.isMatchStarted()) {
 			TurnManager.getInstance().getCurrentPhase().startPhase();

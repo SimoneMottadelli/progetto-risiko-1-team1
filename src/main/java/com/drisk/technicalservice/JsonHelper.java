@@ -40,23 +40,27 @@ public class JsonHelper {
 		return obj;
 	}
 	
-	public static JsonObject parseGameConfig(String body) {
+	public static JsonObject parseJson(String body) {
 		Gson converter = new Gson();
-		JsonObject obj = converter.fromJson(body, JsonObject.class);
-		return obj;
+		return converter.fromJson(body, JsonObject.class);
 	}
 	
-	public static JsonObject gameManagerToJson(String color) {
+	public static JsonObject gameManagerToJson(String color, List<Player> players) {
 		JsonObject result = new JsonObject();
 		result.addProperty(CURRENT_PLAYER_COLOR, color);
+		JsonArray playersArray = new JsonArray();
+		for(Player p : players) {
+			playersArray.add(p.toJson());
+		}
+		result.add("players", playersArray);
 		return result;
 	}
 	
-	public static JsonObject playerToJson(String nickname, String color, boolean ready) {
+	public static JsonObject playerToJson(String nickname, String color, int availableTanks, boolean ready) {
 		JsonObject jsonPlayer = new JsonObject();
 		jsonPlayer.addProperty("nickname", nickname);
-		String colorProperty = color.toLowerCase();
-		jsonPlayer.addProperty("color", colorProperty);
+		jsonPlayer.addProperty("availableTanks", availableTanks);
+		jsonPlayer.addProperty("color", color.toUpperCase());
 		jsonPlayer.addProperty("ready", ready);
 		return jsonPlayer;
 	}

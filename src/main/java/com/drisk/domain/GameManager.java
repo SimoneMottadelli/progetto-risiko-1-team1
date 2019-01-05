@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
 public class GameManager {
 	
 	private List<Player> players;
-	private static GameManager instance;	
+	private static GameManager instance;
 	
 	private GameManager() {
 		players = new LinkedList<>();
@@ -36,6 +36,10 @@ public class GameManager {
 		initPlayersTerritories();
 		initTanks();
 		initPlaceTanks();
+	}
+	
+	public void startGame() {
+		// here turn manager will be invoked to start the real game
 	}
 	
 	private void initMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
@@ -80,7 +84,9 @@ public class GameManager {
 	}
 	
 	public void initPlaceTanks() {
-		//TODO
+		for(Player p : players)
+			for(Territory t : p.getTerritoriesOwned())
+				TankManager.getInstance().placeTanks(t, p.placeTanks(1));
 	}
 	
 	public boolean checkWin(Player currentPlayer) {
@@ -104,12 +110,21 @@ public class GameManager {
 			TurnManager.getInstance().setCurrentPlayer(players.get(currentPlayerPositionInPlayers + 1));
 	}
 	
+	public Player findPlayerByColor(Color color) {
+		for(Player p : players)
+			if(p.getColor().equals(color))
+				return p;
+		return null;
+	}
+	
+	// this gives a nullPointerException in this moment
 	private Color getColorOfCurrentPlayer() {
 		return TurnManager.getInstance().getCurrentPlayer().getColor();
 	}
 	
 	public JsonObject toJson() {
-		return JsonHelper.gameManagerToJson(getColorOfCurrentPlayer().toString());
+		//String color = getColorOfCurrentPlayer().toString();
+		return JsonHelper.gameManagerToJson("noColor", players);
 	}
 	
 }

@@ -27,7 +27,7 @@ public class AssignTanksPhaseTest {
 		} catch (SyntaxException | FileNotFoundException e) {}
 		for(int i = 1; i <= 6; i++)
 			MatchManager.getInstance().joinGame("Player" + i);
-		MatchManager.getInstance().startGame();
+		MatchManager.getInstance().initGame();
 	}
 	
 	@Test

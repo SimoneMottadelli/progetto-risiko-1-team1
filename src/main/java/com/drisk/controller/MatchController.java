@@ -52,7 +52,7 @@ public class MatchController {
 	public JsonObject gameConfig(HttpServletRequest request) {
 		try {
 			String body = request.getReader().lines().collect(Collectors.joining());
-			MatchManager.getInstance().setGameConfig(JsonHelper.parseGameConfig(body));
+			MatchManager.getInstance().setGameConfig(JsonHelper.parseJson(body));
 			return JsonHelper.createResponseJson(0, "gameConfig correctly parsed");
 		} 
 		catch (JsonSyntaxException e)
@@ -90,7 +90,7 @@ public class MatchController {
 	private synchronized void tryToStartGame(){
 		MatchManager mm = MatchManager.getInstance();
 		if (mm.isEveryoneReady() && mm.isGameConfigured() && mm.areThereAtLeastTwoPlayers())
-			MatchManager.getInstance().startGame();
+			MatchManager.getInstance().initGame();
 	}
 	
 	@GetMapping(value="/ready")

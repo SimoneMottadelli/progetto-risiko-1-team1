@@ -1,8 +1,18 @@
 package com.drisk.domain;
 
-public interface Phase {
+public abstract class Phase {
 	
-	public void startPhase();
-	public void nextPhase();
+	int phaseId;
 	
+	public Phase(int id) {
+		phaseId = id;
+	}
+	
+	public final int getPhaseId() {
+		return phaseId;
+	}
+	
+	public abstract void nextPhase();
+	public abstract void startPhase();
+
 }

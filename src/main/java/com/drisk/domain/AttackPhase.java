@@ -1,6 +1,10 @@
 package com.drisk.domain;
 
-public class AttackPhase implements Phase {
+public class AttackPhase extends Phase {
+
+	public AttackPhase() {
+		super(4);
+	}
 
 	@Override
 	public void startPhase() {

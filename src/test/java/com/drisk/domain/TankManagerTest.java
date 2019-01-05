@@ -29,7 +29,7 @@ public class TankManagerTest {
 		for(int i = 1; i <= 6; i++)
 			MatchManager.getInstance().joinGame("Player" + i);
 		MapManager.destroy();
-		MatchManager.getInstance().startGame();
+		MatchManager.getInstance().initGame();
 	}
 	
 	@Test

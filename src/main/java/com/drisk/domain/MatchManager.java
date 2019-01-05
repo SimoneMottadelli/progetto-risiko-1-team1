@@ -82,7 +82,7 @@ public class MatchManager {
 		return players.size() >= 2;
 	}
 	
-	public void startGame(){
+	public void initGame(){
 		matchStarted = true;
 		try {
 			GameManager.getInstance().initGame(gameConfig, players);

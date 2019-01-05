@@ -31,7 +31,7 @@ public class CardManagerTest {
 		} catch (SyntaxException | FileNotFoundException e) {}
 		for(int i = 1; i <= 6; i++)
 			MatchManager.getInstance().joinGame("Player" + i);
-		MatchManager.getInstance().startGame();
+		MatchManager.getInstance().initGame();
 		CardManager.getInstance().initTerritoryCards();
 		CardManager.getInstance().initMissionCards(Difficulty.valueOf(JsonHelper.difficultyFromJson(obj).toUpperCase()));
 	}

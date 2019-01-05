@@ -47,6 +47,10 @@ public class TankManager {
 		}
 	}
 	
+	public void addTanksToPlayer(int tanks, Player p) {
+		p.addAvailableTanks(tanks);
+	}
+	
 	public void placeTanks(Territory whereTerritory, int numTanks) {
 		whereTerritory.addNumberOfTanks(numTanks);
 	}
