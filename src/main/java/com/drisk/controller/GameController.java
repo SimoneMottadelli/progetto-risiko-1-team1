@@ -55,10 +55,16 @@ public class GameController {
 			int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
 			Player p = GameManager.getInstance().findPlayerByColor((Color) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR));
 			TankManager.getInstance().placeTanks(MapManager.getInstance().findTerritoryByName(territoryName), p.placeTanks(numOfTanks));
+			tryToStartGame();
 			return JsonHelper.createResponseJson(0, "tanks placed");
 		} catch (IOException e) {
 			return JsonHelper.createResponseJson(-1, e.getMessage());
 		}
+	}
+	
+	private void tryToStartGame() {
+		if(GameManager.getInstance().isAllTanksPlaced())
+			GameManager.getInstance().startGame();
 	}
 	
 	@GetMapping("/getColorFromSession")

@@ -28,6 +28,7 @@ public class JsonHelper {
 	private static final String NUMBEROFTANKS = "numberOfTanks";
 	private static final String OWNER = "owner";
 	private static final String CURRENT_PLAYER_COLOR = "currentPlayersColor";
+	private static final String CURRENT_PHASE_ID = "currentPhaseId";
 	
 	public static String difficultyFromJson(JsonObject gameConfig) {
 		return gameConfig.get(DIFFICULTY).getAsString();
@@ -45,9 +46,10 @@ public class JsonHelper {
 		return converter.fromJson(body, JsonObject.class);
 	}
 	
-	public static JsonObject gameManagerToJson(String color, List<Player> players) {
+	public static JsonObject gameManagerToJson(String color, Integer phaseId, List<Player> players) {
 		JsonObject result = new JsonObject();
 		result.addProperty(CURRENT_PLAYER_COLOR, color);
+		result.addProperty(CURRENT_PHASE_ID, phaseId);
 		JsonArray playersArray = new JsonArray();
 		for(Player p : players) {
 			playersArray.add(p.toJson());

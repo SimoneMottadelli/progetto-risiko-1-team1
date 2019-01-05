@@ -39,7 +39,7 @@ public class GameManager {
 	}
 	
 	public void startGame() {
-		// here turn manager will be invoked to start the real game
+		TurnManager.getInstance().initTurn();
 	}
 	
 	private void initMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
@@ -110,6 +110,14 @@ public class GameManager {
 			TurnManager.getInstance().setCurrentPlayer(players.get(currentPlayerPositionInPlayers + 1));
 	}
 	
+	// this method allow to check, in the initial phase, if all player have placed all own tanks
+	public boolean isAllTanksPlaced() {
+		for(Player p : players)
+			if(p.getAvailableTanks() != 0)
+				return false;
+		return true;
+	}
+	
 	public Player findPlayerByColor(Color color) {
 		for(Player p : players)
 			if(p.getColor().equals(color))
@@ -117,14 +125,24 @@ public class GameManager {
 		return null;
 	}
 	
-	// this gives a nullPointerException in this moment
-	private Color getColorOfCurrentPlayer() {
-		return TurnManager.getInstance().getCurrentPlayer().getColor();
+	private String getStringColorOfCurrentPlayer() {
+		Player currentPlayerInTurn = TurnManager.getInstance().getCurrentPlayer();
+		if(currentPlayerInTurn != null)
+			return currentPlayerInTurn.getColor().toString();
+		else
+			return null;
+	}
+	
+	private Integer getCurrentPhaseId() {
+		Phase phase = TurnManager.getInstance().getCurrentPhase();
+		if(phase != null)
+			return phase.getPhaseId();
+		else
+			return null;
 	}
 	
 	public JsonObject toJson() {
-		//String color = getColorOfCurrentPlayer().toString();
-		return JsonHelper.gameManagerToJson("noColor", players);
+		return JsonHelper.gameManagerToJson(getStringColorOfCurrentPlayer(), getCurrentPhaseId(), players);
 	}
 	
 }

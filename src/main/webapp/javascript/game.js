@@ -2,17 +2,27 @@ $(document).ready(function(){
 	
 	var myColor = null;
 	var myTerritories = null;
+	var availableTanks = null;
+	showOrHidePlaceTanksDiv(false);
 	findMyColor();
 	
 	$('#placeTanksButton').click(function() {
 		placeTanks()
 	});
 	
+	function showOrHidePlaceTanksDiv(val){
+		if(val == false)
+			$('#placeTanksDiv').hide();
+		else
+			$('#placeTanksDiv').show();
+	}
+	
 	function findMyColor() {
 		$.getJSON('../game/getColorFromSession', function(data) {
 			if(data.responseCode != -1) {
 				myColor = data.responseMessage;
 				loadMap();
+				showOrHidePlaceTanksDiv(true);
 				playerTurnRequest();
 			}
 		});
@@ -49,7 +59,7 @@ $(document).ready(function(){
 				success: function(data) {
 					if(data.responseCode == -1)
 						alert(data.responseMessage);
-					}
+				}
 			});
 		}
 		else
@@ -82,7 +92,22 @@ $(document).ready(function(){
 	function playerTurnRequest() {
 		var source = new EventSource('../game/turnStatus');
 		source.onmessage = function(event) {
-			console.log(event.data);
+			if(!JSON.parse(event.data).hasOwnProperty('currentPlayer') && availableTanks != 0) {
+				var players = JSON.parse(event.data).players;
+				var i = 0;
+				while(i < players.length && availableTanks != 0) {
+					if(players[i].color == myColor) {
+						availableTanks = players[i].availableTanks
+						if(availableTanks == 0) {
+							showOrHidePlaceTanksDiv(false);
+							alert("all tanks placed, wait that all players place their tanks");
+							return;
+						}
+					}
+					++i;
+				}
+			}
+			
 		}
 	}
 	

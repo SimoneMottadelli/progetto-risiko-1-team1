@@ -1,12 +1,15 @@
 package com.drisk.domain;
 
+
 public class TurnManager {
 	
 	private static TurnManager instance;
 	private Player currentPlayer;
 	private Phase currentPhase;
 	
-	private TurnManager() {
+	private TurnManager() {}
+	
+	public void initTurn() {
 		currentPhase = new AssignBonusTanksPhase();
 	}
 	
@@ -35,4 +38,5 @@ public class TurnManager {
 	public static void destroy() {
 		instance = null;
 	}
+
 }
