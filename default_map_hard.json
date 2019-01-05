@@ -1,0 +1,503 @@
+{
+	"difficulty": "hard",
+	"territories": [
+		"iceland",
+		"scandinavia",
+		"great britain",
+		"ukraine",
+		"north europe",
+		"south europe",
+		"west europe",
+		"north africa",
+		"egypt",
+		"east africa",
+		"congo",
+		"south africa",
+		"madagascar",
+		"middle east",
+		"india",
+		"afghanistan",
+		"china",
+		"ural",
+		"siberia",
+		"siam",
+		"mongolia",
+		"japan",
+		"kamchatka",
+		"yakursk",
+		"irkutsk",
+		"alaska",
+		"northwest territory",
+		"groenland",
+		"alberta",
+		"ontario",
+		"quebec",
+		"western united states",
+		"eastern united states",
+		"central america",
+		"venezuela",
+		"brazil",
+		"peru",
+		"argentina",
+		"indonesia",
+		"new guinea",
+		"eastern australia",
+		"western australia"
+	],
+	"continents": [
+		"europe",
+		"asia",
+		"africa",
+		"north america",
+		"south america",
+		"australia"
+	],
+	"membership": [
+		{
+			"name": "europe",
+			"territories": [
+				"iceland",
+				"scandinavia",
+				"great britain",
+				"ukraine",
+				"north europe",
+				"south europe",
+				"west europe"
+			]
+		},
+		{
+			"name": "africa",
+			"territories": [
+				"north africa",
+				"egypt",
+				"east africa",
+				"congo",
+				"south africa",
+				"madagascar"
+			]
+		},
+		{
+			"name": "asia",
+			"territories": [
+				"middle east",
+				"india",
+				"afghanistan",
+				"china",
+				"ural",
+				"siberia",
+				"siam",
+				"mongolia",
+				"japan",
+				"kamchatka",
+				"yakursk",
+				"irkutsk"
+			]
+		},
+		{
+			"name": "north america",
+			"territories": [
+				"alaska",
+				"northwest territory",
+				"groenland",
+				"alberta",
+				"ontario",
+				"quebec",
+				"western united states",
+				"eastern united states",
+				"central america"
+			]
+		},
+		{
+			"name": "south america",
+			"territories": [
+				"venezuela",
+				"brazil",
+				"peru",
+				"argentina"
+			]
+		},
+		{
+			"name": "australia",
+			"territories": [
+				"indonesia",
+				"new guinea",
+				"eastern australia",
+				"western australia"
+			]
+		}
+	],
+	"neighbourhood": [
+		{
+			"name": "afghanistan",
+			"territories": [
+				"china",
+				"india",
+				"middle east",
+				"ukraine",
+				"ural"
+			]
+		},
+		{
+			"name": "china",
+			"territories": [
+				"afghanistan",
+				"india",
+				"mongolia",
+				"siam",
+				"siberia",
+				"ural"
+			]
+		},
+		{
+			"name": "congo",
+			"territories": [
+				"east africa",
+				"north africa",
+				"south africa"
+			]
+		},
+		{
+			"name": "east africa",
+			"territories": [
+				"congo",
+				"egypt",
+				"madagascar",
+				"middle east",
+				"north africa"
+			]
+		},
+		{
+			"name": "egypt",
+			"territories": [
+				"east africa",
+				"middle east",
+				"north africa",
+				"south europe"
+			]
+		},
+		{
+			"name": "great britain",
+			"territories": [
+				"iceland",
+				"north europe",
+				"scandinavia",
+				"south europe"
+			]
+		},
+		{
+			"name": "iceland",
+			"territories": [
+				"great britain",
+				"scandinavia",
+				"groenland"
+			]
+		},
+		{
+			"name": "india",
+			"territories": [
+				"afghanistan",
+				"china",
+				"middle east",
+				"siam"
+			]
+		},
+		{
+			"name": "irkutsk",
+			"territories": [
+				"kamchatka",
+				"mongolia",
+				"siberia",
+				"yakursk"
+			]
+		},
+		{
+			"name": "japan",
+			"territories": [
+				"kamchatka",
+				"mongolia"
+			]
+		},
+		{
+			"name": "madagascar",
+			"territories": [
+				"east africa",
+				"south africa"
+			]
+		},
+		{
+			"name": "middle east",
+			"territories": [
+				"afghanistan",
+				"east africa",
+				"egypt",
+				"india",
+				"south europe",
+				"ukraine"
+			]
+		},
+		{
+			"name": "mongolia",
+			"territories": [
+				"china",
+				"irkutsk",
+				"japan",
+				"kamchatka",
+				"siberia"
+			]
+		},
+		{
+			"name": "north africa",
+			"territories": [
+				"congo",
+				"east africa",
+				"egypt",
+				"west europe",
+				"brazil"
+			]
+		},
+		{
+			"name": "north europe",
+			"territories": [
+				"great britain",
+				"south europe",
+				"ukraine",
+				"west europe"
+			]
+		},
+		{
+			"name": "scandinavia",
+			"territories": [
+				"great britain",
+				"iceland",
+				"ukraine"
+			]
+		},
+		{
+			"name": "siam",
+			"territories": [
+				"china",
+				"india",
+				"indonesia"
+			]
+		},
+		{
+			"name": "siberia",
+			"territories": [
+				"china",
+				"irkutsk",
+				"mongolia",
+				"ural",
+				"yakursk"
+			]
+		},
+		{
+			"name": "south africa",
+			"territories": [
+				"congo",
+				"east africa",
+				"madagascar"
+			]
+		},
+		{
+			"name": "south europe",
+			"territories": [
+				"egypt",
+				"middle east",
+				"north europe",
+				"ukraine",
+				"west europe"
+			]
+		},
+		{
+			"name": "ukraine",
+			"territories": [
+				"afghanistan",
+				"middle east",
+				"north europe",
+				"scandinavia",
+				"south europe",
+				"ural"
+			]
+		},
+		{
+			"name": "ural",
+			"territories": [
+				"afghanistan",
+				"china",
+				"siberia",
+				"ukraine"
+			]
+		},
+		{
+			"name": "west europe",
+			"territories": [
+				"great britain",
+				"north africa",
+				"north europe",
+				"south europe"
+			]
+		},
+		{
+			"name": "yakursk",
+			"territories": [
+				"irkutsk",
+				"kamchatka",
+				"siberia"
+			]
+		},
+		{
+			"name": "kamchatka",
+			"territories": [
+				"yakursk",
+				"irkutsk",
+				"mongolia",
+				"japan",
+				"alaska"
+			]
+		},
+		{
+			"name": "alaska",
+			"territories": [
+				"northwest territory",
+				"alberta",
+				"kamchatka"
+			]
+		},
+		{
+			"name": "northwest territory",
+			"territories": [
+				"alaska",
+				"alberta",
+				"groenland",
+				"ontario"
+			]
+		},
+		{
+			"name": "groenland",
+			"territories": [
+				"northwest territory",
+				"ontario",
+				"quebec",
+				"iceland"
+			]
+		},
+		{
+			"name": "alberta",
+			"territories": [
+				"alaska",
+				"northwest territory",
+				"western united states",
+				"ontario"
+			]
+		},
+		{
+			"name": "ontario",
+			"territories": [
+				"northwest territory",
+				"alberta",
+				"western united states",
+				"eastern united states",
+				"quebec",
+				"groenland"
+			]
+		},
+		{
+			"name": "quebec",
+			"territories": [
+				"eastern united states",
+				"groenland",
+				"ontario"
+			]
+		},
+		{
+			"name": "western united states",
+			"territories": [
+				"central america",
+				"alberta",
+				"eastern united states",
+				"ontario"
+			]
+		},
+		{
+			"name": "eastern united states",
+			"territories": [
+				"quebec",
+				"western united states",
+				"central america",
+				"ontario"
+			]
+		},
+		{
+			"name": "central america",
+			"territories": [
+				"western united states",
+				"eastern united states",
+				"venezuela"
+			]
+		},
+		{
+			"name": "venezuela",
+			"territories": [
+				"central america",
+				"peru",
+				"brazil"
+			]
+		},
+		{
+			"name": "peru",
+			"territories": [
+				"venezuela",
+				"brazil",
+				"argentina"
+			]
+		},
+		{
+			"name": "brazil",
+			"territories": [
+				"venezuela",
+				"peru",
+				"argentina",
+				"north africa"
+			]
+		},
+		{
+			"name": "argentina",
+			"territories": [
+				"brazil",
+				"peru"
+			]
+		},
+		{
+			"name": "indonesia",
+			"territories": [
+				"siam",
+				"new guinea",
+				"western australia"
+			]
+		},
+		{
+			"name": "new guinea",
+			"territories": [
+				"indonesia",
+				"western australia",
+				"eastern australia"
+			]
+		},
+		{
+			"name": "western australia",
+			"territories": [
+				"indonesia",
+				"new guinea",
+				"eastern australia"
+			]
+		},
+		{
+			"name": "eastern australia",
+			"territories": [
+				"indonesia",
+				"new guinea",
+				"western australia"
+			]
+		}
+	]
+}
