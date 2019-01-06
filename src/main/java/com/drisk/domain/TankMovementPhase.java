@@ -1,5 +1,7 @@
 package com.drisk.domain;
 
+import com.google.gson.JsonObject;
+
 public class TankMovementPhase extends Phase {
 
 	public TankMovementPhase() {
@@ -7,7 +9,7 @@ public class TankMovementPhase extends Phase {
 	}
 
 	@Override
-	public void playPhase() {
+	public void playPhase(JsonObject obj) {
 		// TODO Auto-generated method stub
 	}
 

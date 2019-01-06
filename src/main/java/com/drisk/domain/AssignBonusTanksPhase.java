@@ -2,6 +2,10 @@ package com.drisk.domain;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import com.drisk.technicalservice.JsonHelper;
+import com.google.gson.JsonObject;
+
 import java.util.Arrays;
 
 public class AssignBonusTanksPhase extends Phase{
@@ -11,8 +15,8 @@ public class AssignBonusTanksPhase extends Phase{
 	}
 
 	@Override
-	public void playPhase() {
-		//da implementare TODO		
+	public void playPhase(JsonObject obj) {
+		useTris(JsonHelper.getTrisFromJson(obj));
 	}
 	
 	@Override
@@ -20,10 +24,10 @@ public class AssignBonusTanksPhase extends Phase{
 		TurnManager.getInstance().setCurrentPhase(new AssignTanksPhase());
 	}
 	
-	public void useTris(Player player, TerritoryCard[] tris) {
+	private void useTris(TerritoryCard[] tris) {
 		if (tris.length == 3) {
 			Arrays.sort(tris);
-			
+			Player player = TurnManager.getInstance().getCurrentPlayer();
 			List<TerritoryCardSymbol> trisSymbols = new LinkedList<>();
 			for (int i = 0; i < 3; ++i)
 				trisSymbols.add(tris[i].getSymbol());

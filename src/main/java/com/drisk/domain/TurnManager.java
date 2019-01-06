@@ -1,5 +1,6 @@
 package com.drisk.domain;
 
+import com.google.gson.JsonObject;
 
 public class TurnManager {
 	
@@ -21,6 +22,10 @@ public class TurnManager {
 
 	public Player getCurrentPlayer() {
 		return currentPlayer;
+	}
+	
+	public void playPhase(JsonObject obj) {
+		currentPhase.playPhase(obj);
 	}
 
 	public void setCurrentPlayer(Player currentPlayer) {

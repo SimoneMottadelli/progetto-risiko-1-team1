@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.drisk.domain.Continent;
+import com.drisk.domain.MapManager;
 import com.drisk.domain.MatchManager;
 import com.drisk.domain.Player;
 import com.drisk.domain.Territory;
+import com.drisk.domain.TerritoryCard;
+import com.drisk.domain.TerritoryCardSymbol;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -30,6 +33,8 @@ public class JsonHelper {
 	private static final String CURRENT_PLAYER_COLOR = "currentPlayersColor";
 	private static final String CURRENT_PHASE_ID = "currentPhaseId";
 	private static final String PLAYERS = "players";
+	private static final String CARDS = "cards";
+	private static final String SYMBOL = "symbol";
 	
 	public static String difficultyFromJson(JsonObject gameConfig) {
 		return gameConfig.get(DIFFICULTY).getAsString();
@@ -76,6 +81,18 @@ public class JsonHelper {
 		result.add(PLAYERS, jsonArrayPlayers);
 		result.addProperty("mapReady", MatchManager.getInstance().isGameConfigured());
 		return result;
+	}
+	
+	public static TerritoryCard[] getTrisFromJson(JsonObject obj) {
+		TerritoryCard[] tris = new TerritoryCard[3];
+		JsonArray cards = obj.getAsJsonArray(CARDS);
+		int i = 0;
+		for(JsonElement cardObj : cards) {
+			JsonObject card = cardObj.getAsJsonObject();
+			Territory t = MapManager.getInstance().findTerritoryByName(card.get(NAME).toString().toLowerCase());
+			tris[i++] = new TerritoryCard(t, TerritoryCardSymbol.valueOf(card.get(SYMBOL).toString().toUpperCase()));
+		}
+		return tris;
 	}
 	
 	private static List<String> getListFromJson(JsonObject gameConfig, String memberName) throws SyntaxException {

@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gson.JsonObject;
+
 public class AttackPhase extends Phase {
 
 	public AttackPhase() {
@@ -12,7 +14,7 @@ public class AttackPhase extends Phase {
 	}
 
 	@Override
-	public void playPhase() {
+	public void playPhase(JsonObject obj) {
 		// TODO Auto-generated method stub
 
 	}

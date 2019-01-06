@@ -12,10 +12,19 @@ $(document).ready(function(){
 	
 	// used to show or hide a div - val = false -> hide, val = true -> show
 	function showOrHidePlaceTanksDiv(val){
+		var div = $('#placeTanksDiv')
 		if(val == false)
-			$('#placeTanksDiv').hide();
+			div.hide();
 		else
-			$('#placeTanksDiv').show();
+			div.show();
+	}
+	
+	function showOrHideGameDiv(val) {
+		var div = $('#gameDiv');
+		if(val == false)
+			div.hide();
+		else
+			div.show();
 	}
 	
 	// used to get this player's color and to identify it on this page
@@ -98,20 +107,27 @@ $(document).ready(function(){
 	function playerTurnRequest() {
 		var source = new EventSource('../game/turnStatus');
 		source.onmessage = function(event) {
-			if(!JSON.parse(event.data).hasOwnProperty('currentPlayer') && availableTanks != 0) {
-				var players = JSON.parse(event.data).players;
-				var i = 0;
-				while(i < players.length && availableTanks != 0) {
-					if(players[i].color == myColor) {
-						availableTanks = players[i].availableTanks
-						if(availableTanks == 0) {
-							showOrHidePlaceTanksDiv(false);
-							alert("all tanks placed, wait that all players place their tanks");
-							return;
+			if(!JSON.parse(event.data).hasOwnProperty('currentPlayer')) {
+				if(availableTanks != 0) {
+					var players = JSON.parse(event.data).players;
+					var i = 0;
+					while(i < players.length && availableTanks != 0) {
+						if(players[i].color == myColor) {
+							availableTanks = players[i].availableTanks
+							if(availableTanks == 0) {
+								showOrHidePlaceTanksDiv(false);
+								alert("all tanks placed, wait that all players place their tanks");
+								return;
+							}
 						}
+						++i;
 					}
-					++i;
 				}
+			}
+			else {
+				var currentPlayer = JSON.parse(event.data).currentPlayer;
+				if(myColor != currentPlayer)
+					showOrHideGameDiv(false);
 			}
 		}
 	}

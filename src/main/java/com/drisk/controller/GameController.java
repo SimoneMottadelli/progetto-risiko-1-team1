@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import com.drisk.domain.Color;
 import com.drisk.domain.GameManager;
 import com.drisk.domain.MapManager;
-import com.drisk.domain.MatchManager;
 import com.drisk.domain.Player;
 import com.drisk.domain.TankManager;
 import com.drisk.domain.TurnManager;
@@ -107,9 +106,9 @@ public class GameController {
 		return c.toString();
 	}
 	
-	@PostMapping("/useTris")
+	@PostMapping("/playPhase")
 	@ResponseBody
-	public JsonObject useTris(HttpServletRequest request) {
+	public JsonObject playPhase(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
 			return JsonHelper.createResponseJson(-1, NOT_A_PLAYER);
@@ -118,7 +117,8 @@ public class GameController {
 		try {
 			String body = request.getReader().lines().collect(Collectors.joining());
 			JsonObject obj = JsonHelper.parseJson(body);
-			
+			TurnManager.getInstance().playPhase(obj);
+			return JsonHelper.createResponseJson(0, OK);
 		} catch (IOException e){
 			return JsonHelper.createResponseJson(-1, e.getMessage());
 		}
@@ -144,7 +144,7 @@ public class GameController {
 		return JsonHelper.createResponseJson(0, OK);
 	}
 	
-	//TODO
+	/*
 	@GetMapping(value="/playPhase")
 	@ResponseBody
 	public synchronized String playPhase() {
@@ -155,5 +155,6 @@ public class GameController {
 		}
 		return "Couldn't play the phase!";
 	}
+	*/
 	
 }

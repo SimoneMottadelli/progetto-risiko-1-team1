@@ -2,6 +2,8 @@ package com.drisk.domain;
 
 import java.util.List;
 
+import com.google.gson.JsonObject;
+
 public class AssignTanksPhase extends Phase {
 
 	public AssignTanksPhase() {
@@ -9,7 +11,7 @@ public class AssignTanksPhase extends Phase {
 	}
 
 	@Override
-	public void playPhase() {
+	public void playPhase(JsonObject obj) {
 		// TODO Auto-generated method stub
 	}
 

@@ -1,5 +1,7 @@
 package com.drisk.domain;
 
+import com.google.gson.JsonObject;
+
 public abstract class Phase {
 	
 	int phaseId;
@@ -13,6 +15,6 @@ public abstract class Phase {
 	}
 	
 	public abstract void nextPhase();
-	public abstract void playPhase();
+	public abstract void playPhase(JsonObject obj);
 
 }
