@@ -26,7 +26,7 @@ public class Player {
 	
 	public int placeTanks(int tanks) {
 		if(tanks > availableTanks)
-			return 0;
+			return availableTanks;
 		else {
 			availableTanks = availableTanks - tanks;
 			return tanks;

@@ -15,8 +15,8 @@ public class AssignBonusTanksPhase extends Phase{
 	}
 
 	@Override
-	public void playPhase(JsonObject obj) {
-		useTris(JsonHelper.getTrisFromJson(obj));
+	public void playPhase(JsonObject phaseConfig) {
+		useTris(JsonHelper.getTrisFromJson(phaseConfig));
 	}
 	
 	@Override
