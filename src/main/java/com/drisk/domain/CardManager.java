@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.drisk.technicalservice.JsonHelper;
+
 public class CardManager {
 
 	private List<Card> missionCards;
@@ -26,18 +28,20 @@ public class CardManager {
 		return instance;
 	}	
 	
-	public static void destroy() {
-		instance = null;
+	public void initCards() {
+		initTerritoryCards();
+		initMissionCards(MapManager.getInstance().getMapDifficulty());
+		shuffleDeck(territoryCards);
+		shuffleDeck(missionCards);
 	}
 	
 	public void initTerritoryCards() {
-		TerritoryCardSymbol[] symbols = {TerritoryCardSymbol.ARTILLERY, TerritoryCardSymbol.CAVALRY, TerritoryCardSymbol.INFANTRY};
+		TerritoryCardSymbol[] symbols = TerritoryCardSymbol.values();
 		int i = 0;
-		for(Territory t : MapManager.getInstance().getTerritories()) {
-			TerritoryCard tc = new TerritoryCard(t, symbols[i++]);
+		for(Territory t : MapManager.getInstance().getMapTerritories()) {
+			TerritoryCard tc = new TerritoryCard(t, symbols[i % 3]);
 			addTerritoryCard(tc);
-			if(i >= 3)
-				i = 0;
+			++i;
 		}
 	}
 	
@@ -171,6 +175,7 @@ public class CardManager {
 			
 		}
 		return trisMap;
-	}	
+	}
+
 	
 }

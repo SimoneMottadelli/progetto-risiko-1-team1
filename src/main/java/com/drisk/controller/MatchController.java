@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.drisk.domain.Color;
+import com.drisk.domain.MapManager;
 import com.drisk.domain.MatchManager;
 import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
@@ -25,42 +26,46 @@ public class MatchController {
 	
     private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
     private static final String SESSION_ATTRIBUTE_COLOR = "color";
+    private static final String IS_NOT_A_PLAYER = "You are not a player";
+    private JsonHelper helper = new JsonHelper();
 	
-	@PostMapping(value="/join")
+	@PostMapping("/join")
 	@ResponseBody
-	public synchronized JsonObject join(HttpServletRequest request) {
+	public JsonObject join(HttpServletRequest request) {
 		MatchManager mm = MatchManager.getInstance();
 		if(mm.isMatchStarted())
-			return JsonHelper.createResponseJson(-1, "The match has already started!");
+			return helper.createResponseJson(-1, "The match has already started!");
 		else if(mm.isMatchFull())
-			return JsonHelper.createResponseJson(-1, "There are enough players!");
+			return helper.createResponseJson(-1, "There are enough players!");
 		else {
 			HttpSession session = request.getSession(false);
-			if(session == null) {
+			if(!isAPlayer(session)) {
 				mm.joinGame(request.getParameter("name").trim());
 				session = request.getSession();
 				session.setAttribute(SESSION_ATTRIBUTE_COLOR, mm.findLastPlayerColor());
-				return JsonHelper.createResponseJson(0, "You've joined the game!");
+				return helper.createResponseJson(0, "You've joined the game!");
 			}
 			else
-				return JsonHelper.createResponseJson(0, "Welcome back to joining room");
+				return helper.createResponseJson(0, "Welcome back to joining room");
 		}
 	}
 	
 	@PostMapping("/gameConfig")
 	@ResponseBody
 	public JsonObject gameConfig(HttpServletRequest request) {
+		if(!isAPlayer(request.getSession(false)))
+			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
 		try {
 			String body = request.getReader().lines().collect(Collectors.joining());
-			MatchManager.getInstance().setGameConfig(JsonHelper.parseJson(body));
-			return JsonHelper.createResponseJson(0, "gameConfig correctly parsed");
+			MapManager.getInstance().createMap(helper.parseJson(body));
+			return helper.createResponseJson(0, "Map correctly added");
 		} 
 		catch (JsonSyntaxException e)
 		{
-			return JsonHelper.createResponseJson(-1, "Syntax error: cannot parse json object");
+			return helper.createResponseJson(-1, "Syntax error: cannot parse json object");
 		}
 		catch (Exception e) {
-			return JsonHelper.createResponseJson(-1, e.getMessage());
+			return helper.createResponseJson(-1, e.getMessage());
 		}
 	}
     	     
@@ -69,7 +74,9 @@ public class MatchController {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
-				emitter.send(MatchManager.getInstance().toJson());
+				JsonObject obj = MatchManager.getInstance().toJson();
+				obj.addProperty("mapReady", MapManager.getInstance().isMapReady());
+				emitter.send(obj);
 				emitter.complete();	
 			} catch (Exception ex) {
 				emitter.completeWithError(ex);
@@ -78,36 +85,46 @@ public class MatchController {
 		return emitter;
 	}
 	
-	@GetMapping(value="/exit")
+	@GetMapping("/exit")
 	@ResponseBody
-	public synchronized String exit(HttpServletRequest request) {
+	public JsonObject exit(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
+		if(!isAPlayer(session))
+			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
 		MatchManager.getInstance().exitGame((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
 		session.invalidate();
-		return "You've exited from the game!";
+		return helper.createResponseJson(0, "You've exited from the game!");
 	}
 	
-	private synchronized void tryToStartGame(){
+	private void tryToStartGame(){
 		MatchManager mm = MatchManager.getInstance();
-		if (mm.isEveryoneReady() && mm.isGameConfigured() && mm.areThereAtLeastTwoPlayers())
+		if (mm.isEveryoneReady() && MapManager.getInstance().isMapReady() && mm.areThereAtLeastTwoPlayers())
 			MatchManager.getInstance().initGame();
 	}
 	
-	@GetMapping(value="/ready")
+	@GetMapping("/ready")
 	@ResponseBody
-	public synchronized JsonObject ready(HttpServletRequest request) {
+	public JsonObject ready(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
+		if(!isAPlayer(session))
+			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
 		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), true);
 		tryToStartGame();
-		return JsonHelper.createResponseJson(0, "The game will start when everyone is ready!");
+		return helper.createResponseJson(0, "The game will start when everyone is ready!");
 	}
 	
-	@GetMapping(value="/notready")
+	@GetMapping("/notready")
 	@ResponseBody
-	public synchronized JsonObject notReady(HttpServletRequest request) {
+	public JsonObject notReady(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
+		if(!isAPlayer(session))
+			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
 		MatchManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), false);
-		return JsonHelper.createResponseJson(0, "The game will start when everyone is ready!");
+		return helper.createResponseJson(0, "The game will start when everyone is ready!");
+	}
+	
+	private boolean isAPlayer(HttpSession session) {
+		return session != null;
 	}
 	
 }

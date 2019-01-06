@@ -38,8 +38,8 @@ public class TankMovementPhaseTest {
 		Territory oldTerritory = MapManager.getInstance().findTerritoryByName("china");
 		Territory newTerritory = MapManager.getInstance().findTerritoryByName("japan");
 		
-		oldTerritory.addNumberOfTanks(4);
-		newTerritory.addNumberOfTanks(2);
+		oldTerritory.addTanks(4);
+		newTerritory.addTanks(2);
 		new TankMovementPhase().moveTanks(oldTerritory, newTerritory, 3);
 		assertEquals(2, oldTerritory.getNumberOfTanks());
 		assertEquals(6, newTerritory.getNumberOfTanks());

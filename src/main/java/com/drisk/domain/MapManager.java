@@ -1,29 +1,20 @@
 package com.drisk.domain;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.LinkedList;
 import java.util.List;
-
 import com.drisk.domain.exceptions.SyntaxException;
+import com.drisk.technicalservice.FileLoader;
 import com.drisk.technicalservice.JsonHelper;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class MapManager {
 
 	private static MapManager instance;
-	private String difficulty;
-	private List<Continent> continents;
-	private boolean ready;
-	
+	private Map map;
+
 	private static final String SYNTAXERROR = "SyntaxError: ";
 	
-	private MapManager() {
-		continents = new LinkedList<>();
-		ready = false;
-	}
+	private MapManager() {}
 
 	public static MapManager getInstance() {
 		if (instance == null)
@@ -31,44 +22,28 @@ public class MapManager {
 		return instance;
 	}
 	
-	public String getDifficulty() {
-		return difficulty;
-	}
-	
+	// if no exception is thrown, map will be set to ready
 	public void createMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
-		setDifficulty(JsonHelper.difficultyFromJson(gameConfig));
-		if(difficulty.equals("custom"))
+		map = new Map();
+		map.setDifficulty(new JsonHelper().difficultyFromJson(gameConfig));
+		if(map.getDifficulty().equals(Difficulty.CUSTOM))
 			createMapComponents(gameConfig);
 		else
-			createMapComponents(readDefaultMapFile());
-	}
-	
-	private JsonObject readDefaultMapFile() throws FileNotFoundException {
-		BufferedReader bufferedReader;
-		FileReader file;
-		try {
-			file = new FileReader("default_map_" + difficulty + ".json");
-		} catch (FileNotFoundException e) {
-			throw new FileNotFoundException("FileNotFound: The map " + difficulty + "can't be loader");
-		}
-		bufferedReader = new BufferedReader(file);
-		Gson json = new Gson();
-		return json.fromJson(bufferedReader, JsonObject.class); 
+			createMapComponents(new FileLoader().readDefaultMapFile(map.getDifficulty()));
+		map.setReady(true);
 	}
 	
 	private void createMapComponents(JsonObject gameConfig) throws SyntaxException {
-		createContinents(JsonHelper.getContinentsFromJson(gameConfig));
-		createTerritories(JsonHelper.getMembershipFromJson(gameConfig));
-		createNeighbours(JsonHelper.getNeighbourhoodFromJson(gameConfig));
-		ready = true;
+		JsonHelper helper = new JsonHelper();
+		createContinents(helper.getContinentsFromJson(gameConfig));
+		createTerritories(helper.getMembershipFromJson(gameConfig));
+		createNeighbours(helper.getNeighbourhoodFromJson(gameConfig));
 	}
-	
-	
 	
 	private void createContinents(List<String> continentsNames) {
 		for(String continentName : continentsNames) {
 			Continent c = new Continent(continentName);
-			addContinent(c);
+			map.addContinent(c);
 		}	
 	}
 	
@@ -101,66 +76,39 @@ public class MapManager {
 		}
 	}
 	
-	private void addContinent(Continent continent) {
-		if(!continents.contains(continent))
-			continents.add(continent);
-	}
-	
 	public Continent findContinentByName(String continentName) {
-		for(Continent c : continents)
+		for(Continent c : map.getContinents())
 			if(c.getName().equals(continentName))
 				return c;
 		return null;
 	}
 	
 	public Territory findTerritoryByName(String territoryName) {
-		for(Continent c : continents)
+		for(Continent c : map.getContinents())
 			for(Territory t : c.getTerritories())
 				if(t.getName().equals(territoryName))
 					return t;
 		return null;
 	}
 	
-	private void setDifficulty(String difficulty) {
-		this.difficulty = difficulty;
-	}
-	
-	public List<Territory> getTerritories() {
-		List<Territory> territories = new LinkedList<>();
-		for(Continent c : continents)
-			territories.addAll(c.getTerritories());
-		return territories;
+	public List<Territory> getMapTerritories() {
+		return map.getTerritories();
 	}
 
-	public List<Continent> getContinents() {
-		return continents;
+	public List<Continent> getMapContinents() {
+		return map.getContinents();
 	}
 	
 	public JsonObject toJson() {
-		return JsonHelper.mapToJson(difficulty, continents, getTerritories());
+		return map.toJson();
 	}
 
-	public boolean isReady() {
-		return ready;
-	}
-
-	public void testCreateMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
-		try {
-			createMap(gameConfig);	
-			destroy();
-		}
-		catch(SyntaxException e) {
-			destroy();
-			throw new SyntaxException(e.getMessage());
-		}
-		catch(FileNotFoundException e) {
-			destroy();
-			throw new FileNotFoundException();
-		}
+	public boolean isMapReady() {
+		return map.isReady();
 	}
 	
-	public static void destroy() {
-		instance = null;
+	public Difficulty getMapDifficulty() {
+		return map.getDifficulty();
 	}
 	
 }

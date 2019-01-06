@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.drisk.domain.exceptions.SyntaxException;
 import com.drisk.technicalservice.JsonHelper;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class MatchManager {
@@ -15,18 +16,12 @@ public class MatchManager {
 	private boolean matchFull;
 	private List<Color> colorsAvailablesList;
 	private List<Player> players;
-	private JsonObject gameConfig;
 
 	private MatchManager() {
 		matchStarted = false;
 		matchFull = false;
 		colorsAvailablesList = createColorAvailableList();
 		players = new LinkedList<>();
-	}
-	
-	public void setGameConfig(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
-		MapManager.getInstance().testCreateMap(gameConfig);
-		this.gameConfig = gameConfig;
 	}
 
 	public boolean isMatchStarted() {
@@ -84,11 +79,7 @@ public class MatchManager {
 	
 	public void initGame(){
 		matchStarted = true;
-		try {
-			GameManager.getInstance().initGame(gameConfig, players);
-		} catch (SyntaxException | FileNotFoundException e) {
-			// we are sure that no exception will be thrown because we have already checked the correctness of the map
-		}
+		GameManager.getInstance().initGame(players);
 	}
 	
 	private void addPlayer(Player player) {
@@ -112,8 +103,8 @@ public class MatchManager {
 	private List<Color> createColorAvailableList() {
 		Color[] colors = Color.values();
 		List<Color> colorsList = new LinkedList<>();
-		for(int i = 0; i < colors.length; ++i)
-			colorsList.add(colors[i]);
+		for(Color c : colors)
+			colorsList.add(c);
 		return colorsList;
 	}
 	
@@ -122,13 +113,14 @@ public class MatchManager {
 			instance = new MatchManager();
 		return instance;
 	}
-
-	public boolean isGameConfigured() {
-		return gameConfig != null;
-	}
 	
 	public JsonObject toJson() {
-		return JsonHelper.matchManagerToJson(players);
+		JsonObject result = new JsonObject();
+		JsonArray jsonArrayPlayers = new JsonArray();
+		for(Player p : players)
+			jsonArrayPlayers.add(p.toJson());
+		result.add("players", jsonArrayPlayers);
+		return result;
 	}
 	
 }

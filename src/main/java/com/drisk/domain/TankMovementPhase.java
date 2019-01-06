@@ -23,11 +23,11 @@ public class TankMovementPhase extends Phase {
 		if (oldTerritory.getNeighbours().contains(newTerritory)) {
 			int numOldTerritoryTanks = oldTerritory.getNumberOfTanks();
 			if (numOldTerritoryTanks > 1 && numTanks < numOldTerritoryTanks) {
-				oldTerritory.removeNumberOfTanks(numTanks);
-				newTerritory.addNumberOfTanks(numTanks);
+				oldTerritory.removeTanks(numTanks);
+				newTerritory.addTanks(numTanks);
 			} else {
-				oldTerritory.removeNumberOfTanks(numOldTerritoryTanks - 1);
-				newTerritory.addNumberOfTanks(numOldTerritoryTanks - 1);
+				oldTerritory.removeTanks(numOldTerritoryTanks - 1);
+				newTerritory.addTanks(numOldTerritoryTanks - 1);
 			}
 		}
 		

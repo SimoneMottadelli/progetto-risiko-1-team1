@@ -88,7 +88,7 @@ public class TankManagerTest {
 		List<Territory> territories = new LinkedList<>();
 		territories.add(new Territory("egypt"));
 		Territory t = territories.get(0);
-		t.addNumberOfTanks(42);
+		t.addTanks(42);
 		
 		TankManager.getInstance().removeTanks(t, 13);
 		assertEquals(29, t.getNumberOfTanks());

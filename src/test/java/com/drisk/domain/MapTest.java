@@ -31,12 +31,12 @@ public class MapTest {
 
 	@Test
 	public void createContinentTest() {
-		assertEquals(3, MapManager.getInstance().getContinents().size());
+		assertEquals(3, MapManager.getInstance().getMapContinents().size());
 	}
 	
 	@Test
 	public void createTerritoriesTest() {
-		assertEquals(25, MapManager.getInstance().getTerritories().size());
+		assertEquals(25, MapManager.getInstance().getMapTerritories().size());
 		Continent c = MapManager.getInstance().findContinentByName("europe");
 		assertEquals(7, c.getTerritories().size());
 		Territory t = MapManager.getInstance().findTerritoryByName("congo");

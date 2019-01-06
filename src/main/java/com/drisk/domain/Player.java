@@ -2,8 +2,6 @@ package com.drisk.domain;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
 public class Player {
@@ -13,7 +11,6 @@ public class Player {
 	private boolean ready;
 	private MissionCard missionCard;
 	private List<TerritoryCard> territoryCardsHand; 
-	private List<Territory> territoriesOwned;
 	private int availableTanks;
 	
 	public Player(Color color, String nickname) {
@@ -21,35 +18,10 @@ public class Player {
 		this.ready = false;
 		this.color = color;
 		this.territoryCardsHand = new LinkedList<>();
-		territoriesOwned = new LinkedList<>();
-	}
-	
-	public int placeTanks(int tanks) {
-		if(tanks > availableTanks)
-			return availableTanks;
-		else {
-			availableTanks = availableTanks - tanks;
-			return tanks;
-		}
-	}
-	
-	public List<Territory> getTerritoriesOwned() {
-		return territoriesOwned;
 	}
 	
 	public String getNickname() {
 		return nickname;
-	}
-	
-	public boolean isMyTerritory(Territory t) {
-		return territoriesOwned.contains(t);
-	}
-	
-	public boolean isMyContinent(Continent c) {
-		for(Territory t : c.getTerritories())
-			if(!territoriesOwned.contains(t))
-				return false;
-		return true;
 	}
 
 	@Override
@@ -76,11 +48,6 @@ public class Player {
 		return color;
 	}
 	
-	public int getNumberOfTerritoriesOwned() {
-		return territoriesOwned.size();
-	}
-	
-	
 	public MissionCard getMissionCard() {
 		return missionCard;
 	}	
@@ -97,30 +64,25 @@ public class Player {
 		if(!territoryCardsHand.contains(territoryCard))
 			territoryCardsHand.add(territoryCard);
 	}	
-	
-	public void addTerritoryOwned(Territory territory) {
-		if(!territoriesOwned.contains(territory))
-			territoriesOwned.add(territory);
-	}
-	
-	public void removeTerritoryOwned(Territory territory) {
-		if(territoriesOwned.contains(territory))
-			territoriesOwned.remove(territory);
-	}
 
 	public int getAvailableTanks() {
 		return availableTanks;
 	}
 
-	public void addAvailableTanks(int availableTanks) {
-		this.availableTanks += availableTanks;
+	public void addAvailableTanks(int tanks) {
+		availableTanks += tanks;
 	}
 	
-	public void removeAvailableTanks() {
-		this.availableTanks = 0;
+	public void removeAvailableTanks(int tanks) {
+		availableTanks -= tanks;
 	}
 	
 	public JsonObject toJson() {
-		return JsonHelper.playerToJson(nickname, color.toString(), availableTanks, ready);
+		JsonObject jsonPlayer = new JsonObject();
+		jsonPlayer.addProperty("nickname", nickname);
+		jsonPlayer.addProperty("availableTanks", availableTanks);
+		jsonPlayer.addProperty("color", color.toString().toUpperCase());
+		jsonPlayer.addProperty("ready", ready);
+		return jsonPlayer;
 	}
 }

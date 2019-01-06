@@ -21,7 +21,7 @@ public class TankManager {
 	}
 	
 	public void initTanks(List<Player> players) {
-		int numberTerritories = MapManager.getInstance().getTerritories().size();
+		int numberTerritories = MapManager.getInstance().getMapTerritories().size();
 		//the number of tanks is proportional to the number of territories 
 		//of the original difficulty (hard --> 42 territories)
 		for (Player p: players) {
@@ -52,11 +52,11 @@ public class TankManager {
 	}
 	
 	public void placeTanks(Territory whereTerritory, int numTanks) {
-		whereTerritory.addNumberOfTanks(numTanks);
+		whereTerritory.addTanks(numTanks);
 	}
 	
 	public void removeTanks(Territory whereTerritory, int numTanks) {
-		whereTerritory.removeNumberOfTanks(numTanks);
+		whereTerritory.removeTanks(numTanks);
 	}
 }
 

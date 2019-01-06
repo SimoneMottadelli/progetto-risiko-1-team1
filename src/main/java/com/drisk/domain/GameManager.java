@@ -23,15 +23,10 @@ public class GameManager {
 			instance = new GameManager();
 		return instance;
 	}
-	
-	public static void destroy() {
-		instance = null;
-	}
 
-	public void initGame(JsonObject gameConfig, List<Player> players) throws SyntaxException, FileNotFoundException {
+	public void initGame(List<Player> players) {
 		initPlayers(players);
-		initMap(gameConfig);
-		initCards(gameConfig);
+		initCards();
 		initPlayersMission();
 		initPlayersTerritories();
 		initTanks();
@@ -41,27 +36,19 @@ public class GameManager {
 	public void startGame() {
 		TurnManager.getInstance().initTurn();
 	}
-	
-	private void initMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
-		MapManager.getInstance().createMap(gameConfig);
-	}
 
 	private void initPlayers(List<Player> players) {
 		this.players = players;
 	}
 	
-	public void initCards(JsonObject gameConfig) {
-		CardManager.getInstance().initTerritoryCards();
-		CardManager.getInstance().initMissionCards(Difficulty.valueOf(JsonHelper.difficultyFromJson(gameConfig).toUpperCase()));
-		
-		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getTerritoryCards());
-		CardManager.getInstance().shuffleDeck(CardManager.getInstance().getMissionCards());
+	public void initCards() {
+		CardManager.getInstance().initCards();
 	}
 	
 	public void initPlayersMission() {
 		boolean singleMission = true; //temporaneamente impostiamo una missione comune a tutti
-		
 		if(singleMission) {
+			// TODO don't use .get methods in a list that is not ours
 			MissionCard mission = (MissionCard) CardManager.getInstance().getMissionCards().get(0);
 			for(Player p : players) 
 				p.setMission(mission);
@@ -71,11 +58,12 @@ public class GameManager {
 	}
 	
 	public void initPlayersTerritories() {
-		List<Territory> territories = MapManager.getInstance().getTerritories();
+		List<Territory> territories = MapManager.getInstance().getMapTerritories();
 		Collections.shuffle(territories);
-		
-		for (int i = 0; i < territories.size(); ++i) {
-			players.get(i % players.size()).addTerritoryOwned(territories.get(i));
+		int i = 0;
+		for(Territory t : territories) {
+			t.setOwner(players.get(i % players.size()));
+			++i;
 		}
 	}
 
@@ -83,6 +71,8 @@ public class GameManager {
 		TankManager.getInstance().initTanks(getPlayers());
 	}
 	
+	
+	// TODO we have arrived here!!
 	public void initPlaceTanks() {
 		for(Player p : players)
 			for(Territory t : p.getTerritoriesOwned())

@@ -20,34 +20,30 @@ import com.google.gson.JsonObject;
 
 public class JsonHelper {
 	
-	private JsonHelper() {}
-	
 	private static final String TERRITORIES = "territories";
 	private static final String CONTINENTS = "continents";
 	private static final String DIFFICULTY = "difficulty";
 	private static final String NAME = "name";
 	private static final String NEIGHBOURHOOD = "neighbourhood";
 	private static final String MEMBERSHIP = "membership";
-	private static final String NUMBEROFTANKS = "numberOfTanks";
-	private static final String OWNER = "owner";
 	private static final String CURRENT_PLAYER_COLOR = "currentPlayersColor";
 	private static final String CURRENT_PHASE_ID = "currentPhaseId";
 	private static final String PLAYERS = "players";
 	private static final String CARDS = "cards";
 	private static final String SYMBOL = "symbol";
 	
-	public static String difficultyFromJson(JsonObject gameConfig) {
+	public String difficultyFromJson(JsonObject gameConfig) {
 		return gameConfig.get(DIFFICULTY).getAsString();
 	}
 	
-	public static JsonObject createResponseJson(int responseCode, String responseMessage) {
+	public JsonObject createResponseJson(int responseCode, String responseMessage) {
 		JsonObject obj = new JsonObject();
 		obj.addProperty("responseCode", responseCode);
 		obj.addProperty("responseMessage", responseMessage);
 		return obj;
 	}
 	
-	public static JsonObject parseJson(String body) {
+	public JsonObject parseJson(String body) {
 		Gson converter = new Gson();
 		return converter.fromJson(body, JsonObject.class);
 	}
@@ -61,25 +57,6 @@ public class JsonHelper {
 			playersArray.add(p.toJson());
 		}
 		result.add(PLAYERS, playersArray);
-		return result;
-	}
-	
-	public static JsonObject playerToJson(String nickname, String color, int availableTanks, boolean ready) {
-		JsonObject jsonPlayer = new JsonObject();
-		jsonPlayer.addProperty("nickname", nickname);
-		jsonPlayer.addProperty("availableTanks", availableTanks);
-		jsonPlayer.addProperty("color", color.toUpperCase());
-		jsonPlayer.addProperty("ready", ready);
-		return jsonPlayer;
-	}
-	
-	public static JsonObject matchManagerToJson(List<Player> players) {
-		JsonObject result = new JsonObject();
-		JsonArray jsonArrayPlayers = new JsonArray();
-		for(Player p : players)
-			jsonArrayPlayers.add(p.toJson());
-		result.add(PLAYERS, jsonArrayPlayers);
-		result.addProperty("mapReady", MatchManager.getInstance().isGameConfigured());
 		return result;
 	}
 	
@@ -113,7 +90,7 @@ public class JsonHelper {
 		return getListFromJson(gameConfig, TERRITORIES);
 	}
 	
-	public static List<String> getContinentsFromJson(JsonObject gameConfig) throws SyntaxException {
+	public List<String> getContinentsFromJson(JsonObject gameConfig) throws SyntaxException {
 		return getListFromJson(gameConfig, CONTINENTS);
 	}
 	
@@ -139,29 +116,22 @@ public class JsonHelper {
 		return map;
 	}
 	
-	public static Map<String, List<String>> getNeighbourhoodFromJson(JsonObject gameConfig) throws SyntaxException {
+	public Map<String, List<String>> getNeighbourhoodFromJson(JsonObject gameConfig) throws SyntaxException {
 		return getRelationshipFromJson(gameConfig, NEIGHBOURHOOD);
 	}
 	
-	public static Map<String, List<String>> getMembershipFromJson(JsonObject gameConfig) throws SyntaxException {
+	public Map<String, List<String>> getMembershipFromJson(JsonObject gameConfig) throws SyntaxException {
 		return getRelationshipFromJson(gameConfig, MEMBERSHIP);
 	}
 	
-	private static JsonArray continentsToJson(List<Continent> continents) {
+	private JsonArray continentsToJson(List<Continent> continents) {
 		JsonArray continentsArray = new JsonArray();
-		for(Continent c : continents) {
-			JsonObject name = new JsonObject();
-			name.addProperty(NAME, c.getName());
-			if(c.findPlayer() == null)
-				name.addProperty(OWNER, "noOne");
-			else
-				name.addProperty(OWNER, c.findPlayer().getColor().toString());
-			continentsArray.add(name);
-		}
+		for(Continent c : continents)
+			continentsArray.add(c.toJson());
 		return continentsArray;
 	}
 	
-	private static JsonArray membershipToJson(List<Continent> continents) {
+	private JsonArray membershipToJson(List<Continent> continents) {
 		JsonArray membershipArray = new JsonArray();
 		for(Continent c : continents) {
 			JsonObject obj = new JsonObject();
@@ -175,19 +145,14 @@ public class JsonHelper {
 		return membershipArray;
 	}
 	
-	private static JsonArray territoriesToJson(List<Territory> territories) {
+	private JsonArray territoriesToJson(List<Territory> territories) {
 		JsonArray territoriesArray = new JsonArray();
-		for(Territory t : territories) {
-			JsonObject obj = new JsonObject();
-			obj.addProperty(NAME, t.getName());
-			obj.addProperty(OWNER, t.findPlayer().getColor().toString());
-			obj.addProperty(NUMBEROFTANKS, t.getNumberOfTanks());
-			territoriesArray.add(obj);
-		}
+		for(Territory t : territories)
+			territoriesArray.add(t.toJson());
 		return territoriesArray;
 	}
 	
-	private static JsonArray neighbourhoodToJson(List<Territory> territories) {
+	private JsonArray neighbourhoodToJson(List<Territory> territories) {
 		JsonArray neighbourhoodArray = new JsonArray();
 		for(Territory t : territories) {
 			JsonObject obj = new JsonObject();
@@ -201,7 +166,7 @@ public class JsonHelper {
 		return neighbourhoodArray;
 	}
 	
-	public static JsonObject mapToJson(String difficulty, List<Continent> continents, List<Territory> territories) {
+	public JsonObject mapToJson(String difficulty, List<Continent> continents, List<Territory> territories) {
 		JsonObject result = new JsonObject();
 		result.addProperty(DIFFICULTY, difficulty);
 		result.add(CONTINENTS, continentsToJson(continents));

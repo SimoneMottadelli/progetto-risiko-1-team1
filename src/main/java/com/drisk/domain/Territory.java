@@ -3,7 +3,6 @@ package com.drisk.domain;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class Territory {
@@ -11,7 +10,7 @@ public class Territory {
 	private String name;
 	private int numberOfTanks;
 	private List<Territory> neighbours;
-	
+	private Player owner;
 	
 	public Territory(String name) {
 		this.name = name;
@@ -36,64 +35,45 @@ public class Territory {
 		return true;
 	}
 
-
 	public void addNeighbour(Territory territory) {
 		if(!neighbours.contains(territory))
 			neighbours.add(territory);
 	}
-
-
+	
 	public int getNumberOfTanks() {
 		return numberOfTanks;
 	}
-
-	public Player findPlayer() {
-		List<Player> players = GameManager.getInstance().getPlayers();
-		for (Player p: players) {
-			if (p.getTerritoriesOwned().contains(this)) {
-				return p;
-			}
-		}
-		return null;
-	}
 	
-	public void addNumberOfTanks(int numberOfTanks) {
+	public void addTanks(int numberOfTanks) {
 		this.numberOfTanks += numberOfTanks;
 	}
 	
-	public void removeNumberOfTanks(int numberOfTanks) {
-		int difference = this.numberOfTanks - numberOfTanks;
-		if (difference >= 0) {
-			this.numberOfTanks = difference;
-		} else {
-			this.numberOfTanks = 0;
-		}
+	public void removeTanks(int numberOfTanks) {
+		this.numberOfTanks -= numberOfTanks;
 	}
 
 	public String getName() {
 		return name;
 	}
 	
-	
 	public List<Territory> getNeighbours() {
 		return neighbours;
 	}
 	
-	
-	public void addTerritory(Territory territory) {
-		if(!neighbours.contains(territory))
-			neighbours.add(territory);
-	}
-	
 	public JsonObject toJson() {
-		JsonObject jsonTerritory = new JsonObject();
-		JsonArray array = new JsonArray();
-		for(Territory t : getNeighbours())
-			array.add(t.getName());
-		jsonTerritory.addProperty("name", name);
-		jsonTerritory.addProperty("numberOfTanks", numberOfTanks);
-		jsonTerritory.add("neighbours", array);
-		return jsonTerritory;
+		JsonObject obj = new JsonObject();
+		obj.addProperty("name", name);
+		obj.addProperty("owner", owner.getColor().toString());
+		obj.addProperty("numberOfTanks", numberOfTanks);
+		return obj;
+	}
+
+	public Player getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Player owner) {
+		this.owner = owner;
 	}
 	
 }

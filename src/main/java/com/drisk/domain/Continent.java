@@ -3,7 +3,6 @@ package com.drisk.domain;
 
 import java.util.List;
 import java.util.LinkedList;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class Continent {
@@ -39,25 +38,6 @@ public class Continent {
 		return true;
 	}
 
-	public Player findPlayer() {
-		List<Player> players = GameManager.getInstance().getPlayers();
-		int i = 0;
-		int j = 0;
-		while(i < players.size()) {
-			boolean isMine = true;
-			while(j < territories.size() && isMine) {
-				if(!territories.get(j).findPlayer().equals(players.get(i)))
-					isMine = false;
-				++j;
-			}
-			if(isMine)
-				return players.get(i);
-			++i;
-		}
-		return null;
-	}
-
-
 	public List<Territory> getTerritories() {
 		return territories;
 	}
@@ -67,14 +47,23 @@ public class Continent {
 			territories.add(territory);
 	}
 	
-	public JsonObject toJson() {
-		JsonObject jsonContinent = new JsonObject();
-		jsonContinent.addProperty("name", name);
-		JsonArray arrayTerritories = new JsonArray();
+	private Player getOwner() {
+		Player p = territories.get(0).getOwner();
 		for(Territory t : territories)
-			arrayTerritories.add(t.toJson());
-		jsonContinent.add("territories", arrayTerritories);
-		return jsonContinent;
+			if(!t.getOwner().equals(p))
+				return null;
+		return p;
+	}
+	
+	public JsonObject toJson() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty("name", name);
+		Player owner = getOwner();
+		if(owner == null)
+			obj.addProperty("owner", "onOne");
+		else
+			obj.addProperty("owner", owner.getColor().toString());
+		return obj;
 	}
 	
 }

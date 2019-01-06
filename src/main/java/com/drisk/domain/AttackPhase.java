@@ -43,8 +43,8 @@ public class AttackPhase extends Phase {
 			}
 			
 			Integer[] dicesResult = new Integer[2];
-			territoryAttacker.removeNumberOfTanks(dicesResult[0]);
-			territoryDefender.removeNumberOfTanks(dicesResult[1]);
+			territoryAttacker.removeTanks(dicesResult[0]);
+			territoryDefender.removeTanks(dicesResult[1]);
 
 			if (territoryDefender.getNumberOfTanks() == 0) {
 				TankManager tm = TankManager.getInstance();
