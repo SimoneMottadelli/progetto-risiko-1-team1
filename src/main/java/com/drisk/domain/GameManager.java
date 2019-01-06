@@ -111,7 +111,7 @@ public class GameManager {
 	}
 	
 	// this method allow to check, in the initial phase, if all player have placed all own tanks
-	public boolean isAllTanksPlaced() {
+	public boolean areAllTanksPlaced() {
 		for(Player p : players)
 			if(p.getAvailableTanks() != 0)
 				return false;

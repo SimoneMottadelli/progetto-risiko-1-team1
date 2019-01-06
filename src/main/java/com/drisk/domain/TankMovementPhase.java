@@ -18,4 +18,18 @@ public class TankMovementPhase extends Phase {
 		TurnManager.getInstance().setCurrentPhase(new AssignBonusTanksPhase());
 	}
 
+	public void moveTanks(Territory oldTerritory, Territory newTerritory, int numTanks) {
+		
+		if (oldTerritory.getNeighbours().contains(newTerritory)) {
+			int numOldTerritoryTanks = oldTerritory.getNumberOfTanks();
+			if (numOldTerritoryTanks > 1 && numTanks < numOldTerritoryTanks) {
+				oldTerritory.removeNumberOfTanks(numTanks);
+				newTerritory.addNumberOfTanks(numTanks);
+			} else {
+				oldTerritory.removeNumberOfTanks(numOldTerritoryTanks - 1);
+				newTerritory.addNumberOfTanks(numOldTerritoryTanks - 1);
+			}
+		}
+		
+	}
 }

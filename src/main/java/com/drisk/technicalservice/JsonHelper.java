@@ -109,13 +109,17 @@ public class JsonHelper {
 		return list;
 	}
 	
-	public static List<String> getTerritoriesFromJson(JsonObject gameConfig) throws SyntaxException{
+	public static List<String> getTerritoriesFromJson(JsonObject gameConfig) throws SyntaxException {
 		return getListFromJson(gameConfig, TERRITORIES);
 	}
 	
-	public static List<String> getContinentsFromJson(JsonObject gameConfig) throws SyntaxException{
+	public static List<String> getContinentsFromJson(JsonObject gameConfig) throws SyntaxException {
 		return getListFromJson(gameConfig, CONTINENTS);
 	}
+	
+	/*public static List<String> getNumberOfTanksFromJson(JsonObject gameConfig) throws SyntaxException {
+		return getListFromJson(gameConfig, NUMBEROFTANKS);
+	}*/
 	
 	private static Map<String, List<String>> getRelationshipFromJson(JsonObject gameConfig, String relation) throws SyntaxException {
 		Map<String, List<String>> map = new HashMap<>();

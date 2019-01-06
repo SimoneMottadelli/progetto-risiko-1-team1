@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.drisk.domain.exceptions.SyntaxException;
+import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
 public class AttackPhase extends Phase {
@@ -15,8 +17,14 @@ public class AttackPhase extends Phase {
 
 	@Override
 	public void playPhase(JsonObject obj) {
-		// TODO Auto-generated method stub
-
+		/*try {
+			Territory territoryAttacker = new Territory(JsonHelper.getTerritoriesFromJson(obj).get(0));
+			Territory territoryDefender = new Territory(JsonHelper.getTerritoriesFromJson(obj).get(1));
+			int attackerTanks = Integer.parseInt(JsonHelper.getNumberOfTanksFromJson(obj).get(0));
+			attackEnemyTerritory(territoryAttacker, territoryDefender, attackerTanks);
+		} catch (SyntaxException e) {
+			
+		}*/
 	}
 
 	@Override

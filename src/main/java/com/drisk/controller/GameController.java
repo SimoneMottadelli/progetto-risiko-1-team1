@@ -83,7 +83,7 @@ public class GameController {
 	}
 	
 	private void tryToStartGame() {
-		if(GameManager.getInstance().isAllTanksPlaced())
+		if(GameManager.getInstance().areAllTanksPlaced())
 			GameManager.getInstance().startGame();
 	}
 	
