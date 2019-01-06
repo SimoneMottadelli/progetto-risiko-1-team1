@@ -7,9 +7,10 @@ $(document).ready(function(){
 	findMyColor();
 	
 	$('#placeTanksButton').click(function() {
-		placeTanks()
+		initialTanksPlacement();
 	});
 	
+	// used to show or hide a div - val = false -> hide, val = true -> show
 	function showOrHidePlaceTanksDiv(val){
 		if(val == false)
 			$('#placeTanksDiv').hide();
@@ -17,6 +18,7 @@ $(document).ready(function(){
 			$('#placeTanksDiv').show();
 	}
 	
+	// used to get this player's color and to identify it on this page
 	function findMyColor() {
 		$.getJSON('../game/getColorFromSession', function(data) {
 			if(data.responseCode != -1) {
@@ -28,6 +30,7 @@ $(document).ready(function(){
 		});
 	}
 	
+	// used to load map structure every time that the server send it
 	function loadMap() {
 		var source = new EventSource('../game/map');
 		source.onmessage = function(event) {
@@ -44,7 +47,8 @@ $(document).ready(function(){
 		}
 	}
 	
-	function placeTanks() {
+	// called only in initial game phase
+	function initialTanksPlacement() {
 		var territory = $('#from').val();
 		$('#from').val('');
 		var numOfTanks = parseInt($('#howMuch').val(), 10);
@@ -52,13 +56,12 @@ $(document).ready(function(){
 		if(isMyTerritory(territory)) {
 			$.ajax({
 				type : 'POST',
-				url : '../game/placeTanks',
+				url : '../game/initialTanksPlacement',
 				contentType: 'application/json',
 				dataType: 'json',
 				data: JSON.stringify(placeTanksJson(territory, numOfTanks)), 
 				success: function(data) {
-					if(data.responseCode == -1)
-						alert(data.responseMessage);
+					alert(data.responseMessage);
 				}
 			});
 		}
@@ -66,11 +69,12 @@ $(document).ready(function(){
 			alert(territory + ' is not yours');
 	}
 	
+	// helper function that return json object
 	function placeTanksJson(territory, numOfTanks) {
 		return {'where' : territory, 'numOfTanks' : numOfTanks};
 	}
 	
-	
+	// helper function to avoid server further work
 	function isMyTerritory(territoryName) {
 		var i = 0;
 		while(i < myTerritories.length) {
@@ -81,7 +85,7 @@ $(document).ready(function(){
 		return false;
 	}
 	
-	
+	// used to refresh html page with che real structure of the map
 	function showMap(continents, territories, membership, neighbourhood) {
 		$('#continentsDiv').html(continents);
 		$('#territoriesDiv').html(territories);
@@ -89,6 +93,8 @@ $(document).ready(function(){
 		$('#neighbourhoodDiv').html(neighbourhood);
 	}
 	
+	// used to get information of turn status from the server, invoked only one time
+	// sse emitter was used by the server to send the json response
 	function playerTurnRequest() {
 		var source = new EventSource('../game/turnStatus');
 		source.onmessage = function(event) {
@@ -107,7 +113,6 @@ $(document).ready(function(){
 					++i;
 				}
 			}
-			
 		}
 	}
 	

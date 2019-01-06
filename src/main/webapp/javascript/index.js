@@ -83,10 +83,9 @@ $(document).ready(
 
 			function setNotReady() {
 				$.get("./match/notready", function(result) {
-												$("#notReadyButton").attr("class", "hidden");
-												$("#readyButton").attr("class", "shown");
-										   }
-				);
+					$("#notReadyButton").attr("class", "hidden");
+					$("#readyButton").attr("class", "shown");
+				});
 				warningAlreadyDisplayed = false;
 			}
 
@@ -103,12 +102,17 @@ $(document).ready(
 							matchStarted = false;
 							source = new EventSource("./match/info");
 							source.onmessage = function(evt) {
-								var playersArray = JSON.parse(evt.data).playersArray;
+								var playersArray = JSON.parse(evt.data).players;
 								var isMapReady = JSON.parse(evt.data).mapReady;
-								if (isEveryoneReady(playersArray) && isMapReady) 
+								if (isEveryoneReady(playersArray) && isMapReady && areThereTwoPlayers(playersArray)) 
 									location.replace("http://localhost:8080/drisk/pages/game.html");
 								else if (!warningAlreadyDisplayed && isEveryoneReady(playersArray) && !isMapReady){
 									$("div.modal-body").html("<h2>Everyone is ready but the map hasn't been created yet</h2>");
+									$("#modalWindow").css("display", "block");
+									warningAlreadyDisplayed = true;
+								}
+								else if(!warningAlreadyDisplayed && isEveryoneReady(playersArray) && !areThereTwoPlayers(playersArray)) {
+									$("div.modal-body").html("<h2>Waiting another player ready</h2>");
 									$("#modalWindow").css("display", "block");
 									warningAlreadyDisplayed = true;
 								}
@@ -133,6 +137,10 @@ $(document).ready(
 					if (!playersArray[i].ready)
 						ready = false;
 				return ready;
+			}
+			
+			function areThereTwoPlayers(playersArray) {
+				return playersArray.length >= 2;
 			}
 			
 			function refreshPlayersTable(playersArray) {

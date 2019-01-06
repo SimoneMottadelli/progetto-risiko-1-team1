@@ -9,7 +9,7 @@ public class AssignTanksPhase extends Phase {
 	}
 
 	@Override
-	public void startPhase() {
+	public void playPhase() {
 		// TODO Auto-generated method stub
 	}
 

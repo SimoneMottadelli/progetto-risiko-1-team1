@@ -29,6 +29,7 @@ public class JsonHelper {
 	private static final String OWNER = "owner";
 	private static final String CURRENT_PLAYER_COLOR = "currentPlayersColor";
 	private static final String CURRENT_PHASE_ID = "currentPhaseId";
+	private static final String PLAYERS = "players";
 	
 	public static String difficultyFromJson(JsonObject gameConfig) {
 		return gameConfig.get(DIFFICULTY).getAsString();
@@ -54,7 +55,7 @@ public class JsonHelper {
 		for(Player p : players) {
 			playersArray.add(p.toJson());
 		}
-		result.add("players", playersArray);
+		result.add(PLAYERS, playersArray);
 		return result;
 	}
 	
@@ -72,7 +73,7 @@ public class JsonHelper {
 		JsonArray jsonArrayPlayers = new JsonArray();
 		for(Player p : players)
 			jsonArrayPlayers.add(p.toJson());
-		result.add("playersArray", jsonArrayPlayers);
+		result.add(PLAYERS, jsonArrayPlayers);
 		result.addProperty("mapReady", MatchManager.getInstance().isGameConfigured());
 		return result;
 	}

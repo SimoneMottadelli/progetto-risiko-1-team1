@@ -19,13 +19,22 @@
 			Neighbourhood:
 			<div id="neighbourhoodDiv"></div><hr>
 		</div>
-		<div id="placeTanksDiv">
-			<form id="placeTanksForm">
-				<div id="availableTanks"></div>
-				WHERE <input type="text" id="from">
-				HOW MUCH <input type="number" id="howMuch" value=0 min=0 max=10> 
-			</form>
-			<button id="placeTanksButton">PlaceTanks</button>
+		<div id="gameDiv">
+<!-- div for the game's phases -->		
+			<div id="assignBonusTanksDiv"></div>
+			<div id="assignTanksDiv"></div>
+			<div id="tankPlacementDiv"></div>
+			<div id="attackPhaseDiv"></div>
+			<div id="tankMovimentDiv"></div>
+<!-- div for initial placeTanks phase, maybe it can be merged with assignTanksDiv -->
+			<div id="placeTanksDiv">
+				<form id="placeTanksForm">
+					<div id="availableTanks"></div>
+					WHERE <input type="text" id="from">
+					HOW MUCH <input type="number" id="howMuch" value=0 min=0 max=10> 
+				</form>
+				<button id="placeTanksButton">PlaceTanks</button>
+			</div>
 		</div>
 	</body>
 </html>

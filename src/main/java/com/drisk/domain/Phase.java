@@ -13,6 +13,6 @@ public abstract class Phase {
 	}
 	
 	public abstract void nextPhase();
-	public abstract void startPhase();
+	public abstract void playPhase();
 
 }

@@ -11,7 +11,7 @@ public class AssignBonusTanksPhase extends Phase{
 	}
 
 	@Override
-	public void startPhase() {
+	public void playPhase() {
 		//da implementare TODO		
 	}
 	

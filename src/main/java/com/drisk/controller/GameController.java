@@ -29,6 +29,9 @@ public class GameController {
 	
 	private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
 	private static final String SESSION_ATTRIBUTE_COLOR = "color";
+	private static final String OK = "OK";
+	private static final String IS_NOT_YOUR_TURN = "It's not your turn, wait for it...";
+	private static final String NOT_A_PLAYER = "You are not a player because you haven't a color assigned";
 	
 	@GetMapping("/map")
     public SseEmitter handleSseMap() {
@@ -45,18 +48,36 @@ public class GameController {
 		return emitter;
     }
 	
-	@PostMapping("/placeTanks")
+	@GetMapping("/turnStatus")
+	public SseEmitter handleSseTurn() {
+		SseEmitter emitter = new SseEmitter();
+		nonBlockingService.execute(() -> {
+			try {
+				emitter.send(GameManager.getInstance().toJson());
+				emitter.complete();	
+			} catch (Exception ex) {
+				emitter.completeWithError(ex);
+			}
+		});
+		return emitter;
+	}
+	
+	@PostMapping("/initialTanksPlacement")
 	@ResponseBody
 	public synchronized JsonObject placeTanks(HttpServletRequest request) {
 		try {
 			String body = request.getReader().lines().collect(Collectors.joining());
 			JsonObject obj = JsonHelper.parseJson(body);
-			String territoryName = obj.getAsJsonPrimitive("where").getAsString();
-			int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
 			Player p = GameManager.getInstance().findPlayerByColor((Color) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR));
-			TankManager.getInstance().placeTanks(MapManager.getInstance().findTerritoryByName(territoryName), p.placeTanks(numOfTanks));
-			tryToStartGame();
-			return JsonHelper.createResponseJson(0, "tanks placed");
+			int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
+			if(p.getAvailableTanks() < numOfTanks)
+				return JsonHelper.createResponseJson(-1, "You don't have " + numOfTanks + " tanks to place");
+			else {
+				String territoryName = obj.getAsJsonPrimitive("where").getAsString();
+				TankManager.getInstance().placeTanks(MapManager.getInstance().findTerritoryByName(territoryName), p.placeTanks(numOfTanks));
+				tryToStartGame();
+				return JsonHelper.createResponseJson(0, OK);
+			}
 		} catch (IOException e) {
 			return JsonHelper.createResponseJson(-1, e.getMessage());
 		}
@@ -71,32 +92,12 @@ public class GameController {
 	@ResponseBody
 	public synchronized JsonObject getColorSession(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		if(session == null)
-			return createResponseJson(-1, "You are not a player because you haven't a color assigned");
+		if(isAPlayer(session))
+			return JsonHelper.createResponseJson(0, session.getAttribute(SESSION_ATTRIBUTE_COLOR).toString());
 		else
-			return createResponseJson(0, session.getAttribute(SESSION_ATTRIBUTE_COLOR).toString());
+			return JsonHelper.createResponseJson(-1, NOT_A_PLAYER);
 	}
 	
-	private JsonObject createResponseJson(int responseCode, String responseMessage) {
-		JsonObject obj = new JsonObject();
-		obj.addProperty("responseCode", responseCode);
-		obj.addProperty("responseMessage", responseMessage);
-		return obj;
-	}
-	
-	@GetMapping("/turnStatus")
-    public SseEmitter handleSseTurn() {
-		SseEmitter emitter = new SseEmitter();
-		nonBlockingService.execute(() -> {
-			try {
-				emitter.send(GameManager.getInstance().toJson());
-				emitter.complete();	
-			} catch (Exception ex) {
-				emitter.completeWithError(ex);
-			}
-		});
-		return emitter;
-    }
 	
 	@GetMapping("/test")
 	@ResponseBody
@@ -106,25 +107,50 @@ public class GameController {
 		return c.toString();
 	}
 	
+	@PostMapping("/useTris")
+	@ResponseBody
+	public JsonObject useTris(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(!isAPlayer(session))
+			return JsonHelper.createResponseJson(-1, NOT_A_PLAYER);
+		if(!isMyTurn((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
+			return JsonHelper.createResponseJson(-1, IS_NOT_YOUR_TURN);
+		try {
+			String body = request.getReader().lines().collect(Collectors.joining());
+			JsonObject obj = JsonHelper.parseJson(body);
+			
+		} catch (IOException e){
+			return JsonHelper.createResponseJson(-1, e.getMessage());
+		}
+	}
+	
+	private boolean isMyTurn(Color color) {
+		return color.equals(TurnManager.getInstance().getCurrentPlayer().getColor());
+	}
+	
+	private boolean isAPlayer(HttpSession session) {
+		return session != null;
+	}
 	
 	@GetMapping(value="/nextPhase")
 	@ResponseBody
-	public synchronized String nextPhase() {
-		MatchManager mm = MatchManager.getInstance();
-		if (mm.isMatchStarted()) {
-			TurnManager.getInstance().getCurrentPhase().nextPhase();
-			return "Going to the next phase!";
-		}
-		return "Couldn't go to the next phase!";
+	public synchronized JsonObject nextPhase(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(!isAPlayer(session))
+			return JsonHelper.createResponseJson(-1, NOT_A_PLAYER);
+		if(!isMyTurn((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
+			return JsonHelper.createResponseJson(-1, IS_NOT_YOUR_TURN);
+		TurnManager.getInstance().getCurrentPhase().nextPhase();
+		return JsonHelper.createResponseJson(0, OK);
 	}
 	
-	
+	//TODO
 	@GetMapping(value="/playPhase")
 	@ResponseBody
 	public synchronized String playPhase() {
 		MatchManager mm = MatchManager.getInstance();
 		if (mm.isMatchStarted()) {
-			TurnManager.getInstance().getCurrentPhase().startPhase();
+			TurnManager.getInstance().getCurrentPhase().playPhase();
 			return "playing the phase...";
 		}
 		return "Couldn't play the phase!";
