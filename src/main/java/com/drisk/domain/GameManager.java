@@ -1,11 +1,8 @@
 package com.drisk.domain;
 
-import java.io.FileNotFoundException;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.drisk.domain.exceptions.SyntaxException;
 import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
@@ -30,10 +27,9 @@ public class GameManager {
 		initPlayersMission();
 		initPlayersTerritories();
 		initTanks();
-		initPlaceTanks();
 	}
 	
-	public void startGame() {
+	private void startGame() {
 		TurnManager.getInstance().initTurn();
 	}
 
@@ -46,45 +42,25 @@ public class GameManager {
 	}
 	
 	public void initPlayersMission() {
-		boolean singleMission = true; //temporaneamente impostiamo una missione comune a tutti
-		if(singleMission) {
-			// TODO don't use .get methods in a list that is not ours
-			MissionCard mission = (MissionCard) CardManager.getInstance().getMissionCards().get(0);
-			for(Player p : players) 
-				p.setMission(mission);
-		} else {
-			
-		}
+		// questo true dovra essere sostituito dalle impostazioni di gioco che verranno ricevute dal matchManager
+		CardManager.getInstance().initPlayersMission(players, true);
 	}
 	
 	public void initPlayersTerritories() {
-		List<Territory> territories = MapManager.getInstance().getMapTerritories();
-		Collections.shuffle(territories);
-		int i = 0;
-		for(Territory t : territories) {
-			t.setOwner(players.get(i % players.size()));
-			++i;
-		}
+		MapManager.getInstance().initPlayersTerritories(players);
 	}
 
 	public void initTanks() {
 		TankManager.getInstance().initTanks(getPlayers());
 	}
 	
-	
-	// TODO we have arrived here!!
-	public void initPlaceTanks() {
-		for(Player p : players)
-			for(Territory t : p.getTerritoriesOwned())
-				TankManager.getInstance().placeTanks(t, p.placeTanks(1));
-	}
-	
+	// TODO probabilmente da spostare
 	public boolean checkWin(Player currentPlayer) {
 		return currentPlayer.getMissionCard().checkWin();
 	}
 	
+	//da implementare TODO
 	public boolean checkLoss() {
-		//da implementare TODO
 		return false;
 	}
 
@@ -92,16 +68,9 @@ public class GameManager {
 		return players;
 	}
 	
-	public void newTurn(Player oldPlayer) {
-		int currentPlayerPositionInPlayers = players.indexOf(oldPlayer);
-		if(currentPlayerPositionInPlayers == players.size() - 1)
-			TurnManager.getInstance().setCurrentPlayer(players.get(0));
-		else
-			TurnManager.getInstance().setCurrentPlayer(players.get(currentPlayerPositionInPlayers + 1));
-	}
-	
+	// TODO we arrived here!
 	// this method allow to check, in the initial phase, if all player have placed all own tanks
-	public boolean areAllTanksPlaced() {
+	private boolean areAllTanksPlaced() {
 		for(Player p : players)
 			if(p.getAvailableTanks() != 0)
 				return false;
@@ -113,6 +82,11 @@ public class GameManager {
 			if(p.getColor().equals(color))
 				return p;
 		return null;
+	}
+	
+	public void tryToStartGame() {
+		if(areAllTanksPlaced())
+			startGame();
 	}
 	
 	private String getStringColorOfCurrentPlayer() {

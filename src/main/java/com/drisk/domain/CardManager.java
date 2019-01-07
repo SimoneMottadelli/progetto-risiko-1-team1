@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.drisk.technicalservice.JsonHelper;
-
 public class CardManager {
 
 	private List<Card> missionCards;
@@ -27,6 +25,16 @@ public class CardManager {
 			instance = new CardManager();
 		return instance;
 	}	
+	
+	public void initPlayersMission(List<Player> players, boolean singleMission) {
+		if(singleMission) {
+			MissionCard mission = (MissionCard) missionCards.get(0);
+			for(Player p : players) 
+				p.setMission(mission);
+		} else {
+			// missione non singola
+		}
+	}
 	
 	public void initCards() {
 		initTerritoryCards();

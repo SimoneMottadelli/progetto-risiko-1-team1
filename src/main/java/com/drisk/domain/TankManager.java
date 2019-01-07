@@ -2,6 +2,8 @@ package com.drisk.domain;
 
 import java.util.List;
 
+import com.drisk.domain.exceptions.ExceededAvailableTanksException;
+
 public class TankManager {
 	
 	private static TankManager instance;
@@ -21,7 +23,7 @@ public class TankManager {
 	}
 	
 	public void initTanks(List<Player> players) {
-		int numberTerritories = MapManager.getInstance().getMapTerritories().size();
+		int numberTerritories = MapManager.getInstance().getNumberOfTerritories();
 		//the number of tanks is proportional to the number of territories 
 		//of the original difficulty (hard --> 42 territories)
 		for (Player p: players) {
@@ -44,15 +46,26 @@ public class TankManager {
 			default:
 				p.addAvailableTanks(0);
 			}
+			for(Territory t : MapManager.getInstance().getMapTerritories())
+				if(t.getOwner().equals(p))
+					try {
+						placeTanks(t, 1);
+					} catch (ExceededAvailableTanksException e) {
+						// safe try
+					}
 		}
+		
 	}
-	
+
 	public void addTanksToPlayer(int tanks, Player p) {
 		p.addAvailableTanks(tanks);
 	}
 	
-	public void placeTanks(Territory whereTerritory, int numTanks) {
+	public void placeTanks(Territory whereTerritory, int numTanks) throws ExceededAvailableTanksException {
+		if(whereTerritory.getOwner().getAvailableTanks() < numTanks)
+			throw new ExceededAvailableTanksException("Not enough available tanks");
 		whereTerritory.addTanks(numTanks);
+		whereTerritory.getOwner().removeAvailableTanks(numTanks);
 	}
 	
 	public void removeTanks(Territory whereTerritory, int numTanks) {

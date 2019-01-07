@@ -52,5 +52,9 @@ public class Map {
 	public JsonObject toJson() {
 		return new JsonHelper().mapToJson(difficulty.toString(), continents, getTerritories());
 	}
+	
+	public int getNumberOfTerritories() {
+		return getTerritories().size();
+	}
 
 }

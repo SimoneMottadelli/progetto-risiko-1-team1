@@ -1,11 +1,8 @@
 package com.drisk.domain;
 
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.drisk.domain.exceptions.SyntaxException;
-import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 

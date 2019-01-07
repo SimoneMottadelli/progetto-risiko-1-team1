@@ -1,6 +1,7 @@
 package com.drisk.domain;
 
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.drisk.technicalservice.FileLoader;
@@ -83,12 +84,25 @@ public class MapManager {
 		return null;
 	}
 	
+	public void initPlayersTerritories(List<Player> players) {
+		Collections.shuffle(getMapTerritories());
+		int i = 0;
+		for(Territory t : getMapTerritories()) {
+			t.setOwner(players.get(i % players.size()));
+			++i;
+		}
+	}
+	
 	public Territory findTerritoryByName(String territoryName) {
 		for(Continent c : map.getContinents())
 			for(Territory t : c.getTerritories())
 				if(t.getName().equals(territoryName))
 					return t;
 		return null;
+	}
+	
+	public int getNumberOfTerritories() {
+		return map.getNumberOfTerritories();
 	}
 	
 	public List<Territory> getMapTerritories() {

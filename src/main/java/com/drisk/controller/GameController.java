@@ -17,9 +17,9 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import com.drisk.domain.Color;
 import com.drisk.domain.GameManager;
 import com.drisk.domain.MapManager;
-import com.drisk.domain.Player;
 import com.drisk.domain.TankManager;
 import com.drisk.domain.TurnManager;
+import com.drisk.domain.exceptions.ExceededAvailableTanksException;
 import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
@@ -31,6 +31,7 @@ public class GameController {
 	private static final String OK = "OK";
 	private static final String IS_NOT_YOUR_TURN = "It's not your turn, wait for it...";
 	private static final String NOT_A_PLAYER = "You are not a player because you haven't a color assigned";
+	private JsonHelper helper = new JsonHelper();
 	
 	@GetMapping("/map")
     public SseEmitter handleSseMap() {
@@ -63,38 +64,37 @@ public class GameController {
 	
 	@PostMapping("/initialTanksPlacement")
 	@ResponseBody
-	public synchronized JsonObject placeTanks(HttpServletRequest request) {
+	public JsonObject placeTanks(HttpServletRequest request) {
+		if(!isAPlayer(request.getSession(false)))
+			return helper.createResponseJson(-1, NOT_A_PLAYER);
+		String body;
 		try {
-			String body = request.getReader().lines().collect(Collectors.joining());
-			JsonObject obj = JsonHelper.parseJson(body);
-			Player p = GameManager.getInstance().findPlayerByColor((Color) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR));
-			int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
-			if(p.getAvailableTanks() < numOfTanks)
-				return JsonHelper.createResponseJson(-1, "You don't have " + numOfTanks + " tanks to place");
-			else {
-				String territoryName = obj.getAsJsonPrimitive("where").getAsString();
-				TankManager.getInstance().placeTanks(MapManager.getInstance().findTerritoryByName(territoryName), p.placeTanks(numOfTanks));
-				tryToStartGame();
-				return JsonHelper.createResponseJson(0, OK);
-			}
+			body = request.getReader().lines().collect(Collectors.joining());
 		} catch (IOException e) {
-			return JsonHelper.createResponseJson(-1, e.getMessage());
+			return helper.createResponseJson(-1, e.getMessage());
 		}
+		JsonObject obj = helper.parseJson(body);
+		int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
+		try {
+			String territoryName = obj.getAsJsonPrimitive("where").getAsString();
+			TankManager.getInstance().placeTanks(MapManager.getInstance().findTerritoryByName(territoryName), numOfTanks);
+		} catch (ExceededAvailableTanksException e) {
+			return helper.createResponseJson(-1, e.getMessage());
+		}
+		GameManager.getInstance().tryToStartGame();
+		Color playerColor = (Color) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR);
+		return helper.createResponseJson(0, GameManager.getInstance().findPlayerByColor(playerColor).toJson().toString());
 	}
-	
-	private void tryToStartGame() {
-		if(GameManager.getInstance().areAllTanksPlaced())
-			GameManager.getInstance().startGame();
-	}
+
 	
 	@GetMapping("/getColorFromSession")
 	@ResponseBody
-	public synchronized JsonObject getColorSession(HttpServletRequest request) {
+	public JsonObject getColorSession(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(isAPlayer(session))
-			return JsonHelper.createResponseJson(0, session.getAttribute(SESSION_ATTRIBUTE_COLOR).toString());
+			return helper.createResponseJson(0, session.getAttribute(SESSION_ATTRIBUTE_COLOR).toString());
 		else
-			return JsonHelper.createResponseJson(-1, NOT_A_PLAYER);
+			return helper.createResponseJson(-1, NOT_A_PLAYER);
 	}
 	
 	
@@ -111,50 +111,33 @@ public class GameController {
 	public JsonObject playPhase(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
-			return JsonHelper.createResponseJson(-1, NOT_A_PLAYER);
-		if(!isMyTurn((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
-			return JsonHelper.createResponseJson(-1, IS_NOT_YOUR_TURN);
+			return helper.createResponseJson(-1, NOT_A_PLAYER);
+		if(!TurnManager.getInstance().isPlayerTurn((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
+			return helper.createResponseJson(-1, IS_NOT_YOUR_TURN);
+		String body;
 		try {
-			String body = request.getReader().lines().collect(Collectors.joining());
-			JsonObject obj = JsonHelper.parseJson(body);
-			TurnManager.getInstance().playPhase(obj);
-			return JsonHelper.createResponseJson(0, OK);
+			body = request.getReader().lines().collect(Collectors.joining());
 		} catch (IOException e){
-			return JsonHelper.createResponseJson(-1, e.getMessage());
+			return helper.createResponseJson(-1, e.getMessage());
 		}
-	}
-	
-	private boolean isMyTurn(Color color) {
-		return color.equals(TurnManager.getInstance().getCurrentPlayer().getColor());
+		TurnManager.getInstance().playPhase(helper.parseJson(body));
+		return helper.createResponseJson(0, OK);
 	}
 	
 	private boolean isAPlayer(HttpSession session) {
 		return session != null;
 	}
 	
-	@GetMapping(value="/nextPhase")
+	@GetMapping("/nextPhase")
 	@ResponseBody
-	public synchronized JsonObject nextPhase(HttpServletRequest request) {
+	public JsonObject nextPhase(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
-			return JsonHelper.createResponseJson(-1, NOT_A_PLAYER);
-		if(!isMyTurn((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
-			return JsonHelper.createResponseJson(-1, IS_NOT_YOUR_TURN);
+			return helper.createResponseJson(-1, NOT_A_PLAYER);
+		if(!TurnManager.getInstance().isPlayerTurn((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
+			return helper.createResponseJson(-1, IS_NOT_YOUR_TURN);
 		TurnManager.getInstance().getCurrentPhase().nextPhase();
-		return JsonHelper.createResponseJson(0, OK);
+		return helper.createResponseJson(0, OK);
 	}
-	
-	/*
-	@GetMapping(value="/playPhase")
-	@ResponseBody
-	public synchronized String playPhase() {
-		MatchManager mm = MatchManager.getInstance();
-		if (mm.isMatchStarted()) {
-			TurnManager.getInstance().getCurrentPhase().playPhase();
-			return "playing the phase...";
-		}
-		return "Couldn't play the phase!";
-	}
-	*/
-	
+
 }
