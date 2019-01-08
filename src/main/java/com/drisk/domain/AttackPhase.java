@@ -16,7 +16,7 @@ public class AttackPhase extends Phase {
 	}
 
 	@Override
-	public void playPhase(JsonObject obj) {
+	public void playPhase(Player currentPlayer, JsonObject obj) {
 		/*try {
 			Territory territoryAttacker = new Territory(JsonHelper.getTerritoriesFromJson(obj).get(0));
 			Territory territoryDefender = new Territory(JsonHelper.getTerritoriesFromJson(obj).get(1));

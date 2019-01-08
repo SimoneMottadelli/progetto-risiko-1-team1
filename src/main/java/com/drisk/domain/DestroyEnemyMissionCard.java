@@ -19,9 +19,10 @@ public class DestroyEnemyMissionCard implements MissionCard {
 		return enemy;
 	}
 
+		/* TODO DA SPOSTARE
 	@Override
 	public boolean checkWin() {
 		return enemy.getNumberOfTerritoriesOwned() == 0;
-	}
+	}*/
 
 }

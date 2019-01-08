@@ -123,6 +123,5 @@ public class MapManager {
 	
 	public Difficulty getMapDifficulty() {
 		return map.getDifficulty();
-	}
-	
+	}	
 }

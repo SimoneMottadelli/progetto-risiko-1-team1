@@ -1,5 +1,6 @@
 package com.drisk.domain;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gson.JsonObject;
@@ -11,8 +12,8 @@ public class AssignTanksPhase extends Phase {
 	}
 
 	@Override
-	public void playPhase(JsonObject obj) {
-		// TODO Auto-generated method stub
+	public void playPhase(Player currentPlayer, JsonObject obj) {
+		assignTanks(currentPlayer);
 	}
 
 	@Override
@@ -20,11 +21,17 @@ public class AssignTanksPhase extends Phase {
 		TurnManager.getInstance().setCurrentPhase(new TankPlacementPhase());
 	}
 	
-	public void assignTanks(Player player) {
+	private void assignTanks(Player player) {
 		
 		//Ogni giocatore avrà almeno un tank di base all'inizio del turno,
 		//anche se dovesse avere meno di 3 territori.
-		int numberTerritoriesOwned = player.getNumberOfTerritoriesOwned();
+		
+		int numberTerritoriesOwned = 0;
+		
+		for (Territory t : MapManager.getInstance().getMapTerritories())
+			if (t.getOwner().equals(player))
+				++numberTerritoriesOwned;
+		
 		int tanks;
 		
 		if (numberTerritoriesOwned / 3 < 1) {
@@ -41,9 +48,11 @@ public class AssignTanksPhase extends Phase {
 	
 	
 	public int getTanksPerContinent (Player player) {
-		
 		int tanks = 0;
-		List<Territory> territoriesOwned = player.getTerritoriesOwned();
+		List<Territory> territoriesOwned = new LinkedList<>();
+		for (Territory t : MapManager.getInstance().getMapTerritories())
+			if (t.getOwner().equals(player))
+				territoriesOwned.add(t);
 		List<Continent> continents = MapManager.getInstance().getMapContinents();
 		for(Continent c: continents) {
 			List<Territory> territories = c.getTerritories();

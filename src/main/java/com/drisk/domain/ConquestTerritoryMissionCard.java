@@ -20,10 +20,10 @@ public class ConquestTerritoryMissionCard implements MissionCard {
 		return toConquest;
 	}
 
-
+	/* TODO DA SPOSTARE
 	@Override
 	public boolean checkWin() {
 		return TurnManager.getInstance().getCurrentPlayer().getNumberOfTerritoriesOwned() >= toConquest;
 	}
-
+	*/
 }

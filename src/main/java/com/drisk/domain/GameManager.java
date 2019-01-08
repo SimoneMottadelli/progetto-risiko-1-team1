@@ -3,9 +3,6 @@ package com.drisk.domain;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.drisk.technicalservice.JsonHelper;
-import com.google.gson.JsonObject;
-
 public class GameManager {
 	
 	private List<Player> players;
@@ -54,11 +51,11 @@ public class GameManager {
 		TankManager.getInstance().initTanks(getPlayers());
 	}
 	
-	// TODO probabilmente da spostare
+	/* TODO probabilmente da spostare
 	public boolean checkWin(Player currentPlayer) {
 		return currentPlayer.getMissionCard().checkWin();
 	}
-	
+	*/
 	//da implementare TODO
 	public boolean checkLoss() {
 		return false;
@@ -66,15 +63,6 @@ public class GameManager {
 
 	public List<Player> getPlayers() {
 		return players;
-	}
-	
-	// TODO we arrived here!
-	// this method allow to check, in the initial phase, if all player have placed all own tanks
-	private boolean areAllTanksPlaced() {
-		for(Player p : players)
-			if(p.getAvailableTanks() != 0)
-				return false;
-		return true;
 	}
 	
 	public Player findPlayerByColor(Color color) {
@@ -85,28 +73,7 @@ public class GameManager {
 	}
 	
 	public void tryToStartGame() {
-		if(areAllTanksPlaced())
+		if(TankManager.getInstance().areAllTanksPlaced(players))
 			startGame();
-	}
-	
-	private String getStringColorOfCurrentPlayer() {
-		Player currentPlayerInTurn = TurnManager.getInstance().getCurrentPlayer();
-		if(currentPlayerInTurn != null)
-			return currentPlayerInTurn.getColor().toString();
-		else
-			return null;
-	}
-	
-	private Integer getCurrentPhaseId() {
-		Phase phase = TurnManager.getInstance().getCurrentPhase();
-		if(phase != null)
-			return phase.getPhaseId();
-		else
-			return null;
-	}
-	
-	public JsonObject toJson() {
-		return JsonHelper.gameManagerToJson(getStringColorOfCurrentPlayer(), getCurrentPhaseId(), players);
-	}
-	
+	}	
 }

@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 
 public abstract class Phase {
 	
-	int phaseId;
+	private int phaseId;
 	
 	public Phase(int id) {
 		phaseId = id;
@@ -15,6 +15,7 @@ public abstract class Phase {
 	}
 	
 	public abstract void nextPhase();
-	public abstract void playPhase(JsonObject obj);
+	public abstract void playPhase(Player currentPlayer, JsonObject obj);
+	public abstract Object fromJson(JsonObject obj);
 
 }

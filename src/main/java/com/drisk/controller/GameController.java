@@ -53,7 +53,7 @@ public class GameController {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
-				emitter.send(GameManager.getInstance().toJson());
+				emitter.send(TurnManager.getInstance().toJson());
 				emitter.complete();	
 			} catch (Exception ex) {
 				emitter.completeWithError(ex);

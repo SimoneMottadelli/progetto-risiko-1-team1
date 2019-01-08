@@ -4,14 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import com.drisk.domain.Continent;
-import com.drisk.domain.MapManager;
-import com.drisk.domain.MatchManager;
-import com.drisk.domain.Player;
-import com.drisk.domain.Territory;
-import com.drisk.domain.TerritoryCard;
-import com.drisk.domain.TerritoryCardSymbol;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -26,11 +18,6 @@ public class JsonHelper {
 	private static final String NAME = "name";
 	private static final String NEIGHBOURHOOD = "neighbourhood";
 	private static final String MEMBERSHIP = "membership";
-	private static final String CURRENT_PLAYER_COLOR = "currentPlayersColor";
-	private static final String CURRENT_PHASE_ID = "currentPhaseId";
-	private static final String PLAYERS = "players";
-	private static final String CARDS = "cards";
-	private static final String SYMBOL = "symbol";
 	
 	public String difficultyFromJson(JsonObject gameConfig) {
 		return gameConfig.get(DIFFICULTY).getAsString();
@@ -46,30 +33,6 @@ public class JsonHelper {
 	public JsonObject parseJson(String body) {
 		Gson converter = new Gson();
 		return converter.fromJson(body, JsonObject.class);
-	}
-	
-	public static JsonObject gameManagerToJson(String color, Integer phaseId, List<Player> players) {
-		JsonObject result = new JsonObject();
-		result.addProperty(CURRENT_PLAYER_COLOR, color);
-		result.addProperty(CURRENT_PHASE_ID, phaseId);
-		JsonArray playersArray = new JsonArray();
-		for(Player p : players) {
-			playersArray.add(p.toJson());
-		}
-		result.add(PLAYERS, playersArray);
-		return result;
-	}
-	
-	public static TerritoryCard[] getTrisFromJson(JsonObject obj) {
-		TerritoryCard[] tris = new TerritoryCard[3];
-		JsonArray cards = obj.getAsJsonArray(CARDS);
-		int i = 0;
-		for(JsonElement cardObj : cards) {
-			JsonObject card = cardObj.getAsJsonObject();
-			Territory t = MapManager.getInstance().findTerritoryByName(card.get(NAME).toString().toLowerCase());
-			tris[i++] = new TerritoryCard(t, TerritoryCardSymbol.valueOf(card.get(SYMBOL).toString().toUpperCase()));
-		}
-		return tris;
 	}
 	
 	private static List<String> getListFromJson(JsonObject gameConfig, String memberName) throws SyntaxException {
@@ -123,57 +86,4 @@ public class JsonHelper {
 	public Map<String, List<String>> getMembershipFromJson(JsonObject gameConfig) throws SyntaxException {
 		return getRelationshipFromJson(gameConfig, MEMBERSHIP);
 	}
-	
-	private JsonArray continentsToJson(List<Continent> continents) {
-		JsonArray continentsArray = new JsonArray();
-		for(Continent c : continents)
-			continentsArray.add(c.toJson());
-		return continentsArray;
-	}
-	
-	private JsonArray membershipToJson(List<Continent> continents) {
-		JsonArray membershipArray = new JsonArray();
-		for(Continent c : continents) {
-			JsonObject obj = new JsonObject();
-			obj.addProperty(NAME, c.getName());
-			JsonArray terrArray = new JsonArray();
-			for(Territory t : c.getTerritories())
-				terrArray.add(t.getName());
-			obj.add(TERRITORIES, terrArray);
-			membershipArray.add(obj);
-		}
-		return membershipArray;
-	}
-	
-	private JsonArray territoriesToJson(List<Territory> territories) {
-		JsonArray territoriesArray = new JsonArray();
-		for(Territory t : territories)
-			territoriesArray.add(t.toJson());
-		return territoriesArray;
-	}
-	
-	private JsonArray neighbourhoodToJson(List<Territory> territories) {
-		JsonArray neighbourhoodArray = new JsonArray();
-		for(Territory t : territories) {
-			JsonObject obj = new JsonObject();
-			obj.addProperty(NAME, t.getName());
-			JsonArray neighboursArray = new JsonArray();
-			for(Territory neighbour : t.getNeighbours())
-				neighboursArray.add(neighbour.getName());
-			obj.add(TERRITORIES, neighboursArray);
-			neighbourhoodArray.add(obj);
-		}
-		return neighbourhoodArray;
-	}
-	
-	public JsonObject mapToJson(String difficulty, List<Continent> continents, List<Territory> territories) {
-		JsonObject result = new JsonObject();
-		result.addProperty(DIFFICULTY, difficulty);
-		result.add(CONTINENTS, continentsToJson(continents));
-		result.add(TERRITORIES, territoriesToJson(territories));
-		result.add(MEMBERSHIP, membershipToJson(continents));
-		result.add(NEIGHBOURHOOD, neighbourhoodToJson(territories));
-		return result;
-	}
-
 }

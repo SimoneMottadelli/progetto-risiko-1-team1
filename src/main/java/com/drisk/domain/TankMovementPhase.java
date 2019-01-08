@@ -9,7 +9,7 @@ public class TankMovementPhase extends Phase {
 	}
 
 	@Override
-	public void playPhase(JsonObject obj) {
+	public void playPhase(Player currentPlayer, JsonObject obj) {
 		// TODO Auto-generated method stub
 	}
 

@@ -49,5 +49,18 @@ public class TurnManager {
 	public void setCurrentPhase(Phase currentPhase) {
 		this.currentPhase = currentPhase;
 	}
+	
+	public JsonObject toJson() {
+		JsonObject result = new JsonObject();
+		String colorPlayer = null;
+		if (currentPlayer != null) 
+			colorPlayer = currentPlayer.getColor().toString();
+		result.addProperty("currentPlayersColor", colorPlayer);
+		Integer phaseId = null;
+		if (currentPhase != null)
+			phaseId = currentPhase.getPhaseId();
+		result.addProperty("currentPhaseId", phaseId);
+		return result;
+	}
 
 }
