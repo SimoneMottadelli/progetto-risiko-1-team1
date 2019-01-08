@@ -49,7 +49,10 @@ public class Territory {
 	}
 	
 	public void removeTanks(int numberOfTanks) {
-		this.numberOfTanks -= numberOfTanks;
+		if (this.numberOfTanks >= numberOfTanks)
+			this.numberOfTanks -= numberOfTanks;
+		else
+			this.numberOfTanks = 0;
 	}
 
 	public String getName() {

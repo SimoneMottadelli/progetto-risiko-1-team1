@@ -8,18 +8,12 @@ public class TankManager {
 	
 	private static TankManager instance;
 	
-	private TankManager() {
-		
-	}
+	private TankManager() {}
 	
 	public static TankManager getInstance() {
 		if (instance == null)
 			instance = new TankManager();
 		return instance;
-	}
-	
-	public static void destroy() {
-		instance = null;
 	}
 	
 	public void initTanks(List<Player> players) {
