@@ -16,7 +16,7 @@ public class AssignBonusTanksPhase extends Phase{
 	
 	public AssignBonusTanksPhase() {
 		super(1);
-		initTrisMap();
+		initTris();
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class AssignBonusTanksPhase extends Phase{
 	}
 	
 	// This method is static. In this way, trisMap will be initialized only once.
-	private static void initTrisMap() {
+	private static void initTris() {
 		if (trisMap != null)
 			return;
 

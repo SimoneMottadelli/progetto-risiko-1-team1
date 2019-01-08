@@ -48,11 +48,7 @@ public class TankManager {
 			}
 			for(Territory t : MapManager.getInstance().getMapTerritories())
 				if(t.getOwner().equals(p))
-					try {
-						placeTanks(t, 1);
-					} catch (ExceededAvailableTanksException e) {
-						// safe try
-					}
+					placeTanks(t, 1);
 		}
 		
 	}
@@ -69,9 +65,13 @@ public class TankManager {
 		p.addAvailableTanks(tanks);
 	}
 	
-	public void placeTanks(Territory whereTerritory, int numTanks) throws ExceededAvailableTanksException {
+	public void tryToPlaceTanks(Territory whereTerritory, int numTanks) throws ExceededAvailableTanksException {
 		if(whereTerritory.getOwner().getAvailableTanks() < numTanks)
 			throw new ExceededAvailableTanksException("Not enough available tanks");
+		placeTanks(whereTerritory, numTanks);
+	}
+	
+	public void placeTanks(Territory whereTerritory, int numTanks) {
 		whereTerritory.addTanks(numTanks);
 		whereTerritory.getOwner().removeAvailableTanks(numTanks);
 	}

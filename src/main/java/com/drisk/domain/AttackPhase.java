@@ -11,20 +11,18 @@ import com.google.gson.JsonObject;
 
 public class AttackPhase extends Phase {
 
+	private Territory territoryAttacker;
+	private Territory territoryDefender; 
+	private int attackerTanks;
+	
 	public AttackPhase() {
 		super(4);
 	}
 
 	@Override
 	public void playPhase(Player currentPlayer, JsonObject obj) {
-		/*try {
-			Territory territoryAttacker = new Territory(JsonHelper.getTerritoriesFromJson(obj).get(0));
-			Territory territoryDefender = new Territory(JsonHelper.getTerritoriesFromJson(obj).get(1));
-			int attackerTanks = Integer.parseInt(JsonHelper.getNumberOfTanksFromJson(obj).get(0));
-			attackEnemyTerritory(territoryAttacker, territoryDefender, attackerTanks);
-		} catch (SyntaxException e) {
-			
-		}*/
+		fromJson(obj);
+		attackEnemyTerritory(currentPlayer);
 	}
 
 	@Override
@@ -32,28 +30,31 @@ public class AttackPhase extends Phase {
 		TurnManager.getInstance().setCurrentPhase(new TankMovementPhase());
 	}
 
-	public void attackEnemyTerritory(Territory territoryAttacker, Territory territoryDefender, int attackerTanks) {
-
-		Player attacker = TurnManager.getInstance().getCurrentPlayer();
-		Player defender = territoryDefender.findPlayer();
-
-			int defenderTanks = territoryDefender.getNumberOfTanks();
-			if (defenderTanks > 3) {
-				defenderTanks = 3;
-			}
+	public void attackEnemyTerritory(Player attacker) {
+		if(attackerTanks < territoryAttacker.getNumberOfTanks() || attacker.equals(territoryDefender.getOwner())) {
 			
-			Integer[] dicesResult = new Integer[2];
-			territoryAttacker.removeTanks(dicesResult[0]);
-			territoryDefender.removeTanks(dicesResult[1]);
-
+			// TODO throws exception
+			lancia una eccezione!
+			
+			
+			int defenderTanks = territoryDefender.getNumberOfTanks();
+			if (defenderTanks > 3) 
+				defenderTanks = 3;
+			int maxNumberOfAttackerTanks = 3;
+			if(attackerTanks < 3)
+				maxNumberOfAttackerTanks = attackerTanks;
+			int[] tanksToRemove = rollDices(maxNumberOfAttackerTanks, defenderTanks);
+			TankManager tm = TankManager.getInstance();
+			tm.removeTanks(territoryAttacker, tanksToRemove[0]);
+			tm.removeTanks(territoryDefender, tanksToRemove[1]);
+			
 			if (territoryDefender.getNumberOfTanks() == 0) {
-				TankManager tm = TankManager.getInstance();
-				defender.removeTerritoryOwned(territoryDefender);
-				attacker.addTerritoryOwned(territoryDefender);
+				territoryDefender.setOwner(attacker);
 				tm.placeTanks(territoryDefender, 1);
 				tm.removeTanks(territoryAttacker, 1);
-			}
-		
+			}	
+		}
+
 	}
 	
 	public int[] rollDices(int attackerTanks, int defenderTanks) {
@@ -73,35 +74,34 @@ public class AttackPhase extends Phase {
 		Arrays.sort(attackerDicesResults, Collections.reverseOrder());
 		Arrays.sort(defenderDicesResults, Collections.reverseOrder());
 		
-		List<Integer[]> results = new LinkedList<>();
-		results.add(attackerDicesResults);
-		results.add(defenderDicesResults);
-		return compareDices(results);
+		return compareDices(attackerDicesResults, defenderDicesResults);
 	
 	}
 	
-	public int[] compareDices(List<Integer[]> results) {
+	public int[] compareDices(Integer[] attackerDicesResults, Integer[] defenderDicesResults) {
 		
-		Integer[] attackerDicesResults = results.get(0);
-		Integer[] defenderDicesResults = results.get(1);
 		int attackerTanksLost = 0;
 		int defenderTanksLost = 0;
 		
 		int numIterations = Math.min(attackerDicesResults.length, defenderDicesResults.length);
 		
-		for(int i = 0; i < numIterations; ++i) {
-			if (attackerDicesResults[i] > defenderDicesResults[i]) {
-				defenderTanksLost++;
-			} else {
-				attackerTanksLost++;
-			}
-		}
+		for(int i = 0; i < numIterations; ++i)
+			if (attackerDicesResults[i] > defenderDicesResults[i]) 
+				++defenderTanksLost;
+			 else 
+				++attackerTanksLost;
 		
 		int[] tanksLost = new int[2];
 		tanksLost[0] = attackerTanksLost;
 		tanksLost[1] = defenderTanksLost;
 		
 		return tanksLost;
+	}
+
+	@Override
+	public Object fromJson(JsonObject obj) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

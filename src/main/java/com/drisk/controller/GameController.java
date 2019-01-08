@@ -77,7 +77,7 @@ public class GameController {
 		int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
 		try {
 			String territoryName = obj.getAsJsonPrimitive("where").getAsString();
-			TankManager.getInstance().placeTanks(MapManager.getInstance().findTerritoryByName(territoryName), numOfTanks);
+			TankManager.getInstance().tryToPlaceTanks(MapManager.getInstance().findTerritoryByName(territoryName), numOfTanks);
 		} catch (ExceededAvailableTanksException e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
@@ -121,7 +121,7 @@ public class GameController {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
 		TurnManager.getInstance().playPhase(helper.parseJson(body));
-		return helper.createResponseJson(0, OK);
+		return helper.createResponseJson(0, TurnManager.getInstance().getCurrentPlayer().toJson().toString());
 	}
 	
 	private boolean isAPlayer(HttpSession session) {

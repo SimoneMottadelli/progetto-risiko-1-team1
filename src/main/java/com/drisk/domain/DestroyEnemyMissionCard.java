@@ -1,28 +1,21 @@
 package com.drisk.domain;
 
-public class DestroyEnemyMissionCard implements MissionCard {
+public class DestroyEnemyMissionCard extends MissionCard {
 	
-	private String text;
 	private Player enemy;
 	
 	public DestroyEnemyMissionCard(Player enemy) {
-		super();
-		this.text = "Destroy the " + enemy.getColor() + " army";
+		super("Destroy the " + enemy.getColor() + " army");
 		this.enemy = enemy;
-	}
-
-	public String getText() {
-		return text;
 	}
 
 	public Player getEnemy() {
 		return enemy;
 	}
 
-		/* TODO DA SPOSTARE
 	@Override
-	public boolean checkWin() {
-		return enemy.getNumberOfTerritoriesOwned() == 0;
-	}*/
+	public boolean isAchievementReached(Player player) {
+		return MapManager.getInstance().getMapTerritories(enemy).size() == 0;
+	}
 
 }

@@ -48,11 +48,6 @@ public class Map {
 		return territories;
 	}
 	
-	
-	public int getNumberOfTerritories() {
-		return getTerritories().size();
-	}
-	
 	public JsonObject toJson() {
 		JsonObject result = new JsonObject();
 		result.addProperty("difficulty", difficulty.toString());

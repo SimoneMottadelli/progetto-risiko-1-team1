@@ -61,19 +61,19 @@ public class CardManager {
 	public void initMissionCards(Difficulty dif) {
 		switch(dif) {
 		case EASY:
-			MissionCard missionEasy = new ConquestTerritoryMissionCard(14);
+			MissionCard missionEasy = new ConquerTerritoryMissionCard(14);
 			missionCards.add(missionEasy);
 			break;
 		case MEDIUM:
-			MissionCard missionMedium = new ConquestTerritoryMissionCard(19);
+			MissionCard missionMedium = new ConquerTerritoryMissionCard(19);
 			missionCards.add(missionMedium);
 			break;
 		case HARD:
-			MissionCard missionHard = new ConquestTerritoryMissionCard(24);
+			MissionCard missionHard = new ConquerTerritoryMissionCard(24);
 			missionCards.add(missionHard);
 			break;
 		case CUSTOM:
-			MissionCard missionCustom = new ConquestTerritoryMissionCard(10);
+			MissionCard missionCustom = new ConquerTerritoryMissionCard(10);
 			missionCards.add(missionCustom);
 		}
 	}

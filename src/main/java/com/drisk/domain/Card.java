@@ -1,5 +1,3 @@
 package com.drisk.domain;
 
-public interface Card {
-
-}
+public abstract class Card {}

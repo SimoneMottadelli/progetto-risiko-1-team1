@@ -31,7 +31,7 @@ public class TurnManager {
 	}
 	
 	public void playPhase(JsonObject obj) {
-		currentPhase.playPhase(obj);
+		currentPhase.playPhase(currentPlayer, obj);
 	}
 
 	public void setCurrentPlayer(Player currentPlayer) {

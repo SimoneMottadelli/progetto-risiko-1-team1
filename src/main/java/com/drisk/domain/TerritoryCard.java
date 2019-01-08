@@ -1,6 +1,6 @@
 package com.drisk.domain;
 
-public class TerritoryCard implements Card, Comparable<TerritoryCard> {
+public class TerritoryCard extends Card implements Comparable<TerritoryCard> {
 	
 	private Territory territory;
 	private TerritoryCardSymbol symbol;

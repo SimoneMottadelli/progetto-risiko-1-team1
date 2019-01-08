@@ -18,4 +18,10 @@ public class TankPlacementPhase extends Phase {
 		TurnManager.getInstance().setCurrentPhase(new AttackPhase());
 	}
 
+	@Override
+	public Object fromJson(JsonObject obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

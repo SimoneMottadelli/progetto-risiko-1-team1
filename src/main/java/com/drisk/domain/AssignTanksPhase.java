@@ -1,8 +1,6 @@
 package com.drisk.domain;
 
-import java.util.LinkedList;
 import java.util.List;
-
 import com.google.gson.JsonObject;
 
 public class AssignTanksPhase extends Phase {
@@ -21,42 +19,25 @@ public class AssignTanksPhase extends Phase {
 		TurnManager.getInstance().setCurrentPhase(new TankPlacementPhase());
 	}
 	
+	// each player has at least a tank at the beginning of his turn even if he owns less then three territories
 	private void assignTanks(Player player) {
-		
-		//Ogni giocatore avrà almeno un tank di base all'inizio del turno,
-		//anche se dovesse avere meno di 3 territori.
-		
-		int numberTerritoriesOwned = 0;
-		
-		for (Territory t : MapManager.getInstance().getMapTerritories())
-			if (t.getOwner().equals(player))
-				++numberTerritoriesOwned;
-		
+		int numberTerritoriesOwned = MapManager.getInstance().getMapTerritories(player).size();
 		int tanks;
-		
-		if (numberTerritoriesOwned / 3 < 1) {
+		if (numberTerritoriesOwned / 3 < 1)
 			tanks = 1;
-		} else {
+		else
 			tanks = numberTerritoriesOwned / 3;
-		}
-		
 		tanks += getTanksPerContinent(player);
-		
-		player.addAvailableTanks(tanks);
-		
+		TankManager.getInstance().addTanksToPlayer(tanks, player);
 	}
 	
 	
-	public int getTanksPerContinent (Player player) {
+	private int getTanksPerContinent (Player player) {
 		int tanks = 0;
-		List<Territory> territoriesOwned = new LinkedList<>();
-		for (Territory t : MapManager.getInstance().getMapTerritories())
-			if (t.getOwner().equals(player))
-				territoriesOwned.add(t);
+		List<Territory> territoriesOwned = MapManager.getInstance().getMapTerritories(player);
 		List<Continent> continents = MapManager.getInstance().getMapContinents();
-		for(Continent c: continents) {
-			List<Territory> territories = c.getTerritories();
-			if (territoriesOwned.containsAll(territories)) {
+		for(Continent c: continents) 
+			if (territoriesOwned.containsAll(c.getTerritories()))
 				switch(c.getName()) {
 					case "africa": 
 						tanks += 3;
@@ -74,12 +55,14 @@ public class AssignTanksPhase extends Phase {
 						break;
 					default:
 						tanks += 0;
-				}
-			}
-		}	
-		
+				}	
 		return tanks;
-		
+	}
+
+	@Override
+	public Object fromJson(JsonObject obj) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

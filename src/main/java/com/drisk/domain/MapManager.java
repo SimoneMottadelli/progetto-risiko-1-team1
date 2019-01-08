@@ -2,6 +2,7 @@ package com.drisk.domain;
 
 import java.io.FileNotFoundException;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.drisk.technicalservice.FileLoader;
@@ -93,6 +94,14 @@ public class MapManager {
 		}
 	}
 	
+	public List<Territory> getMapTerritories(Player player) {
+		List<Territory> territoriesOwned = new LinkedList<>();
+		for(Territory t : getMapTerritories())
+			if(t.getOwner().equals(player))
+				territoriesOwned.add(t);
+		return territoriesOwned;
+	}
+	
 	public Territory findTerritoryByName(String territoryName) {
 		for(Continent c : map.getContinents())
 			for(Territory t : c.getTerritories())
@@ -102,7 +111,7 @@ public class MapManager {
 	}
 	
 	public int getNumberOfTerritories() {
-		return map.getNumberOfTerritories();
+		return getMapTerritories().size();
 	}
 	
 	public List<Territory> getMapTerritories() {

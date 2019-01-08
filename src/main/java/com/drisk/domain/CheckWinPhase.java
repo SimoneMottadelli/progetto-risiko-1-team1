@@ -17,6 +17,12 @@ public class CheckWinPhase extends Phase {
 	public void playPhase(Player currentPlayer, JsonObject obj) {
 		//probabilmente, al posto di una fase, è meglio creare un metodo a parte per la checkWin() TODO
 	}
+
+	@Override
+	public Object fromJson(JsonObject obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

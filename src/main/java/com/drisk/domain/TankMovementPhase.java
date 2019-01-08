@@ -32,4 +32,10 @@ public class TankMovementPhase extends Phase {
 		}
 		
 	}
+
+	@Override
+	public Object fromJson(JsonObject obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

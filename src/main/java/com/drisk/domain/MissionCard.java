@@ -1,6 +1,17 @@
 package com.drisk.domain;
 
-public interface MissionCard extends Card {
+public abstract class MissionCard extends Card {
 	
-	//public boolean checkWin();             //TODO da spostare
+	private String text;
+	
+	public MissionCard(String text) {
+		this.text = text;
+	}
+	
+	public String getText() {
+		return text;
+	}
+	
+	public abstract boolean isAchievementReached(Player player);
+	
 }
