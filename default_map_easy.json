@@ -3,18 +3,18 @@
 	"territories": [
 		"iceland",
 		"scandinavia",
-		"great britain",
+		"great_britain",
 		"ukraine",
-		"north europe",
-		"south europe",
-		"west europe",
-		"north africa",
+		"north_europe",
+		"south_europe",
+		"west_europe",
+		"north_africa",
 		"egypt",
-		"east africa",
+		"east_africa",
 		"congo",
-		"south africa",
+		"south_africa",
 		"madagascar",
-		"middle east",
+		"middle_east",
 		"india",
 		"afghanistan",
 		"china",
@@ -38,28 +38,28 @@
 			"territories": [
 				"iceland",
 				"scandinavia",
-				"great britain",
+				"great_britain",
 				"ukraine",
-				"north europe",
-				"south europe",
-				"west europe"
+				"north_europe",
+				"south_europe",
+				"west_europe"
 			]
 		},
 		{
 			"name": "africa",
 			"territories": [
-				"north africa",
+				"north_africa",
 				"egypt",
-				"east africa",
+				"east_africa",
 				"congo",
-				"south africa",
+				"south_africa",
 				"madagascar"
 			]
 		},
 		{
 			"name": "asia",
 			"territories": [
-				"middle east",
+				"middle_east",
 				"india",
 				"afghanistan",
 				"china",
@@ -80,7 +80,7 @@
 			"territories": [
 				"china",
 				"india",
-				"middle east",
+				"middle_east",
 				"ukraine",
 				"ural"
 			]
@@ -99,43 +99,43 @@
 		{
 			"name": "congo",
 			"territories": [
-				"east africa",
-				"north africa",
-				"south africa"
+				"east_africa",
+				"north_africa",
+				"south_africa"
 			]
 		},
 		{
-			"name": "east africa",
+			"name": "east_africa",
 			"territories": [
 				"congo",
 				"egypt",
 				"madagascar",
-				"middle east",
-				"north africa"
+				"middle_east",
+				"north_africa"
 			]
 		},
 		{
 			"name": "egypt",
 			"territories": [
-				"east africa",
-				"middle east",
-				"north africa",
-				"south europe"
+				"east_africa",
+				"middle_east",
+				"north_africa",
+				"south_europe"
 			]
 		},
 		{
-			"name": "great britain",
+			"name": "great_britain",
 			"territories": [
 				"iceland",
-				"north europe",
+				"north_europe",
 				"scandinavia",
-				"south europe"
+				"south_europe"
 			]
 		},
 		{
 			"name": "iceland",
 			"territories": [
-				"great britain",
+				"great_britain",
 				"scandinavia"
 			]
 		},
@@ -144,7 +144,7 @@
 			"territories": [
 				"afghanistan",
 				"china",
-				"middle east",
+				"middle_east",
 				"siam"
 			]
 		},
@@ -167,18 +167,18 @@
 		{
 			"name": "madagascar",
 			"territories": [
-				"east africa",
-				"south africa"
+				"east_africa",
+				"south_africa"
 			]
 		},
 		{
-			"name": "middle east",
+			"name": "middle_east",
 			"territories": [
 				"afghanistan",
-				"east africa",
+				"east_africa",
 				"egypt",
 				"india",
-				"south europe",
+				"south_europe",
 				"ukraine"
 			]
 		},
@@ -193,27 +193,27 @@
 			]
 		},
 		{
-			"name": "north africa",
+			"name": "north_africa",
 			"territories": [
 				"congo",
-				"east africa",
+				"east_africa",
 				"egypt",
-				"west europe"
+				"west_europe"
 			]
 		},
 		{
-			"name": "north europe",
+			"name": "north_europe",
 			"territories": [
-				"great britain",
-				"south europe",
+				"great_britain",
+				"south_europe",
 				"ukraine",
-				"west europe"
+				"west_europe"
 			]
 		},
 		{
 			"name": "scandinavia",
 			"territories": [
-				"great britain",
+				"great_britain",
 				"iceland",
 				"ukraine"
 			]
@@ -236,31 +236,31 @@
 			]
 		},
 		{
-			"name": "south africa",
+			"name": "south_africa",
 			"territories": [
 				"congo",
-				"east africa",
+				"east_africa",
 				"madagascar"
 			]
 		},
 		{
-			"name": "south europe",
+			"name": "south_europe",
 			"territories": [
 				"egypt",
-				"middle east",
-				"north europe",
+				"middle_east",
+				"north_europe",
 				"ukraine",
-				"west europe"
+				"west_europe"
 			]
 		},
 		{
 			"name": "ukraine",
 			"territories": [
 				"afghanistan",
-				"middle east",
-				"north europe",
+				"middle_east",
+				"north_europe",
 				"scandinavia",
-				"south europe",
+				"south_europe",
 				"ural"
 			]
 		},
@@ -274,12 +274,12 @@
 			]
 		},
 		{
-			"name": "west europe",
+			"name": "west_europe",
 			"territories": [
-				"great britain",
-				"north africa",
-				"north europe",
-				"south europe"
+				"great_britain",
+				"north_africa",
+				"north_europe",
+				"south_europe"
 			]
 		},
 		{

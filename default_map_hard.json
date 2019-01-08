@@ -3,18 +3,18 @@
 	"territories": [
 		"iceland",
 		"scandinavia",
-		"great britain",
+		"great_britain",
 		"ukraine",
-		"north europe",
-		"south europe",
-		"west europe",
-		"north africa",
+		"north_europe",
+		"south_europe",
+		"west_europe",
+		"north_africa",
 		"egypt",
-		"east africa",
+		"east_africa",
 		"congo",
-		"south africa",
+		"south_africa",
 		"madagascar",
-		"middle east",
+		"middle_east",
 		"india",
 		"afghanistan",
 		"china",
@@ -27,29 +27,29 @@
 		"yakursk",
 		"irkutsk",
 		"alaska",
-		"northwest territory",
+		"northwest_territory",
 		"groenland",
 		"alberta",
 		"ontario",
 		"quebec",
-		"western united states",
-		"eastern united states",
-		"central america",
+		"western_united_states",
+		"eastern_united_states",
+		"central_america",
 		"venezuela",
 		"brazil",
 		"peru",
 		"argentina",
 		"indonesia",
-		"new guinea",
-		"eastern australia",
-		"western australia"
+		"new_guinea",
+		"eastern_australia",
+		"western_australia"
 	],
 	"continents": [
 		"europe",
 		"asia",
 		"africa",
-		"north america",
-		"south america",
+		"north_america",
+		"south_america",
 		"australia"
 	],
 	"membership": [
@@ -58,28 +58,28 @@
 			"territories": [
 				"iceland",
 				"scandinavia",
-				"great britain",
+				"great_britain",
 				"ukraine",
-				"north europe",
-				"south europe",
-				"west europe"
+				"north_europe",
+				"south_europe",
+				"west_europe"
 			]
 		},
 		{
 			"name": "africa",
 			"territories": [
-				"north africa",
+				"north_africa",
 				"egypt",
-				"east africa",
+				"east_africa",
 				"congo",
-				"south africa",
+				"south_africa",
 				"madagascar"
 			]
 		},
 		{
 			"name": "asia",
 			"territories": [
-				"middle east",
+				"middle_east",
 				"india",
 				"afghanistan",
 				"china",
@@ -94,21 +94,21 @@
 			]
 		},
 		{
-			"name": "north america",
+			"name": "north_america",
 			"territories": [
 				"alaska",
-				"northwest territory",
+				"northwest_territory",
 				"groenland",
 				"alberta",
 				"ontario",
 				"quebec",
-				"western united states",
-				"eastern united states",
-				"central america"
+				"western_united_states",
+				"eastern_united_states",
+				"central_america"
 			]
 		},
 		{
-			"name": "south america",
+			"name": "south_america",
 			"territories": [
 				"venezuela",
 				"brazil",
@@ -120,9 +120,9 @@
 			"name": "australia",
 			"territories": [
 				"indonesia",
-				"new guinea",
-				"eastern australia",
-				"western australia"
+				"new_guinea",
+				"eastern_australia",
+				"western_australia"
 			]
 		}
 	],
@@ -132,7 +132,7 @@
 			"territories": [
 				"china",
 				"india",
-				"middle east",
+				"middle_east",
 				"ukraine",
 				"ural"
 			]
@@ -151,43 +151,43 @@
 		{
 			"name": "congo",
 			"territories": [
-				"east africa",
-				"north africa",
-				"south africa"
+				"east_africa",
+				"north_africa",
+				"south_africa"
 			]
 		},
 		{
-			"name": "east africa",
+			"name": "east_africa",
 			"territories": [
 				"congo",
 				"egypt",
 				"madagascar",
-				"middle east",
-				"north africa"
+				"middle_east",
+				"north_africa"
 			]
 		},
 		{
 			"name": "egypt",
 			"territories": [
-				"east africa",
-				"middle east",
-				"north africa",
-				"south europe"
+				"east_africa",
+				"middle_east",
+				"north_africa",
+				"south_europe"
 			]
 		},
 		{
-			"name": "great britain",
+			"name": "great_britain",
 			"territories": [
 				"iceland",
-				"north europe",
+				"north_europe",
 				"scandinavia",
-				"south europe"
+				"south_europe"
 			]
 		},
 		{
 			"name": "iceland",
 			"territories": [
-				"great britain",
+				"great_britain",
 				"scandinavia",
 				"groenland"
 			]
@@ -197,7 +197,7 @@
 			"territories": [
 				"afghanistan",
 				"china",
-				"middle east",
+				"middle_east",
 				"siam"
 			]
 		},
@@ -220,18 +220,18 @@
 		{
 			"name": "madagascar",
 			"territories": [
-				"east africa",
-				"south africa"
+				"east_africa",
+				"south_africa"
 			]
 		},
 		{
-			"name": "middle east",
+			"name": "middle_east",
 			"territories": [
 				"afghanistan",
-				"east africa",
+				"east_africa",
 				"egypt",
 				"india",
-				"south europe",
+				"south_europe",
 				"ukraine"
 			]
 		},
@@ -246,28 +246,28 @@
 			]
 		},
 		{
-			"name": "north africa",
+			"name": "north_africa",
 			"territories": [
 				"congo",
-				"east africa",
+				"east_africa",
 				"egypt",
-				"west europe",
+				"west_europe",
 				"brazil"
 			]
 		},
 		{
-			"name": "north europe",
+			"name": "north_europe",
 			"territories": [
-				"great britain",
-				"south europe",
+				"great_britain",
+				"south_europe",
 				"ukraine",
-				"west europe"
+				"west_europe"
 			]
 		},
 		{
 			"name": "scandinavia",
 			"territories": [
-				"great britain",
+				"great_britain",
 				"iceland",
 				"ukraine"
 			]
@@ -291,31 +291,31 @@
 			]
 		},
 		{
-			"name": "south africa",
+			"name": "south_africa",
 			"territories": [
 				"congo",
-				"east africa",
+				"east_africa",
 				"madagascar"
 			]
 		},
 		{
-			"name": "south europe",
+			"name": "south_europe",
 			"territories": [
 				"egypt",
-				"middle east",
-				"north europe",
+				"middle_east",
+				"north_europe",
 				"ukraine",
-				"west europe"
+				"west_europe"
 			]
 		},
 		{
 			"name": "ukraine",
 			"territories": [
 				"afghanistan",
-				"middle east",
-				"north europe",
+				"middle_east",
+				"north_europe",
 				"scandinavia",
-				"south europe",
+				"south_europe",
 				"ural"
 			]
 		},
@@ -329,12 +329,12 @@
 			]
 		},
 		{
-			"name": "west europe",
+			"name": "west_europe",
 			"territories": [
-				"great britain",
-				"north africa",
-				"north europe",
-				"south europe"
+				"great_britain",
+				"north_africa",
+				"north_europe",
+				"south_europe"
 			]
 		},
 		{
@@ -358,13 +358,13 @@
 		{
 			"name": "alaska",
 			"territories": [
-				"northwest territory",
+				"northwest_territory",
 				"alberta",
 				"kamchatka"
 			]
 		},
 		{
-			"name": "northwest territory",
+			"name": "northwest_territory",
 			"territories": [
 				"alaska",
 				"alberta",
@@ -375,7 +375,7 @@
 		{
 			"name": "groenland",
 			"territories": [
-				"northwest territory",
+				"northwest_territory",
 				"ontario",
 				"quebec",
 				"iceland"
@@ -385,18 +385,18 @@
 			"name": "alberta",
 			"territories": [
 				"alaska",
-				"northwest territory",
-				"western united states",
+				"northwest_territory",
+				"western_united_states",
 				"ontario"
 			]
 		},
 		{
 			"name": "ontario",
 			"territories": [
-				"northwest territory",
+				"northwest_territory",
 				"alberta",
-				"western united states",
-				"eastern united states",
+				"western_united_states",
+				"eastern_united_states",
 				"quebec",
 				"groenland"
 			]
@@ -404,41 +404,41 @@
 		{
 			"name": "quebec",
 			"territories": [
-				"eastern united states",
+				"eastern_united_states",
 				"groenland",
 				"ontario"
 			]
 		},
 		{
-			"name": "western united states",
+			"name": "western_united_states",
 			"territories": [
-				"central america",
+				"central_america",
 				"alberta",
-				"eastern united states",
+				"eastern_united_states",
 				"ontario"
 			]
 		},
 		{
-			"name": "eastern united states",
+			"name": "eastern_united_states",
 			"territories": [
 				"quebec",
-				"western united states",
-				"central america",
+				"western_united_states",
+				"central_america",
 				"ontario"
 			]
 		},
 		{
-			"name": "central america",
+			"name": "central_america",
 			"territories": [
-				"western united states",
-				"eastern united states",
+				"western_united_states",
+				"eastern_united_states",
 				"venezuela"
 			]
 		},
 		{
 			"name": "venezuela",
 			"territories": [
-				"central america",
+				"central_america",
 				"peru",
 				"brazil"
 			]
@@ -457,7 +457,7 @@
 				"venezuela",
 				"peru",
 				"argentina",
-				"north africa"
+				"north_africa"
 			]
 		},
 		{
@@ -471,32 +471,32 @@
 			"name": "indonesia",
 			"territories": [
 				"siam",
-				"new guinea",
-				"western australia"
+				"new_guinea",
+				"western_australia"
 			]
 		},
 		{
-			"name": "new guinea",
+			"name": "new_guinea",
 			"territories": [
 				"indonesia",
-				"western australia",
-				"eastern australia"
+				"western_australia",
+				"eastern_australia"
 			]
 		},
 		{
-			"name": "western australia",
+			"name": "western_australia",
 			"territories": [
 				"indonesia",
-				"new guinea",
-				"eastern australia"
+				"new_guinea",
+				"eastern_australia"
 			]
 		},
 		{
-			"name": "eastern australia",
+			"name": "eastern_australia",
 			"territories": [
 				"indonesia",
 				"new guinea",
-				"western australia"
+				"western_australia"
 			]
 		}
 	]

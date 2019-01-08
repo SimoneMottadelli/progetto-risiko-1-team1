@@ -21,7 +21,7 @@ public class Map {
 	}
 
 	public void setDifficulty(String difficulty) {
-		this.difficulty = Difficulty.valueOf(difficulty);
+		this.difficulty = Difficulty.valueOf(difficulty.toUpperCase());
 	}
 
 	public List<Continent> getContinents() {
