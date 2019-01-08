@@ -24,6 +24,31 @@ public class MapManagerTest {
 			MapManager.getInstance().createMap(obj);
 		} catch (FileNotFoundException | SyntaxException e) {}
 	}
+	
+	@Test
+	public void initMapEasyTest() {
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("default_map_easy.json"));
+			Gson json = new Gson();
+			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class);
+			MapManager.getInstance().createMap(obj);
+			
+			assertEquals(3, MapManager.getInstance().getMapContinents().size());
+			assertEquals(25, MapManager.getInstance().getMapTerritories().size());
+		} catch (FileNotFoundException | SyntaxException e) {}
+	}
+	
+	@Test
+	public void initMapHardTest() {
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("default_map_hard.json"));
+			Gson json = new Gson();
+			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class);
+			MapManager.getInstance().createMap(obj);
+			assertEquals(5, MapManager.getInstance().getMapContinents().size());
+			assertEquals(42, MapManager.getInstance().getMapTerritories().size());
+		} catch (FileNotFoundException | SyntaxException e) {}
+	}
 
 	@Test
 	public void createContinentTest() {
@@ -41,15 +66,21 @@ public class MapManagerTest {
 		assertTrue(t.getNeighbours().contains(new Territory("north_africa")));
 	}
 	
-	/* Bisogna creare anche i giocatori e mettere gli owner nei territories TODO
+
 	@Test
 	public void toJsonTest() {
+		Player p = new Player(Color.RED, "Simone");
+		for (Territory t : MapManager.getInstance().getMapTerritories())
+			t.setOwner(p);
 		JsonObject obj = MapManager.getInstance().toJson();
-		assertEquals("easy", obj.get("difficulty").toString().replace("\"", ""));
+		assertEquals("EASY", obj.get("difficulty").toString().replace("\"", ""));
 		assertEquals(3, obj.getAsJsonArray("continents").size());
 		assertEquals(25, obj.getAsJsonArray("neighbourhood").size());
+		assertEquals(25, obj.getAsJsonArray("territories").size());
+		assertEquals(3, obj.getAsJsonArray("membership").size());
+		System.out.println(obj);
 	}
-	*/
+	
 	@Test
 	public void syntaxErrorNeighbourhoodKeywordCreateMapTest() {
 		try {
