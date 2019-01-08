@@ -1,5 +1,7 @@
 package com.drisk.domain;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -7,6 +9,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.gson.JsonObject;
 
 public class MatchManagerTest {
 	
@@ -18,9 +22,8 @@ public class MatchManagerTest {
 	
 	@Test
 	public void joinGameTest() {
-		for(int i = 0; i < 3; i++) {
-			assertTrue(MatchManager.getInstance().isMatchFull());
-		}
+		assertTrue(MatchManager.getInstance().isMatchFull());
+
 	}	
 
 	@Test 
@@ -37,6 +40,30 @@ public class MatchManagerTest {
 				fail();
 		}
 			
+	}
+	
+	@Test
+	public void areThereAtLeastTwoPlayersTest() {
+		assertTrue(MatchManager.getInstance().areThereAtLeastTwoPlayers());
+	}
+	
+	@Test
+	public void isEveryoneReadyTest() {
+		assertFalse(MatchManager.getInstance().isEveryoneReady());
+		for (Player p : MatchManager.getInstance().getPlayers())
+			p.setReady(true);
+		assertTrue(MatchManager.getInstance().isEveryoneReady());
+	}
+	
+	@Test
+	public void isMatchStartedTest() {
+		assertFalse(MatchManager.getInstance().isMatchStarted());
+	}
+	
+	@Test
+	public void toJsonTest() {
+		JsonObject obj = MatchManager.getInstance().toJson();
+		assertEquals(6, obj.getAsJsonArray("players").size());
 	}
 	
 }
