@@ -1,5 +1,6 @@
 package com.drisk.domain;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -26,15 +27,12 @@ public class GameManagerTest {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader("default_map_easy.json"));
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class); 
-			MatchManager.getInstance().setGameConfig(obj);
+			MapManager.getInstance().createMap(obj);
 		} catch (FileNotFoundException | SyntaxException e) {
 			e.printStackTrace();
 		}
-		MapManager.destroy();
 		MatchManager.getInstance().initGame();
 	}
-	
-	// TODO controllare che ci siano almeno 2 giocatori nella partita
 	
 	@Test
 	public void startGameTest() {
@@ -43,19 +41,20 @@ public class GameManagerTest {
 		assertTrue(MapManager.getInstance().getMapTerritories().size() == 25);
 	}
 	
-	/*
 	@Test
-	public void initCardsTest() {
-		GameManager.getInstance().initCards();
+	public void findPlayerByColorTest() {
+		Color[] colors = Color.values();
+		int i = 0;
+		for (Player p : GameManager.getInstance().getPlayers())
+			assertEquals(p.getNickname(), GameManager.getInstance().findPlayerByColor(colors[i++]).getNickname());
 	}
-	*/
 	
 	
 	@Test
 	public void initPlayersTerritoriesTest() {
 		List<Player> players = GameManager.getInstance().getPlayers();
 		for(Player p : players)
-			if(p.getNumberOfTerritoriesOwned() < 4)
+			if(MapManager.getInstance().getMapTerritories(p).size() < 4)
 				fail();
 	}
 
@@ -79,10 +78,4 @@ public class GameManagerTest {
 		assertFalse(GameManager.getInstance().checkWin(p2));
 	}
 	*/
-	
-	@After
-	public void destroyMap() {
-		MapManager.destroy();
-	}
-
 }

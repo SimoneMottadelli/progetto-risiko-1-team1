@@ -2,9 +2,7 @@ package com.drisk.domain;
 
 import java.util.LinkedList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CardManager {
 
@@ -12,7 +10,6 @@ public class CardManager {
 	private List<Card> territoryCards;
 	private List<Card> discardedCards;
 	private static CardManager instance;
-	private Map<List<TerritoryCardSymbol>, Integer> trisMap;
 	
 	private CardManager() {
 		missionCards = new LinkedList<>();
