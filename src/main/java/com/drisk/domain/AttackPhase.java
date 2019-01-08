@@ -34,7 +34,7 @@ public class AttackPhase extends Phase {
 		if(attackerTanks < territoryAttacker.getNumberOfTanks() || attacker.equals(territoryDefender.getOwner())) {
 			
 			// TODO throws exception
-			lancia una eccezione!
+			//lancia una eccezione!
 			
 			
 			int defenderTanks = territoryDefender.getNumberOfTanks();
