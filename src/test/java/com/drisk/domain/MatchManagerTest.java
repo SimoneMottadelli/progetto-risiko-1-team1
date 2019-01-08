@@ -45,14 +45,34 @@ public class MatchManagerTest {
 	@Test
 	public void areThereAtLeastTwoPlayersTest() {
 		assertTrue(MatchManager.getInstance().areThereAtLeastTwoPlayers());
+		Color[] colors = Color.values();
+		for (int i = 0; i < colors.length; ++i)
+			MatchManager.getInstance().exitGame(colors[i]);
+		assertFalse(MatchManager.getInstance().areThereAtLeastTwoPlayers());
 	}
 	
 	@Test
 	public void isEveryoneReadyTest() {
 		assertFalse(MatchManager.getInstance().isEveryoneReady());
-		for (Player p : MatchManager.getInstance().getPlayers())
-			p.setReady(true);
+		for (Color c : Color.values())
+			MatchManager.getInstance().setPlayerReady(c, true);
 		assertTrue(MatchManager.getInstance().isEveryoneReady());
+	}
+	
+	@Test
+	public void isMatchFullTest() {
+		assertTrue(MatchManager.getInstance().isMatchFull());
+		MatchManager.getInstance().exitGame(Color.BLUE);
+		assertFalse(MatchManager.getInstance().isMatchFull());
+	}
+	
+	@Test
+	public void exitGameTest() {
+		assertEquals(6, MatchManager.getInstance().getPlayers().size());
+		Color[] colors = Color.values();
+		for (int i = 0; i < colors.length; ++i)
+			MatchManager.getInstance().exitGame(colors[i]);
+		assertEquals(0, MatchManager.getInstance().getPlayers().size());
 	}
 	
 	@Test

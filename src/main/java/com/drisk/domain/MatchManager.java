@@ -45,11 +45,14 @@ public class MatchManager {
 		return players.get(players.size() - 1).getColor();
 	}
 	
+	
 	public void exitGame(Color color) {
-		for (Player p : players)
-			if (p.getColor().equals(color)) {
+		//for-each modificato in for-normale per evitare "ConcurrentModificationException"
+		List<Player> players = getPlayers();
+		for (int i = 0; i < players.size(); ++i)
+			if (players.get(i).getColor().equals(color)) {
 				colorsAvailablesList.add(color);
-				removePlayer(p);
+				removePlayer(players.get(i));
 			}
 	}
 	
