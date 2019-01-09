@@ -97,6 +97,15 @@ public class GameController {
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
 	}
 	
+	@GetMapping("/playerInfo")
+	@ResponseBody
+	public JsonObject getPlayerInfo(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(!isAPlayer(session))
+			return helper.createResponseJson(-1, NOT_A_PLAYER);
+		return GameManager.getInstance().findPlayerByColor((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)).toJson();
+	}
+	
 	
 	@GetMapping("/test")
 	@ResponseBody

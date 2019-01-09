@@ -23,8 +23,8 @@ public class AssignTanksPhase extends Phase {
 	@Override
 	public void playPhase(Player currentPlayer, JsonObject phaseConfig) {
 		fromJson(phaseConfig);
-		// controllo se l'utente non vuole usare il tris TODO
-		useTris(currentPlayer);
+		if(playerTris != null)
+			useTris(currentPlayer);
 		assignTanks(currentPlayer);
 	}
 
@@ -151,12 +151,14 @@ public class AssignTanksPhase extends Phase {
 	public void fromJson(JsonObject obj) {
 		TerritoryCard[] tris = new TerritoryCard[3];
 		JsonArray cards = obj.getAsJsonArray("cards");
-		int i = 0;
-		for(JsonElement cardObj : cards) {
-			JsonObject card = cardObj.getAsJsonObject();
-			tris[i++] = CardManager.getInstance().findTerritoryCardByTerritoryName(card.get("name").toString().toLowerCase().replace("\"", ""));
+		if(cards != null) {
+			int i = 0;
+			for(JsonElement cardObj : cards) {
+				JsonObject card = cardObj.getAsJsonObject();
+				tris[i++] = CardManager.getInstance().findTerritoryCardByTerritoryName(card.get("name").toString().toLowerCase().replace("\"", ""));
+			}
+			playerTris = tris;
 		}
-		playerTris = tris;
 	}
 	
 }

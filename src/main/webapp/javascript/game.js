@@ -32,10 +32,22 @@ $(document).ready(function(){
 		$.getJSON('../game/getColorFromSession', function(data) {
 			if(data.responseCode != -1) {
 				myColor = data.responseMessage;
+				getPlayerInfo();
 				loadMap();
 				showOrHidePlaceTanksDiv(true);
-				playerTurnRequest();
 			}
+			else
+				alert(data.responseMessage);
+		});
+	}
+	
+	function getPlayerInfo() {
+		$getJSON('../game/playerInfo', function(data) {
+			if(data.responseCode != -1) {
+				
+			}
+			else
+				alert(data.responseMessage);
 		});
 	}
 	
