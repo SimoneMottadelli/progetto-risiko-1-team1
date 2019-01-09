@@ -1,5 +1,6 @@
 package com.drisk.domain;
 
+import com.drisk.domain.exceptions.RequestNotValidException;
 import com.google.gson.JsonObject;
 
 public abstract class Phase {
@@ -15,7 +16,7 @@ public abstract class Phase {
 	}
 	
 	public abstract void nextPhase();
-	public abstract void playPhase(Player currentPlayer, JsonObject obj);
+	public abstract void playPhase(Player currentPlayer, JsonObject obj) throws RequestNotValidException;
 	public abstract void fromJson(JsonObject obj);
 
 }

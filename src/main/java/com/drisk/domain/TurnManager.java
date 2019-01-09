@@ -2,6 +2,7 @@ package com.drisk.domain;
 
 import java.util.List;
 
+import com.drisk.domain.exceptions.RequestNotValidException;
 import com.google.gson.JsonObject;
 
 public class TurnManager {
@@ -30,7 +31,7 @@ public class TurnManager {
 		return currentPlayer;
 	}
 	
-	public void playPhase(JsonObject obj) {
+	public void playPhase(JsonObject obj) throws RequestNotValidException {
 		currentPhase.playPhase(currentPlayer, obj);
 	}
 

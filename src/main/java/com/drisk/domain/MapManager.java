@@ -1,6 +1,7 @@
 package com.drisk.domain;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +36,10 @@ public class MapManager {
 		else
 			createMapComponents(new FileLoader().readDefaultMapFile(map.getDifficulty()));
 		map.setReady(true);
+	}
+	
+	public JsonObject getSVGMap() throws IOException {
+		return new FileLoader().readSVGMapFile(map.getDifficulty());
 	}
 	
 	private void createMapComponents(JsonObject gameConfig) throws SyntaxException {

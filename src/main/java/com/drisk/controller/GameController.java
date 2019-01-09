@@ -1,11 +1,15 @@
 package com.drisk.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,7 @@ import com.drisk.domain.MapManager;
 import com.drisk.domain.TankManager;
 import com.drisk.domain.TurnManager;
 import com.drisk.domain.exceptions.RequestNotValidException;
+import com.drisk.technicalservice.FileLoader;
 import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
@@ -47,6 +52,18 @@ public class GameController {
 		});
 		return emitter;
     }
+	
+	@GetMapping("/mapImage")
+	@ResponseBody
+	public JsonObject getMapImage() {
+		try {
+			return new FileLoader().readSVGMapFile(null);
+			//return MapManager.getInstance().getSVGMap();
+		}
+		catch (Exception e) {
+			return helper.createResponseJson(-1, e.getMessage());
+		}
+	}
 	
 	@GetMapping("/turnStatus")
 	public SseEmitter handleSseTurn() {
@@ -129,7 +146,11 @@ public class GameController {
 		} catch (IOException e){
 			return helper.createResponseJson(-1, e.getMessage());
 		}
-		TurnManager.getInstance().playPhase(helper.parseJson(body));
+		try {
+			TurnManager.getInstance().playPhase(helper.parseJson(body));
+		} catch (RequestNotValidException e) {
+			return helper.createResponseJson(-1, e.getMessage());
+		}
 		return helper.createResponseJson(0, TurnManager.getInstance().getCurrentPlayer().toJson().toString());
 	}
 	

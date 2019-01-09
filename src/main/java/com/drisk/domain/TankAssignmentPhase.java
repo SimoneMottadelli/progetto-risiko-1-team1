@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.drisk.domain.exceptions.RequestNotValidException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -21,7 +22,7 @@ public class TankAssignmentPhase extends Phase {
 	}
 
 	@Override
-	public void playPhase(Player currentPlayer, JsonObject phaseConfig) {
+	public void playPhase(Player currentPlayer, JsonObject phaseConfig) throws RequestNotValidException {
 		fromJson(phaseConfig);
 		if(playerTris != null)
 			useTris(currentPlayer);
@@ -149,12 +150,14 @@ public class TankAssignmentPhase extends Phase {
 	}
 
 	@Override
-	public void fromJson(JsonObject obj) {
+	public void fromJson(JsonObject obj) throws RequestNotValidException {
 		TerritoryCard[] tris = new TerritoryCard[3];
 		JsonArray cards = obj.getAsJsonArray("cards");
 		if(cards != null) {
 			int i = 0;
 			for(JsonElement cardObj : cards) {
+				if(cards.size() != 3)
+					throw new RequestNotValidException("You haven't used a tris");
 				JsonObject card = cardObj.getAsJsonObject();
 				tris[i++] = CardManager.getInstance().findTerritoryCardByTerritoryName(card.get("name").toString().toLowerCase().replace("\"", ""));
 			}
