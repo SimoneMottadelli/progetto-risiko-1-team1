@@ -10,13 +10,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class AssignTanksPhase extends Phase {
+public class TankAssignmentPhase extends Phase {
 	
 	private static Map<List<TerritoryCardSymbol>, Integer> trisMap;
 	private TerritoryCard[] playerTris;
 
-	public AssignTanksPhase() {
-		super(1);
+	public TankAssignmentPhase() {
+		super(PhaseEnum.TANKASSIGNMENT.getValue());
 		initTris();
 	}
 
@@ -93,6 +93,7 @@ public class AssignTanksPhase extends Phase {
 				CardManager.getInstance().removeCards(player, playerTris);
 			}
 		}
+		playerTris = null;
 	}
 	
 	// This method is static. In this way, trisMap will be initialized only once.

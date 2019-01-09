@@ -37,7 +37,7 @@ public class AssignTanksPhaseTest {
 	@Test
 	public void playPhaseTest() {
 		
-		AssignTanksPhase phase = new AssignTanksPhase();
+		TankAssignmentPhase phase = new TankAssignmentPhase();
 		
 		// getting current player and building the tris he wants to use
 		Player currentPlayer = MatchManager.getInstance().getPlayers().get(0);

@@ -3,9 +3,12 @@ package com.drisk.domain;
 import com.google.gson.JsonObject;
 
 public class TankPlacementPhase extends Phase {
+	
+	private Territory where;
+	private int howManyTanks;
 
 	public TankPlacementPhase() {
-		super(2);
+		super(PhaseEnum.TANKPLACEMENT.getValue());
 	}
 
 	@Override
@@ -20,7 +23,7 @@ public class TankPlacementPhase extends Phase {
 
 	@Override
 	public void fromJson(JsonObject obj) {
-		// TODO Auto-generated method stub
+		
 	}
 
 }

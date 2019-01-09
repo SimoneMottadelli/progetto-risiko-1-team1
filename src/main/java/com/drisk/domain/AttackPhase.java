@@ -11,7 +11,7 @@ public class AttackPhase extends Phase {
 	private int attackerTanks;
 	
 	public AttackPhase() {
-		super(3);
+		super(PhaseEnum.ATTACK.getValue());
 	}
 
 	@Override
