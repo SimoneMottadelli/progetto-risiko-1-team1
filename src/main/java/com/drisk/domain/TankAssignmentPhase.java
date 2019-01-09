@@ -10,21 +10,21 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class AssignTanksPhase extends Phase {
+public class TankAssignmentPhase extends Phase {
 	
 	private static Map<List<TerritoryCardSymbol>, Integer> trisMap;
 	private TerritoryCard[] playerTris;
 
-	public AssignTanksPhase() {
-		super(1);
+	public TankAssignmentPhase() {
+		super(PhaseEnum.TANKASSIGNMENT.getValue());
 		initTris();
 	}
 
 	@Override
 	public void playPhase(Player currentPlayer, JsonObject phaseConfig) {
 		fromJson(phaseConfig);
-		// controllo se l'utente non vuole usare il tris TODO
-		useTris(currentPlayer);
+		if(playerTris != null)
+			useTris(currentPlayer);
 		assignTanks(currentPlayer);
 	}
 
@@ -93,6 +93,7 @@ public class AssignTanksPhase extends Phase {
 				CardManager.getInstance().removeCards(player, playerTris);
 			}
 		}
+		playerTris = null;
 	}
 	
 	// This method is static. In this way, trisMap will be initialized only once.
@@ -151,12 +152,14 @@ public class AssignTanksPhase extends Phase {
 	public void fromJson(JsonObject obj) {
 		TerritoryCard[] tris = new TerritoryCard[3];
 		JsonArray cards = obj.getAsJsonArray("cards");
-		int i = 0;
-		for(JsonElement cardObj : cards) {
-			JsonObject card = cardObj.getAsJsonObject();
-			tris[i++] = CardManager.getInstance().findTerritoryCardByTerritoryName(card.get("name").toString().toLowerCase().replace("\"", ""));
+		if(cards != null) {
+			int i = 0;
+			for(JsonElement cardObj : cards) {
+				JsonObject card = cardObj.getAsJsonObject();
+				tris[i++] = CardManager.getInstance().findTerritoryCardByTerritoryName(card.get("name").toString().toLowerCase().replace("\"", ""));
+			}
+			playerTris = tris;
 		}
-		playerTris = tris;
 	}
 	
 }

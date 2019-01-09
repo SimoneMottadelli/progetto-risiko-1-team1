@@ -2,11 +2,6 @@ package com.drisk.domain;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
-import com.drisk.domain.exceptions.SyntaxException;
-import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
 public class AttackPhase extends Phase {
@@ -16,7 +11,7 @@ public class AttackPhase extends Phase {
 	private int attackerTanks;
 	
 	public AttackPhase() {
-		super(3);
+		super(PhaseEnum.ATTACK.getValue());
 	}
 
 	@Override

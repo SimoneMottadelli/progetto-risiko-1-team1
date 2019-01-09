@@ -13,7 +13,7 @@ public class TurnManager {
 	private TurnManager() {}
 	
 	public void initTurn() {
-		currentPhase = new AssignTanksPhase();
+		currentPhase = new TankAssignmentPhase();
 	}
 	
 	public static TurnManager getInstance() {

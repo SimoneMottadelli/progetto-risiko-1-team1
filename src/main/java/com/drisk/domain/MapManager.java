@@ -16,7 +16,9 @@ public class MapManager {
 
 	private static final String SYNTAXERROR = "SyntaxError: ";
 	
-	private MapManager() {}
+	private MapManager() {
+		map = new Map();
+	}
 
 	public static MapManager getInstance() {
 		if (instance == null)

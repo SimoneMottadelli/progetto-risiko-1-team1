@@ -2,7 +2,7 @@ package com.drisk.domain;
 
 import java.util.List;
 
-import com.drisk.domain.exceptions.ExceededAvailableTanksException;
+import com.drisk.domain.exceptions.RequestNotValidException;
 
 public class TankManager {
 	
@@ -59,9 +59,9 @@ public class TankManager {
 		p.addAvailableTanks(tanks);
 	}
 	
-	public void tryToPlaceTanks(Territory whereTerritory, int numTanks) throws ExceededAvailableTanksException {
+	public void tryToPlaceTanks(Territory whereTerritory, int numTanks) throws RequestNotValidException {
 		if(whereTerritory.getOwner().getAvailableTanks() < numTanks)
-			throw new ExceededAvailableTanksException("Not enough available tanks");
+			throw new RequestNotValidException("Not enough available tanks");
 		placeTanks(whereTerritory, numTanks);
 	}
 	

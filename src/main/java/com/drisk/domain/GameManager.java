@@ -15,7 +15,6 @@ public class GameManager {
 	public static GameManager getInstance() {
 		if (instance == null)
 			instance = new GameManager();
-		System.out.println("instantiated");
 		return instance;
 	}
 

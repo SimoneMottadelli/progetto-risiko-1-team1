@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 public class TankMovementPhase extends Phase {
 
 	public TankMovementPhase() {
-		super(4);
+		super(PhaseEnum.TANKSMOVIMENT.getValue());
 	}
 
 	@Override
@@ -15,7 +15,7 @@ public class TankMovementPhase extends Phase {
 
 	@Override
 	public void nextPhase() {
-		TurnManager.getInstance().setCurrentPhase(new AssignTanksPhase());
+		TurnManager.getInstance().setCurrentPhase(new TankAssignmentPhase());
 	}
 
 	public void moveTanks(Territory oldTerritory, Territory newTerritory, int numTanks) {

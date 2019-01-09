@@ -19,7 +19,7 @@ import com.drisk.domain.GameManager;
 import com.drisk.domain.MapManager;
 import com.drisk.domain.TankManager;
 import com.drisk.domain.TurnManager;
-import com.drisk.domain.exceptions.ExceededAvailableTanksException;
+import com.drisk.domain.exceptions.RequestNotValidException;
 import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 
@@ -78,7 +78,7 @@ public class GameController {
 		try {
 			String territoryName = obj.getAsJsonPrimitive("where").getAsString();
 			TankManager.getInstance().tryToPlaceTanks(MapManager.getInstance().findTerritoryByName(territoryName), numOfTanks);
-		} catch (ExceededAvailableTanksException e) {
+		} catch (RequestNotValidException e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
 		GameManager.getInstance().tryToStartGame();
@@ -95,6 +95,15 @@ public class GameController {
 			return helper.createResponseJson(0, session.getAttribute(SESSION_ATTRIBUTE_COLOR).toString());
 		else
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
+	}
+	
+	@GetMapping("/playerInfo")
+	@ResponseBody
+	public JsonObject getPlayerInfo(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(!isAPlayer(session))
+			return helper.createResponseJson(-1, NOT_A_PLAYER);
+		return GameManager.getInstance().findPlayerByColor((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)).toJson();
 	}
 	
 	
