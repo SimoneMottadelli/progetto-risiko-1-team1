@@ -179,6 +179,5 @@ public class MapManagerTest {
 			MapManager.getInstance().createMap(obj);
 			fail();
 		} catch (SyntaxException | FileNotFoundException e) {}
-	}
-	
+	}	
 }

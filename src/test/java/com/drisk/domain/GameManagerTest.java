@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -77,4 +78,10 @@ public class GameManagerTest {
 		assertFalse(GameManager.getInstance().checkWin(p2));
 	}
 	*/
+	
+	@After
+	public void destroySingletons() {
+		GameManager.destroy();
+		MatchManager.destroy();
+	}
 }

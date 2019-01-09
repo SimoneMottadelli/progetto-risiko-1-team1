@@ -15,6 +15,7 @@ public class GameManager {
 	public static GameManager getInstance() {
 		if (instance == null)
 			instance = new GameManager();
+		System.out.println("instantiated");
 		return instance;
 	}
 
@@ -75,5 +76,10 @@ public class GameManager {
 	public void tryToStartGame() {
 		if(TankManager.getInstance().areAllTanksPlaced(players))
 			startGame();
+	}
+
+	public static void destroy() {
+		instance = null;
+		System.out.println("destroyed");
 	}	
 }

@@ -48,4 +48,8 @@ public class TankMovementPhaseTest {
 		
 	}
 	
+	public void destroySingletons() {
+		GameManager.destroy();
+		MatchManager.destroy();
+	}
 }

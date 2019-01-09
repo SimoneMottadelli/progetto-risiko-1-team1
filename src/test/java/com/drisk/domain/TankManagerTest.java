@@ -8,6 +8,8 @@ import static org.junit.Assert.fail;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -149,5 +151,12 @@ public class TankManagerTest {
 		//removing more tanks than those present
 		TankManager.getInstance().removeTanks(t, 42);
 		assertEquals(0, t.getNumberOfTanks());
+	}
+	
+	@After
+	public void destroySingletons() {
+		GameManager.destroy();
+		MatchManager.destroy();
+		TankManager.destroy();
 	}
 }

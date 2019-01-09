@@ -73,5 +73,9 @@ public class TankManager {
 	public void removeTanks(Territory whereTerritory, int numTanks) {
 		whereTerritory.removeTanks(numTanks);
 	}
+
+	public static void destroy() {
+		instance = null;
+	}
 }
 

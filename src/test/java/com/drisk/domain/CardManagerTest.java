@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
-
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -83,4 +83,11 @@ public class CardManagerTest {
 
 		assertFalse(territory.contains(drawn));
 	}	
+	
+	@After
+	public void destroySingletons() {
+		GameManager.destroy();
+		CardManager.destroy();
+		MatchManager.destroy();
+	}
 }

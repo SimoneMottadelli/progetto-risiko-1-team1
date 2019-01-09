@@ -33,6 +33,13 @@ public class CardManager {
 		}
 	}
 	
+	public TerritoryCard findTerritoryCardByTerritoryName(String territoryName) {
+		for (Card tc : territoryCards)
+			if (((TerritoryCard)tc).getTerritory().getName().equals(territoryName))
+				return (TerritoryCard) tc;
+		return null;
+	}
+	
 	public void initCards() {
 		initTerritoryCards();
 		initMissionCards(MapManager.getInstance().getMapDifficulty());
@@ -128,5 +135,9 @@ public class CardManager {
 	public void setMissionCards(List<Card> cards) {
 		this.missionCards.clear();
 		this.missionCards.addAll(cards);
+	}
+
+	public static void destroy() {
+		instance = null;
 	}	
 }

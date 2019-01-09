@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +24,6 @@ public class MatchManagerTest {
 	@Test
 	public void joinGameTest() {
 		assertTrue(MatchManager.getInstance().isMatchFull());
-
 	}	
 
 	@Test 
@@ -38,8 +38,7 @@ public class MatchManagerTest {
 					exist = true;
 			if(!exist)
 				fail();
-		}
-			
+		}	
 	}
 	
 	@Test
@@ -84,6 +83,11 @@ public class MatchManagerTest {
 	public void toJsonTest() {
 		JsonObject obj = MatchManager.getInstance().toJson();
 		assertEquals(6, obj.getAsJsonArray("players").size());
-	}
+	}	
 	
+	@After
+	public void destroySingletons() {
+		MatchManager.destroy();
+		GameManager.destroy();
+	}
 }

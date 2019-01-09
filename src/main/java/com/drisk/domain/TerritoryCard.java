@@ -1,5 +1,7 @@
 package com.drisk.domain;
 
+import com.google.gson.JsonObject;
+
 public class TerritoryCard extends Card implements Comparable<TerritoryCard> {
 	
 	private Territory territory;
@@ -59,6 +61,14 @@ public class TerritoryCard extends Card implements Comparable<TerritoryCard> {
 	@Override
 	public int compareTo(TerritoryCard o) {
 		return this.getSymbol().compareTo(o.getSymbol());	
+	}
+	
+	
+	public JsonObject toJson() {
+		JsonObject jsonCard = new JsonObject();
+		jsonCard.addProperty("name", getTerritory().getName());
+		jsonCard.addProperty("symbol", getSymbol().toString());
+		return jsonCard;
 	}
 	
 }

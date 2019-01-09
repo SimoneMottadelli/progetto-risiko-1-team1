@@ -122,5 +122,9 @@ public class MatchManager {
 		result.add("players", jsonArrayPlayers);
 		return result;
 	}
+
+	public static void destroy() {
+		instance = null;
+	}
 	
 }
