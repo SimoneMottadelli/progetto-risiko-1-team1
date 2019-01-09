@@ -1,6 +1,8 @@
 package com.drisk.domain;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.After;
 import org.junit.Test;
 
 public class AttackPhaseTest {
@@ -35,4 +37,8 @@ public class AttackPhaseTest {
 		
 	}
 	
+	@After
+	public void destroySingletons() {
+		GameManager.destroy();
+	}
 }

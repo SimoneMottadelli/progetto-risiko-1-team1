@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 public class TankMovementPhase extends Phase {
 
 	public TankMovementPhase() {
-		super(5);
+		super(4);
 	}
 
 	@Override
@@ -15,7 +15,7 @@ public class TankMovementPhase extends Phase {
 
 	@Override
 	public void nextPhase() {
-		TurnManager.getInstance().setCurrentPhase(new AssignBonusTanksPhase());
+		TurnManager.getInstance().setCurrentPhase(new AssignTanksPhase());
 	}
 
 	public void moveTanks(Territory oldTerritory, Territory newTerritory, int numTanks) {
@@ -34,8 +34,7 @@ public class TankMovementPhase extends Phase {
 	}
 
 	@Override
-	public Object fromJson(JsonObject obj) {
+	public void fromJson(JsonObject obj) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 }

@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 public class TankPlacementPhase extends Phase {
 
 	public TankPlacementPhase() {
-		super(3);
+		super(2);
 	}
 
 	@Override
@@ -19,9 +19,8 @@ public class TankPlacementPhase extends Phase {
 	}
 
 	@Override
-	public Object fromJson(JsonObject obj) {
+	public void fromJson(JsonObject obj) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -16,7 +16,7 @@ public class AttackPhase extends Phase {
 	private int attackerTanks;
 	
 	public AttackPhase() {
-		super(4);
+		super(3);
 	}
 
 	@Override
@@ -99,9 +99,8 @@ public class AttackPhase extends Phase {
 	}
 
 	@Override
-	public Object fromJson(JsonObject obj) {
+	public void fromJson(JsonObject obj) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }

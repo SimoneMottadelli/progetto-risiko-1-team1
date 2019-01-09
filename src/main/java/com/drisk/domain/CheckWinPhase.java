@@ -19,9 +19,8 @@ public class CheckWinPhase extends Phase {
 	}
 
 	@Override
-	public Object fromJson(JsonObject obj) {
+	public void fromJson(JsonObject obj) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	

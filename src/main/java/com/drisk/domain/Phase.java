@@ -16,6 +16,6 @@ public abstract class Phase {
 	
 	public abstract void nextPhase();
 	public abstract void playPhase(Player currentPlayer, JsonObject obj);
-	public abstract Object fromJson(JsonObject obj);
+	public abstract void fromJson(JsonObject obj);
 
 }
