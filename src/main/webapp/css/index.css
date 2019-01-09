@@ -92,8 +92,14 @@ table {
 
 #rightContentDiv {
     position: absolute;
-	top: 33%;
+	top: 20%;
 	left: 50%;
+}
+
+textArea {
+	width: 350px;
+  	height: 300px;
+  	resize: none;
 }
 
 .modal {

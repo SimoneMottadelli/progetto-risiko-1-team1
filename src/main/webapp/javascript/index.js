@@ -18,10 +18,12 @@ $(document).ready(
 			
 			$("#customRadio").click(function() {
 				$("#difficultyDiv").attr("class", "hidden");
+				$("#mapCustomConfigDiv").attr("class", "show");
 			});
 			
 			$("#defaultRadio").click(function() {
 				$("#difficultyDiv").attr("class", "shown");
+				$("#mapCustomConfigDiv").attr("class", "hidden");
 			});
 
 			$("#exitButton").click(function() {
@@ -46,8 +48,7 @@ $(document).ready(
 
 			function setReady() {
 				$.get("./match/ready", function(result) {
-						$("div.modal-body").html("<h2>" + result.responseMessage + "</h2>");
-						$("#modalWindow").css("display", "block");
+					showModalWindow(result.responseMessage);
 						$("#readyButton").attr("class", "hidden");
 						$("#notReadyButton").attr("class", "shown");
 					}
@@ -56,28 +57,25 @@ $(document).ready(
 			
 			function applyMapChanges() {
 				var isMapDefault = $('input[name=mapConfigRadio]:checked', '#mapForm').val() == "default";
-				console.log(isMapDefault);
-				var jsonGameConfig;
+				var jsonRequestPayload = "{'difficulty': '";
 				if (isMapDefault) {
-					jsonGameConfig = {'difficulty': $("#difficultySelect").val()};
-					jsonGameConfig['territories'] = [];
-					jsonGameConfig['continents'] = [];
-					jsonGameConfig['membership'] = [];
-					jsonGameConfig['neighbourhood'] = [];
+					jsonRequestPayload += $("#difficultySelect").val() + "'}";
 				} else {
-					jsonGameConfig = {'difficulty': 'custom'};
-					jsonGameConfig['territories'] = [];
-					jsonGameConfig['continents'] = [];
-					jsonGameConfig['membership'] = [];
-					jsonGameConfig['neighbourhood'] = [];
+					jsonRequestPayload += "custom', " + $("#jsonTextArea").val() + ", ";
+					jsonRequestPayload += "'mapSVG': '" + $("#svgTextArea").val() + "'}";
 				}
+				
+				console.log(jsonRequestPayload);
 
 				$.ajax({
 					type : "POST",
 					url : "./match/gameConfig",
 					contentType: 'application/json',
 		            dataType: 'json',
-					data: JSON.stringify(jsonGameConfig)
+					data: jsonRequestPayload,
+					success: function(result) {
+						showModalWindow(result.responseMessage);
+					}
 				});
 			}
 
@@ -96,8 +94,7 @@ $(document).ready(
 					url : "./match/join",
 					data : $("#nameForm").serialize(),
 					success : function(result) {
-						$("div.modal-body").html("<h2>" + result.responseMessage + "</h2>");
-						$("#modalWindow").css("display", "block");
+						showModalWindow(result.responseMessage);
 						if (result.responseCode != -1) {
 							matchStarted = false;
 							source = new EventSource("./match/info");
@@ -107,16 +104,15 @@ $(document).ready(
 								if (isEveryoneReady(playersArray) && isMapReady && areThereTwoPlayers(playersArray)) 
 									location.replace("http://localhost:8080/drisk/pages/game.html");
 								else if (!warningAlreadyDisplayed && isEveryoneReady(playersArray) && !isMapReady){
-									$("div.modal-body").html("<h2>Everyone is ready but the map hasn't been created yet</h2>");
-									$("#modalWindow").css("display", "block");
+									showModalWindow("Everyone is ready but the map hasn't been created yet");
 									warningAlreadyDisplayed = true;
 								}
 								else if(!warningAlreadyDisplayed && isEveryoneReady(playersArray) && !areThereTwoPlayers(playersArray)) {
-									$("div.modal-body").html("<h2>Waiting another player ready</h2>");
-									$("#modalWindow").css("display", "block");
+									showModalWindow("Waiting for another player to join...");
 									warningAlreadyDisplayed = true;
 								}
 								refreshPlayersTable(playersArray);
+								updateMapStatus(JSON.parse(evt.data).mapReady);
 							};	
 						}
 						if (!matchStarted) {
@@ -129,6 +125,18 @@ $(document).ready(
 						}
 					}
 				});				
+			}
+			
+			function updateMapStatus(ready) {
+				if (ready == true)
+					$("#mapStatusLabel").html(" ready");
+				else
+					$("#mapStatusLabel").html(" not ready");
+			}
+			
+			function showModalWindow(message) {
+				$("div.modal-body").html("<h2>" + message + "</h2>");
+				$("#modalWindow").css("display", "block");
 			}
 			
 			function isEveryoneReady(playersArray) {
