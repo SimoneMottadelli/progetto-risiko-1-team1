@@ -8,12 +8,11 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.After;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import com.drisk.domain.exceptions.SyntaxException;
-import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -21,19 +20,22 @@ public class CardManagerTest {
 	
 	@Before
 	public void init() {
-		String s = "{'difficulty' : 'custom', 'continents' : ['africa', 'europe'], 'territories' : ['italy', 'france', 'egypt', 'north africa'],"
-				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north africa']}],"
-				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}]}";
+		// players joining
+		for(int i = 1; i <= 6; i++)
+			MatchManager.getInstance().joinGame("Player" + i);
+		
+		// creating map
+		String s = "{'difficulty' : 'custom', 'continents' : ['africa', 'europe'], 'territories' : ['italy', 'france', 'egypt', 'north_africa'],"
+				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north_africa']}],"
+				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north_africa', 'territories' : ['egypt']}]}";
 		Gson json = new Gson();
 		JsonObject obj = json.fromJson(s, JsonObject.class); 
 		try {
-			MatchManager.getInstance().setGameConfig(obj);
+			MapManager.getInstance().createMap(obj);
 		} catch (SyntaxException | FileNotFoundException e) {}
-		for(int i = 1; i <= 6; i++)
-			MatchManager.getInstance().joinGame("Player" + i);
+		
+		// initializing the game
 		MatchManager.getInstance().initGame();
-		CardManager.getInstance().initTerritoryCards();
-		CardManager.getInstance().initMissionCards(Difficulty.valueOf(JsonHelper.difficultyFromJson(obj).toUpperCase()));
 	}
 	
 	@Test
@@ -80,12 +82,5 @@ public class CardManagerTest {
 		Card drawn = CardManager.getInstance().drawCard(territory);
 
 		assertFalse(territory.contains(drawn));
-	}
-	
-	@After
-	public void destroy() {
-		MapManager.destroy();
-		CardManager.destroy();
-	}
-	
+	}	
 }

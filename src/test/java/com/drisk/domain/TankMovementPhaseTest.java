@@ -1,7 +1,6 @@
 package com.drisk.domain;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.FileNotFoundException;
 
@@ -17,14 +16,13 @@ public class TankMovementPhaseTest {
 	@Before
 	public void initialize() {
 		
-		String s = "{'difficulty' : 'custom', 'continents' : ['africa', 'europe', 'asia'], 'territories' : ['italy', 'france', 'egypt', 'north africa', 'kamchatka', 'china', 'japan', 'india', 'middle east'],"
+		String mapStringJson = "{'difficulty' : 'custom', 'continents' : ['africa', 'europe', 'asia'], 'territories' : ['italy', 'france', 'egypt', 'north africa', 'kamchatka', 'china', 'japan', 'india', 'middle east'],"
 				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north africa']}, {'name' : 'asia', 'territories' : ['china', 'kamchatka', 'japan', 'india', 'middle east']}],"
 				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}, {'name' : 'china', 'territories' : ['india', 'japan']}, {'name' : 'middle east', 'territories' : ['india']}]}";
 		Gson json = new Gson();
-		JsonObject obj = json.fromJson(s, JsonObject.class); 
+		JsonObject mapConfig = json.fromJson(mapStringJson, JsonObject.class); 
 		try {
-			//waiting for implement of createMap
-			MatchManager.getInstance().setGameConfig(obj);
+			MapManager.getInstance().createMap(mapConfig);
 		} catch (SyntaxException | FileNotFoundException e) {}
 		for(int i = 1; i <= 6; i++)
 			MatchManager.getInstance().joinGame("Player" + i);
