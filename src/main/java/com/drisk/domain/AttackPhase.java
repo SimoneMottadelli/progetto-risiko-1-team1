@@ -83,7 +83,7 @@ public class AttackPhase extends Phase {
 		for(int i = 0; i < numIterations; ++i)
 			if (attackerDicesResults[i] > defenderDicesResults[i]) 
 				++defenderTanksLost;
-			 else 
+			else 
 				++attackerTanksLost;
 		
 		int[] tanksLost = new int[2];

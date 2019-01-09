@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.drisk.domain.exceptions.ExceededAvailableTanksException;
+import com.drisk.domain.exceptions.RequestNotValidException;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -63,7 +63,7 @@ public class TankManagerTest {
 		TankManager.getInstance().addTanksToPlayer(3, p);
 		try {
 			TankManager.getInstance().tryToPlaceTanks(t, 2);
-		} catch (ExceededAvailableTanksException e) {
+		} catch (RequestNotValidException e) {
 			e.printStackTrace();
 		}
 		assertEquals(1, p.getAvailableTanks());
@@ -79,7 +79,7 @@ public class TankManagerTest {
 		try {
 			TankManager.getInstance().tryToPlaceTanks(t, 4);
 			fail();
-		} catch (ExceededAvailableTanksException e) {
+		} catch (RequestNotValidException e) {
 			// test passes if it enters the catch clause
 		}
 	}

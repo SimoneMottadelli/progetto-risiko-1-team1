@@ -7,6 +7,8 @@ import com.google.gson.JsonObject;
 
 public class Map {
 	
+	private static final String TERRITORIES = "territories";
+	
 	private Difficulty difficulty;
 	private List<Continent> continents;
 	private boolean ready;
@@ -52,7 +54,7 @@ public class Map {
 		JsonObject result = new JsonObject();
 		result.addProperty("difficulty", difficulty.toString());
 		result.add("continents", continentsToJson());
-		result.add("territories", territoriesToJson());
+		result.add(TERRITORIES, territoriesToJson());
 		result.add("membership", membershipToJson());
 		result.add("neighbourhood", neighbourhoodToJson());
 		return result;
@@ -73,7 +75,7 @@ public class Map {
 			JsonArray terrArray = new JsonArray();
 			for(Territory t : c.getTerritories())
 				terrArray.add(t.getName());
-			obj.add("territories", terrArray);
+			obj.add(TERRITORIES, terrArray);
 			membershipArray.add(obj);
 		}
 		return membershipArray;
@@ -94,7 +96,7 @@ public class Map {
 			JsonArray neighboursArray = new JsonArray();
 			for(Territory neighbour : t.getNeighbours())
 				neighboursArray.add(neighbour.getName());
-			obj.add("territories", neighboursArray);
+			obj.add(TERRITORIES, neighboursArray);
 			neighbourhoodArray.add(obj);
 		}
 		return neighbourhoodArray;

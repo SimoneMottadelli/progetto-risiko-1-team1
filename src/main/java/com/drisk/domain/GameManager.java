@@ -79,6 +79,5 @@ public class GameManager {
 
 	public static void destroy() {
 		instance = null;
-		System.out.println("destroyed");
 	}	
 }
