@@ -10,7 +10,7 @@ public class Map {
 	
 	private static final String TERRITORIES = "territories";
 	
-	private Difficulty difficulty;
+	private DifficultyEnum difficulty;
 	private List<Continent> continents;
 	private boolean ready;
 	
@@ -19,12 +19,12 @@ public class Map {
 		continents = new LinkedList<>();
 	}
 
-	public Difficulty getDifficulty() {
+	public DifficultyEnum getDifficulty() {
 		return difficulty;
 	}
 
 	public void setDifficulty(String difficulty) {
-		this.difficulty = Difficulty.valueOf(difficulty.toUpperCase());
+		this.difficulty = DifficultyEnum.valueOf(difficulty.toUpperCase());
 	}
 
 	public List<Continent> getContinents() {

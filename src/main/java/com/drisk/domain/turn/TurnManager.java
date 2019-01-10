@@ -3,7 +3,7 @@ package com.drisk.domain.turn;
 import java.util.List;
 
 import com.drisk.domain.exceptions.RequestNotValidException;
-import com.drisk.domain.game.Color;
+import com.drisk.domain.game.ColorEnum;
 import com.drisk.domain.game.Player;
 import com.google.gson.JsonObject;
 
@@ -41,7 +41,7 @@ public class TurnManager {
 		this.currentPlayer = currentPlayer;
 	}
 	
-	public boolean isPlayerTurn(Color color) {
+	public boolean isPlayerTurn(ColorEnum color) {
 		return currentPlayer.getColor().equals(color);
 	}
 

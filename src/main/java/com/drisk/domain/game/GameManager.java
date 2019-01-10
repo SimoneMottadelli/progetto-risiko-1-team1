@@ -69,7 +69,7 @@ public class GameManager {
 		return players;
 	}
 	
-	public Player findPlayerByColor(Color color) {
+	public Player findPlayerByColor(ColorEnum color) {
 		for(Player p : players)
 			if(p.getColor().equals(color))
 				return p;

@@ -1,6 +1,6 @@
 package com.drisk.domain.game;
 
-public enum Color {
+public enum ColorEnum {
 	RED, 
 	YELLOW, 
 	GREEN, 

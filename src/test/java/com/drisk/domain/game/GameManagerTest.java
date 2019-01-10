@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.drisk.domain.exceptions.SyntaxException;
-import com.drisk.domain.game.Color;
+import com.drisk.domain.game.ColorEnum;
 import com.drisk.domain.game.GameManager;
 import com.drisk.domain.game.Player;
 import com.drisk.domain.lobby.LobbyManager;
@@ -48,7 +48,7 @@ public class GameManagerTest {
 	
 	@Test
 	public void findPlayerByColorTest() {
-		Color[] colors = Color.values();
+		ColorEnum[] colors = ColorEnum.values();
 		int i = 0;
 		for (Player p : GameManager.getInstance().getPlayers())
 			assertEquals(p.getNickname(), GameManager.getInstance().findPlayerByColor(colors[i++]).getNickname());

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.drisk.domain.game.Player;
-import com.drisk.domain.map.Difficulty;
+import com.drisk.domain.map.DifficultyEnum;
 import com.drisk.domain.map.MapManager;
 import com.drisk.domain.map.Territory;
 
@@ -42,6 +42,9 @@ public class CardManager {
 		for (Card tc : territoryCards)
 			if (((TerritoryCard)tc).getTerritory().getName().equals(territoryName))
 				return (TerritoryCard) tc;
+		for (Card tc : discardedCards)
+			if (((TerritoryCard)tc).getTerritory().getName().equals(territoryName))
+				return (TerritoryCard) tc;
 		return null;
 	}
 	
@@ -67,7 +70,7 @@ public class CardManager {
 			territoryCards.add(tc);
 	}
 	
-	public void initMissionCards(Difficulty dif) {
+	public void initMissionCards(DifficultyEnum dif) {
 		switch(dif) {
 		case EASY:
 			MissionCard missionEasy = new ConquerTerritoryMissionCard(14);
@@ -91,7 +94,11 @@ public class CardManager {
 		Collections.shuffle(cards);
 	}
 	
-	public Card drawCard(List<Card> cards) {
+	public void giveTerritoryCard(Player player) {
+		player.addTerritoryCards((TerritoryCard) drawCard(territoryCards));
+	}
+	
+	private Card drawCard(List<Card> cards) {
 		return cards.remove(0);
 	}
 	

@@ -11,6 +11,7 @@ public class TankPlacementPhase extends Phase {
 	
 	private Territory where;
 	private int howManyTanks;
+	private Player player;
 
 	public TankPlacementPhase() {
 		super(PhaseEnum.TANKPLACEMENT.getValue());
@@ -18,13 +19,14 @@ public class TankPlacementPhase extends Phase {
 
 	@Override
 	public void playPhase(Player currentPlayer, JsonObject obj) throws RequestNotValidException {
+		player = currentPlayer;
 		fromJson(obj);
-		placeTanks(currentPlayer);
+		placeTanks();
 		
 	}
 	
-	private void placeTanks(Player currentPlayer) throws RequestNotValidException{
-		if(currentPlayer.getAvailableTanks() < howManyTanks)
+	private void placeTanks() throws RequestNotValidException{
+		if(player.getAvailableTanks() < howManyTanks)
 			throw new RequestNotValidException("You don't have " + howManyTanks + " tanks to place");
 		TankManager.getInstance().placeTanks(where, howManyTanks);
 	}

@@ -3,7 +3,7 @@ package com.drisk.domain.lobby;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.drisk.domain.game.Color;
+import com.drisk.domain.game.ColorEnum;
 import com.drisk.domain.game.GameManager;
 import com.drisk.domain.game.Player;
 import com.google.gson.JsonArray;
@@ -14,7 +14,7 @@ public class LobbyManager {
 	private static LobbyManager instance;
 	private boolean matchStarted;
 	private boolean matchFull;
-	private List<Color> colorsAvailablesList;
+	private List<ColorEnum> colorsAvailablesList;
 	private List<Player> players;
 
 	private LobbyManager() {
@@ -38,18 +38,18 @@ public class LobbyManager {
 
 	public void joinGame(String nickName) {
 		if(!isMatchFull()) {
-			Color color = findFreeColor();
+			ColorEnum color = findFreeColor();
 			Player player = new Player(color, nickName);
 			addPlayer(player);
 		}
 	}
 	
-	public Color findLastPlayerColor() {
+	public ColorEnum findLastPlayerColor() {
 		return players.get(players.size() - 1).getColor();
 	}
 	
 	
-	public void exitGame(Color color) {
+	public void exitGame(ColorEnum color) {
 		//for-each modificato in for-normale per evitare "ConcurrentModificationException"
 		for (int i = 0; i < players.size(); ++i)
 			if (players.get(i).getColor().equals(color)) {
@@ -58,7 +58,7 @@ public class LobbyManager {
 			}
 	}
 	
-	public void setPlayerReady(Color color, boolean ready) {
+	public void setPlayerReady(ColorEnum color, boolean ready) {
 		for (Player p : players)
 			if (p.getColor().equals(color))
 				p.setReady(ready);
@@ -98,14 +98,14 @@ public class LobbyManager {
 			matchFull = false;
 	}
 
-	private Color findFreeColor() {
+	private ColorEnum findFreeColor() {
 		return colorsAvailablesList.remove(0);
 	}
 	
-	private List<Color> createColorAvailableList() {
-		Color[] colors = Color.values();
-		List<Color> colorsList = new LinkedList<>();
-		for(Color c : colors)
+	private List<ColorEnum> createColorAvailableList() {
+		ColorEnum[] colors = ColorEnum.values();
+		List<ColorEnum> colorsList = new LinkedList<>();
+		for(ColorEnum c : colors)
 			colorsList.add(c);
 		return colorsList;
 	}

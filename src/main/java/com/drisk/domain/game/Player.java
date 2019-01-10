@@ -5,18 +5,19 @@ import java.util.List;
 
 import com.drisk.domain.card.MissionCard;
 import com.drisk.domain.card.TerritoryCard;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class Player {
 	
-	private Color color;
+	private ColorEnum color;
 	private String nickname;
 	private boolean ready;
 	private MissionCard missionCard;
 	private List<TerritoryCard> territoryCardsHand; 
 	private int availableTanks;
 	
-	public Player(Color color, String nickname) {
+	public Player(ColorEnum color, String nickname) {
 		this.nickname = nickname;
 		this.ready = false;
 		this.color = color;
@@ -47,7 +48,7 @@ public class Player {
 		this.ready = ready;
 	}
 
-	public Color getColor() {
+	public ColorEnum getColor() {
 		return color;
 	}
 	
@@ -85,6 +86,11 @@ public class Player {
 		jsonPlayer.addProperty("nickname", nickname);
 		jsonPlayer.addProperty("availableTanks", availableTanks);
 		jsonPlayer.addProperty("color", color.toString().toUpperCase());
+		jsonPlayer.add("missionCard", missionCard.toJson());
+		JsonArray cards = new JsonArray();
+		for(TerritoryCard t : territoryCardsHand)
+			cards.add(t.toJson());
+		jsonPlayer.add("cards", cards);
 		jsonPlayer.addProperty("ready", ready);
 		return jsonPlayer;
 	}

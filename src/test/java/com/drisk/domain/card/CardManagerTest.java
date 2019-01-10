@@ -16,6 +16,7 @@ import com.drisk.domain.card.Card;
 import com.drisk.domain.card.CardManager;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.drisk.domain.game.GameManager;
+import com.drisk.domain.game.Player;
 import com.drisk.domain.lobby.LobbyManager;
 import com.drisk.domain.map.MapManager;
 import com.google.gson.Gson;
@@ -83,10 +84,10 @@ public class CardManagerTest {
 	@Test
 	public void drawCardTest() {
 		List<Card> territory = CardManager.getInstance().getTerritoryCards();
-		
-		Card drawn = CardManager.getInstance().drawCard(territory);
+		TerritoryCard tc = (TerritoryCard) territory.get(0);
+		CardManager.getInstance().giveTerritoryCard(new Player(null, null));
 
-		assertFalse(territory.contains(drawn));
+		assertFalse(territory.contains(tc));
 	}	
 	
 	@After

@@ -1,6 +1,6 @@
 package com.drisk.domain.map;
 
-public enum Difficulty {
+public enum DifficultyEnum {
 	EASY,
 	MEDIUM,
 	HARD,

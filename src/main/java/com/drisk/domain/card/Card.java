@@ -1,3 +1,7 @@
 package com.drisk.domain.card;
 
-public abstract class Card {}
+import com.google.gson.JsonObject;
+
+public abstract class Card {
+	public abstract JsonObject toJson();
+}

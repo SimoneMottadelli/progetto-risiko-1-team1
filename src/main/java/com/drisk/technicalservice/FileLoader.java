@@ -7,13 +7,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import com.drisk.domain.map.Difficulty;
+import com.drisk.domain.map.DifficultyEnum;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class FileLoader {
 	
-	public JsonObject readDefaultMapFile(Difficulty difficulty) throws FileNotFoundException {
+	public JsonObject readDefaultMapFile(DifficultyEnum difficulty) throws FileNotFoundException {
 		BufferedReader bufferedReader;
 		FileReader file;
 		String difficultyStr = difficulty.toString().toLowerCase();
@@ -27,7 +27,7 @@ public class FileLoader {
 		return json.fromJson(bufferedReader, JsonObject.class); 
 	}
 	
-	public JsonObject readSVGMapFile(Difficulty difficulty) throws IOException {
+	public JsonObject readSVGMapFile(DifficultyEnum difficulty) throws IOException {
 		byte[] array = Files.readAllBytes(new File("map_default_" + difficulty.toString().toLowerCase() + ".svg").toPath());
 		JsonObject result = new JsonObject();
 		result.addProperty("mapSVG", new String(array));

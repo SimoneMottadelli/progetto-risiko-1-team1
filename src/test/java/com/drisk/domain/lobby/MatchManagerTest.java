@@ -11,11 +11,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.drisk.domain.game.Color;
+import com.drisk.domain.game.ColorEnum;
 import com.drisk.domain.game.GameManager;
 import com.drisk.domain.game.Player;
 import com.drisk.domain.lobby.LobbyManager;
-import com.google.gson.JsonObject;
 
 public class MatchManagerTest {
 	
@@ -32,10 +31,10 @@ public class MatchManagerTest {
 
 	@Test 
 	public void colorPlayersTest() {
-		Color[] colors = Color.values();
+		ColorEnum[] colors = ColorEnum.values();
 		boolean exist;
 		List<Player> list = LobbyManager.getInstance().getPlayers();
-		for(Color c : colors) {
+		for(ColorEnum c : colors) {
 			exist = false;
 			for(Player p : list)
 				if(c.equals(p.getColor()))
@@ -48,7 +47,7 @@ public class MatchManagerTest {
 	@Test
 	public void areThereAtLeastTwoPlayersTest() {
 		assertTrue(LobbyManager.getInstance().areThereAtLeastTwoPlayers());
-		Color[] colors = Color.values();
+		ColorEnum[] colors = ColorEnum.values();
 		for (int i = 0; i < colors.length; ++i)
 			LobbyManager.getInstance().exitGame(colors[i]);
 		assertFalse(LobbyManager.getInstance().areThereAtLeastTwoPlayers());
@@ -57,7 +56,7 @@ public class MatchManagerTest {
 	@Test
 	public void isEveryoneReadyTest() {
 		assertFalse(LobbyManager.getInstance().isEveryoneReady());
-		for (Color c : Color.values())
+		for (ColorEnum c : ColorEnum.values())
 			LobbyManager.getInstance().setPlayerReady(c, true);
 		assertTrue(LobbyManager.getInstance().isEveryoneReady());
 	}
@@ -65,14 +64,14 @@ public class MatchManagerTest {
 	@Test
 	public void isMatchFullTest() {
 		assertTrue(LobbyManager.getInstance().isMatchFull());
-		LobbyManager.getInstance().exitGame(Color.BLUE);
+		LobbyManager.getInstance().exitGame(ColorEnum.BLUE);
 		assertFalse(LobbyManager.getInstance().isMatchFull());
 	}
 	
 	@Test
 	public void exitGameTest() {
 		assertEquals(6, LobbyManager.getInstance().getPlayers().size());
-		Color[] colors = Color.values();
+		ColorEnum[] colors = ColorEnum.values();
 		for (int i = 0; i < colors.length; ++i)
 			LobbyManager.getInstance().exitGame(colors[i]);
 		assertEquals(0, LobbyManager.getInstance().getPlayers().size());
@@ -82,12 +81,6 @@ public class MatchManagerTest {
 	public void isMatchStartedTest() {
 		assertFalse(LobbyManager.getInstance().isMatchStarted());
 	}
-	
-	@Test
-	public void toJsonTest() {
-		JsonObject obj = LobbyManager.getInstance().toJson();
-		assertEquals(6, obj.getAsJsonArray("players").size());
-	}	
 	
 	@After
 	public void destroySingletons() {

@@ -39,7 +39,7 @@ public class JsonHelper {
 		List<String> list = new LinkedList<>();
 		JsonArray array = gameConfig.getAsJsonArray(memberName);
 		if (array == null)
-			throw new SyntaxException("Syntax error: " + memberName + " is not valid keyword for a map");
+			throw new SyntaxException("Syntax error: " + memberName + " keyword must exists");
 
 		for(JsonElement name : array) {
 			String nameFormatted = name.toString().replace("\"", "");
@@ -65,7 +65,7 @@ public class JsonHelper {
 		Map<String, List<String>> map = new HashMap<>();
 		JsonArray array = gameConfig.getAsJsonArray(relation);
 		if (array == null)
-			throw new SyntaxException("Syntax error: " + relation + " is not valid keyword for a map");
+			throw new SyntaxException("Syntax error: " + relation + " keyword must exists");
 		for(int i = 0; i < array.size(); ++i) {
 			JsonObject obj = array.get(i).getAsJsonObject();
 			JsonElement continentElement = obj.get(NAME); 

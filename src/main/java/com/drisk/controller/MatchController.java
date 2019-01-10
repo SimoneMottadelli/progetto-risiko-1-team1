@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import com.drisk.domain.game.Color;
+import com.drisk.domain.game.ColorEnum;
 import com.drisk.domain.lobby.LobbyManager;
 import com.drisk.domain.map.MapManager;
 import com.drisk.technicalservice.JsonHelper;
@@ -91,7 +91,7 @@ public class MatchController {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
 			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
-		LobbyManager.getInstance().exitGame((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
+		LobbyManager.getInstance().exitGame((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
 		session.invalidate();
 		return helper.createResponseJson(0, "You've exited from the game!");
 	}
@@ -108,7 +108,7 @@ public class MatchController {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
 			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
-		LobbyManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), true);
+		LobbyManager.getInstance().setPlayerReady((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR), true);
 		tryToStartGame();
 		return helper.createResponseJson(0, "The game will start when everyone is ready!");
 	}
@@ -119,7 +119,7 @@ public class MatchController {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
 			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
-		LobbyManager.getInstance().setPlayerReady((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR), false);
+		LobbyManager.getInstance().setPlayerReady((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR), false);
 		return helper.createResponseJson(0, "The game will start when everyone is ready!");
 	}
 	

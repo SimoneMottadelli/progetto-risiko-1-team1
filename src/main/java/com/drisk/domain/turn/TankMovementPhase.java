@@ -23,7 +23,9 @@ public class TankMovementPhase extends Phase {
 	public void playPhase(Player currentPlayer, JsonObject obj) throws RequestNotValidException {
 		if(moveDone)
 			throw new RequestNotValidException("You have already moved your tanks");
+		player = currentPlayer;
 		fromJson(obj);
+		checkCondition();
 		moveTanks();
 	}
 
@@ -33,12 +35,12 @@ public class TankMovementPhase extends Phase {
 	}
 
 	private void moveTanks() throws RequestNotValidException {
-		checkCondition();
 		TankManager.getInstance().moveTanks(from, to, numOfTanks);
 		moveDone = true;
 	}
 	
-	private void checkCondition() throws RequestNotValidException {
+	@Override
+	protected void checkCondition() throws RequestNotValidException {
 		if (!from.getNeighbours().contains(to) || !from.getOwner().equals(to.getOwner())) 
 			throw new RequestNotValidException("You can't move from " + from.getName() + " to " + to.getName());
 		if(numOfTanks >= from.getNumberOfTanks())

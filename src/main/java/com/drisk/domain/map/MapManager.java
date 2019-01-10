@@ -33,7 +33,7 @@ public class MapManager {
 	public void createMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
 		map = new Map();
 		map.setDifficulty(new JsonHelper().difficultyFromJson(gameConfig));
-		if(map.getDifficulty().equals(Difficulty.CUSTOM))
+		if(map.getDifficulty().equals(DifficultyEnum.CUSTOM))
 			createMapComponents(gameConfig);
 		else
 			createMapComponents(new FileLoader().readDefaultMapFile(map.getDifficulty()));
@@ -139,7 +139,7 @@ public class MapManager {
 		return map.isReady();
 	}
 	
-	public Difficulty getMapDifficulty() {
+	public DifficultyEnum getMapDifficulty() {
 		return map.getDifficulty();
 	}	
 }
