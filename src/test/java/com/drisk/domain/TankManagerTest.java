@@ -12,10 +12,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/heads/gamePageClient
 import com.drisk.domain.exceptions.RequestNotValidException;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.Gson;
@@ -29,35 +26,35 @@ public class TankManagerTest {
 				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north_africa']}, {'name' : 'asia', 'territories' : ['china', 'kamchatka', 'japan', 'india', 'middle_east']}],"
 				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north_africa', 'territories' : ['egypt']}, {'name' : 'china', 'territories' : ['india', 'japan']}, {'name' : 'middle_east', 'territories' : ['india']}]}";
 		Gson json = new Gson();
-		JsonObject obj = json.fromJson(s, JsonObject.class); 
+		JsonObject obj = json.fromJson(s, JsonObject.class);
 		try {
 			MapManager.getInstance().createMap(obj);
 		} catch (FileNotFoundException | SyntaxException e) {
 			e.printStackTrace();
 		}
-		for(int i = 1; i <= 6; i++)
+		for (int i = 1; i <= 6; i++)
 			MatchManager.getInstance().joinGame("Player" + i);
 		MatchManager.getInstance().initGame();
 	}
-	
+
 	@Test
 	public void areAllTanksPlacedTest() {
 		assertFalse(TankManager.getInstance().areAllTanksPlaced(MatchManager.getInstance().getPlayers()));
 		for (Player p : MatchManager.getInstance().getPlayers())
 			while (p.getAvailableTanks() > 0)
-				for (Territory t : MapManager.getInstance().getMapTerritories(p)) 
-						TankManager.getInstance().placeTanks(t, 1);
-				
+				for (Territory t : MapManager.getInstance().getMapTerritories(p))
+					TankManager.getInstance().placeTanks(t, 1);
+
 		assertTrue(TankManager.getInstance().areAllTanksPlaced(MatchManager.getInstance().getPlayers()));
 	}
-	
+
 	@Test
 	public void addTanksToPlayerTest() {
 		Player p = new Player(null, "Simone");
 		TankManager.getInstance().addTanksToPlayer(2, p);
 		assertEquals(2, p.getAvailableTanks());
 	}
-	
+
 	@Test
 	public void tryToPlaceTanksWithoutExceptionTest() {
 		Territory t = new Territory("England");
@@ -73,7 +70,7 @@ public class TankManagerTest {
 		assertEquals(1, p.getAvailableTanks());
 		assertEquals(2, t.getNumberOfTanks());
 	}
-	
+
 	@Test
 	public void tryToPlaceTanksWithExceptionTest() {
 		Territory t = new Territory("England");
@@ -84,53 +81,48 @@ public class TankManagerTest {
 			TankManager.getInstance().tryToPlaceTanks(p, t, 4);
 			fail();
 		} catch (RequestNotValidException e) {
-<<<<<<< HEAD
 			e.printStackTrace();
-=======
-			// test passes if it enters the catch clause
->>>>>>> refs/heads/gamePageClient
 		}
 	}
-	
+
 	@Test
 	public void initTanksTest() {
-		
+
 		List<Player> players = new LinkedList<>();
 		players.add(new Player(null, "Zucca"));
 		players.add(new Player(null, "Teo"));
 		players.add(new Player(null, "Claudio"));
 		players.add(new Player(null, "Simo"));
-		
+
 		for (Territory t : MapManager.getInstance().getMapTerritories())
 			if (t.getNumberOfTanks() != 1)
 				fail();
-		
+
 		TankManager.getInstance().initTanks(players);
 		assertEquals(6, players.get(0).getAvailableTanks());
-		
-		for (Player p: players) 
+
+		for (Player p : players)
 			p.removeAvailableTanks(6);
-		
-		
+
 		players.add(new Player(null, "Ale"));
 		TankManager.getInstance().initTanks(players);
 		assertEquals(5, players.get(1).getAvailableTanks());
-		
-		for (Player p: players) 
+
+		for (Player p : players)
 			p.removeAvailableTanks(5);
-		
+
 		players.add(new Player(null, "Burt"));
 		TankManager.getInstance().initTanks(players);
 		assertEquals(4, players.get(0).getAvailableTanks());
-		
-		for (Player p: players) 
+
+		for (Player p : players)
 			p.removeAvailableTanks(4);
-		
+
 		players.add(new Player(null, "Andrea"));
 		TankManager.getInstance().initTanks(players);
 		assertEquals(0, players.get(0).getAvailableTanks());
 	}
-	
+
 	@Test
 	public void placeTanksTest() {
 		List<Territory> territories = new LinkedList<>();
@@ -138,29 +130,29 @@ public class TankManagerTest {
 		Territory t = territories.get(0);
 		t.setOwner(new Player(null, "Simone"));
 		assertEquals(0, t.getNumberOfTanks());
-		
+
 		TankManager.getInstance().placeTanks(t, 5);
 		assertEquals(5, t.getNumberOfTanks());
-		
+
 		TankManager.getInstance().placeTanks(t, 37);
 		assertEquals(42, t.getNumberOfTanks());
 	}
-	
+
 	@Test
 	public void removeTanksTest() {
 		List<Territory> territories = new LinkedList<>();
 		territories.add(new Territory("egypt"));
 		Territory t = territories.get(0);
 		t.addTanks(42);
-		
+
 		TankManager.getInstance().removeTanks(t, 13);
 		assertEquals(29, t.getNumberOfTanks());
-		
-		//removing more tanks than those present
+
+		// removing more tanks than those present
 		TankManager.getInstance().removeTanks(t, 42);
 		assertEquals(0, t.getNumberOfTanks());
 	}
-	
+
 	@After
 	public void destroySingletons() {
 		GameManager.destroy();

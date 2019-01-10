@@ -43,8 +43,8 @@ public class TankMovementPhase extends Phase {
 
 	@Override
 	public void fromJson(JsonObject obj) throws RequestNotValidException {
-		Territory from = MapManager.getInstance().findTerritoryByName(obj.get("from").getAsString().toLowerCase());
-		Territory to = MapManager.getInstance().findTerritoryByName(obj.get("to").getAsString().toLowerCase());
+		Territory from = MapManager.getInstance().findTerritoryByName(obj.get("from").getAsString().toLowerCase().replace("\"", ""));
+		Territory to = MapManager.getInstance().findTerritoryByName(obj.get("to").getAsString().toLowerCase().replace("\"", ""));
 		if(from == null || to == null)
 			throw new RequestNotValidException("Territories don't exist");
 		this.from = from;

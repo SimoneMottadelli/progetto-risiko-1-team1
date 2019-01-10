@@ -1,12 +1,13 @@
 package com.drisk.domain;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.FileNotFoundException;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.drisk.domain.exceptions.RequestNotValidException;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -27,24 +28,30 @@ public class TankMovementPhaseTest {
 		for(int i = 1; i <= 6; i++)
 			MatchManager.getInstance().joinGame("Player" + i);
 		MatchManager.getInstance().initGame();
+		System.out.print(MapManager.getInstance().toJson().toString());
 	}
 	
 	@Test
 	public void moveTanksTest() {
 		
 		// Both territories have an initial tank
-		Territory oldTerritory = MapManager.getInstance().findTerritoryByName("china");
-		Territory newTerritory = MapManager.getInstance().findTerritoryByName("japan");
+		Territory from = MapManager.getInstance().findTerritoryByName("china");
+		Territory to = MapManager.getInstance().findTerritoryByName("japan");
+		from.addTanks(4);
+		to.addTanks(2);
 		
-		oldTerritory.addTanks(4);
-		newTerritory.addTanks(2);
-		new TankMovementPhase().moveTanks(oldTerritory, newTerritory, 3);
-		assertEquals(2, oldTerritory.getNumberOfTanks());
-		assertEquals(6, newTerritory.getNumberOfTanks());
-		
-		new TankMovementPhase().moveTanks(oldTerritory, newTerritory, 3);
-		assertEquals(1, oldTerritory.getNumberOfTanks());
-		assertEquals(7, newTerritory.getNumberOfTanks());
+		Player p = from.getOwner();
+		JsonObject obj = new JsonObject();
+		obj.addProperty("from", from.getName());
+		obj.addProperty("to", to.getName());
+		obj.addProperty("howMany", 3);
+		System.out.print(obj.get("from").toString());
+		try {
+			new TankMovementPhase().playPhase(p, obj);
+			fail();
+		} catch (RequestNotValidException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
