@@ -24,7 +24,7 @@
 		"mongolia",
 		"japan",
 		"kamchatka",
-		"yakursk",
+		"yakutsk",
 		"irkutsk",
 		"alaska",
 		"northwest_territory",
@@ -89,7 +89,7 @@
 				"mongolia",
 				"japan",
 				"kamchatka",
-				"yakursk",
+				"yakutsk",
 				"irkutsk"
 			]
 		},
@@ -207,7 +207,7 @@
 				"kamchatka",
 				"mongolia",
 				"siberia",
-				"yakursk"
+				"yakutsk"
 			]
 		},
 		{
@@ -287,7 +287,7 @@
 				"irkutsk",
 				"mongolia",
 				"ural",
-				"yakursk"
+				"yakutsk"
 			]
 		},
 		{
@@ -338,7 +338,7 @@
 			]
 		},
 		{
-			"name": "yakursk",
+			"name": "yakutsk",
 			"territories": [
 				"irkutsk",
 				"kamchatka",
@@ -348,7 +348,7 @@
 		{
 			"name": "kamchatka",
 			"territories": [
-				"yakursk",
+				"yakutsk",
 				"irkutsk",
 				"mongolia",
 				"japan",
