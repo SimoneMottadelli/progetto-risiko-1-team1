@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import com.drisk.domain.Color;
-import com.drisk.domain.Difficulty;
-import com.drisk.domain.GameManager;
-import com.drisk.domain.MapManager;
-import com.drisk.domain.TankManager;
-import com.drisk.domain.TurnManager;
 import com.drisk.domain.exceptions.RequestNotValidException;
+import com.drisk.domain.game.ColorEnum;
+import com.drisk.domain.game.GameManager;
+import com.drisk.domain.game.TankManager;
+import com.drisk.domain.map.DifficultyEnum;
+import com.drisk.domain.map.MapManager;
+import com.drisk.domain.turn.TurnManager;
 import com.drisk.technicalservice.FileLoader;
 import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
@@ -54,8 +54,8 @@ public class GameController {
 	@ResponseBody
 	public JsonObject getMapImage() {
 		try {
-			return new FileLoader().readSVGMapFile(Difficulty.HARD);
-			//return MapManager.getInstance().getSVGMap();
+			return new FileLoader().readSVGMapFile(DifficultyEnum.HARD);
+			// TODO return MapManager.getInstance().getSVGMap();
 		}
 		catch (Exception e) {
 			return helper.createResponseJson(-1, e.getMessage());
@@ -91,25 +91,14 @@ public class GameController {
 		int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
 		try {
 			String territoryName = obj.getAsJsonPrimitive("where").getAsString();
-			Color color = (Color) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR);
+			ColorEnum color = (ColorEnum) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR);
 			TankManager.getInstance().tryToPlaceTanks(GameManager.getInstance().findPlayerByColor(color), MapManager.getInstance().findTerritoryByName(territoryName), numOfTanks);
 		} catch (RequestNotValidException e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
 		GameManager.getInstance().tryToStartGame();
-		Color playerColor = (Color) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR);
+		ColorEnum playerColor = (ColorEnum) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR);
 		return helper.createResponseJson(0, GameManager.getInstance().findPlayerByColor(playerColor).toJson().toString());
-	}
-
-	
-	@GetMapping("/getColorFromSession")
-	@ResponseBody
-	public JsonObject getColorSession(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if(isAPlayer(session))
-			return helper.createResponseJson(0, session.getAttribute(SESSION_ATTRIBUTE_COLOR).toString());
-		else
-			return helper.createResponseJson(-1, NOT_A_PLAYER);
 	}
 	
 	@GetMapping("/playerInfo")
@@ -118,7 +107,7 @@ public class GameController {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
-		return GameManager.getInstance().findPlayerByColor((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)).toJson();
+		return GameManager.getInstance().findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)).toJson();
 	}
 	
 	
@@ -126,7 +115,7 @@ public class GameController {
 	@ResponseBody
 	public String test(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		Color c = (Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR);
+		ColorEnum c = (ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR);
 		return c.toString();
 	}
 	
@@ -136,7 +125,7 @@ public class GameController {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
-		if(!TurnManager.getInstance().isPlayerTurn((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
+		if(!TurnManager.getInstance().isPlayerTurn((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
 			return helper.createResponseJson(-1, IS_NOT_YOUR_TURN);
 		String body;
 		try {
@@ -162,7 +151,7 @@ public class GameController {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
-		if(!TurnManager.getInstance().isPlayerTurn((Color) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
+		if(!TurnManager.getInstance().isPlayerTurn((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
 			return helper.createResponseJson(-1, IS_NOT_YOUR_TURN);
 		TurnManager.getInstance().getCurrentPhase().nextPhase();
 		return helper.createResponseJson(0, OK);
