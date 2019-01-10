@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import com.drisk.domain.Difficulty;
+import com.drisk.domain.map.Difficulty;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
