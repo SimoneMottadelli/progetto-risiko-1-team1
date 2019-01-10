@@ -1,16 +1,26 @@
 package com.drisk.domain;
 
+import com.drisk.domain.exceptions.RequestNotValidException;
 import com.google.gson.JsonObject;
 
 public class TankMovementPhase extends Phase {
+	
+	private Territory from;
+	private Territory to; 
+	private int numOfTanks;
+	private boolean moveDone;
 
 	public TankMovementPhase() {
 		super(PhaseEnum.TANKSMOVIMENT.getValue());
+		moveDone = false;
 	}
 
 	@Override
-	public void playPhase(Player currentPlayer, JsonObject obj) {
-		// TODO Auto-generated method stub
+	public void playPhase(Player currentPlayer, JsonObject obj) throws RequestNotValidException {
+		if(moveDone)
+			throw new RequestNotValidException("You have already moved your tanks");
+		fromJson(obj);
+		moveTanks();
 	}
 
 	@Override
@@ -18,23 +28,27 @@ public class TankMovementPhase extends Phase {
 		TurnManager.getInstance().setCurrentPhase(new TankAssignmentPhase());
 	}
 
-	public void moveTanks(Territory oldTerritory, Territory newTerritory, int numTanks) {
-		
-		if (oldTerritory.getNeighbours().contains(newTerritory)) {
-			int numOldTerritoryTanks = oldTerritory.getNumberOfTanks();
-			if (numOldTerritoryTanks > 1 && numTanks < numOldTerritoryTanks) {
-				oldTerritory.removeTanks(numTanks);
-				newTerritory.addTanks(numTanks);
-			} else {
-				oldTerritory.removeTanks(numOldTerritoryTanks - 1);
-				newTerritory.addTanks(numOldTerritoryTanks - 1);
-			}
-		}
-		
+	private void moveTanks() throws RequestNotValidException {
+		checkCondition();
+		TankManager.getInstance().moveTanks(from, to, numOfTanks);
+		moveDone = true;
+	}
+	
+	private void checkCondition() throws RequestNotValidException {
+		if (!from.getNeighbours().contains(to) || !from.getOwner().equals(to.getOwner())) 
+			throw new RequestNotValidException("You can't move from " + from.getName() + " to " + to.getName());
+		if(numOfTanks >= from.getNumberOfTanks())
+			throw new RequestNotValidException("You can't move " + numOfTanks + " because you don't have enough tanks!" );
 	}
 
 	@Override
-	public void fromJson(JsonObject obj) {
-		// TODO Auto-generated method stub
+	public void fromJson(JsonObject obj) throws RequestNotValidException {
+		Territory from = MapManager.getInstance().findTerritoryByName(obj.get("from").getAsString().toLowerCase());
+		Territory to = MapManager.getInstance().findTerritoryByName(obj.get("to").getAsString().toLowerCase());
+		if(from == null || to == null)
+			throw new RequestNotValidException("Territories don't exist");
+		this.from = from;
+		this.to = to;
+		numOfTanks = obj.get("howMany").getAsInt();
 	}
 }

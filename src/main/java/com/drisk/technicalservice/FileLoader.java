@@ -28,7 +28,7 @@ public class FileLoader {
 	}
 	
 	public JsonObject readSVGMapFile(Difficulty difficulty) throws IOException {
-		byte[] array = Files.readAllBytes(new File("map_default_hard.svg").toPath());
+		byte[] array = Files.readAllBytes(new File("map_default_" + difficulty.toString().toLowerCase() + ".svg").toPath());
 		JsonObject result = new JsonObject();
 		result.addProperty("mapSVG", new String(array));
 		return result;

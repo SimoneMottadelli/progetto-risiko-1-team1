@@ -59,15 +59,22 @@ public class TankManager {
 		p.addAvailableTanks(tanks);
 	}
 	
-	public void tryToPlaceTanks(Territory whereTerritory, int numTanks) throws RequestNotValidException {
+	public void tryToPlaceTanks(Player player, Territory whereTerritory, int numTanks) throws RequestNotValidException {
 		if(whereTerritory.getOwner().getAvailableTanks() < numTanks)
 			throw new RequestNotValidException("Not enough available tanks");
+		if(!whereTerritory.getOwner().equals(player))
+			throw new RequestNotValidException(whereTerritory.getName() + " is not yours");
 		placeTanks(whereTerritory, numTanks);
 	}
 	
 	public void placeTanks(Territory whereTerritory, int numTanks) {
 		whereTerritory.addTanks(numTanks);
 		whereTerritory.getOwner().removeAvailableTanks(numTanks);
+	}
+	
+	public void moveTanks(Territory from, Territory to, int numOfTanks) {
+		placeTanks(to, numOfTanks);
+		removeTanks(from, numOfTanks);
 	}
 	
 	public void removeTanks(Territory whereTerritory, int numTanks) {
@@ -77,5 +84,6 @@ public class TankManager {
 	public static void destroy() {
 		instance = null;
 	}
+
 }
 

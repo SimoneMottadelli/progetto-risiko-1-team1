@@ -1,15 +1,11 @@
 package com.drisk.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -19,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.drisk.domain.Color;
+import com.drisk.domain.Difficulty;
 import com.drisk.domain.GameManager;
 import com.drisk.domain.MapManager;
 import com.drisk.domain.TankManager;
@@ -57,7 +54,7 @@ public class GameController {
 	@ResponseBody
 	public JsonObject getMapImage() {
 		try {
-			return new FileLoader().readSVGMapFile(null);
+			return new FileLoader().readSVGMapFile(Difficulty.HARD);
 			//return MapManager.getInstance().getSVGMap();
 		}
 		catch (Exception e) {
@@ -94,7 +91,8 @@ public class GameController {
 		int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
 		try {
 			String territoryName = obj.getAsJsonPrimitive("where").getAsString();
-			TankManager.getInstance().tryToPlaceTanks(MapManager.getInstance().findTerritoryByName(territoryName), numOfTanks);
+			Color color = (Color) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR);
+			TankManager.getInstance().tryToPlaceTanks(GameManager.getInstance().findPlayerByColor(color), MapManager.getInstance().findTerritoryByName(territoryName), numOfTanks);
 		} catch (RequestNotValidException e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}

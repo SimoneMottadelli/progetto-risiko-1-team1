@@ -1,6 +1,8 @@
 package com.drisk.domain;
 
 
+import static org.junit.Assert.fail;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.drisk.domain.exceptions.RequestNotValidException;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -53,7 +56,12 @@ public class AssignTanksPhaseTest {
 		cards.add(card_3.toJson());
 		phaseConfig.add("cards", cards);
 		
-		phase.playPhase(currentPlayer, phaseConfig);
+		try {
+			phase.playPhase(currentPlayer, phaseConfig);
+		} catch (RequestNotValidException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 	
 	/*

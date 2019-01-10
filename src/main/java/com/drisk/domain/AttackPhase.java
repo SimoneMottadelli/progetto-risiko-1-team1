@@ -2,6 +2,8 @@ package com.drisk.domain;
 
 import java.util.Arrays;
 import java.util.Collections;
+
+import com.drisk.domain.exceptions.RequestNotValidException;
 import com.google.gson.JsonObject;
 
 public class AttackPhase extends Phase {
@@ -15,7 +17,7 @@ public class AttackPhase extends Phase {
 	}
 
 	@Override
-	public void playPhase(Player currentPlayer, JsonObject obj) {
+	public void playPhase(Player currentPlayer, JsonObject obj) throws RequestNotValidException {
 		fromJson(obj);
 		attackEnemyTerritory(currentPlayer);
 	}
@@ -25,13 +27,16 @@ public class AttackPhase extends Phase {
 		TurnManager.getInstance().setCurrentPhase(new TankMovementPhase());
 	}
 
-	public void attackEnemyTerritory(Player attacker) {
-		if(attackerTanks < territoryAttacker.getNumberOfTanks() || attacker.equals(territoryDefender.getOwner())) {
-			
-			// TODO throws exception
-			//lancia una eccezione!
-			
-			
+	public void attackEnemyTerritory(Player attacker) throws RequestNotValidException{
+		if(attackerTanks >= territoryAttacker.getNumberOfTanks())
+			throw new RequestNotValidException("You can't attack with " + attackerTanks + 
+					"because you don't have enough tanks!" );
+		if(attacker.equals(territoryDefender.getOwner()))
+			throw new RequestNotValidException("Come on! You can't attack yourself!" );
+		if(!territoryAttacker.getNeighbours().contains(territoryDefender))
+			throw new RequestNotValidException("You can't attack from " + territoryAttacker.getName() + 
+					" to " + territoryDefender.getName());
+
 			int defenderTanks = territoryDefender.getNumberOfTanks();
 			if (defenderTanks > 3) 
 				defenderTanks = 3;
@@ -47,9 +52,7 @@ public class AttackPhase extends Phase {
 				territoryDefender.setOwner(attacker);
 				tm.placeTanks(territoryDefender, 1);
 				tm.removeTanks(territoryAttacker, 1);
-			}	
-		}
-
+			}
 	}
 	
 	public int[] rollDices(int attackerTanks, int defenderTanks) {
@@ -94,8 +97,14 @@ public class AttackPhase extends Phase {
 	}
 
 	@Override
-	public void fromJson(JsonObject obj) {
-		// TODO Auto-generated method stub
+	public void fromJson(JsonObject obj) throws RequestNotValidException {
+		Territory from = MapManager.getInstance().findTerritoryByName(obj.get("from").getAsString().toLowerCase());
+		Territory to = MapManager.getInstance().findTerritoryByName(obj.get("to").getAsString().toLowerCase());
+		if(from == null || to == null)
+			throw new RequestNotValidException("Territories don't exist");
+		territoryAttacker = from;
+		territoryDefender = to;
+		attackerTanks = obj.get("howMany").getAsInt();
 	}
 	
 }
