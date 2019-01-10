@@ -15,7 +15,7 @@ public class DestroyEnemyMissionCard extends MissionCard {
 
 	@Override
 	public boolean isAchievementReached(Player player) {
-		return MapManager.getInstance().getMapTerritories(enemy).size() == 0;
+		return MapManager.getInstance().getMapTerritories(enemy).isEmpty();
 	}
 
 }

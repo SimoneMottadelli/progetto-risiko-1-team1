@@ -12,6 +12,10 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/heads/gamePageClient
 import com.drisk.domain.exceptions.RequestNotValidException;
 import com.drisk.domain.exceptions.SyntaxException;
 import com.google.gson.Gson;
@@ -80,7 +84,11 @@ public class TankManagerTest {
 			TankManager.getInstance().tryToPlaceTanks(p, t, 4);
 			fail();
 		} catch (RequestNotValidException e) {
+<<<<<<< HEAD
 			e.printStackTrace();
+=======
+			// test passes if it enters the catch clause
+>>>>>>> refs/heads/gamePageClient
 		}
 	}
 	

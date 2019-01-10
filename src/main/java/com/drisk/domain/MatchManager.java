@@ -48,7 +48,6 @@ public class MatchManager {
 	
 	public void exitGame(Color color) {
 		//for-each modificato in for-normale per evitare "ConcurrentModificationException"
-		List<Player> players = getPlayers();
 		for (int i = 0; i < players.size(); ++i)
 			if (players.get(i).getColor().equals(color)) {
 				colorsAvailablesList.add(color);
