@@ -32,7 +32,9 @@ public class TankPlacementPhase extends Phase {
 	}
 
 	@Override
-	public void nextPhase() {
+	public void nextPhase() throws RequestNotValidException{
+		if(player.getAvailableTanks() <= 0)
+			throw new RequestNotValidException("You must place another " + player.getAvailableTanks() + " tanks");
 		TurnManager.getInstance().setCurrentPhase(new AttackPhase());
 	}
 

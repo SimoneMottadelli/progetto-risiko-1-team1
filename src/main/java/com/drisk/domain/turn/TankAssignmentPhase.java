@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.drisk.domain.card.CardManager;
 import com.drisk.domain.card.TerritoryCard;
-import com.drisk.domain.card.TerritoryCardSymbol;
+import com.drisk.domain.card.TerritoryCardSymbolEnum;
 import com.drisk.domain.exceptions.RequestNotValidException;
 import com.drisk.domain.game.Player;
 import com.drisk.domain.game.TankManager;
@@ -21,7 +21,7 @@ import com.google.gson.JsonObject;
 
 public class TankAssignmentPhase extends Phase {
 
-	private static Map<List<TerritoryCardSymbol>, Integer> trisMap;
+	private static Map<List<TerritoryCardSymbolEnum>, Integer> trisMap;
 	private TerritoryCard[] playerTris;
 	private Player player;
 
@@ -89,7 +89,7 @@ public class TankAssignmentPhase extends Phase {
 
 	private void useTris() throws RequestNotValidException {
 		Arrays.sort(playerTris);
-		List<TerritoryCardSymbol> trisSymbols = new LinkedList<>();
+		List<TerritoryCardSymbolEnum> trisSymbols = new LinkedList<>();
 		for (int i = 0; i < 3; ++i)
 			trisSymbols.add(playerTris[i].getSymbol());
 
@@ -120,47 +120,47 @@ public class TankAssignmentPhase extends Phase {
 		trisMap = new HashMap<>();
 
 		// 3 cannons = 4 tanks
-		List<TerritoryCardSymbol> tris1 = new LinkedList<>();
+		List<TerritoryCardSymbolEnum> tris1 = new LinkedList<>();
 		for (int i = 0; i < 3; ++i)
-			tris1.add(TerritoryCardSymbol.ARTILLERY);
+			tris1.add(TerritoryCardSymbolEnum.ARTILLERY);
 		trisMap.put(tris1, 4);
 
 		// 3 infantrymen = 6 tanks
-		List<TerritoryCardSymbol> tris2 = new LinkedList<>();
+		List<TerritoryCardSymbolEnum> tris2 = new LinkedList<>();
 		for (int i = 0; i < 3; ++i)
-			tris2.add(TerritoryCardSymbol.INFANTRY);
+			tris2.add(TerritoryCardSymbolEnum.INFANTRY);
 		trisMap.put(tris2, 6);
 
 		// 3 knights = 8 tanks
-		List<TerritoryCardSymbol> tris3 = new LinkedList<>();
+		List<TerritoryCardSymbolEnum> tris3 = new LinkedList<>();
 		for (int i = 0; i < 3; ++i)
-			tris3.add(TerritoryCardSymbol.CAVALRY);
+			tris3.add(TerritoryCardSymbolEnum.CAVALRY);
 		trisMap.put(tris3, 8);
 
 		// 2 cannons (or infantrymen or knights) + jolly = 12 tanks
-		List<TerritoryCardSymbol> tris4 = new LinkedList<>();
+		List<TerritoryCardSymbolEnum> tris4 = new LinkedList<>();
 		for (int i = 0; i < 2; ++i)
-			tris4.add(TerritoryCardSymbol.ARTILLERY);
-		tris4.add(TerritoryCardSymbol.JOLLY);
+			tris4.add(TerritoryCardSymbolEnum.ARTILLERY);
+		tris4.add(TerritoryCardSymbolEnum.JOLLY);
 		trisMap.put(tris4, 12);
 
-		List<TerritoryCardSymbol> tris5 = new LinkedList<>();
+		List<TerritoryCardSymbolEnum> tris5 = new LinkedList<>();
 		for (int i = 0; i < 2; ++i)
-			tris5.add(TerritoryCardSymbol.INFANTRY);
-		tris5.add(TerritoryCardSymbol.JOLLY);
+			tris5.add(TerritoryCardSymbolEnum.INFANTRY);
+		tris5.add(TerritoryCardSymbolEnum.JOLLY);
 		trisMap.put(tris5, 12);
 
-		List<TerritoryCardSymbol> tris6 = new LinkedList<>();
+		List<TerritoryCardSymbolEnum> tris6 = new LinkedList<>();
 		for (int i = 0; i < 2; ++i)
-			tris6.add(TerritoryCardSymbol.CAVALRY);
-		tris6.add(TerritoryCardSymbol.JOLLY);
+			tris6.add(TerritoryCardSymbolEnum.CAVALRY);
+		tris6.add(TerritoryCardSymbolEnum.JOLLY);
 		trisMap.put(tris6, 12);
 
 		// artillery + infantry + cavalry = 10 tanks
-		List<TerritoryCardSymbol> tris7 = new LinkedList<>();
-		tris7.add(TerritoryCardSymbol.INFANTRY);
-		tris7.add(TerritoryCardSymbol.CAVALRY);
-		tris7.add(TerritoryCardSymbol.ARTILLERY);
+		List<TerritoryCardSymbolEnum> tris7 = new LinkedList<>();
+		tris7.add(TerritoryCardSymbolEnum.INFANTRY);
+		tris7.add(TerritoryCardSymbolEnum.CAVALRY);
+		tris7.add(TerritoryCardSymbolEnum.ARTILLERY);
 		trisMap.put(tris7, 10);
 	}
 

@@ -3,13 +3,13 @@ package com.drisk.domain.card;
 import com.drisk.domain.map.Territory;
 import com.google.gson.JsonObject;
 
-public class TerritoryCard extends Card implements Comparable<TerritoryCard> {
+public class TerritoryCard implements Card, Comparable<TerritoryCard> {
 	
 	private Territory territory;
-	private TerritoryCardSymbol symbol;
+	private TerritoryCardSymbolEnum symbol;
 	
 	
-	public TerritoryCard(Territory territory, TerritoryCardSymbol simbol) {
+	public TerritoryCard(Territory territory, TerritoryCardSymbolEnum simbol) {
 		setTerritory(territory);
 		setSymbol(simbol);
 	}
@@ -24,7 +24,7 @@ public class TerritoryCard extends Card implements Comparable<TerritoryCard> {
 	}
 
 
-	public TerritoryCardSymbol getSymbol() {
+	public TerritoryCardSymbolEnum getSymbol() {
 		return symbol;
 	}
 
@@ -34,7 +34,7 @@ public class TerritoryCard extends Card implements Comparable<TerritoryCard> {
 	}
 
 
-	public void setSymbol(TerritoryCardSymbol simbol) {
+	public void setSymbol(TerritoryCardSymbolEnum simbol) {
 		this.symbol = simbol;
 	}
 

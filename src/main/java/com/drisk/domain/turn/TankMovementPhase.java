@@ -34,7 +34,7 @@ public class TankMovementPhase extends Phase {
 		TurnManager.getInstance().setCurrentPhase(new TankAssignmentPhase());
 	}
 
-	private void moveTanks() throws RequestNotValidException {
+	private void moveTanks() {
 		TankManager.getInstance().moveTanks(from, to, numOfTanks);
 		moveDone = true;
 	}
@@ -49,12 +49,12 @@ public class TankMovementPhase extends Phase {
 
 	@Override
 	public void fromJson(JsonObject obj) throws RequestNotValidException {
-		Territory from = MapManager.getInstance().findTerritoryByName(obj.get("from").getAsString().toLowerCase().replace("\"", ""));
-		Territory to = MapManager.getInstance().findTerritoryByName(obj.get("to").getAsString().toLowerCase().replace("\"", ""));
-		if(from == null || to == null)
+		Territory tFrom = MapManager.getInstance().findTerritoryByName(obj.get("from").getAsString().toLowerCase().replace("\"", ""));
+		Territory tTo = MapManager.getInstance().findTerritoryByName(obj.get("to").getAsString().toLowerCase().replace("\"", ""));
+		if(tFrom == null || tTo == null)
 			throw new RequestNotValidException("Territories don't exist");
-		this.from = from;
-		this.to = to;
+		from = tFrom;
+		to = tTo;
 		numOfTanks = obj.get("howMany").getAsInt();
 	}
 }

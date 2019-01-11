@@ -3,7 +3,7 @@ package com.drisk.domain.card;
 import com.drisk.domain.game.Player;
 import com.google.gson.JsonObject;
 
-public abstract class MissionCard extends Card {
+public abstract class MissionCard implements Card {
 	
 	protected String text;
 	

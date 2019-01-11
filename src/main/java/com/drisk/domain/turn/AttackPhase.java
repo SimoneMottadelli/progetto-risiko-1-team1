@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import com.drisk.domain.card.CardManager;
 import com.drisk.domain.exceptions.RequestNotValidException;
+import com.drisk.domain.game.GameManager;
 import com.drisk.domain.game.Player;
 import com.drisk.domain.game.TankManager;
 import com.drisk.domain.map.MapManager;
@@ -30,6 +31,16 @@ public class AttackPhase extends Phase {
 		fromJson(obj);
 		checkCondition();
 		attackEnemyTerritory();
+		if(!checkWin())
+			checkLoss();
+	}
+	
+	private boolean checkWin() {
+		return GameManager.getInstance().checkWin(attacker);
+	}
+	
+	private void checkLoss() {
+		GameManager.getInstance().checkLoss(territoryDefender.getOwner());
 	}
 
 	@Override
@@ -55,7 +66,7 @@ public class AttackPhase extends Phase {
 					"You can't attack from " + territoryAttacker.getName() + " to " + territoryDefender.getName());
 	}
 
-	public void attackEnemyTerritory() throws RequestNotValidException {
+	private void attackEnemyTerritory() {
 		int defenderTanks = territoryDefender.getNumberOfTanks();
 		if (defenderTanks > 3)
 			defenderTanks = 3;
@@ -76,7 +87,7 @@ public class AttackPhase extends Phase {
 
 	}
 
-	public int[] rollDices(int attackerTanks, int defenderTanks) {
+	private int[] rollDices(int attackerTanks, int defenderTanks) {
 
 		Integer[] attackerDicesResults = new Integer[attackerTanks];
 		Integer[] defenderDicesResults = new Integer[defenderTanks];
@@ -97,7 +108,7 @@ public class AttackPhase extends Phase {
 
 	}
 
-	public int[] compareDices(Integer[] attackerDicesResults, Integer[] defenderDicesResults) {
+	private int[] compareDices(Integer[] attackerDicesResults, Integer[] defenderDicesResults) {
 
 		int attackerTanksLost = 0;
 		int defenderTanksLost = 0;
@@ -129,6 +140,5 @@ public class AttackPhase extends Phase {
 		territoryDefender = to;
 		attackerTanks = obj.get("howMany").getAsInt();
 	}
-
 
 }
