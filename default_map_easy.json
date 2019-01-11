@@ -14,7 +14,7 @@
 		"australian_territory",
 		"new_guinea",
 		"indonesia",
-		"european_island",
+		"european_islands",
 		"west_europe",
 		"north_east_europe",
 		"south_europe",
@@ -40,7 +40,7 @@
 		{
 			"name": "europe",
 			"territories": [
-				"european_island",
+				"european_islands",
 				"west_europe",
 				"north_east_europe",
 				"south_europe"
@@ -209,7 +209,7 @@
 			]
 		},
 		{
-			"name": "european_island",
+			"name": "european_islands",
 			"territories": [
 				"west_europe",
 				"north_east_europe",
@@ -219,7 +219,7 @@
 		{
 			"name": "west_europe",
 			"territories": [
-				"european_island",
+				"european_islands",
 				"south_europe",
 				"north_east_europe",
 				"north_west_africa",
@@ -231,7 +231,7 @@
 			"name": "north_east_europe",
 			"territories": [
 				"ural",
-				"european_island",
+				"european_islands",
 				"south_europe",
 				"west_europe",
 				"afghanistan",
@@ -274,7 +274,7 @@
 		{
 			"name": "greenland",
 			"territories": [
-				"european_island",
+				"european_islands",
 				"canada",
 				"east_coast"
 			]

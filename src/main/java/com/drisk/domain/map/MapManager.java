@@ -40,10 +40,6 @@ public class MapManager {
 		map.setReady(true);
 	}
 	
-	public JsonObject getSVGMap() throws IOException {
-		return new FileLoader().readSVGMapFile(map.getDifficulty());
-	}
-	
 	private void createMapComponents(JsonObject gameConfig) throws SyntaxException {
 		JsonHelper helper = new JsonHelper();
 		createContinents(helper.getContinentsFromJson(gameConfig));
@@ -131,8 +127,13 @@ public class MapManager {
 		return map.getContinents();
 	}
 	
+	public String getSVGMap() throws IOException {
+		return new FileLoader().readSVGMapFile(map.getDifficulty());
+	}
+	
 	public JsonObject toJson() {
-		return map.toJson();
+		JsonObject obj = map.toJson();
+		return obj;
 	}
 
 	public boolean isMapReady() {

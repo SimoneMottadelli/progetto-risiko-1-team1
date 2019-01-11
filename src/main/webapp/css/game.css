@@ -7,6 +7,10 @@ body {
     background-attachment: fixed;
 }
 
+#mapDiv {
+	padding-top: 5px;
+}
+
 .RED { fill: red }
 
 .YELLOW { fill: yellow }
@@ -21,21 +25,31 @@ body {
 
 #territoryNameDiv {
   background-color: #ead9c8;
-  border-style: inset;
-  width: 20%;
+  width: 30%;
   text-align: center;
   margin: auto;
   padding-bottom: 2px;
   padding-top: 2px;
+  display: inline;
+}
+
+#playersTurnDiv, #availableTanksDiv, #missionCardDiv, #myColorDiv {
+  background-color: #ead9c8;
+  border-style: inset;
+  width: 30%;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  display: inline;
 }
 
 label {
-	font-size: 24px
-}
-
-#mapDiv {
-	height: ;
-	width: ;
+	font-size: 24px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 5px;
+	padding-left: 5px;
 }
 
 svg {
@@ -130,4 +144,8 @@ input[type=text], select {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+}
+
+input[type="number"] {
+   width:50px;
 }

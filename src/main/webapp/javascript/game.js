@@ -1,67 +1,75 @@
-$(document).ready(function(){
+$(document).ready(function() {
 	
 	// +++++++++++++++ VARIABLES +++++++++++++++
 	var myColor = null;
 	var numberOfAvailableTanks = null;
 	var map = {'territories': [], 'neighbourhood': [], 'membership': [], 'continents': []};
+	var cards = [];
+	var jsonResponsePlayPhase = null;
 	
 	init();	
 	
 	// this function initializes the web page in order to start the game
 	function init() {
 		initMap();
-		initColorAndFirstAvailableTanks();
-		startRequestingMapLoading();
+		initPlayersInfo();
 	}
 	
 	// this function initializes the variable MAP, visualizes the map on the web page and
 	// starts the initial tank placement phase.
 	function initMap() {
-		$.getJSON('../game/map', function(result) {
-			if(result.responseCode != -1) {
-				map.territories = result.territories;
-				map.neighbourhood = result.neighbourhood;
-				map.membership = result.membership;
-				map.continents = result.continents;
-				fillSVGMapDiv();
-				updateMyTerritoriesSelect();
-				startTankPlacementPhase();
+		
+		$.ajax({
+			type : 'GET',
+			url : '../game/map',
+			success: function(result) {
+				if(result.responseCode != -1) {
+					map.territories = JSON.parse(result.responseMessage).territories;
+					map.neighbourhood = JSON.parse(result.responseMessage).neighbourhood;
+					map.membership = JSON.parse(result.responseMessage).membership;
+					map.continents = JSON.parse(result.responseMessage).continents;
+					fillSVGMapDiv(JSON.parse(result.responseMessage).mapSVG);
+					startRequestingMapLoading();
+					updateMyTerritoriesSelect();
+					startTankPlacementPhase();
+				}
+				else
+					showModalWindow(result.responseMessage);
 			}
-			else
-				showModalWindow(result.responseMessage);
 		});
 	}
 	
-	function initColorAndFirstAvailableTanks() {
-		$.getJSON('../game/playerInfo', function(result) {
-			if(result.responseCode != -1) {
-				myColor = result.color;
-				numberOfAvailableTanks = result.availableTanks;
+	function initPlayersInfo() {
+		$.ajax({
+			type : 'GET',
+			url : '../game/playerInfo',
+			success: function(result) {
+				if(result.responseCode != -1) {
+					myColor = result.color;
+					$("#myColorLabel").html(myColor);
+					numberOfAvailableTanks = result.availableTanks;
+					$("#availableTanksLabel").html(numberOfAvailableTanks);
+					$("#missionCardLabel").html(result.missionCard.mission);
+				}
+				else
+					showModalWindow(result.responseMessage);
 			}
-			else
-				showModalWindow(result.responseMessage);
 		});
 	}
 	
 	// fillSVGMapDiv is used to show the map return by the server on the web page.
-	function fillSVGMapDiv(){
-		$.getJSON('../game/mapImage', function(result) {
-			if(result.responseCode != -1) {
-				$("#mapDiv").html(result.mapSVG);
-				updateSVGMap();
-				addMouseoverEventToTerritories();
-			}
-			else
-				showModalWindow(data.responseMessage);
-		});
+	function fillSVGMapDiv(mapSVG){
+		$("#mapDiv").html(mapSVG);
+		updateSVGMap();
+		addMouseoverEventToTerritories();
 	}
 	
 	
 	function updateMyTerritoriesSelect() {
-		$("#myTerritoriesSelect").html("");
+		$("#wherePlacementSelect").html("");
 		for (var i = 0; i < map.territories.length; ++i) {
 			if (map.territories[i].owner == myColor)
-				$("#myTerritoriesSelect").append('<option value="' + map.territories[i].name + '">' 
+				$("#wherePlacementSelect").append('<option value="' + map.territories[i].name + '">' 
 					+ map.territories[i].name + "</option>");
 		}
 	}
@@ -71,13 +79,13 @@ $(document).ready(function(){
 		$("#tankPlacementPhaseDiv").show();
 	}
 	
-	//
+	// this function colors the map and updates tanks numbers
 	function updateSVGMap() {
 		$("path.country").each(function() {
 			for (var i = 0; i < map.territories.length; ++i) {
 				if (map.territories[i].name == $(this).attr("id")) {
 					$(this).removeClass().attr("class", "country").addClass(map.territories[i].owner);
-					// modifica contatore carri sul territorio
+					$("#" + map.territories[i].name + "_text").text(map.territories[i].numberOfTanks);
 				}
 			}
 		});
@@ -95,21 +103,11 @@ $(document).ready(function(){
 		}
 	}
 	
-	function getPlayerInfo() {
-		$.getJSON('../game/playerInfo', function(data) {
-			if(data.responseCode != -1) {
-				
-			}
-			else
-				showModalWindow(data.responseMessage);
-		});
-	}
-	
 	// function used to place tanks to a territory
-	function placeTanks() {
-		var territory = $("#myTerritoriesSelect").val();
-		var numOfTanks = parseInt($('#howMany').val(), 10);
-		$('#howMany').val(0);
+	function placeInitialTanks() {
+		var territory = $("#wherePlacementSelect").val();
+		var numOfTanks = parseInt($('#howManyPlacement').val(), 10);
+		$('#howManyPlacement').val(0);
 		$.ajax({
 			type : 'POST',
 			url : '../game/initialTanksPlacement',
@@ -122,9 +120,40 @@ $(document).ready(function(){
 				else {
 					numberOfAvailableTanks -= numOfTanks;
 					$("#availableTanksLabel").html(numberOfAvailableTanks);
+					if (numberOfAvailableTanks <= 0) {
+						$("#tankPlacementPhaseDiv").hide();
+						playerTurnRequest();
+						$("#placeTanksButton").unbind();
+						$("#placeTanksButton").click(function() {
+							placeTanks();
+						});
+					}
 				}
 			}
 		});
+	}
+	
+	function placeTanks() {
+		var territory = $("#wherePlacementSelect").val();
+		var numOfTanks = parseInt($('#howManyPlacement').val(), 10);
+		$('#howManyPlacement').val(0);
+		
+		$.ajax({
+			type : 'POST',
+			url : '../game/playPhase',
+			contentType: 'application/json',
+			dataType: 'json',
+			data: JSON.stringify(placeTanksJson(territory, numOfTanks)), 
+			success: function(data) {
+				if (data.responseCode == -1)
+					showModalWindow(data.responseMessage);
+				else {
+					numberOfAvailableTanks -= numOfTanks;
+					$("#availableTanksLabel").html(numberOfAvailableTanks);
+				}
+			}
+		});
+		
 	}
 	
 	// helper function that return json object
@@ -135,30 +164,54 @@ $(document).ready(function(){
 	// used to get information of turn status from the server, invoked only one time
 	// sse emitter was used by the server to send the json response
 	function playerTurnRequest() {
+		var allTanksPlacedWarningShown = false;
 		var source = new EventSource('../game/turnStatus');
 		source.onmessage = function(event) {
+			console.log(JSON.parse(event.data));
 			if(!JSON.parse(event.data).hasOwnProperty('currentPlayer')) {
-				if(availableTanks != 0) {
-					var players = JSON.parse(event.data).players;
-					var i = 0;
-					while(i < players.length && availableTanks != 0) {
-						if(players[i].color == myColor) {
-							availableTanks = players[i].availableTanks
-							if(availableTanks == 0) {
-								$("#gameDiv").attr("class", "hidden");
-								showModalWindow("all tanks placed, wait that all players place their tanks");
-								return;
-							}
-						}
-						++i;
-					}
+				if (!allTanksPlacedWarningShown) {
+					allTanksPlacedWarningShown = true;
+					showModalWindow("All tanks have been placed! Wait for other players to finish this phase too");
 				}
 			}
 			else {
 				var currentPlayer = JSON.parse(event.data).currentPlayer;
-				if(myColor != currentPlayer)
-					$("#gameDiv").attr("class", "hidden");
+				$("#playersTurnLabel").html(currentPlayer);
+				if(myColor != currentPlayer) 
+					$("#gameDiv").hide();
+				else {
+					var phaseId = JSON.parse(event.data).currentPhaseId;
+					playPhase(phaseId);
+				}
 			}
+		}
+	}
+	
+	function playPhase(phaseId) {
+		switch (phaseId) {
+		case 1:
+			$("#tankMovementPhaseDiv").hide();
+			$("#useTrisButton").show();
+			showCardsToSelect();
+			break;
+		case 2:
+			$("#useTrisButton").hide();
+			$("#tankPlacementPhaseDiv").show();
+			break;
+		case 3:
+			$("#tankPlacementPhaseDiv").hide();
+			$("#attackPhasePhaseDiv").show();
+			break;
+		case 4:
+			$("#attackPhasePhaseDiv").hide();
+			$("#tankMovementPhaseDiv").show();
+			break;
+		}
+	}
+	
+	function showCardsToSelect() {
+		for (var i = 0; i < cards.length; ++i) {
+			$("#cardsDiv").append('<input type="checkbox" id="' + cards[i].territory + '" name="'  + cards[i].territory + '" >');
 		}
 	}
 	
@@ -167,6 +220,30 @@ $(document).ready(function(){
 		$("#modalWindow").css("display", "block");
 	}
 	
+	
+	function sendPhaseData(jsonRequestObject) {
+		$.ajax({
+			type : 'POST',
+			url : '../game/playPhase',
+			contentType: 'application/json',
+			dataType: 'json',
+			data: JSON.stringify(jsonRequestObject), 
+			success: function(data) {
+				if (data.responseCode == -1)
+					showModalWindow(data.responseMessage);
+				else {
+					numberOfAvailableTanks = JSON.parse(data.responseMessage).availableTanks;
+					updateCards(JSON.parse(data.responseMessage).cards);
+				}
+			}
+		});
+	}
+	
+	// this function is used to updated the gloabal variable CARDS, which is an array of territory names.
+	function updateCards(cardsArray) {
+		for (var i = 0; i < cardsArray.length; ++i)
+			cards[i] = {"territory": cardsArray[i].territory, "symbol": cardsArray[i].symbol};
+	}
 	
 	
 	// +++++++++++++++ EVENTS +++++++++++++++
@@ -183,12 +260,30 @@ $(document).ready(function(){
 		});
 	}
 	
+	$("#nextPhaseButton").click(function() {
+		$.getJSON('../game/nextPhase', function(result) {
+			if (result.responseCode == -1)
+				showModalWindow(result.responseMessage);
+		});
+	});
+	
+	$("#useTrisButton").click(function() {
+		var selectedCards = [];
+		var i = 0;
+		$("input:checkbox").each(function () {
+			if (this.checked) 
+				selectedCards[i++] = $(this).attr("id");
+		  });
+		var jsonRequestObject = {"cards": selectedCards};
+		sendPhaseData(jsonRequestObject);
+	});
+	
 	$("span.close").click(function() {
 		$("#modalWindow").css("display", "none");
 	});
 	
 	$("#placeTanksButton").click(function() {
-		placeTanks();
+		placeInitialTanks();
 	});
 	
 });

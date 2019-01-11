@@ -53,20 +53,14 @@ public class GameController {
 	@GetMapping("/map")
 	@ResponseBody
     public JsonObject handleSseMap() {
-		return MapManager.getInstance().toJson();
-    }
-	
-	@GetMapping("/mapImage")
-	@ResponseBody
-	public JsonObject getMapImage() {
+		JsonObject responseObj = MapManager.getInstance().toJson();
 		try {
-			return new FileLoader().readSVGMapFile(DifficultyEnum.HARD);
-			// TODO return MapManager.getInstance().getSVGMap();
-		}
-		catch (Exception e) {
+			responseObj.addProperty("mapSVG", MapManager.getInstance().getSVGMap());
+			return helper.createResponseJson(0, responseObj.toString());
+		} catch (IOException e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
-	}
+    }
 	
 	@GetMapping("/turnStatus")
 	public SseEmitter handleSseTurn() {
