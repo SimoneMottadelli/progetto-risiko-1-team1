@@ -536,4 +536,23 @@
      x="924.35046"
      y="454.61758"
      id="new_guinea">24</text>
+	   <g id="border" stroke="black" fill="none" visibility="visible" stroke-width="2">
+	  <path d="m 358,165 -11,13 z" id="east_coast-groenland" />
+	  <path d="M 383.0249,388.21494 333,417 Z" id="brazil-north_west_africa" />
+	  <path d="m 421,127 3,13 z" id="groenland-european_islands" />
+	  <path d="m 450,143 28,-14 z" id="european_islands-north_east_europe" />
+	  <path d="m 452,217 15,-6 z" id="european_islands-north_west_europe" />
+	  <path d="m 425,156 11,21 z" id="european_islands-between" stroke-dasharray="5,5" />
+	  <path d="m 452,308 4,-36 z" id="north_west_europe-north_west_africa" />
+	  <path d="M 466.06553,307.25033 496,294 Z" id="south_europe-north_west_africa" />
+	  <path d="m 508,330 -6,-33 z" id="south_europe-egypt" />
+	  <path d="M 594,546 579.20839,483.71166 Z" id="east_africa-between" stroke-dasharray="5,5"/>
+	  <path d="m 578,567 -33,-1 z" id="south_africa-east_africa" />
+	  <path d="m 936,201 -24,29 z" id="north_west_asia-between2" stroke-dasharray="5,5" />
+	  <path d="m 873,246 27,22 z" id="north_west_asia-between" stroke-dasharray="6,6" />
+	  <path d="m 806,434 -8,-42 z" id="china-indonesia" />
+	  <path d="m 840,447 44,4 z" id="indonesia-new_guinea" />
+	  <path d="m 786,476 13,47 z" id="indonesia-australian_territory" />
+	  <path d="m 901,474 -12,32 z" id="new_guinea-australian_territory" />
+  </g>
 </svg>
