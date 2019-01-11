@@ -1,22 +1,38 @@
 $(document).ready(function(){
 	
-	// variables that hold important information of the game
+	// +++++++++++++++ VARIABLES +++++++++++++++
 	var myColor = null;
 	var numberOfAvailableTanks = null;
-	var map = {'territories': [], 'neighbourhood': []};
+	var map = {'territories': [], 'neighbourhood': [], 'membership': [], 'continents': []};
 	
+	init();	
 	
-	$("#placeTanksButton").click(function() {
-		placeTanks();
-	});
+	// this function initializes the web page in order to start the game
+	function init() {
+		initMap();
+		initColorAndFirstAvailableTanks();
+		startRequestingMapLoading();
+	}
 	
-
-	setColorAndFirstAvailableTanks();
-	fillSVGMapDiv();
-	requestMapLoading();
+	// this function initializes the variable MAP, visualizes the map on the web page and
+	// starts the initial tank placement phase.
+	function initMap() {
+		$.getJSON('../game/map', function(result) {
+			if(result.responseCode != -1) {
+				map.territories = result.territories;
+				map.neighbourhood = result.neighbourhood;
+				map.membership = result.membership;
+				map.continents = result.continents;
+				fillSVGMapDiv();
+				updateMyTerritoriesSelect();
+				startTankPlacementPhase();
+			}
+			else
+				showModalWindow(result.responseMessage);
+		});
+	}
 	
-	
-	function setColorAndFirstAvailableTanks() {
+	function initColorAndFirstAvailableTanks() {
 		$.getJSON('../game/playerInfo', function(result) {
 			if(result.responseCode != -1) {
 				myColor = result.color;
@@ -32,6 +48,7 @@ $(document).ready(function(){
 		$.getJSON('../game/mapImage', function(result) {
 			if(result.responseCode != -1) {
 				$("#mapDiv").html(result.mapSVG);
+				updateSVGMap();
 				addMouseoverEventToTerritories();
 			}
 			else
@@ -39,34 +56,6 @@ $(document).ready(function(){
 		});
 	}
 	
-	// requestMapLoading creates a link to connect the client to the server, so that the
-	// server can send map updates using Server Send Event mechanism.
-	// It also starts the initial tank placement phase
-	function requestMapLoading() {
-		var initialTankPlacementPhaseStarted = false;
-		var source = new EventSource('../game/map');
-		source.onmessage = function(event) {
-			map.territories = JSON.parse(event.data).territories;
-			map.neighbourhood = JSON.parse(event.data).neighbourhood;
-			if (!initialTankPlacementPhaseStarted && myColor != null) {
-				initialTankPlacementPhaseStarted = true;
-				updateMyTerritoriesSelect();
-				startTankPlacementPhase();
-			}	
-			updateMap();
-		}
-	}
-	
-	function updateMap() {
-		$("path.country").each(function() {
-			for (var i = 0; i < map.territories.length; ++i) {
-				if (map.territories[i].name == $(this).attr("id")) {
-					$(this).removeClass().attr("class", "country").addClass(map.territories[i].owner);
-					// modifica contatore carri sul territorio
-				}
-			}
-		});
-	}
 	
 	function updateMyTerritoriesSelect() {
 		$("#myTerritoriesSelect").html("");
@@ -79,9 +68,32 @@ $(document).ready(function(){
 	
 	function startTankPlacementPhase() {
 		$("#availableTanksLabel").html(numberOfAvailableTanks);
-		$("#placeTanksDiv").show();
+		$("#tankPlacementPhaseDiv").show();
 	}
-
+	
+	//
+	function updateSVGMap() {
+		$("path.country").each(function() {
+			for (var i = 0; i < map.territories.length; ++i) {
+				if (map.territories[i].name == $(this).attr("id")) {
+					$(this).removeClass().attr("class", "country").addClass(map.territories[i].owner);
+					// modifica contatore carri sul territorio
+				}
+			}
+		});
+	}
+	
+	// requestMapLoading creates a link to connect the client to the server, so that the
+	// server can send map updates using Server Send Event mechanism.
+	function startRequestingMapLoading() {
+		var initialTankPlacementPhaseStarted = false;
+		var source = new EventSource('../game/territories');
+		source.onmessage = function(event) {
+			map.territories = JSON.parse(event.data).territories;
+			initialTankPlacementPhaseStarted = true;			
+			updateSVGMap();
+		}
+	}
 	
 	function getPlayerInfo() {
 		$.getJSON('../game/playerInfo', function(data) {
@@ -92,7 +104,6 @@ $(document).ready(function(){
 				showModalWindow(data.responseMessage);
 		});
 	}
-	
 	
 	// function used to place tanks to a territory
 	function placeTanks() {
@@ -151,6 +162,15 @@ $(document).ready(function(){
 		}
 	}
 	
+	function showModalWindow(message) {
+		$("div.modal-body").html("<h2>" + message + "</h2>");
+		$("#modalWindow").css("display", "block");
+	}
+	
+	
+	
+	// +++++++++++++++ EVENTS +++++++++++++++
+	
 	function addMouseoverEventToTerritories() {
 		$("path.country").each(function() {
 			$(this).hover(
@@ -163,13 +183,12 @@ $(document).ready(function(){
 		});
 	}
 	
-	function showModalWindow(message) {
-		$("div.modal-body").html("<h2>" + message + "</h2>");
-		$("#modalWindow").css("display", "block");
-	}
-	
 	$("span.close").click(function() {
 		$("#modalWindow").css("display", "none");
+	});
+	
+	$("#placeTanksButton").click(function() {
+		placeTanks();
 	});
 	
 });

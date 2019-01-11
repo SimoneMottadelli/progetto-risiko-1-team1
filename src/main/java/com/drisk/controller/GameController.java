@@ -35,8 +35,8 @@ public class GameController {
 	private static final String NOT_A_PLAYER = "You are not a player because you haven't a color assigned";
 	private JsonHelper helper = new JsonHelper();
 	
-	@GetMapping("/map")
-    public SseEmitter handleSseMap() {
+	@GetMapping("/territories")
+    public SseEmitter getMapTerritories() {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
@@ -48,6 +48,12 @@ public class GameController {
 			}
 		});
 		return emitter;
+    }
+	
+	@GetMapping("/map")
+	@ResponseBody
+    public JsonObject handleSseMap() {
+		return MapManager.getInstance().toJson();
     }
 	
 	@GetMapping("/mapImage")
@@ -108,15 +114,6 @@ public class GameController {
 		if(!isAPlayer(session))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
 		return GameManager.getInstance().findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)).toJson();
-	}
-	
-	
-	@GetMapping("/test")
-	@ResponseBody
-	public String test(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		ColorEnum c = (ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR);
-		return c.toString();
 	}
 	
 	@PostMapping("/playPhase")
