@@ -86,7 +86,8 @@ public class Player {
 		jsonPlayer.addProperty("nickname", nickname);
 		jsonPlayer.addProperty("availableTanks", availableTanks);
 		jsonPlayer.addProperty("color", color.toString().toUpperCase());
-		jsonPlayer.add("missionCard", missionCard.toJson());
+		if (missionCard != null)
+			jsonPlayer.add("missionCard", missionCard.toJson());
 		JsonArray cards = new JsonArray();
 		for(TerritoryCard t : territoryCardsHand)
 			cards.add(t.toJson());
