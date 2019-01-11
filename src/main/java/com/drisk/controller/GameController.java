@@ -18,10 +18,8 @@ import com.drisk.domain.exceptions.RequestNotValidException;
 import com.drisk.domain.game.ColorEnum;
 import com.drisk.domain.game.GameManager;
 import com.drisk.domain.game.TankManager;
-import com.drisk.domain.map.DifficultyEnum;
 import com.drisk.domain.map.MapManager;
 import com.drisk.domain.turn.TurnManager;
-import com.drisk.technicalservice.FileLoader;
 import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonObject;
 

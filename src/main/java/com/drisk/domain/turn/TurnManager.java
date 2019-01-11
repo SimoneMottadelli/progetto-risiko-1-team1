@@ -58,7 +58,7 @@ public class TurnManager {
 		String colorPlayer = null;
 		if (currentPlayer != null) 
 			colorPlayer = currentPlayer.getColor().toString();
-		result.addProperty("currentPlayersColor", colorPlayer);
+		result.addProperty("currentPlayerColor", colorPlayer);
 		Integer phaseId = null;
 		if (currentPhase != null)
 			phaseId = currentPhase.getPhaseId();

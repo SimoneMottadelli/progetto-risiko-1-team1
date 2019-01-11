@@ -57,8 +57,10 @@ public class MatchController {
 			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
 		try {
 			String body = request.getReader().lines().collect(Collectors.joining());
-			MapManager.getInstance().createMap(helper.parseJson(body));
-			return helper.createResponseJson(0, "Map correctly added");
+			System.out.println(body);
+			JsonObject gameConfig = helper.parseJson(body);
+			MapManager.getInstance().createMap(gameConfig);
+			return helper.createResponseJson(0, "Configuration correctly added");
 		} 
 		catch (JsonSyntaxException e)
 		{

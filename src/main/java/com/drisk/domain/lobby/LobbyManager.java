@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.drisk.domain.game.ColorEnum;
 import com.drisk.domain.game.GameManager;
+import com.drisk.domain.game.ObjectiveTypeEnum;
 import com.drisk.domain.game.Player;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -14,18 +15,24 @@ public class LobbyManager {
 	private static LobbyManager instance;
 	private boolean matchStarted;
 	private boolean matchFull;
+	private ObjectiveTypeEnum objective;
 	private List<ColorEnum> colorsAvailablesList;
 	private List<Player> players;
 
 	private LobbyManager() {
 		matchStarted = false;
 		matchFull = false;
+		objective = ObjectiveTypeEnum.COMMON;
 		colorsAvailablesList = createColorAvailableList();
 		players = new LinkedList<>();
 	}
 
 	public boolean isMatchStarted() {
 		return matchStarted;
+	}
+	
+	public void setObjective(ObjectiveTypeEnum objective) {
+		this.objective = objective;
 	}
 	
 	public boolean isMatchFull() {
@@ -81,7 +88,7 @@ public class LobbyManager {
 	
 	public void initGame(){
 		matchStarted = true;
-		GameManager.getInstance().initGame(players);
+		GameManager.getInstance().initGame(players, objective);
 	}
 	
 	private void addPlayer(Player player) {

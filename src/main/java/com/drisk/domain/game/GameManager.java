@@ -27,10 +27,10 @@ public class GameManager {
 		return instance;
 	}
 
-	public void initGame(List<Player> players) {
+	public void initGame(List<Player> players, ObjectiveTypeEnum objective) {
 		initPlayers(players);
 		initCards();
-		initPlayersMission();
+		initPlayersMission(objective);
 		initPlayersTerritories();
 		initTanks();
 	}
@@ -47,9 +47,9 @@ public class GameManager {
 		CardManager.getInstance().initCards();
 	}
 	
-	private void initPlayersMission() {
+	private void initPlayersMission(ObjectiveTypeEnum objective) {
 		// questo true dovra essere sostituito dalle impostazioni di gioco che verranno ricevute dal matchManager
-		CardManager.getInstance().initPlayersMission(players, true);
+		CardManager.getInstance().initPlayersMission(players, objective);
 	}
 	
 	public void initPlayersTerritories() {

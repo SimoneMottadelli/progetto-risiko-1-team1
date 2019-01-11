@@ -13,7 +13,7 @@ $(document).ready(
 			});
 			
 			$("#modifyButton").click(function() {
-				applyMapChanges();
+				applyChanges();
 			});
 			
 			$("#customRadio").click(function() {
@@ -55,9 +55,10 @@ $(document).ready(
 				);
 			}
 			
-			function applyMapChanges() {
+			function applyChanges() {
 				var isMapDefault = $('input[name=mapConfigRadio]:checked', '#mapForm').val() == "default";
-				var jsonRequestPayload = "{'difficulty': '";
+				var objectiveType = $('input[name=modalityConfigRadio]:checked', '#modalityForm').val();
+				var jsonRequestPayload = "{'objective': '" + objectiveType + "','difficulty': '";
 				if (isMapDefault) {
 					jsonRequestPayload += $("#difficultySelect").val() + "'}";
 				} else {
@@ -101,8 +102,10 @@ $(document).ready(
 							source.onmessage = function(evt) {
 								var playersArray = JSON.parse(evt.data).players;
 								var isMapReady = JSON.parse(evt.data).mapReady;
-								if (isEveryoneReady(playersArray) && isMapReady && areThereTwoPlayers(playersArray)) 
+								if (isEveryoneReady(playersArray) && isMapReady && areThereTwoPlayers(playersArray))  {
+									source.close();
 									location.replace("http://localhost:8080/drisk/pages/game.html");
+								}
 								else if (!warningAlreadyDisplayed && isEveryoneReady(playersArray) && !isMapReady){
 									showModalWindow("Everyone is ready but the map hasn't been created yet");
 									warningAlreadyDisplayed = true;

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Collections;
 import java.util.List;
 
+import com.drisk.domain.game.ObjectiveTypeEnum;
 import com.drisk.domain.game.Player;
 import com.drisk.domain.map.DifficultyEnum;
 import com.drisk.domain.map.MapManager;
@@ -28,13 +29,13 @@ public class CardManager {
 		return instance;
 	}
 
-	public void initPlayersMission(List<Player> players, boolean singleMission) {
-		if (singleMission) {
+	public void initPlayersMission(List<Player> players, ObjectiveTypeEnum objective) {
+		if (objective.equals(ObjectiveTypeEnum.COMMON)) {
 			MissionCard mission = (MissionCard) missionCards.get(0);
 			for (Player p : players)
 				p.setMission(mission);
 		} else {
-			// missione non singola
+			// missione non singola, and so objective.equals(ObjectiveTypeEnum.MULTIPLE)
 		}
 	}
 
