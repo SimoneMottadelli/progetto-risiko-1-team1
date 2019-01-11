@@ -64,6 +64,7 @@ public class TankAssignmentPhaseTest {
 		
 		// it have to throws new RequestNotValidException because CAVALRY, ARTILLERY, ARTILLERY is not a tris
 		try {
+			System.out.print(currentPlayer.toJson());
 			phase.playPhase(currentPlayer, phaseConfig);
 			fail();
 		} catch (RequestNotValidException e) {}

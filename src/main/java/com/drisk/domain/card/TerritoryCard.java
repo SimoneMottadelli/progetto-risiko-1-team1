@@ -14,11 +14,6 @@ public class TerritoryCard implements Card, Comparable<TerritoryCard> {
 		setSymbol(simbol);
 	}
 
-	@Override
-	public String toString() {
-		return "TerritoryCard [territory=" + territory.toString() + ", symbol=" + symbol + "]";
-	}
-
 	public Territory getTerritory() {
 		return territory;
 	}
@@ -67,7 +62,7 @@ public class TerritoryCard implements Card, Comparable<TerritoryCard> {
 	
 	public JsonObject toJson() {
 		JsonObject jsonCard = new JsonObject();
-		jsonCard.addProperty("name", getTerritory().getName());
+		jsonCard.addProperty("territory", getTerritory().getName());
 		jsonCard.addProperty("symbol", getSymbol().toString());
 		return jsonCard;
 	}

@@ -39,8 +39,6 @@ public class TankAssignmentPhase extends Phase {
 			useTris();
 		assignTanks();
 	}
-	
-	
 
 	@Override
 	public void nextPhase() {
@@ -170,22 +168,20 @@ public class TankAssignmentPhase extends Phase {
 		JsonArray cards = obj.getAsJsonArray("cards");
 		if (cards != null) {
 			int i = 0;
-			for (JsonElement cardObj : cards) {
-				if (cards.size() != 3)
-					throw new RequestNotValidException("Tris is composed by three cards");
-				JsonObject card = cardObj.getAsJsonObject();
-				tris[i++] = CardManager.getInstance()
-						.findTerritoryCardByTerritoryName(card.get("name").toString().toLowerCase().replace("\"", ""));
-			}
+			if (cards.size() != 3)
+				throw new RequestNotValidException("Tris is composed by three cards");
+			for (JsonElement e : cards)
+				tris[i++] = CardManager.getInstance().findTerritoryCardByTerritoryName(e.getAsString().toLowerCase().replace("\"", ""));
 			playerTris = tris;
 		}
 	}
 
 	@Override
 	protected void checkCondition() throws RequestNotValidException {
-		for(TerritoryCard t : playerTris)
-			if(!player.getTerritoryCardsHand().contains(t))
-				throw new RequestNotValidException("You don't have " + t.getTerritory().getName() + " card in your hand");
+		for (TerritoryCard t : playerTris)
+			if (!player.getTerritoryCardsHand().contains(t))
+				throw new RequestNotValidException(
+						"You don't have " + t.getTerritory().getName() + " card in your hand");
 	}
 
 }

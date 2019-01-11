@@ -56,18 +56,6 @@ public class GameController {
 		return MapManager.getInstance().toJson();
     }
 	
-	@GetMapping("/mapImage")
-	@ResponseBody
-	public JsonObject getMapImage() {
-		try {
-			return new FileLoader().readSVGMapFile(DifficultyEnum.HARD);
-			// TODO return MapManager.getInstance().getSVGMap();
-		}
-		catch (Exception e) {
-			return helper.createResponseJson(-1, e.getMessage());
-		}
-	}
-	
 	@GetMapping("/turnStatus")
 	public SseEmitter handleSseTurn() {
 		SseEmitter emitter = new SseEmitter();
@@ -113,7 +101,7 @@ public class GameController {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
-		return GameManager.getInstance().findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)).toJson();
+		return helper.createResponseJson(0, GameManager.getInstance().findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)).toJson().toString());
 	}
 	
 	@PostMapping("/playPhase")
@@ -150,8 +138,12 @@ public class GameController {
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
 		if(!TurnManager.getInstance().isPlayerTurn((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
 			return helper.createResponseJson(-1, IS_NOT_YOUR_TURN);
-		TurnManager.getInstance().getCurrentPhase().nextPhase();
-		return helper.createResponseJson(0, OK);
+		try {
+			TurnManager.getInstance().getCurrentPhase().nextPhase();
+			return helper.createResponseJson(0, OK);
+		} catch (RequestNotValidException e) {
+			return helper.createResponseJson(-1, e.getMessage());
+		}
 	}
 
 }
