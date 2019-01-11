@@ -1,5 +1,6 @@
 package com.drisk.domain.turn;
 
+import com.drisk.domain.exceptions.RequestNotValidException;
 import com.drisk.domain.game.Player;
 import com.google.gson.JsonObject;
 
@@ -23,7 +24,10 @@ public class CheckWinPhase extends Phase {
 	public void fromJson(JsonObject obj) {
 		// TODO Auto-generated method stub
 	}
-	
-	
 
+	@Override
+	protected void checkCondition() throws RequestNotValidException {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -23,7 +23,7 @@ public class TankMovementPhase extends Phase {
 	public void playPhase(Player currentPlayer, JsonObject obj) throws RequestNotValidException {
 		if(moveDone)
 			throw new RequestNotValidException("You have already moved your tanks");
-		player = currentPlayer;
+		// player = currentPlayer; TODO riga da rimuovere?
 		fromJson(obj);
 		checkCondition();
 		moveTanks();

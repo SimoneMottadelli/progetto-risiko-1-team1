@@ -45,4 +45,10 @@ public class TankPlacementPhase extends Phase {
 		howManyTanks = obj.get("numOfTanks").getAsInt();
 	}
 
+	@Override
+	protected void checkCondition() throws RequestNotValidException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
