@@ -21,6 +21,7 @@ import com.drisk.domain.game.TankManager;
 import com.drisk.domain.map.MapManager;
 import com.drisk.domain.turn.TurnManager;
 import com.drisk.technicalservice.JsonHelper;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -38,8 +39,8 @@ public class GameController {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
-				JsonObject map = MapManager.getInstance().toJson();
-				emitter.send(map);
+				JsonArray territories = MapManager.getInstance().toJson().getAsJsonArray("territories");
+				emitter.send(territories);
 				emitter.complete();	
 			} catch (Exception ex) {
 				emitter.completeWithError(ex);
@@ -51,7 +52,13 @@ public class GameController {
 	@GetMapping("/map")
 	@ResponseBody
     public JsonObject handleSseMap() {
-		return MapManager.getInstance().toJson();
+		JsonObject responseObj = MapManager.getInstance().toJson();
+		try {
+			responseObj.addProperty("mapSVG", MapManager.getInstance().getSVGMap());
+			return helper.createResponseJson(0, responseObj.toString());
+		} catch (IOException e) {
+			return helper.createResponseJson(-1, e.getMessage());
+		}
     }
 	
 	@GetMapping("/turnStatus")

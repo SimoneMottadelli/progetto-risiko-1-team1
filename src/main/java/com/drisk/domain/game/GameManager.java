@@ -36,7 +36,7 @@ public class GameManager {
 	}
 	
 	private void startGame() {
-		TurnManager.getInstance().initTurn();
+		TurnManager.getInstance().initTurn(players);
 	}
 
 	private void initPlayers(List<Player> players) {

@@ -20,14 +20,14 @@ public class AttackPhase extends Phase {
 	private int attackerTanks;
 	private boolean canDrawTerritoryCard;
 
-	public AttackPhase() {
+	public AttackPhase(Player player) {
 		super(PhaseEnum.ATTACK.getValue());
 		canDrawTerritoryCard = false;
+		attacker = player;
 	}
 
 	@Override
-	public void playPhase(Player currentPlayer, JsonObject obj) throws RequestNotValidException {
-		attacker = currentPlayer;
+	public void playPhase(JsonObject obj) throws RequestNotValidException {
 		fromJson(obj);
 		checkCondition();
 		attackEnemyTerritory();
@@ -47,7 +47,7 @@ public class AttackPhase extends Phase {
 	public void nextPhase() {
 		if (canDrawTerritoryCard)
 			drawTerritoryCard();
-		TurnManager.getInstance().setCurrentPhase(new TankMovementPhase());
+		TurnManager.getInstance().setCurrentPhase(new TankMovementPhase(attacker));
 	}
 
 	private void drawTerritoryCard() {

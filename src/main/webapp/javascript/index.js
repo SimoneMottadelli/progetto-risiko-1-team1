@@ -102,7 +102,7 @@ $(document).ready(
 							source.onmessage = function(evt) {
 								var playersArray = JSON.parse(evt.data).players;
 								var isMapReady = JSON.parse(evt.data).mapReady;
-								if (isEveryoneReady(playersArray) && isMapReady && areThereTwoPlayers(playersArray))  {
+								if (isEveryoneReady(playersArray) && isMapReady && areThereTwoPlayers(playersArray)) {
 									source.close();
 									location.replace("http://localhost:8080/drisk/pages/game.html");
 								}

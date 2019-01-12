@@ -1,23 +1,24 @@
-<!DOCTYPE html>
 <html>
 <head>
 <title>Home</title>
 <meta charset="ISO-8859-1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src=javascript/index.js></script>
+<script src="javascript/index.js"></script>
 <link rel="stylesheet" type="text/css" href="css/index.css"
-	media="screen" />
+	media="screen">
 </head>
 <body>
 	<div id="leftContentDiv">
 		<table id="playersTable" class="hidden">
 			<caption>Players List</caption>
-			<tr>
-				<th>Name</th>
-				<th>Color</th>
-				<th>Ready</th>
-			</tr>
+			<tbody>
+				<tr>
+					<th>Name</th>
+					<th>Color</th>
+					<th>Ready</th>
+				</tr>
+			</tbody>
 		</table>
 		<div id="joinDiv">
 			<form id="nameForm">
@@ -42,9 +43,10 @@
 			<input type="radio" id="multipleObjective" name="modalityConfigRadio"
 				value="multiple"><font color="white">Multiple</font>
 		</form><br><br>
+
 		<label>Map status:</label><label id="mapStatusLabel"> not
-			ready</label><br>
-		<br> <label>Map difficulty:</label><br>
+			ready</label><br> <br> <label>Map difficulty:</label><br>
+
 		<form id="mapForm">
 			<input type="radio" id="defaultRadio" name="mapConfigRadio"
 				value="default" checked="checked"><font color="white">Default</font>
@@ -65,6 +67,14 @@
 			</select>
 		</div>
 		<br> <br>
+
+		<form id="modalityForm">
+			<input type="radio" id="commonObjective" name="modalityConfigRadio"
+				value="common"><font color="white">Common</font> <input
+				type="radio" id="multipleObjective" name="modalityConfigRadio"
+				value="multiple"><font color="white">Multiple</font>
+		</form>
+
 		<br>
 		<button id="modifyButton">Apply changes</button>
 	</div>
@@ -72,13 +82,12 @@
 	<div id="modalWindow" class="modal">
 		<div class="modal-content">
 			<div class="modal-header">
-				<span class="close">&times;</span>
+				<span class="close">×</span>
 				<h1>Information!</h1>
 			</div>
 			<div class="modal-body"></div>
 		</div>
 
 	</div>
-
 </body>
 </html>

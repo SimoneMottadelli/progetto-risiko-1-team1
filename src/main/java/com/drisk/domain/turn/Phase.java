@@ -17,7 +17,7 @@ public abstract class Phase {
 	}
 	
 	public abstract void nextPhase() throws RequestNotValidException;
-	public abstract void playPhase(Player currentPlayer, JsonObject obj) throws RequestNotValidException;
+	public abstract void playPhase(JsonObject obj) throws RequestNotValidException;
 	public abstract void fromJson(JsonObject obj) throws RequestNotValidException;
 	protected abstract void checkCondition() throws RequestNotValidException;
 

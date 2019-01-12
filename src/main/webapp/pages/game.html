@@ -10,31 +10,61 @@
 	media="screen" />
 </head>
 <body>
-	
-	
-	<!-- div which contains some information -->
-	<div id="territoryNameDiv">
-		<label id="territoryNameLabel"></label><br>
-	</div>
-	
-	
-	<!-- div used as a container for the SVG map -->
-	<div id="mapDiv"></div>
-	
+		<!-- div used as a container for the SVG map -->
+	<center>
+		<div id="territoryNameDiv">
+			<label id="territoryNameLabel"></label>
+		</div>
+		<div id="mapDiv"></div><br>
+		<div>
+			<div id="myColorDiv">
+				<label>My color: </label><label id="myColorLabel"> -- </label>
+			</div>
+			<div id="playersTurnDiv">
+				<label>Player's turn: </label><label id="playersTurnLabel"> -- </label>
+			</div>
+			<div id="availableTanksDiv">
+				<label>Your tanks: </label><label id="availableTanksLabel"></label>
+			</div>
+			<div id="missionCardDiv">
+				<label>Mission card: </label>
+				<label id="missionCardLabel"></label>
+			</div>
+		</div>
+	</center>
+	<br>
+	<hr>
+	<br>
 	
 	<!-- div for the game's phases -->
 	<div id="gameDiv"> 
+		<div id="assignTanksPhaseDiv" hidden>
+			<center><label>-Assign Tanks Phase-</label></center><br><br>
+			<label>Cards: </label>
+			<div id="cardsDiv">
+			</div>
+			<br>
+			<button id="useTrisButton">Use tris</button>
+		</div>
 		<div id="tankPlacementPhaseDiv" hidden><br>
-			<label>Number of available tanks:</label><label id="availableTanksLabel"></label><br><br>
-			<label>Where: </label> <select id="myTerritoriesSelect"></select><br> <label>How many: </label><br>
-			 <input type="number" id="howMany" value=0 min=0 max=10><br><br>
+			<center><label>-Tank Placement Phase-</label></center><br><br>
+			<label>Where: </label> <select id="wherePlacementSelect"></select><br> <label>How many: </label><br>
+			 <input type="number" id="howManyPlacement" value=0 min=0 max=100><br><br>
 			<button id="placeTanksButton">PlaceTanks</button>
 		</div>
-		<div id="assignBonusTanksDiv" hidden></div>
-		<div id="assignTanksDiv" hidden></div>
-		<div id="tankPlacementDiv" hidden></div>
-		<div id="attackPhaseDiv" hidden></div>
-		<div id="tankMovimentDiv" hidden></div>
+		<div id="attackPhasePhaseDiv" hidden>
+			<center><label>-Attacking Phase-</label></center><br><br>
+			<label>Territory to attack: </label> <select id="toAttackSelect"></select>
+			<label>From: </label> <select id="fromAttackSelect"></select>
+			<label>Number of tanks to use: </label>
+			<input type="number" id="howManyAttack" value=0 min=0 max=100><br><br>
+		</div>
+		<div id="tankMovementPhaseDiv" hidden>
+			<center><label>-Tank Movement Phase-</label></center><br><br>
+			<label>From: </label> <select id="fromMovementSelect"></select>
+			<label>To: </label> <select id="toMovementSelect"></select>
+		</div>
+		<button id="nextPhaseButton" hidden>Next game phase</button>
 	</div>
 
 	
