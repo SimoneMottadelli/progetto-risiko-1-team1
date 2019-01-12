@@ -189,7 +189,7 @@
 			"territories": [
 				"great_britain",
 				"scandinavia",
-				"groenland"
+				"greenland"
 			]
 		},
 		{
@@ -252,6 +252,7 @@
 				"east_africa",
 				"egypt",
 				"west_europe",
+				"south_europe",
 				"brazil"
 			]
 		},
@@ -261,13 +262,15 @@
 				"great_britain",
 				"south_europe",
 				"ukraine",
-				"west_europe"
+				"west_europe",
+				"scandinavia"
 			]
 		},
 		{
 			"name": "scandinavia",
 			"territories": [
 				"great_britain",
+				"north_europe",
 				"iceland",
 				"ukraine"
 			]
@@ -305,7 +308,8 @@
 				"middle_east",
 				"north_europe",
 				"ukraine",
-				"west_europe"
+				"west_europe",
+				"north_africa"
 			]
 		},
 		{
@@ -368,12 +372,12 @@
 			"territories": [
 				"alaska",
 				"alberta",
-				"groenland",
+				"greenland",
 				"ontario"
 			]
 		},
 		{
-			"name": "groenland",
+			"name": "greenland",
 			"territories": [
 				"northwest_territory",
 				"ontario",
@@ -398,14 +402,14 @@
 				"western_united_states",
 				"eastern_united_states",
 				"quebec",
-				"groenland"
+				"greenland"
 			]
 		},
 		{
 			"name": "quebec",
 			"territories": [
 				"eastern_united_states",
-				"groenland",
+				"greenland",
 				"ontario"
 			]
 		},
@@ -494,7 +498,6 @@
 		{
 			"name": "eastern_australia",
 			"territories": [
-				"indonesia",
 				"new_guinea",
 				"western_australia"
 			]

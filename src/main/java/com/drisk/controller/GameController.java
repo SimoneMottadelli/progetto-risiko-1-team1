@@ -53,6 +53,7 @@ public class GameController {
 	@GetMapping("/map")
 	@ResponseBody
     public JsonObject handleSseMap() {
+<<<<<<< HEAD
 		JsonObject responseObj = MapManager.getInstance().toJson();
 		try {
 			responseObj.addProperty("mapSVG", MapManager.getInstance().getSVGMap());
@@ -60,6 +61,9 @@ public class GameController {
 		} catch (IOException e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
+=======
+		return MapManager.getInstance().toJson();
+>>>>>>> branch 'master' of git@github.com:UnimibSoftEngCourse1819/progetto-risiko-1-team1.git
     }
 	
 	@GetMapping("/turnStatus")
@@ -107,7 +111,7 @@ public class GameController {
 		HttpSession session = request.getSession(false);
 		if(!isAPlayer(session))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
-		return GameManager.getInstance().findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)).toJson();
+		return helper.createResponseJson(0, GameManager.getInstance().findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)).toJson().toString());
 	}
 	
 	@PostMapping("/playPhase")
@@ -144,8 +148,12 @@ public class GameController {
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
 		if(!TurnManager.getInstance().isPlayerTurn((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
 			return helper.createResponseJson(-1, IS_NOT_YOUR_TURN);
-		TurnManager.getInstance().getCurrentPhase().nextPhase();
-		return helper.createResponseJson(0, OK);
+		try {
+			TurnManager.getInstance().getCurrentPhase().nextPhase();
+			return helper.createResponseJson(0, OK);
+		} catch (RequestNotValidException e) {
+			return helper.createResponseJson(-1, e.getMessage());
+		}
 	}
 
 }

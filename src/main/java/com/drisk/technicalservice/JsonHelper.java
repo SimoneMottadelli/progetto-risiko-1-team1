@@ -57,11 +57,7 @@ public class JsonHelper {
 		return getListFromJson(gameConfig, CONTINENTS);
 	}
 	
-	/*public static List<String> getNumberOfTanksFromJson(JsonObject gameConfig) throws SyntaxException {
-		return getListFromJson(gameConfig, NUMBEROFTANKS);
-	}*/
-	
-	private static Map<String, List<String>> getRelationshipFromJson(JsonObject gameConfig, String relation) throws SyntaxException {
+	private Map<String, List<String>> getRelationshipFromJson(JsonObject gameConfig, String relation) throws SyntaxException {
 		Map<String, List<String>> map = new HashMap<>();
 		JsonArray array = gameConfig.getAsJsonArray(relation);
 		if (array == null)

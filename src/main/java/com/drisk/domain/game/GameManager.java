@@ -11,9 +11,14 @@ public class GameManager {
 	
 	private List<Player> players;
 	private static GameManager instance;
+	private Player winner;
 	
 	private GameManager() {
 		players = new LinkedList<>();
+	}
+	
+	public Player getWinner() {
+		return winner;
 	}
 	
 	public static GameManager getInstance() {
@@ -42,7 +47,7 @@ public class GameManager {
 		CardManager.getInstance().initCards();
 	}
 	
-	public void initPlayersMission() {
+	private void initPlayersMission() {
 		// questo true dovra essere sostituito dalle impostazioni di gioco che verranno ricevute dal matchManager
 		CardManager.getInstance().initPlayersMission(players, true);
 	}
@@ -52,17 +57,7 @@ public class GameManager {
 	}
 
 	public void initTanks() {
-		TankManager.getInstance().initTanks(getPlayers());
-	}
-	
-	/* TODO probabilmente da spostare
-	public boolean checkWin(Player currentPlayer) {
-		return currentPlayer.getMissionCard().checkWin();
-	}
-	*/
-	//da implementare TODO
-	public boolean checkLoss() {
-		return false;
+		TankManager.getInstance().initTanks(players);
 	}
 
 	public List<Player> getPlayers() {
@@ -76,6 +71,19 @@ public class GameManager {
 		return null;
 	}
 	
+	public boolean checkWin(Player player) {
+		if(player.getMissionCard().isAchievementReached(player)) {
+			winner = player;
+			endGame();
+			return true;
+		}
+		return false;
+	}
+	
+	private void endGame() {
+		// TODO qualsiasi cosa deve succedere quando il gioco deve terminare
+	}
+	
 	public void tryToStartGame() {
 		if(TankManager.getInstance().areAllTanksPlaced(players))
 			startGame();
@@ -83,5 +91,12 @@ public class GameManager {
 
 	public static void destroy() {
 		instance = null;
+	}
+
+	public void checkLoss(Player player) {
+		if(MapManager.getInstance().getMapTerritories(player).isEmpty()) {
+			CardManager.getInstance().removeCards(player, player.getTerritoryCardsHand());
+			players.remove(player);
+		}
 	}	
 }
