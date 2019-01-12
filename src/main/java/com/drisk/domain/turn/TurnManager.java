@@ -1,5 +1,6 @@
 package com.drisk.domain.turn;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.drisk.domain.exceptions.RequestNotValidException;
@@ -12,11 +13,14 @@ public class TurnManager {
 	private static TurnManager instance;
 	private Player currentPlayer;
 	private Phase currentPhase;
+	private List<Player> players;
 	
 	private TurnManager() {}
 	
-	public void initTurn() {
-		currentPhase = new TankAssignmentPhase();
+	public void initTurn(List<Player> players) {
+		this.players = players;
+		currentPlayer = newTurn();
+		currentPhase = new TankAssignmentPhase(currentPlayer);
 	}
 	
 	public static TurnManager getInstance() {
@@ -25,8 +29,9 @@ public class TurnManager {
 		return instance;
 	}
 	
-	public void newTurn(List<Player> players) {
+	public Player newTurn() {
 		currentPlayer = players.get((players.indexOf(currentPlayer) + 1) % players.size());
+		return currentPlayer;
 	}
 
 	public Player getCurrentPlayer() {
@@ -34,7 +39,7 @@ public class TurnManager {
 	}
 	
 	public void playPhase(JsonObject obj) throws RequestNotValidException {
-		currentPhase.playPhase(currentPlayer, obj);
+		currentPhase.playPhase(obj);
 	}
 
 	public void setCurrentPlayer(Player currentPlayer) {
@@ -58,7 +63,7 @@ public class TurnManager {
 		String colorPlayer = null;
 		if (currentPlayer != null) 
 			colorPlayer = currentPlayer.getColor().toString();
-		result.addProperty("currentPlayersColor", colorPlayer);
+		result.addProperty("currentPlayerColor", colorPlayer);
 		Integer phaseId = null;
 		if (currentPhase != null)
 			phaseId = currentPhase.getPhaseId();

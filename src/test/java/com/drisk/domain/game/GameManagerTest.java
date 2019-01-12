@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.After;

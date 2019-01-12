@@ -18,11 +18,10 @@ import com.drisk.domain.exceptions.RequestNotValidException;
 import com.drisk.domain.game.ColorEnum;
 import com.drisk.domain.game.GameManager;
 import com.drisk.domain.game.TankManager;
-import com.drisk.domain.map.DifficultyEnum;
 import com.drisk.domain.map.MapManager;
 import com.drisk.domain.turn.TurnManager;
-import com.drisk.technicalservice.FileLoader;
 import com.drisk.technicalservice.JsonHelper;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -40,8 +39,8 @@ public class GameController {
 		SseEmitter emitter = new SseEmitter();
 		nonBlockingService.execute(() -> {
 			try {
-				JsonObject map = MapManager.getInstance().toJson();
-				emitter.send(map);
+				JsonArray territories = MapManager.getInstance().toJson().getAsJsonArray("territories");
+				emitter.send(territories);
 				emitter.complete();	
 			} catch (Exception ex) {
 				emitter.completeWithError(ex);
@@ -53,7 +52,6 @@ public class GameController {
 	@GetMapping("/map")
 	@ResponseBody
     public JsonObject handleSseMap() {
-<<<<<<< HEAD
 		JsonObject responseObj = MapManager.getInstance().toJson();
 		try {
 			responseObj.addProperty("mapSVG", MapManager.getInstance().getSVGMap());
@@ -61,9 +59,6 @@ public class GameController {
 		} catch (IOException e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
-=======
-		return MapManager.getInstance().toJson();
->>>>>>> branch 'master' of git@github.com:UnimibSoftEngCourse1819/progetto-risiko-1-team1.git
     }
 	
 	@GetMapping("/turnStatus")

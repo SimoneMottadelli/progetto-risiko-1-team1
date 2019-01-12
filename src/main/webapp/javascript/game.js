@@ -45,6 +45,7 @@ $(document).ready(function() {
 			url : '../game/playerInfo',
 			success: function(result) {
 				if(result.responseCode != -1) {
+					result = JSON.parse(result.responseMessage);
 					myColor = result.color;
 					$("#myColorLabel").html(myColor);
 					numberOfAvailableTanks = result.availableTanks;
@@ -97,7 +98,7 @@ $(document).ready(function() {
 		var initialTankPlacementPhaseStarted = false;
 		var source = new EventSource('../game/territories');
 		source.onmessage = function(event) {
-			map.territories = JSON.parse(event.data).territories;
+			map.territories = JSON.parse(event.data);
 			initialTankPlacementPhaseStarted = true;			
 			updateSVGMap();
 		}
@@ -167,19 +168,20 @@ $(document).ready(function() {
 		var allTanksPlacedWarningShown = false;
 		var source = new EventSource('../game/turnStatus');
 		source.onmessage = function(event) {
-			console.log(JSON.parse(event.data));
-			if(!JSON.parse(event.data).hasOwnProperty('currentPlayer')) {
+			if(!JSON.parse(event.data).hasOwnProperty('currentPlayerColor')) {
 				if (!allTanksPlacedWarningShown) {
 					allTanksPlacedWarningShown = true;
 					showModalWindow("All tanks have been placed! Wait for other players to finish this phase too");
 				}
 			}
 			else {
-				var currentPlayer = JSON.parse(event.data).currentPlayer;
+				var currentPlayer = JSON.parse(event.data).currentPlayerColor;
 				$("#playersTurnLabel").html(currentPlayer);
 				if(myColor != currentPlayer) 
 					$("#gameDiv").hide();
 				else {
+					$("#gameDiv").show();
+					$("#nextPhaseButton").show();
 					var phaseId = JSON.parse(event.data).currentPhaseId;
 					playPhase(phaseId);
 				}
@@ -191,11 +193,11 @@ $(document).ready(function() {
 		switch (phaseId) {
 		case 1:
 			$("#tankMovementPhaseDiv").hide();
-			$("#useTrisButton").show();
+			$("#assignTanksPhaseDiv").show();
 			showCardsToSelect();
 			break;
 		case 2:
-			$("#useTrisButton").hide();
+			$("#assignTanksPhaseDiv").hide();
 			$("#tankPlacementPhaseDiv").show();
 			break;
 		case 3:
@@ -233,6 +235,7 @@ $(document).ready(function() {
 					showModalWindow(data.responseMessage);
 				else {
 					numberOfAvailableTanks = JSON.parse(data.responseMessage).availableTanks;
+					$("#availableTanksDiv").html(numberOfAvailableTanks);
 					updateCards(JSON.parse(data.responseMessage).cards);
 				}
 			}

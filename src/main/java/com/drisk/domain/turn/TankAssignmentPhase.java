@@ -25,14 +25,14 @@ public class TankAssignmentPhase extends Phase {
 	private TerritoryCard[] playerTris;
 	private Player player;
 
-	public TankAssignmentPhase() {
+	public TankAssignmentPhase(Player player) {
 		super(PhaseEnum.TANKASSIGNMENT.getValue());
+		this.player = player;
 		initTris();
 	}
 
 	@Override
-	public void playPhase(Player currentPlayer, JsonObject phaseConfig) throws RequestNotValidException {
-		player = currentPlayer;
+	public void playPhase(JsonObject phaseConfig) throws RequestNotValidException {
 		fromJson(phaseConfig);
 		checkCondition();
 		if (playerTris != null)
@@ -42,7 +42,7 @@ public class TankAssignmentPhase extends Phase {
 
 	@Override
 	public void nextPhase() {
-		TurnManager.getInstance().setCurrentPhase(new TankPlacementPhase());
+		TurnManager.getInstance().setCurrentPhase(new TankPlacementPhase(player));
 	}
 
 	// each player has at least a tank at the beginning of his turn even if he owns

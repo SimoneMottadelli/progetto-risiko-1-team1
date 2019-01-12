@@ -14,16 +14,15 @@ public class TankMovementPhase extends Phase {
 	private int numOfTanks;
 	private boolean moveDone;
 
-	public TankMovementPhase() {
+	public TankMovementPhase(Player player) {
 		super(PhaseEnum.TANKSMOVIMENT.getValue());
 		moveDone = false;
 	}
 
 	@Override
-	public void playPhase(Player currentPlayer, JsonObject obj) throws RequestNotValidException {
+	public void playPhase(JsonObject obj) throws RequestNotValidException {
 		if(moveDone)
 			throw new RequestNotValidException("You have already moved your tanks");
-		// player = currentPlayer; TODO riga da rimuovere?
 		fromJson(obj);
 		checkCondition();
 		moveTanks();
@@ -31,7 +30,7 @@ public class TankMovementPhase extends Phase {
 
 	@Override
 	public void nextPhase() {
-		TurnManager.getInstance().setCurrentPhase(new TankAssignmentPhase());
+		TurnManager.getInstance().setCurrentPhase(new TankAssignmentPhase(TurnManager.getInstance().newTurn()));
 	}
 
 	private void moveTanks() {
