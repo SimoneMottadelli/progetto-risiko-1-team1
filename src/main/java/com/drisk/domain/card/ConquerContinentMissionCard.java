@@ -24,5 +24,6 @@ public class ConquerContinentMissionCard extends MissionCard {
 				return false;
 		return true;
 	}
+
 	
 }
