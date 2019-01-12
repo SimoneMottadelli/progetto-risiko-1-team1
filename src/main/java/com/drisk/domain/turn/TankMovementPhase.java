@@ -14,7 +14,7 @@ public class TankMovementPhase extends Phase {
 	private int numOfTanks;
 	private boolean moveDone;
 
-	public TankMovementPhase(Player player) {
+	public TankMovementPhase() {
 		super(PhaseEnum.TANKSMOVIMENT.getValue());
 		moveDone = false;
 	}

@@ -135,5 +135,12 @@ public class LobbyManager {
 	public static void destroy() {
 		instance = null;
 	}
+
+	public Player findPlayerByColor(ColorEnum color) {
+		for(Player p : players)
+			if(p.getColor().equals(color))
+				return p;
+		return null;
+	}
 	
 }

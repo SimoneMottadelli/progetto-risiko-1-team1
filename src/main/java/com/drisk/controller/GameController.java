@@ -34,6 +34,10 @@ public class GameController {
 	private static final String NOT_A_PLAYER = "You are not a player because you haven't a color assigned";
 	private JsonHelper helper = new JsonHelper();
 	
+	/**
+	 * This method is used to send to the client the territories of the map with Sse
+	 * @return SseEmitter
+	 */
 	@GetMapping("/territories")
     public SseEmitter getMapTerritories() {
 		SseEmitter emitter = new SseEmitter();
@@ -49,9 +53,13 @@ public class GameController {
 		return emitter;
     }
 	
+	/**
+	 * It gives to the client map's details
+	 * @return JsonObject with map's components if everything is ok or error string if something is wrong
+	 */
 	@GetMapping("/map")
 	@ResponseBody
-    public JsonObject handleSseMap() {
+    public JsonObject getMap() {
 		JsonObject responseObj = MapManager.getInstance().toJson();
 		try {
 			responseObj.addProperty("mapSVG", MapManager.getInstance().getSVGMap());
@@ -61,6 +69,10 @@ public class GameController {
 		}
     }
 	
+	/**
+	 * Used to update the status of the turn with the current phase and the player who is playing in this turn
+	 * @return SseEmitter
+	 */
 	@GetMapping("/turnStatus")
 	public SseEmitter handleSseTurn() {
 		SseEmitter emitter = new SseEmitter();
@@ -75,6 +87,11 @@ public class GameController {
 		return emitter;
 	}
 	
+	/**
+	 * It allows player to place tanks in the initial phase of the game, before that any turn start
+	 * @param request HttpServletRequest with the session and the body
+	 * @return JsonObject with the player status if everything is ok, error string with error if something is wrong
+	 */
 	@PostMapping("/initialTanksPlacement")
 	@ResponseBody
 	public JsonObject placeTanks(HttpServletRequest request) {
@@ -100,6 +117,11 @@ public class GameController {
 		return helper.createResponseJson(0, GameManager.getInstance().findPlayerByColor(playerColor).toJson().toString());
 	}
 	
+	/**
+	 * It allows client to get his own info
+	 * @param request HttpServletRequest with player session
+	 * @return JsonObject with all player info or with error string with the error if something is wrong
+	 */
 	@GetMapping("/playerInfo")
 	@ResponseBody
 	public JsonObject getPlayerInfo(HttpServletRequest request) {
@@ -109,6 +131,11 @@ public class GameController {
 		return helper.createResponseJson(0, GameManager.getInstance().findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)).toJson().toString());
 	}
 	
+	/**
+	 * It allows player to play the current phase
+	 * @param request HttpServletRequest with player session and body that contains what player have done in the client
+	 * @return JsonObject with his info or with error message 
+	 */
 	@PostMapping("/playPhase")
 	@ResponseBody
 	public JsonObject playPhase(HttpServletRequest request) {
@@ -131,10 +158,20 @@ public class GameController {
 		return helper.createResponseJson(0, TurnManager.getInstance().getCurrentPlayer().toJson().toString());
 	}
 	
+	/**
+	 * Check if session belongs to a player or not
+	 * @param session - HttpSession with the color of the player
+	 * @return true if the session is not null and this player is in GameManager players list, false otherwise
+	 */
 	private boolean isAPlayer(HttpSession session) {
-		return session != null;
+		return session != null && GameManager.getInstance().findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)) != null;
 	}
 	
+	/**
+	 * It allow player to change the current phase with the next phase, or to pass the turn to another player
+	 * @param request HttpServletRequest with player session
+	 * @return JsonObject with OK message or with error message
+	 */
 	@GetMapping("/nextPhase")
 	@ResponseBody
 	public JsonObject nextPhase(HttpServletRequest request) {

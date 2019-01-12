@@ -31,14 +31,14 @@ public class AttackPhase extends Phase {
 		fromJson(obj);
 		checkCondition();
 		attackEnemyTerritory();
-		if(!checkWin())
+		if (!checkWin())
 			checkLoss();
 	}
-	
+
 	private boolean checkWin() {
 		return GameManager.getInstance().checkWin(attacker);
 	}
-	
+
 	private void checkLoss() {
 		GameManager.getInstance().checkLoss(territoryDefender.getOwner());
 	}
@@ -47,13 +47,13 @@ public class AttackPhase extends Phase {
 	public void nextPhase() {
 		if (canDrawTerritoryCard)
 			drawTerritoryCard();
-		TurnManager.getInstance().setCurrentPhase(new TankMovementPhase(attacker));
+		TurnManager.getInstance().setCurrentPhase(new TankMovementPhase());
 	}
 
 	private void drawTerritoryCard() {
 		CardManager.getInstance().giveTerritoryCard(attacker);
 	}
-	
+
 	@Override
 	protected void checkCondition() throws RequestNotValidException {
 		if (attackerTanks >= territoryAttacker.getNumberOfTanks())
@@ -64,6 +64,10 @@ public class AttackPhase extends Phase {
 		if (!territoryAttacker.getNeighbours().contains(territoryDefender))
 			throw new RequestNotValidException(
 					"You can't attack from " + territoryAttacker.getName() + " to " + territoryDefender.getName());
+		if(attackerTanks <= 0)
+			throw new RequestNotValidException("You must attack at least with one tanks");
+		if(territoryAttacker.getNumberOfTanks() <= 1)
+			throw new RequestNotValidException("You can't attack from this territory because there is only a tank");
 	}
 
 	private void attackEnemyTerritory() {

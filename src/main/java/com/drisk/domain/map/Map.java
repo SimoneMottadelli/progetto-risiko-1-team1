@@ -51,6 +51,10 @@ public class Map {
 		return territories;
 	}
 	
+	/**
+	 * Used to get json representation of the map, with continents, territories and other
+	 * @return JsonObject with json representation of the map
+	 */
 	public JsonObject toJson() {
 		JsonObject result = new JsonObject();
 		result.addProperty("difficulty", difficulty.toString());
@@ -61,6 +65,10 @@ public class Map {
 		return result;
 	}
 	
+	/**
+	 * Used to get json representation of continents
+	 * @return JsonArray with json representation of the continent
+	 */
 	private JsonArray continentsToJson() {
 		JsonArray continentsArray = new JsonArray();
 		for(Continent c : continents)
@@ -68,6 +76,10 @@ public class Map {
 		return continentsArray;
 	}
 	
+	/**
+	 * Used to get json representation of membership, that is the relation between territories and continents
+	 * @return JsonArray with representation of the membership
+	 */
 	private JsonArray membershipToJson() {
 		JsonArray membershipArray = new JsonArray();
 		for(Continent c : continents) {
@@ -82,6 +94,10 @@ public class Map {
 		return membershipArray;
 	}
 	
+	/**
+	 * Used to get json representation of territories
+	 * @return JsonArray with representation of the territories
+	 */
 	private JsonArray territoriesToJson() {
 		JsonArray territoriesArray = new JsonArray();
 		for(Territory t : getTerritories())
@@ -89,6 +105,10 @@ public class Map {
 		return territoriesArray;
 	}
 	
+	/**
+	 * Used to get json representation of neighbourhood, that is the relation between territories neighbour
+	 * @return JsonArray with representation of the neighbourhood of territories
+	 */
 	private JsonArray neighbourhoodToJson() {
 		JsonArray neighbourhoodArray = new JsonArray();
 		for(Territory t : getTerritories()) {
