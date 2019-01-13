@@ -56,6 +56,7 @@ public class TankAssignmentPhase extends Phase {
 			tanks = numberTerritoriesOwned / 3;
 		tanks += getTanksPerContinent();
 		TankManager.getInstance().addTanksToPlayer(tanks, player);
+		addMessage("Player " + player.getColor() + " has recived " + tanks + " tanks");
 	}
 
 	private int getTanksPerContinent() {
@@ -106,6 +107,7 @@ public class TankAssignmentPhase extends Phase {
 				bonusTanks += 2;
 
 		TankManager.getInstance().addTanksToPlayer(bonusTanks, player);
+		addMessage("Player " + player.getColor() + " has received " + bonusTanks + " tanks by using a tris");
 		CardManager.getInstance().removeCards(player, playerTris);
 		playerTris = null;
 	}

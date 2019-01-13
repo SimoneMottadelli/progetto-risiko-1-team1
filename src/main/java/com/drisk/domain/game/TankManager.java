@@ -22,26 +22,28 @@ public class TankManager {
 		int numberTerritories = MapManager.getInstance().getNumberOfTerritories();
 		//the number of tanks is proportional to the number of territories 
 		//of the original difficulty (hard --> 42 territories)
+		int numberOfTanks;
+		switch (players.size()) {
+		case 2:
+			numberOfTanks = ((int)(40 * numberTerritories  / 42));
+			break;
+		case 3:
+			numberOfTanks = ((int)(35 * numberTerritories  / 42));
+			break;
+		case 4:
+			numberOfTanks = ((int)(30 * numberTerritories  / 42));
+			break;
+		case 5:
+			numberOfTanks = ((int)(25 * numberTerritories  / 42));
+			break;
+		case 6:
+			numberOfTanks = ((int)(20 * numberTerritories  / 42));
+			break;
+		default:
+			numberOfTanks = 0;
+		}
 		for (Player p: players) {
-			switch (players.size()) {
-			case 2:
-				p.addAvailableTanks((int)(40 * numberTerritories  / 42));
-				break;
-			case 3:
-				p.addAvailableTanks((int)(35 * numberTerritories  / 42));
-				break;
-			case 4:
-				p.addAvailableTanks((int)(30 * numberTerritories  / 42));
-				break;
-			case 5:
-				p.addAvailableTanks((int)(25 * numberTerritories  / 42));
-				break;
-			case 6:
-				p.addAvailableTanks((int)(20 * numberTerritories  / 42));
-				break;
-			default:
-				p.addAvailableTanks(0);
-			}
+			p.addAvailableTanks(numberOfTanks);
 			for(Territory t : MapManager.getInstance().getMapTerritories())
 				if(t.getOwner().equals(p))
 					placeTanks(t, 1);
@@ -67,15 +69,15 @@ public class TankManager {
 		if(!whereTerritory.getOwner().equals(player))
 			throw new RequestNotValidException(whereTerritory.getName() + " is not yours");
 		placeTanks(whereTerritory, numTanks);
-		whereTerritory.getOwner().removeAvailableTanks(numTanks);
 	}
 	
 	public void placeTanks(Territory whereTerritory, int numTanks) {
 		whereTerritory.addTanks(numTanks);
+		whereTerritory.getOwner().removeAvailableTanks(numTanks);
 	}
 	
 	public void moveTanks(Territory from, Territory to, int numOfTanks) {
-		placeTanks(to, numOfTanks);
+		to.addTanks(numOfTanks);
 		removeTanks(from, numOfTanks);
 	}
 	

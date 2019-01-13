@@ -94,7 +94,7 @@ public class GameController {
 	 */
 	@PostMapping("/initialTanksPlacement")
 	@ResponseBody
-	public JsonObject placeTanks(HttpServletRequest request) {
+	public JsonObject initialPlaceTanks(HttpServletRequest request) {
 		if(!isAPlayer(request.getSession(false)))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
 		String body;
@@ -104,7 +104,7 @@ public class GameController {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
 		JsonObject obj = helper.parseJson(body);
-		int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
+		int numOfTanks = helper.parseJson(body).getAsJsonPrimitive("numOfTanks").getAsInt();
 		try {
 			String territoryName = obj.getAsJsonPrimitive("territory").getAsString();
 			ColorEnum color = (ColorEnum) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR);

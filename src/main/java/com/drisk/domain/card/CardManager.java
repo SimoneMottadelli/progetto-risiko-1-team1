@@ -106,6 +106,8 @@ public class CardManager {
 	}
 	
 	public void giveTerritoryCard(Player player) {
+		if(territoryCards.isEmpty())
+			refillDeck();
 		player.addTerritoryCards((TerritoryCard) drawCard(territoryCards));
 	}
 	

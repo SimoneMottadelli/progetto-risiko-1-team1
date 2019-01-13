@@ -21,13 +21,13 @@ public class TankPlacementPhase extends Phase {
 	@Override
 	public void playPhase(JsonObject obj) throws RequestNotValidException {
 		fromJson(obj);
+		checkCondition();
 		placeTanks();
 	}
 	
-	private void placeTanks() throws RequestNotValidException{
-		if(player.getAvailableTanks() < howManyTanks)
-			throw new RequestNotValidException("You don't have " + howManyTanks + " tanks to place");
+	private void placeTanks() {
 		TankManager.getInstance().placeTanks(where, howManyTanks);
+		addMessage("Player " + player.getColor() + " has placed " + howManyTanks + " tanks in " + where.getName());
 	}
 
 	@Override
@@ -48,8 +48,8 @@ public class TankPlacementPhase extends Phase {
 
 	@Override
 	protected void checkCondition() throws RequestNotValidException {
-		// TODO Auto-generated method stub
-		
+		if(player.getAvailableTanks() < howManyTanks)
+			throw new RequestNotValidException("You don't have " + howManyTanks + " tanks to place");
 	}
 
 }

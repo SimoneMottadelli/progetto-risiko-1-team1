@@ -18,7 +18,7 @@ public class TurnManager {
 	
 	public void initTurn(List<Player> players) {
 		this.players = players;
-		currentPlayer = newTurn();
+		currentPlayer = nextPlayer();
 		currentPhase = new TankAssignmentPhase(currentPlayer);
 	}
 	
@@ -28,9 +28,8 @@ public class TurnManager {
 		return instance;
 	}
 	
-	public Player newTurn() {
-		currentPlayer = players.get((players.indexOf(currentPlayer) + 1) % players.size());
-		return currentPlayer;
+	public Player nextPlayer() {
+		return players.get((players.indexOf(currentPlayer) + 1) % players.size());
 	}
 
 	public Player getCurrentPlayer() {
@@ -64,8 +63,10 @@ public class TurnManager {
 			colorPlayer = currentPlayer.getColor().toString();
 		result.addProperty("currentPlayerColor", colorPlayer);
 		Integer phaseId = null;
-		if (currentPhase != null)
+		if (currentPhase != null) {
 			phaseId = currentPhase.getPhaseId();
+			result.add("history", currentPhase.getHistoryToJson());			
+		}
 		result.addProperty("currentPhaseId", phaseId);
 		return result;
 	}

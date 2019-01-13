@@ -64,9 +64,9 @@ public class AttackPhase extends Phase {
 		if (!territoryAttacker.getNeighbours().contains(territoryDefender))
 			throw new RequestNotValidException(
 					"You can't attack from " + territoryAttacker.getName() + " to " + territoryDefender.getName());
-		if(attackerTanks <= 0)
+		if (attackerTanks <= 0)
 			throw new RequestNotValidException("You must attack at least with one tanks");
-		if(territoryAttacker.getNumberOfTanks() <= 1)
+		if (territoryAttacker.getNumberOfTanks() <= 1)
 			throw new RequestNotValidException("You can't attack from this territory because there is only a tank");
 	}
 
@@ -81,14 +81,17 @@ public class AttackPhase extends Phase {
 		TankManager tm = TankManager.getInstance();
 		tm.removeTanks(territoryAttacker, tanksToRemove[0]);
 		tm.removeTanks(territoryDefender, tanksToRemove[1]);
-
+		addMessage("Player " + attacker.getColor() + " has attacked " + territoryDefender.getName() + " from "
+				+ territoryAttacker.getName());
+		addMessage("Player " + attacker.getColor() + " has lost " + tanksToRemove[0] + " tanks");
+		addMessage("Player " + territoryDefender.getOwner().getColor() + " has lost " + tanksToRemove[1] + " tanks");
 		if (territoryDefender.getNumberOfTanks() == 0) {
 			territoryDefender.setOwner(attacker);
 			tm.placeTanks(territoryDefender, 1);
 			tm.removeTanks(territoryAttacker, 1);
 			canDrawTerritoryCard = true;
+			addMessage("Player " + attacker.getColor() + " has conquered " + territoryDefender.getName());
 		}
-
 	}
 
 	private int[] rollDices(int attackerTanks, int defenderTanks) {

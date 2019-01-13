@@ -4,7 +4,7 @@ public enum PhaseEnum {
 	TANKASSIGNMENT(1),
 	TANKPLACEMENT(2),
 	ATTACK(3),
-	TANKSMOVIMENT(4);
+	TANKSMOVEMENT(4);
 	
 	private final int value;
 
