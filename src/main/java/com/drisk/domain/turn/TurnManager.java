@@ -1,6 +1,5 @@
 package com.drisk.domain.turn;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.drisk.domain.exceptions.RequestNotValidException;

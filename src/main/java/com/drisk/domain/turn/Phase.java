@@ -1,7 +1,6 @@
 package com.drisk.domain.turn;
 
 import com.drisk.domain.exceptions.RequestNotValidException;
-import com.drisk.domain.game.Player;
 import com.google.gson.JsonObject;
 
 public abstract class Phase {
