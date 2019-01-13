@@ -71,7 +71,6 @@ public class CardManager {
 			missionCards.addAll(createConqerContinentMission());
 			missionCards.addAll(createDestroyEnemyMission(players));
 		}
-		
 		missionCards.add(new ConquerTerritoryMissionCard((MapManager.getInstance().getNumberOfTerritories()*4)/7));
 	}
 

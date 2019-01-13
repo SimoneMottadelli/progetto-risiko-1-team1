@@ -89,7 +89,7 @@ public class GameController {
 		JsonObject obj = helper.parseJson(body);
 		int numOfTanks = obj.getAsJsonPrimitive("numOfTanks").getAsInt();
 		try {
-			String territoryName = obj.getAsJsonPrimitive("where").getAsString();
+			String territoryName = obj.getAsJsonPrimitive("territory").getAsString();
 			ColorEnum color = (ColorEnum) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR);
 			TankManager.getInstance().tryToPlaceTanks(GameManager.getInstance().findPlayerByColor(color), MapManager.getInstance().findTerritoryByName(territoryName), numOfTanks);
 		} catch (RequestNotValidException e) {

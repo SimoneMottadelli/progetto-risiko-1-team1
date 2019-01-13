@@ -67,11 +67,11 @@ public class TankManager {
 		if(!whereTerritory.getOwner().equals(player))
 			throw new RequestNotValidException(whereTerritory.getName() + " is not yours");
 		placeTanks(whereTerritory, numTanks);
+		whereTerritory.getOwner().removeAvailableTanks(numTanks);
 	}
 	
 	public void placeTanks(Territory whereTerritory, int numTanks) {
 		whereTerritory.addTanks(numTanks);
-		whereTerritory.getOwner().removeAvailableTanks(numTanks);
 	}
 	
 	public void moveTanks(Territory from, Territory to, int numOfTanks) {

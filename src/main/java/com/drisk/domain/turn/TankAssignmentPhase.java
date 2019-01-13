@@ -24,11 +24,12 @@ public class TankAssignmentPhase extends Phase {
 	private static Map<List<TerritoryCardSymbolEnum>, Integer> trisMap;
 	private TerritoryCard[] playerTris;
 	private Player player;
-
+	
 	public TankAssignmentPhase(Player player) {
 		super(PhaseEnum.TANKASSIGNMENT.getValue());
 		this.player = player;
 		initTris();
+		assignTanks();
 	}
 
 	@Override
@@ -37,7 +38,6 @@ public class TankAssignmentPhase extends Phase {
 		checkCondition();
 		if (playerTris != null)
 			useTris();
-		assignTanks();
 	}
 
 	@Override
@@ -169,7 +169,7 @@ public class TankAssignmentPhase extends Phase {
 		if (cards != null) {
 			int i = 0;
 			if (cards.size() != 3)
-				throw new RequestNotValidException("Tris is composed by three cards");
+				throw new RequestNotValidException("You must select exactly three cards to compose a tris");
 			for (JsonElement e : cards)
 				tris[i++] = CardManager.getInstance().findTerritoryCardByTerritoryName(e.getAsString().toLowerCase().replace("\"", ""));
 			playerTris = tris;

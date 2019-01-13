@@ -93,7 +93,7 @@ public class Map {
 		JsonArray neighbourhoodArray = new JsonArray();
 		for(Territory t : getTerritories()) {
 			JsonObject obj = new JsonObject();
-			obj.addProperty("mame", t.getName());
+			obj.addProperty("name", t.getName());
 			JsonArray neighboursArray = new JsonArray();
 			for(Territory neighbour : t.getNeighbours())
 				neighboursArray.add(neighbour.getName());
