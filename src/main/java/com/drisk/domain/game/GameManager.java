@@ -29,8 +29,8 @@ public class GameManager {
 
 	public void initGame(List<Player> players, ObjectiveTypeEnum objective) {
 		initPlayers(players);
-		initCards();
-		initPlayersMission(objective);
+		initCards(objective);
+		initPlayersMission();
 		initPlayersTerritories();
 		initTanks();
 	}
@@ -43,13 +43,12 @@ public class GameManager {
 		this.players = players;
 	}
 	
-	public void initCards() {
-		CardManager.getInstance().initCards();
+	public void initCards(ObjectiveTypeEnum objective) {
+		CardManager.getInstance().initCards(players, objective);
 	}
 	
-	private void initPlayersMission(ObjectiveTypeEnum objective) {
-		// questo true dovra essere sostituito dalle impostazioni di gioco che verranno ricevute dal matchManager
-		CardManager.getInstance().initPlayersMission(players, objective);
+	private void initPlayersMission() {
+		CardManager.getInstance().initPlayersMission(players);
 	}
 	
 	public void initPlayersTerritories() {
@@ -95,6 +94,7 @@ public class GameManager {
 
 	public void checkLoss(Player player) {
 		if(MapManager.getInstance().getMapTerritories(player).isEmpty()) {
+			
 			CardManager.getInstance().removeCards(player, player.getTerritoryCardsHand());
 			players.remove(player);
 		}
