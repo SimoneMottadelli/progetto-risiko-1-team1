@@ -20,9 +20,9 @@
 		"indonesia",
 		"great_britain",
 		"iceland",
-		"west_europe",
+		"western_europe",
 		"scandinavia",
-		"south_europe",
+		"southern_europe",
 		"ukraine",
 		"alaska",
 		"canada",
@@ -50,9 +50,9 @@
 			"territories": [
 				"great_britain",
 				"iceland",
-				"west_europe",
+				"western_europe",
 				"scandinavia",
-				"south_europe",
+				"southern_europe",
 				"ukraine"
 			]
 		},
@@ -126,7 +126,7 @@
 				"east_africa",
 				"north_west_africa",
 				"south_asia",
-				"south_europe"
+				"southern_europe"
 			]
 		},
 		{
@@ -135,8 +135,8 @@
 				"east_africa",
 				"egypt",
 				"south_africa",
-				"west_europe",
-				"south_europe",
+				"western_europe",
+				"southern_europe",
 				"brazil"
 			]
 		},
@@ -170,7 +170,7 @@
 				"egypt",
 				"east_africa"
 				"ukraine",
-				"south_europe",
+				"southern_europe",
 				"china",
 				"afghanistan",
 				"siam"
@@ -257,7 +257,7 @@
 			"name": "great_britain",
 			"territories": [
 				"iceland",
-				"west_europe",
+				"western_europe",
 				"scandinavia"
 			]
 		},
@@ -270,11 +270,11 @@
 			]
 		},
 		{
-			"name": "west_europe",
+			"name": "western_europe",
 			"territories": [
 				"scandinavia",
 				"great_britain",
-				"south_europe",
+				"southern_europe",
 				"ukraine",
 				"north_west_africa"
 			]
@@ -285,13 +285,13 @@
 				"iceland",
 				"great_britain",
 				"ukraine",
-				"west_europe"
+				"western_europe"
 			]
 		},
 		{
-			"name": "south_europe",
+			"name": "southern_europe",
 			"territories": [
-				"west_europe",
+				"western_europe",
 				"north_west_africa",
 				"egypt",
 				"south_asia",
@@ -305,8 +305,8 @@
 				"ural",
 				"afghanistan",
 				"south_asia",
-				"south_europe",
-				"west_europe"
+				"southern_europe",
+				"western_europe"
 			]
 		},
 		{

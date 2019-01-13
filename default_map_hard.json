@@ -5,9 +5,9 @@
 		"scandinavia",
 		"great_britain",
 		"ukraine",
-		"north_europe",
-		"south_europe",
-		"west_europe",
+		"northern_europe",
+		"southern_europe",
+		"western_europe",
 		"north_africa",
 		"egypt",
 		"east_africa",
@@ -60,9 +60,9 @@
 				"scandinavia",
 				"great_britain",
 				"ukraine",
-				"north_europe",
-				"south_europe",
-				"west_europe"
+				"northern_europe",
+				"southern_europe",
+				"western_europe"
 			]
 		},
 		{
@@ -172,16 +172,16 @@
 				"east_africa",
 				"middle_east",
 				"north_africa",
-				"south_europe"
+				"southern_europe"
 			]
 		},
 		{
 			"name": "great_britain",
 			"territories": [
 				"iceland",
-				"north_europe",
+				"northern_europe",
 				"scandinavia",
-				"south_europe"
+				"southern_europe"
 			]
 		},
 		{
@@ -231,7 +231,7 @@
 				"east_africa",
 				"egypt",
 				"india",
-				"south_europe",
+				"southern_europe",
 				"ukraine"
 			]
 		},
@@ -251,18 +251,18 @@
 				"congo",
 				"east_africa",
 				"egypt",
-				"west_europe",
-				"south_europe",
+				"western_europe",
+				"southern_europe",
 				"brazil"
 			]
 		},
 		{
-			"name": "north_europe",
+			"name": "northern_europe",
 			"territories": [
 				"great_britain",
-				"south_europe",
+				"southern_europe",
 				"ukraine",
-				"west_europe",
+				"western_europe",
 				"scandinavia"
 			]
 		},
@@ -270,7 +270,7 @@
 			"name": "scandinavia",
 			"territories": [
 				"great_britain",
-				"north_europe",
+				"northern_europe",
 				"iceland",
 				"ukraine"
 			]
@@ -302,13 +302,13 @@
 			]
 		},
 		{
-			"name": "south_europe",
+			"name": "southern_europe",
 			"territories": [
 				"egypt",
 				"middle_east",
-				"north_europe",
+				"northern_europe",
 				"ukraine",
-				"west_europe",
+				"western_europe",
 				"north_africa"
 			]
 		},
@@ -317,9 +317,9 @@
 			"territories": [
 				"afghanistan",
 				"middle_east",
-				"north_europe",
+				"northern_europe",
 				"scandinavia",
-				"south_europe",
+				"southern_europe",
 				"ural"
 			]
 		},
@@ -333,12 +333,12 @@
 			]
 		},
 		{
-			"name": "west_europe",
+			"name": "western_europe",
 			"territories": [
 				"great_britain",
 				"north_africa",
-				"north_europe",
-				"south_europe"
+				"northern_europe",
+				"southern_europe"
 			]
 		},
 		{

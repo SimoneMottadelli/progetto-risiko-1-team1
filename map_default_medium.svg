@@ -160,7 +160,7 @@
            d="M425 156c-2,-1 -5,-2 -8,-2 0,-2 0,-3 -1,-5 3,0 3,0 3,-1 -1,0 -3,0 -4,0 0,-1 0,-2 0,-3 1,0 3,0 4,0 0,0 0,-1 0,-1 -1,0 -3,0 -4,0 0,-1 1,-2 1,-3 4,-2 4,-2 8,-1 0,0 0,1 0,2 7,0 15,-1 23,-1 1,1 2,1 3,2 -1,1 -1,1 -2,2 1,0 2,0 3,0 -2,12 -17,10 -26,11z" />
         <path
            class="country"
-           id="west_europe"
+           id="western_europe"
            d="M 477 182 C 475 186 474 187 470 189 C 469 193 468 197 468 201 C 473 205 470 207 467 211 C 466 211 466 210 466 210 C 464 211 464 211 462 219 C 459 220 457 223 455 226 L 455 227 C 455 229 455 229 452 229 C 451 233 451 233 450 234 L 442 234 L 442 236 C 443 237 444 237 444 237 C 443 238 443 238 437 240 L 437 238 L 434 238 C 433 241 433 241 430 242 C 434 245 434 245 438 246 C 439 252 444 262 439 268 C 428 268 416 263 413 275 C 414 275 414 276 414 276 C 413 288 412 296 415 307 L 424 307 C 425 309 427 310 428 312 L 429 312 C 433 307 437 306 443 305 C 445 302 448 300 449 297 C 449 284 450 283 456 272 C 460 271 464 271 468 271 C 468 270 468 269 469 268 C 461 264 464 247 470 242 C 477 245 479 245 487 243 C 487 241 488 240 488 238 C 502 239 499 238 500 253 C 507 254 509 255 515 251 C 517 240 517 240 519 235 C 519 233 520 232 520 230 L 523 230 C 523 221 522 215 520 207 L 511 201 C 510 201 508 202 507 202 L 507 205 C 506 204 506 204 505 204 C 505 203 506 202 506 201 C 501 202 496 202 492 206 C 492 205 491 204 490 203 C 490 204 489 205 489 206 C 484 205 480 204 475 201 C 480 197 478 188 477 182 z " />
         <path
            class="country"
@@ -168,7 +168,7 @@
            d="M541 95c-9,16 1,39 1,57 -3,4 -6,8 -7,13 0,0 -1,0 -2,0 -8,1 -10,2 -19,2 -5,-7 -3,-12 -3,-20 1,0 2,0 3,0 4,-8 7,-11 7,-20 -2,1 -4,1 -6,2 -4,9 -8,15 -14,23 0,7 3,15 2,21 -1,0 -1,0 -2,0 -1,1 -1,3 -1,4 -1,1 -2,1 -3,1 -1,10 -1,17 -11,18 -2,-8 -7,-13 -6,-22 -1,0 -1,0 -2,0 -1,-1 -1,-1 -1,-2 -1,2 -3,4 -4,7 -5,0 -7,-1 -12,-3 -2,-11 -3,-12 -4,-21 1,-1 2,-1 2,-1 0,-2 0,-2 0,-3 0,-1 1,-1 2,-1 0,-1 -1,-1 -1,-1 3,-4 6,-3 8,-8 0,0 1,0 2,0 1,-1 2,-3 2,-5 5,1 5,-3 6,-7 1,0 2,-1 4,-2 -1,0 -1,-1 -1,-1 3,-4 3,-4 6,-15 1,0 1,1 2,1 0,-1 0,-2 0,-2 1,0 2,0 3,0 0,-4 0,-7 0,-11 3,-1 5,1 7,0 0,-1 -1,-3 -1,-4 4,-1 4,1 8,1 1,-4 1,-5 5,-5 0,-1 -1,-2 -1,-4 3,-3 8,-2 11,-2 0,2 0,2 2,2 0,-2 0,-3 0,-5 1,-1 3,-1 5,-1 -1,5 -1,5 0,6 1,-2 2,-3 3,-5 4,1 7,3 11,4 0,1 0,2 0,3 0,1 -1,2 -2,3 0,1 0,2 1,3z M557 48c1,0 2,0 3,1 0,1 0,2 0,2 -1,0 -2,0 -3,0 -1,5 -1,5 -5,5 -2,2 -4,5 -6,7 -2,-1 -3,-1 -4,-2 0,0 1,-1 1,-1 -1,-1 -2,-1 -3,-2 0,-3 0,-3 1,-4 -2,-1 -3,1 -6,0 0,-4 -2,-4 -3,-8 5,1 10,1 15,-1 1,1 1,3 2,4 1,-2 2,-5 4,-7 0,2 1,4 2,6 0,0 1,0 2,0z M560 61c-1,-1 -2,-2 -3,-3 1,-1 1,-2 1,-4 3,0 5,0 7,-1 -1,1 -1,1 -1,2 0,0 1,1 2,1 -2,3 -2,3 -6,5z M557 48c0,-3 0,-5 0,-7 2,0 4,0 6,0 0,1 0,2 1,3 2,0 4,0 6,0 0,1 -1,3 -1,5 -3,0 -5,0 -8,0 0,0 1,0 1,-1 -1,0 -3,0 -5,0z" />
         <path
            class="country"
-           id="south_europe"
+           id="southern_europe"
            d="M521 316c-1,-2 -1,-2 -4,-3 0,-1 0,-2 0,-3 10,1 10,1 15,3 0,1 0,2 1,3 -4,0 -8,0 -12,0z M474 288c-1,-3 -1,-6 -2,-10 1,0 2,0 3,0 0,3 0,6 1,9 -1,0 -2,1 -2,1z M527 289c-1,0 -2,0 -3,0 0,0 1,1 1,1 -1,0 -2,0 -2,1 0,-3 0,-3 -2,-3 1,7 4,16 -2,21 0,0 -1,-1 -1,-1 0,0 -1,1 -1,1 -3,-6 -3,-6 -5,-18 -1,0 -1,0 -2,0 -2,-6 -5,-11 -7,-15 -6,-2 -12,-13 -16,-19 -4,6 7,20 12,22 3,4 6,9 8,13 -2,-1 -3,-2 -5,-4 -3,4 -2,6 0,9 -1,0 -2,0 -3,0 -2,3 -4,6 -6,8 -1,1 -2,1 -2,1 -2,-2 -3,-3 -4,-4 1,-1 1,-1 6,-1 1,-3 2,-5 3,-7 -3,-6 -9,-14 -13,-17 0,0 0,0 0,-1 -1,-1 -2,-1 -3,-1 -1,-3 -2,-5 -2,-8 -2,0 -5,0 -7,0 0,1 -1,2 -1,2 -8,-4 -5,-21 1,-26 7,3 9,3 16,1 0,-2 1,-3 1,-5 14,1 11,0 12,15 7,1 9,2 15,-2 2,-11 2,-11 4,-16 4,-2 4,-2 8,-2 0,1 0,2 1,3 1,1 2,1 3,1 2,10 2,17 10,22 -3,4 -4,9 -6,14 -8,15 0,0 -8,15z" />
         <path
            class="country"
@@ -186,9 +186,10 @@
            d="M109 174c1,1 2,2 3,3 0,2 0,4 0,7 -1,-3 -3,-5 -5,-8 1,0 1,-1 2,-2z M105 164c0,-1 0,-2 0,-3 3,0 3,0 3,-1 -3,-1 -6,-3 -8,-4 -1,1 -1,2 -1,2 -2,0 -4,-1 -6,-2 0,-1 0,-2 0,-3 0,-1 -1,-1 -2,-1 0,1 -1,1 -1,2 -1,0 -2,-1 -3,-1 1,-1 1,-1 2,-2 -1,0 -2,-1 -2,-1 0,0 -1,1 -1,2 -3,-1 -3,-2 -5,-5 -3,0 -3,0 -6,-2 -1,0 -1,0 -2,1 1,1 2,3 3,5 -8,2 -13,4 -17,5 0,-1 0,-3 0,-4 3,-2 5,-4 8,-6 -6,1 -10,7 -15,6 0,2 0,4 0,5 -2,2 -5,4 -7,5 0,1 0,2 0,3 -6,3 -24,13 -29,9 5,-4 10,-6 16,-8 0,0 0,-1 0,-2 4,-1 4,-3 5,-7 -2,1 -5,1 -7,1 0,-2 0,-2 -2,-2 0,1 0,2 0,2 -1,1 -3,1 -5,1 0,-3 0,-3 2,-7 -1,0 -2,0 -3,0 -1,-5 -3,-4 -6,-3 -1,-2 -1,-4 -2,-6 2,-1 3,-2 4,-2 -1,-1 -2,-1 -2,-1 0,-2 0,-4 1,-5 5,-3 9,-1 15,0 2,-3 5,-6 4,-9 -7,4 -8,3 -14,-2 1,-1 2,-3 3,-5 1,0 1,1 1,1 0,-2 0,-3 0,-5 3,0 6,0 9,0 -2,-4 -5,-8 -4,-12 1,-1 2,-1 4,-1 0,-1 0,-2 0,-3 9,-2 19,-9 29,-8 0,1 -1,2 -1,3 13,0 26,5 40,6 0,17 0,33 0,49 2,0 5,0 7,0 8,10 12,20 12,32 -4,-2 -11,-12 -13,-17 -1,0 -3,0 -4,0z M44 172c0,-3 2,-8 6,-7 1,1 1,2 1,3 -2,1 -5,2 -7,4z" />
         <path
            class="country"
-           id="canada"
-           d="M 309 17 C 299 18 289 19 279 19 C 278 20 278 21 277 22 C 274 22 272 21 269 21 C 269 23 268 26 268 28 C 266 28 264 29 263 30 C 263 31 264 31 265 32 C 278 32 292 26 305 31 C 292 32 278 30 267 37 L 267 40 C 270 40 274 41 277 41 C 276 42 276 42 276 43 C 268 44 268 44 267 46 C 270 46 273 47 277 48 L 277 51 L 274 51 C 274 50 273 49 273 48 L 270 48 C 269 49 269 50 268 51 L 259 51 C 259 52 259 53 260 54 C 263 56 264 56 268 55 C 268 56 268 57 269 58 L 273 58 C 273 59 274 60 274 61 C 276 61 278 62 281 62 C 281 61 281 61 282 60 C 282 60 283 60 284 61 L 284 63 C 286 64 288 64 290 65 C 292 64 294 64 296 63 C 294 59 293 58 293 53 C 297 56 298 57 303 57 L 303 54 C 306 51 306 51 313 49 C 312 48 312 47 312 46 C 314 44 332 39 333 38 C 333 37 332 37 332 36 C 334 35 336 36 340 36 L 340 33 C 346 30 349 30 350 29 C 355 21 341 23 337 22 C 336 21 336 19 336 17 C 327 19 327 19 309 20 L 309 17 z M 235 44 C 232 52 237 51 241 57 C 243 53 243 52 242 48 C 240 47 240 47 235 44 z M 246 46 C 247 51 247 57 252 58 L 252 66 L 257 66 C 260 71 263 72 268 74 C 274 74 281 73 287 73 C 288 71 288 68 288 66 C 280 66 272 65 264 65 C 262 62 260 59 259 55 L 256 55 C 254 51 253 51 249 49 L 249 46 L 246 46 z M 224 52 L 224 57 C 226 56 227 56 228 56 L 228 52 L 224 52 z M 196.46875 61.96875 C 190.1875 62.0625 182.5 63 181 69 L 185 69 C 185 69 185 70 186 71 C 188 70 191 69 194 68 C 194 68 194 69 195 69 C 194 70 192 71 191 71 L 191 74 C 193 74 194 74 196 75 C 196 75 195 75 195 76 C 196 77 197 77 199 78 C 210 75 215 75 226 74 C 226 73 226 71 227 70 L 223 70 C 223 69 223 69 226 69 L 226 65 C 220 65 216 63 212 66 C 212 67 212 68 213 69 C 211 69 209 69 207 70 C 207 69 206 68 205 67 L 197 67 C 199 65 199 65 202 65 L 202 62 C 200.5 62 198.5625 61.9375 196.46875 61.96875 z M 246 62 C 244 63 241 64 238 65 L 238 67 C 237 66 236 65 236 63 L 232 63 C 232 66 231 70 231 73 C 234 73 237 73 240 75 C 243 71 243 71 248 68 C 248 66 247 64 246 62 z M 174 71 L 174 74 C 170 76 170 76 164 77 L 164 81 C 162 81 161 81 159 82 C 159 84 160 86 160 88 C 164 86 164 86 173 86 C 173 85 174 84 174 83 C 178 81 182 80 186 78 C 186 77 187 76 187 75 C 185 75 183 75 180 76 C 180 74 180 73 179 71 L 174 71 z M 252 71 L 252 79 L 256 79 C 256 77 256 75 255 72 C 254 72 253 72 252 71 z M 222 78 C 221 82 219 86 218 90 C 215 89 215 88 213 85 C 211 86 211 86 210 88 C 208 88 205 87 202 86 C 203 86 203 86 204 85 C 200 83 198 84 195 80 C 188 80 187 81 181 82 C 181 83 181 84 182 85 C 183 85 185 86 187 86 C 179 88 179 88 178 89 C 179 90 181 90 182 90 C 180 91 178 92 176 92 C 176 95 177 98 178 100 C 182 101 187 101 191 102 C 192 104 194 107 195 110 C 203 108 211 107 219 105 C 223 107 224 107 228 107 C 228 106 227 105 227 104 C 228 103 229 103 231 102 C 230 102 230 101 229 101 C 230 101 231 101 232 100 L 232 98 C 229 97 227 96 224 95 C 225 88 225 84 222 78 z M 272 78 C 255 80 249 89 246 106 L 249 106 L 249 108 L 243 108 L 243 104 C 240 104 238 104 235 105 C 236 107 236 107 237 111 C 235 111 233 112 231 112 C 222 110 218 109 209 110 C 209 111 212 111 212 112 L 208 112 L 208 115 L 205 115 L 205 112 C 199 113 196 114 190 114 L 190 111 L 192 111 L 192 108 C 183 106 174 100 165 104 L 165 102 L 168 102 L 168 99 C 162 100 160 101 158 101 C 158 100 159 99 159 98 C 155 98 154 98 151 101 L 145 101 L 146 102 C 141 102 133 102 128 105 C 126 104 126 104 119 102 C 120 102 121 101 122 101 C 121 101 121 100 121 100 C 115 100 115 100 111 101 C 111 102 111 103 110 104 C 108 103 105 102 103 100 L 103 149 L 110 149 C 118 159 122 169 122 181 L 122 184 C 122 183 122 183 121 182 L 121 187 L 125 187 L 133 195 C 133 197 132 199 132 201 C 134 202 135 204 136 205 C 160 206 185 206 209 207 C 210 190 212 172 213 155 C 218 155 223 155 228 156 L 238 156 C 240 152 242 149 243 145 C 250 141 258 138 263 133 C 261 131 259 129 258 127 C 261 127 262 129 265 131 C 268 130 268 129 270 126 C 284 127 288 119 288 107 C 289 106 291 106 292 106 C 292 106 293 107 293 108 C 296 107 298 106 301 106 C 301 103 301 103 302 103 C 303 106 303 108 304 111 L 306 111 L 306 114 C 305 114 304 114 303 115 C 303 115 303 117 302 118 C 305 117 307 117 309 117 C 309 119 310 120 310 122 C 311 121 313 121 314 121 C 314 122 315 123 315 124 C 310 125 306 127 297 130 C 297 131 296 132 296 133 C 301 134 306 134 311 134 C 313 142 319 143 327 144 C 325 140 325 140 325 138 C 328 141 329 141 333 141 C 333 138 333 135 334 132 L 331 129 C 331 123 331 123 332 122 C 334 127 334 127 336 129 C 337 129 338 129 340 128 C 341 127 342 125 343 123 L 341 123 C 340 120 339 117 338 115 L 333 115 L 333 112 L 329 112 L 329 110 L 333 110 C 333 109 334 108 334 107 C 332 106 329 104 327 103 C 327 102 328 101 328 100 L 324 100 C 324 99 325 99 325 98 C 324 97 324 97 316 96 C 317 95 317 94 317 93 C 316 92 316 92 307 87 C 306 88 306 88 306 94 L 300 94 C 301 90 302 87 304 83 L 292 83 C 292 85 291 87 291 89 C 288 91 287 93 285 96 C 285 95 284 93 284 91 C 285 89 287 87 288 85 C 282 85 279 87 274 89 C 273 97 272 98 276 104 L 277 103 C 278 104 278 105 278 106 L 286 106 L 286 107 L 278 107 C 278 108 277 110 277 111 C 276 111 275 112 274 112 L 274 115 L 270 115 C 270 113 270 111 269 109 C 268 108 267 108 265 107 C 265 108 264 110 263 111 C 260 102 258 98 260 88 C 267 88 268 84 272 78 z M 241 81 C 241 81 240 82 240 83 L 239 82 C 238 83 237 84 236 86 C 236 85 236 84 235 83 C 234 84 233 85 233 86 C 233 89 234 92 235 95 C 238 94 241 93 245 92 L 245 90 C 248 89 248 89 251 84 C 249 84 246 85 243 86 C 244 84 244 82 245 81 L 241 81 z M 301 116 C 295 118 295 118 296 124 C 298 123 299 122 301 122 L 301 116 z M 270 130 C 267 135 265 140 264 145 C 270 144 272 141 278 140 L 278 144 L 281 144 C 282 141 282 141 283 139 C 280 137 279 137 278 133 L 275 133 L 275 131 C 274 131 272 131 270 130 z " />
-        <path
+		   id="canada"
+           d="M 127.19922 78.400391 C 123.99922 78.400391 123.20078 78.400781 120.80078 80.800781 L 116 80.800781 L 116.80078 81.599609 C 112.80078 81.599609 106.40039 81.6 102.40039 84 C 100.80039 83.2 100.79922 83.199609 95.199219 81.599609 C 95.999219 81.599609 96.799609 80.800781 97.599609 80.800781 C 96.799609 80.800781 96.800781 80 96.800781 80 C 92.000781 80 92.000781 80.000781 88.800781 80.800781 C 88.800781 81.600781 88.8 82.399219 88 83.199219 C 86.4 82.399219 84.000391 81.6 82.400391 80 L 82.400391 119.19922 L 88 119.19922 C 94.4 127.19922 97.599609 135.20078 97.599609 144.80078 L 97.599609 147.19922 C 97.599609 146.39922 97.600781 146.39961 96.800781 145.59961 L 96.800781 149.59961 L 100 149.59961 L 106.40039 156 C 106.40039 157.6 105.59961 159.20078 105.59961 160.80078 C 107.19961 161.60078 108.00078 163.2 108.80078 164 C 128.00078 164.8 147.99922 164.79961 167.19922 165.59961 C 167.99922 151.99961 169.60039 137.6 170.40039 124 C 174.40039 124 178.40039 124.00078 182.40039 124.80078 C 183.20039 112.80078 184.00078 101.59961 184.80078 89.599609 C 177.60078 87.999609 174.39922 87.2 167.19922 88 C 167.19922 88.8 169.59961 88.799609 169.59961 89.599609 L 166.40039 89.599609 L 166.40039 92 L 164 92 L 164 89.599609 C 159.2 90.399609 156.8 91.199219 152 91.199219 L 152 88.800781 L 153.59961 88.800781 L 153.59961 86.400391 C 146.39961 84.800391 139.2 79.999219 132 83.199219 L 132 81.599609 L 134.40039 81.599609 L 134.40039 79.199219 C 129.60039 79.999219 128.00039 80.800781 126.40039 80.800781 C 126.40039 80.000781 127.19922 79.200391 127.19922 78.400391 z "
+           transform="scale(1.25)" />
+		<path
            class="country"
            id="central_america"
            d="M212 363c-3,-4 -6,-9 -9,-14 0,-7 0,-7 -2,-16 -10,-6 -18,-11 -28,-16 0,-1 0,-2 0,-3 1,0 3,0 4,0 0,-1 -1,-3 -1,-4 -9,-7 -11,-18 -16,-27 -1,0 -1,1 -2,1 4,11 8,20 11,32 -6,-2 -9,-10 -10,-16 -4,-1 -5,-2 -7,-6 0,-1 1,-1 1,-2 -2,-6 -3,-10 -8,-13 -1,-1 -1,-3 -1,-4 4,0 9,0 14,0 8,9 18,0 27,10 2,0 4,1 6,2 2,2 4,4 6,6 -2,8 -2,22 5,26 4,0 8,0 12,0 4,-4 11,-4 14,2 -2,5 -9,8 -13,11 2,1 4,2 6,3 0,2 0,4 0,6 -6,4 -8,5 -11,11 0,1 1,2 1,2 6,1 8,0 13,4 -5,3 -8,3 -12,5z" />
@@ -199,8 +200,8 @@
         <path
            class="country"
            id="greenland"
-           d="M373 174c-4,-2 -6,-3 -8,-8 -2,0 -4,0 -7,-1 0,-1 0,-2 -1,-3 -1,0 -2,0 -2,-1 -1,-1 -1,-3 -1,-5 -2,-1 -3,-1 -4,-2 0,-1 1,-1 2,-2 -1,-4 -2,-7 -3,-11 0,0 -1,-1 -2,-1 0,-2 0,-4 0,-5 1,-1 2,-1 3,-1 -4,-3 -2,-5 0,-9 1,1 1,1 2,2 0,-2 1,-5 2,-7 2,0 2,0 2,-1 -2,0 -4,0 -6,0 0,1 1,2 1,4 -1,0 -3,0 -4,0 0,-1 0,-3 0,-4 0,-1 1,-1 1,-2 -1,0 -1,0 -2,-1 1,-4 1,-4 2,-6 6,3 6,3 8,3 -1,-2 -2,-4 -3,-6 -2,1 -3,1 -5,1 0,-10 -2,-22 -12,-25 0,-1 0,-2 0,-4 -1,0 -3,1 -4,1 -2,-2 -2,-2 -3,-5 -7,1 -9,5 -17,3 -1,-3 -1,-3 -2,-3 0,1 0,2 0,3 -5,-1 -5,-1 -8,-2 -1,-4 -1,-7 -2,-10 3,-1 3,-1 10,1 0,-1 0,-2 0,-3 -2,0 -5,0 -8,-1 2,-7 10,-3 16,-7 -2,-1 -3,-2 -4,-3 6,-3 10,-5 17,-7 0,-1 0,-2 0,-2 2,0 4,0 6,0 1,-4 1,-4 4,-5 1,0 2,1 3,2 0,-2 1,-4 2,-5 3,0 5,4 6,4 0,-1 0,-2 0,-3 2,0 3,1 4,1 1,-1 1,-2 1,-2 2,-1 4,-1 6,-1 0,1 1,2 1,3 2,-1 2,-1 10,-3 0,0 -1,-1 -1,-1 1,-2 1,-2 13,-2 -1,-3 -1,-6 -1,-9 3,0 6,0 10,-1 0,1 0,2 0,3 0,0 1,0 2,0 3,-9 19,-7 26,-7 0,1 0,2 0,3 13,3 22,7 36,8 0,1 0,2 0,3 -2,0 -4,1 -6,2 5,-1 10,-3 13,0 -4,4 -6,4 -13,4 0,1 0,2 0,3 4,0 9,-1 12,2 0,-1 1,-1 1,-2 7,-1 14,-1 21,-2 1,1 1,2 2,3 -1,1 -1,1 -10,3 1,0 1,2 1,3 -1,0 -2,0 -4,0 -2,4 -3,9 -7,10 -1,3 -1,6 -1,9 1,0 2,0 3,0 0,2 0,3 0,4 0,1 -1,1 -2,1 0,2 0,4 0,6 -1,0 -2,1 -3,1 0,1 0,2 0,3 2,0 4,0 6,1 0,1 0,3 0,4 -8,1 -7,5 -8,11 -2,0 -2,-3 -3,-3 0,1 0,2 0,3 -3,-1 -6,-4 -9,-1 2,1 4,2 7,3 0,3 1,6 2,9 -2,2 -3,4 -4,6 -2,-1 -2,-1 -5,-1 -3,-4 -4,-8 -5,-8 0,1 0,3 0,5 -2,1 -3,1 -5,2 3,1 6,1 9,2 -1,1 -2,3 -2,4 -10,3 -18,8 -28,10 0,0 0,-1 0,-2 -5,4 -7,6 -12,6 0,1 0,2 0,3 -7,2 -14,2 -20,4 0,7 -4,10 -8,16 -2,8 -4,12 -8,18z" />
-        <path
+           d="m 309,17 c -10,1 -20,2 -30,2 -1,1 -1,2 -2,3 -3,0 -5,-1 -8,-1 0,2 -1,5 -1,7 -2,0 -4,1 -5,2 0,1 1,1 2,2 13,0 27,-6 40,-1 -13,1 -27,-1 -38,6 v 3 c 3,0 7,1 10,1 -1,1 -1,1 -1,2 -8,1 -8,1 -9,3 3,0 6,1 10,2 v 3 h -3 c 0,-1 -1,-2 -1,-3 h -3 c -1,1 -1,2 -2,3 h -9 c 0,1 0,2 1,3 3,2 4,2 8,1 0,1 0,2 1,3 h 4 c 0,1 1,2 1,3 2,0 4,1 7,1 0,-1 0,-1 1,-2 0,0 1,0 2,1 v 2 c 2,1 4,1 6,2 2,-1 4,-1 6,-2 -2,-4 -3,-5 -3,-10 4,3 5,4 10,4 v -3 c 3,-3 3,-3 10,-5 -1,-1 -1,-2 -1,-3 2,-2 20,-7 21,-8 0,-1 -1,-1 -1,-2 2,-1 4,0 8,0 v -3 c 6,-3 9,-3 10,-4 5,-8 -9,-6 -13,-7 -1,-1 -1,-3 -1,-5 -9,2 -9,2 -27,3 z m 105.47266,0.810547 C 407.27002,17.823975 399.0625,18.8125 397,25 h -2 v -3 c -4,1 -7,1 -10,1 0,3 0,6 1,9 -12,0 -12,0 -13,2 l 1,1 c -8,2 -8,2 -10,3 0,-1 -1,-2 -1,-3 -2,0 -4,0 -6,1 0,0 0,1 -1,2 -1,0 -2,-1 -4,-1 v 3 c -1,0 -3,-4 -6,-4 -1,1 -2,3 -2,5 -1,-1 -2,-2 -3,-2 -3,1 -3,1 -4,5 h -6 v 2 c -7,2 -11,4 -17,7 1,1 2,2 4,3 -6,4 -14,0 -16,7 3,1 6,1 8,1 v 3 c -7,-2 -7,-2 -10,-1 1,3 1,6 2,10 3,1 3,1 8,2 v -3 c 1,0 1,0 2,3 8,2 10,-2 17,-3 1,3 1,3 3,5 1,0 3,-1 4,-1 v 4 c 10,3 12,15 12,25 2,0 3,0 5,-1 l 3,6 c -2,0 -2,0 -8,-3 -1,2 -1,2 -2,6 1,1 1,1 2,1 0,1 -1,1 -1,2 v 4 h 4 c 0,-2 -1,-3 -1,-4 h 6 c 0,1 0,1 -2,1 -1,2 -2,5 -2,7 l -2,-2 c -2,4 -4,6 0,9 -1,0 -2,0 -3,1 v 5 c 1,0 2,1 2,1 1,4 2,7 3,11 -1,1 -2,1 -2,2 1,1 2,1 4,2 0,2 0,4 1,5 0,1 1,1 2,1 1,1 1,2 1,3 3,1 5,1 7,1 2,5 4,6 8,8 4,-6 6,-10 8,-18 4,-6 8,-9 8,-16 6,-2 13,-2 20,-4 v -3 c 5,0 7,-2 12,-6 v 2 c 10,-2 18,-7 28,-10 0,-1 1,-3 2,-4 -3,-1 -6,-1 -9,-2 2,-1 3,-1 5,-2 v -5 c 1,0 2,4 5,8 3,0 3,0 5,1 1,-2 2,-4 4,-6 -1,-3 -2,-6 -2,-9 -3,-1 -5,-2 -7,-3 3,-3 6,0 9,1 v -3 c 1,0 1,3 3,3 1,-6 0,-10 8,-11 v -4 c -2,-1 -4,-1 -6,-1 v -3 c 1,0 2,-1 3,-1 v -6 c 1,0 2,0 2,-1 v -4 h -3 c 0,-3 0,-6 1,-9 4,-1 5,-6 7,-10 h 4 c 0,-1 0,-3 -1,-3 9,-2 9,-2 10,-3 -1,-1 -1,-2 -2,-3 -7,1 -14,1 -21,2 0,1 -1,1 -1,2 -3,-3 -8,-2 -12,-2 v -3 c 7,0 9,0 13,-4 -3,-3 -8,-1 -13,0 2,-1 4,-2 6,-2 v -3 c -14,-1 -23,-5 -36,-8 v -3 c -2.1875,0 -5.25342,-0.195557 -8.52734,-0.189453 z M 235,44 c -3,8 2,7 6,13 2,-4 2,-5 1,-9 -2,-1 -2,-1 -7,-4 z m 11,2 c 1,5 1,11 6,12 v 8 h 5 c 3,5 6,6 11,8 6,0 13,-1 19,-1 1,-2 1,-5 1,-7 -8,0 -16,-1 -24,-1 -2,-3 -4,-6 -5,-10 h -3 c -2,-4 -3,-4 -7,-6 v -3 z m -22,6 v 5 c 2,-1 3,-1 4,-1 v -4 z m -27.53125,9.96875 C 190.1875,62.0625 182.5,63 181,69 h 4 c 0,0 0,1 1,2 2,-1 5,-2 8,-3 0,0 0,1 1,1 -1,1 -3,2 -4,2 v 3 c 2,0 3,0 5,1 0,0 -1,0 -1,1 1,1 2,1 4,2 11,-3 16,-3 27,-4 0,-1 0,-3 1,-4 h -4 c 0,-1 0,-1 3,-1 v -4 c -6,0 -10,-2 -14,1 0,1 0,2 1,3 -2,0 -4,0 -6,1 0,-1 -1,-2 -2,-3 h -8 c 2,-2 2,-2 5,-2 v -3 c -1.5,0 -3.4375,-0.0625 -5.53125,-0.03125 z M 246,62 c -2,1 -5,2 -8,3 v 2 c -1,-1 -2,-2 -2,-4 h -4 c 0,3 -1,7 -1,10 3,0 6,0 9,2 3,-4 3,-4 8,-7 0,-2 -1,-4 -2,-6 z m -72,9 v 3 c -4,2 -4,2 -10,3 v 4 c -2,0 -3,0 -5,1 0,2 1,4 1,6 4,-2 4,-2 13,-2 0,-1 1,-2 1,-3 4,-2 8,-3 12,-5 0,-1 1,-2 1,-3 -2,0 -4,0 -7,1 0,-2 0,-3 -1,-5 z m 78,0 v 8 h 4 c 0,-2 0,-4 -1,-7 -1,0 -2,0 -3,-1 z m -30,7 c -1,4 -3,8 -4,12 -3,-1 -3,-2 -5,-5 -2,1 -2,1 -3,3 -2,0 -5,-1 -8,-2 1,0 1,0 2,-1 -4,-2 -6,-1 -9,-5 -7,0 -8,1 -14,2 0,1 0,2 1,3 1,0 3,1 5,1 -8,2 -8,2 -9,3 1,1 3,1 4,1 -2,1 -4,2 -6,2 0,3 1,6 2,8 4,1 9,1 13,2 1,2 3,5 4,8 8,-2 16,-3 24,-5 4,2 5,2 9,2 0,-1 -1,-2 -1,-3 1,-1 2,-1 4,-2 -1,0 -1,-1 -2,-1 1,0 2,0 3,-1 v -2 c -3,-1 -5,-2 -8,-3 1,-7 1,-11 -2,-17 z m 50,0 c -17,2 -23,11 -26,28 h 3 v 2 h -6 v -4 c -3,0 -5,0 -8,1 1,2 1,2 2,6 -2,0 -4,1 -6,1 -1,15 -2,29 -3,44 h 10 c 2,-4 4,-7 5,-11 7,-4 15,-7 20,-12 -2,-2 -4,-4 -5,-6 3,0 4,2 7,4 3,-1 3,-2 5,-5 14,1 18,-7 18,-19 1,-1 3,-1 4,-1 0,0 1,1 1,2 3,-1 5,-2 8,-2 0,-3 0,-3 1,-3 1,3 1,5 2,8 h 2 v 3 c -1,0 -2,0 -3,1 0,0 0,2 -1,3 3,-1 5,-1 7,-1 0,2 1,3 1,5 1,-1 3,-1 4,-1 0,1 1,2 1,3 -5,1 -9,3 -18,6 0,1 -1,2 -1,3 5,1 10,1 15,1 2,8 8,9 16,10 -2,-4 -2,-4 -2,-6 3,3 4,3 8,3 0,-3 0,-6 1,-9 l -3,-3 c 0,-6 0,-6 1,-7 2,5 2,5 4,7 1,0 2,0 4,-1 1,-1 2,-3 3,-5 h -2 c -1,-3 -2,-6 -3,-8 h -5 v -3 h -4 v -2 h 4 c 0,-1 1,-2 1,-3 -2,-1 -5,-3 -7,-4 0,-1 1,-2 1,-3 h -4 c 0,-1 1,-1 1,-2 -1,-1 -1,-1 -9,-2 1,-1 1,-2 1,-3 -1,-1 -1,-1 -10,-6 -1,1 -1,1 -1,7 h -6 c 1,-4 2,-7 4,-11 h -12 c 0,2 -1,4 -1,6 -3,2 -4,4 -6,7 0,-1 -1,-3 -1,-5 1,-2 3,-4 4,-6 -6,0 -9,2 -14,4 -1,8 -2,9 2,15 l 1,-1 c 1,1 1,2 1,3 h 8 v 1 h -8 c 0,1 -1,3 -1,4 -1,0 -2,1 -3,1 v 3 h -4 c 0,-2 0,-4 -1,-6 -1,-1 -2,-1 -4,-2 0,1 -1,3 -2,4 -3,-9 -5,-13 -3,-23 7,0 8,-4 12,-10 z m -31,3 c 0,0 -1,1 -1,2 l -1,-1 c -1,1 -2,2 -3,4 0,-1 0,-2 -1,-3 -1,1 -2,2 -2,3 0,3 1,6 2,9 3,-1 6,-2 10,-3 v -2 c 3,-1 3,-1 6,-6 -2,0 -5,1 -8,2 1,-2 1,-4 2,-5 z m 60,35 c -6,2 -6,2 -5,8 2,-1 3,-2 5,-2 z m -31,14 c -3,5 -5,10 -6,15 6,-1 8,-4 14,-5 v 4 h 3 c 1,-3 1,-3 2,-5 -3,-2 -4,-2 -5,-6 h -3 v -2 c -1,0 -3,0 -5,-1 z" />
+	    <path
            class="country"
            id="ontario"
            d="M264 231c2,-1 2,-1 3,-6 1,1 3,1 4,2 0,-2 -1,-4 -1,-6 -16,-5 -8,-18 -29,-10 -1,-1 -2,-2 -3,-3 -3,0 -6,0 -9,-1 -6,0 -13,0 -20,0 1,-17 3,-35 4,-52 5,0 10,0 15,1 4,0 7,0 10,0 0,2 0,4 0,5 1,1 2,1 3,1 0,2 0,4 1,6 2,2 5,3 8,5 0,1 0,2 0,3 7,2 15,6 23,5 0,8 1,11 5,17 0,8 -1,17 -1,25 1,0 2,0 4,0 0,-1 0,-2 0,-2 5,0 7,0 11,4 -3,1 -6,2 -9,3 0,1 0,1 0,2 -7,2 -13,8 -20,7 0,-2 1,-4 1,-6z" />
@@ -273,13 +274,13 @@
      stroke-width="2">
     <path
        d="m 358,165 -11,13 z"
-       id="east_coast-groenland" />
+       id="east_coast-greenland" />
     <path
        d="M 383.0249,388.21494 333,417 Z"
        id="brazil-north_west_africa" />
     <path
        d="m 421,127 3,13 z"
-       id="groenland-iceland" />
+       id="greenland-iceland" />
     <path
        d="m 450,143 28,-14 z"
        id="iceland-scandinavia" />
@@ -288,19 +289,19 @@
        id="great_britain-scandinavia" />
     <path
        d="m 452,217 15,-6 z"
-       id="great_britain-north_west_europe" />
+       id="great_britain-western_europe" />
     <path
        d="m 425,156 11,21 z"
        id="iceland-great_britain" />
     <path
        d="m 452,308 4,-36 z"
-       id="north_west_europe-north_west_africa" />
+       id="western_europe-north_west_africa" />
     <path
        d="M 466.06553,307.25033 496,294 Z"
-       id="south_europe-north_west_africa" />
+       id="southern_europe-north_west_africa" />
     <path
        d="m 508,330 -6,-33 z"
-       id="south_europe-egypt" />
+       id="southern_europe-egypt" />
     <path
        d="M 594,546 579.20839,483.71166 Z"
        id="east_africa-madagascar" />
@@ -325,402 +326,312 @@
     <path
        d="m 901,474 -12,32 z"
        id="new_guinea-australian_territory" />
+	<path
+       d="m 582.06324,393.66442 -10.54913,9.30805 z"
+       id="east_africa-south_asia" />
+	<path
+       d="m 497.00001,178.00001 9,23 z"
+       id="scandinavia-western_europe" />
   </g>
+  <g id="circle" fill="#f9f9f9">
   <circle
-     style="fill:#f9f9f9"
      id="path122"
      cx="307.34329"
      cy="450.67163"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-8"
      cx="224.59702"
      cy="387.13434"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-1"
      cx="250.08966"
      cy="517.16418"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-7"
      cx="452.14929"
      cy="406.34329"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-6"
      cx="558.53729"
      cy="443.2836"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-87"
      cx="505.34329"
      cy="570.35822"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-62"
      cx="480.22391"
      cy="224.597"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-622"
      cx="515.68658"
      cy="356.10446"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-5"
      cx="506.82089"
      cy="271.88062"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-4"
      cx="416.68658"
      cy="217.20895"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-0"
      cx="576.26868"
      cy="184.70148"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-72"
      cx="640.19464"
      cy="336.34332"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-60"
      cx="660.49255"
      cy="248.2388"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-02"
      cx="684.13434"
      cy="166.97015"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-725"
      cx="774.26862"
      cy="134.46268"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-2"
      cx="768.35822"
      cy="292.56717"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-9"
      cx="840.76117"
      cy="214.25374"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-92"
      cx="805.67175"
      cy="446.05984"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-06"
      cx="925.37372"
      cy="447.71643"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-52"
      cx="852.58209"
      cy="543.76117"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-54"
      cx="65.014923"
      cy="122.64179"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-64"
      cx="248.23882"
      cy="258.58209"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-17"
      cx="168.44775"
      cy="236.41789"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-22"
      cx="166.97015"
      cy="155.14925"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-79"
      cx="394.5224"
      cy="84.223892"
      r="13.298508" />
     <circle
-     style="fill:#f9f9f9"
      id="path122-64-1"
      cx="233.46268"
      cy="186.17912"
-     r="13.298508"
-     />
+     r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-64-5"
      cx="480.22388"
      cy="153.67163"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-64-7"
      cx="203.91046"
      cy="313.25375"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-64-79"
      cx="919.07458"
      cy="267.44775"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-64-0"
      cx="939.76123"
      cy="122.64178"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-64-00"
      cx="783.13434"
      cy="369.40298"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-64-2"
      cx="580.70148"
      cy="555.58209"
      r="13.298508" />
   <circle
-     style="fill:#f9f9f9"
      id="path122-64-10"
      cx="410.77609"
      cy="156.62685"
      r="13.298508" />
+  </g>
+  <g id="text" font-size="21.33333333px" line-height="1.25" font-family="Cambria Math" text-align="center" text-anchor="middle" fill="#000000" fill-opacity="1">
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333333px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;"
      x="249.58568"
      y="524.74457"
-     id="west_south_america_text">15</text>
+     id="west_south_america_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="307.01248"
      y="457.93069"
-     id="brazil_text">5</text>
+     id="brazil_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="224.18536"
      y="393.87772"
-     id="venezuela_text">3</text>
+     id="venezuela_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="248.85457"
      y="264.66742"
-     id="east_coast_text">1</text>
+     id="east_coast_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="167.86293"
      y="243.13239"
-     id="western_united_states_text">2</text>
+     id="western_united_states_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="166.75858"
      y="161.40965"
-     id="canada_text">4</text>
+     id="canada_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="65.157326"
      y="129.38316"
-     id="alaska_text">25</text>
+     id="alaska_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="504.69315"
      y="577.20166"
-     id="south_africa_text">6</text>
+     id="south_africa_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="558.2547"
      y="450.75232"
-     id="east_africa_text">7</text>
+     id="east_africa_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="452.23599"
      y="413.20404"
-     id="north_west_africa_text">8</text>
+     id="north_west_africa_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="516.289"
      y="363.50778"
-     id="egypt_text">9</text>
+     id="egypt_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="415.38803"
      y="224.28703"
-     id="great_britain_text">10</text>
+     id="great_britain_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="478.74066"
      y="231.53659"
-     id="west_europe_text">11</text>
+     id="western_europe_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="506.31308"
      y="278.76089"
-     id="south_europe_text">12</text>
+     id="southern_europe_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="575.37225"
      y="191.77959"
-     id="ukraine_text">13</text>
+     id="ukraine_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="394.25702"
      y="90.178329"
-     id="greenland_text">14</text>
+     id="greenland_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="683.59973"
      y="173.55762"
-     id="ural_text">16</text>
+     id="ural_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="659.8559"
      y="255.28038"
-     id="afghanistan_text">17</text>
+     id="afghanistan_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="639.97742"
      y="343.62927"
-     id="south_asia_text">18</text>
+     id="south_asia_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="767.53113"
      y="299.4548"
-     id="china_text">19</text>
+     id="china_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="773.60516"
      y="140.97896"
-     id="russia_text">20</text>
+     id="russia_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="840.41901"
      y="221.04517"
-     id="central_east_asia_text">21</text>
+     id="central_east_asia_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="852.01483"
      y="550.69702"
-     id="australian_territory_text">22</text>
+     id="australian_territory_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="805.07947"
      y="453.51324"
-     id="indonesia_text">23</text>
+     id="indonesia_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="924.35046"
      y="454.61758"
-     id="new_guinea_text">24</text>
+     id="new_guinea_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="233.37935"
      y="191.89421"
-     id="ontario_text">33</text>
+     id="ontario_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="203.8271"
      y="320.44644"
-     id="central_america_text">26</text>
+     id="central_america_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="579.1405"
      y="562.77478"
-     id="madagascar_text">27</text>
+     id="madagascar_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="939.67786"
      y="129.8345"
-     id="kamchatka_text">28</text>
+     id="kamchatka_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="917.51367"
      y="273.16287"
-     id="japan_text">29</text>
+     id="japan_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="783.05096"
      y="375.11807"
-     id="siam_text">30</text>
+     id="siam_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="480.1405"
      y="159.38675"
-     id="scandinavia_text">31</text>
+     id="scandinavia_text"></text>
   <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
      x="410.69281"
      y="163.81958"
-     id="iceland_text">32</text>
+     id="iceland_text"></text>
+   </g>
 </svg>

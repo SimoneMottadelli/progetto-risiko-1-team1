@@ -15,9 +15,9 @@
 		"new_guinea",
 		"indonesia",
 		"european_islands",
-		"west_europe",
+		"western_europe",
 		"north_east_europe",
-		"south_europe",
+		"southern_europe",
 		"alaska",
 		"canada",
 		"east_coast",
@@ -41,9 +41,9 @@
 			"name": "europe",
 			"territories": [
 				"european_islands",
-				"west_europe",
+				"western_europe",
 				"north_east_europe",
-				"south_europe"
+				"southern_europe"
 			]
 		},
 		{
@@ -109,7 +109,7 @@
 				"east_africa",
 				"north_west_africa",
 				"south_asia",
-				"south_europe"
+				"southern_europe"
 			]
 		},
 		{
@@ -118,8 +118,8 @@
 				"east_africa",
 				"egypt",
 				"south_africa",
-				"west_europe",
-				"south_europe",
+				"western_europe",
+				"southern_europe",
 				"brazil"	
 			]
 		},
@@ -144,7 +144,7 @@
 			"territories": [
 				"egypt",
 				"north_east_europe",
-				"south_europe",
+				"southern_europe",
 				"china",
 				"afghanistan",
 				"east_africa"
@@ -211,16 +211,16 @@
 		{
 			"name": "european_islands",
 			"territories": [
-				"west_europe",
+				"western_europe",
 				"north_east_europe",
 				"greenland"
 			]
 		},
 		{
-			"name": "west_europe",
+			"name": "western_europe",
 			"territories": [
 				"european_islands",
-				"south_europe",
+				"southern_europe",
 				"north_east_europe",
 				"north_west_africa",
 				"egypt"
@@ -231,16 +231,16 @@
 			"territories": [
 				"ural",
 				"european_islands",
-				"south_europe",
-				"west_europe",
+				"southern_europe",
+				"western_europe",
 				"afghanistan",
 				"south_asia"
 			]
 		},
 		{
-			"name": "south_europe",
+			"name": "southern_europe",
 			"territories": [
-				"west_europe",
+				"western_europe",
 				"north_west_africa",
 				"egypt",
 				"south_asia",
