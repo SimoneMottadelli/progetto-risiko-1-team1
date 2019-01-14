@@ -29,7 +29,8 @@ public class TurnManager {
 	}
 	
 	public Player nextPlayer() {
-		return players.get((players.indexOf(currentPlayer) + 1) % players.size());
+		currentPlayer = players.get((players.indexOf(currentPlayer) + 1) % players.size());
+		return currentPlayer;
 	}
 
 	public Player getCurrentPlayer() {

@@ -48,6 +48,8 @@ public class TankPlacementPhase extends Phase {
 
 	@Override
 	protected void checkCondition() throws RequestNotValidException {
+		if (!where.getOwner().equals(player))
+			throw new RequestNotValidException(where.getName() + " is not yours");
 		if(player.getAvailableTanks() < howManyTanks)
 			throw new RequestNotValidException("You don't have " + howManyTanks + " tanks to place");
 	}

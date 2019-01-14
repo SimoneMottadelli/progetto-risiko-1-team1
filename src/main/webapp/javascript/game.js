@@ -240,6 +240,7 @@ $(document).ready(function() {
 				}
 			}
 			else {
+				console.log(JSON.parse(event.data).history);
 				var currentPlayer = JSON.parse(event.data).currentPlayerColor;
 				$("#playersTurnLabel").html(currentPlayer);
 				if(myColor != currentPlayer) 

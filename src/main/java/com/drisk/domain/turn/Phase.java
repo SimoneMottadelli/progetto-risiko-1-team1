@@ -24,8 +24,8 @@ public abstract class Phase {
 	public final JsonArray getHistoryToJson() {
 		JsonArray result = new JsonArray();
 		for(String s : history)
-			result.add(s);
-		history.clear();
+			result.add(new String(s));
+		//history.clear();
 		return result;
 	}
 	

@@ -58,7 +58,7 @@ public class AttackPhase extends Phase {
 	protected void checkCondition() throws RequestNotValidException {
 		if (attackerTanks >= territoryAttacker.getNumberOfTanks())
 			throw new RequestNotValidException(
-					"You can't attack with " + attackerTanks + "because you don't have enough tanks!");
+					"You can't attack with " + attackerTanks + " because a tank must remain in your territory!");
 		if (attacker.equals(territoryDefender.getOwner()))
 			throw new RequestNotValidException("Come on! You can't attack yourself!");
 		if (!territoryAttacker.getNeighbours().contains(territoryDefender))
@@ -87,8 +87,7 @@ public class AttackPhase extends Phase {
 		addMessage("Player " + territoryDefender.getOwner().getColor() + " has lost " + tanksToRemove[1] + " tanks");
 		if (territoryDefender.getNumberOfTanks() == 0) {
 			territoryDefender.setOwner(attacker);
-			tm.placeTanks(territoryDefender, 1);
-			tm.removeTanks(territoryAttacker, 1);
+			tm.moveTanks(territoryAttacker, territoryDefender, attackerTanks - tanksToRemove[0]);
 			canDrawTerritoryCard = true;
 			addMessage("Player " + attacker.getColor() + " has conquered " + territoryDefender.getName());
 		}
