@@ -56,7 +56,10 @@ public class AttackPhase extends Phase {
 
 	@Override
 	protected void checkCondition() throws RequestNotValidException {
-		if (attackerTanks >= territoryAttacker.getNumberOfTanks())
+		if (attackerTanks > territoryAttacker.getNumberOfTanks())
+			throw new RequestNotValidException(
+					"You don't have " + attackerTanks + " tanks");
+		if (attackerTanks == territoryAttacker.getNumberOfTanks())
 			throw new RequestNotValidException(
 					"You can't attack with " + attackerTanks + " because a tank must remain in your territory!");
 		if (attacker.equals(territoryDefender.getOwner()))

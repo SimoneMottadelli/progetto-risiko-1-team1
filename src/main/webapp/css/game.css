@@ -7,6 +7,12 @@ body {
     background-attachment: fixed;
 }
 
+#consoleText {
+	width: 60%; 
+	height: 150px;
+	resize: none;
+}
+
 #mapDiv {
 	padding-top: 5px;
 }

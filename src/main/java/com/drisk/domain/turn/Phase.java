@@ -10,11 +10,12 @@ import com.google.gson.JsonObject;
 public abstract class Phase {
 	
 	private int phaseId;
-	private List<String> history;
+	private static List<String> history;
 	
 	public Phase(int id) {
 		phaseId = id;
-		history = new LinkedList<>();
+		if (history == null)
+			history = new LinkedList<>();
 	}
 	
 	public final int getPhaseId() {
@@ -25,7 +26,6 @@ public abstract class Phase {
 		JsonArray result = new JsonArray();
 		for(String s : history)
 			result.add(new String(s));
-		//history.clear();
 		return result;
 	}
 	

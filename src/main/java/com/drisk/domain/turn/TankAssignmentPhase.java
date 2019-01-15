@@ -73,11 +73,11 @@ public class TankAssignmentPhase extends Phase {
 					tanks += 7;
 					break;
 				case "australia":
-				case "south america":
+				case "south_america":
 					tanks += 2;
 					break;
 				case "europe":
-				case "north america":
+				case "north_america":
 					tanks += 5;
 					break;
 				default:
@@ -173,7 +173,7 @@ public class TankAssignmentPhase extends Phase {
 			if (cards.size() != 3)
 				throw new RequestNotValidException("You must select exactly three cards to compose a tris");
 			for (JsonElement e : cards)
-				tris[i++] = CardManager.getInstance().findTerritoryCardByTerritoryName(e.getAsString().toLowerCase().replace("\"", ""));
+				tris[i++] = CardManager.getInstance().findTerritoryCardByTerritoryName(e.getAsJsonObject().get("territory").getAsString().toLowerCase().replace("\"", ""));
 			playerTris = tris;
 		}
 	}

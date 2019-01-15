@@ -81,6 +81,7 @@ public class GameManager {
 	
 	private void endGame() {
 		// TODO qualsiasi cosa deve succedere quando il gioco deve terminare
+		System.out.println("Il giocatore " + TurnManager.getInstance().getCurrentPlayer().getColor() + " ha vinto!");
 	}
 	
 	public void tryToStartGame() {

@@ -1,8 +1,6 @@
 package com.drisk.controller;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,9 +25,7 @@ import com.google.gson.JsonObject;
 @Controller
 public class GameController {
 	
-	private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
 	private static final String SESSION_ATTRIBUTE_COLOR = "color";
-	private static final String OK = "OK";
 	private static final String IS_NOT_YOUR_TURN = "It's not your turn, wait for it...";
 	private static final String NOT_A_PLAYER = "You are not a player because you haven't a color assigned";
 	private JsonHelper helper = new JsonHelper();
@@ -41,15 +37,14 @@ public class GameController {
 	@GetMapping("/territories")
     public SseEmitter getMapTerritories() {
 		SseEmitter emitter = new SseEmitter();
-		nonBlockingService.execute(() -> {
-			try {
-				JsonArray territories = MapManager.getInstance().toJson().getAsJsonArray("territories");
-				emitter.send(territories);
-				emitter.complete();	
-			} catch (Exception ex) {
-				emitter.completeWithError(ex);
-			}
-		});
+		JsonArray territories = MapManager.getInstance().toJson().getAsJsonArray("territories");
+		try {
+			emitter.send(territories);
+		} catch (IOException ex) {
+			emitter.completeWithError(ex);
+		}
+		emitter.complete();	
+				
 		return emitter;
     }
 	
@@ -76,16 +71,15 @@ public class GameController {
 	@GetMapping("/turnStatus")
 	public SseEmitter handleSseTurn() {
 		SseEmitter emitter = new SseEmitter();
-		nonBlockingService.execute(() -> {
-			try {
-				emitter.send(TurnManager.getInstance().toJson());
-				emitter.complete();	
-			} catch (Exception ex) {
-				emitter.completeWithError(ex);
-			}
-		});
+		try {
+			emitter.send(TurnManager.getInstance().toJson());
+		} catch (IOException ex) {
+			emitter.completeWithError(ex);
+		}
+		emitter.complete();	
 		return emitter;
 	}
+	
 	
 	/**
 	 * It allows player to place tanks in the initial phase of the game, before that any turn start
@@ -97,6 +91,8 @@ public class GameController {
 	public JsonObject initialPlaceTanks(HttpServletRequest request) {
 		if(!isAPlayer(request.getSession(false)))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
+		if (TurnManager.getInstance().getCurrentPhase() != null)
+			return helper.createResponseJson(-1, "The initial tanks placement is finished");
 		String body;
 		try {
 			body = request.getReader().lines().collect(Collectors.joining());
@@ -180,9 +176,10 @@ public class GameController {
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
 		if(!TurnManager.getInstance().isPlayerTurn((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)))
 			return helper.createResponseJson(-1, IS_NOT_YOUR_TURN);
+		String playerStatus = TurnManager.getInstance().getCurrentPlayer().toJson().toString();
 		try {
 			TurnManager.getInstance().getCurrentPhase().nextPhase();
-			return helper.createResponseJson(0, OK);
+			return helper.createResponseJson(0, playerStatus);
 		} catch (RequestNotValidException e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
