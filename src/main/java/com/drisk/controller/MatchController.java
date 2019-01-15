@@ -1,8 +1,7 @@
 package com.drisk.controller;
 
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,85 +22,97 @@ import com.google.gson.JsonSyntaxException;
 
 @Controller
 public class MatchController {
-	
-    private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
-    private static final String SESSION_ATTRIBUTE_COLOR = "color";
-    private static final String IS_NOT_A_PLAYER = "You are not a player";
-    private JsonHelper helper = new JsonHelper();
-	
-    /**
-     * It allows new player to join in the match, or old player to re-join 
-     * @param request HttpServletRequest with the session if it exists, or empty if it doesn't exist
-     * @return JsonObject with welcome message or error
-     */
+
+	private static final String SESSION_ATTRIBUTE_COLOR = "color";
+	private static final String IS_NOT_A_PLAYER = "You are not a player";
+	private JsonHelper helper = new JsonHelper();
+
+	/**
+	 * It allows new player to join in the match, or old player to re-join
+	 * 
+	 * @param request HttpServletRequest with the session if it exists, or empty if
+	 *                it doesn't exist
+	 * @return JsonObject with welcome message or error
+	 */
 	@PostMapping("/join")
 	@ResponseBody
 	public JsonObject join(HttpServletRequest request) {
 		LobbyManager mm = LobbyManager.getInstance();
-		if(mm.isMatchStarted())
+		if (mm.isMatchStarted())
 			return helper.createResponseJson(-1, "The match has already started!");
-		else if(mm.isMatchFull())
+		else if (mm.isMatchFull())
 			return helper.createResponseJson(-1, "There are enough players!");
 		else {
 			HttpSession session = request.getSession(false);
-			if(!isAPlayer(session)) {
+			if (!isAPlayer(session)) {
 				mm.joinGame(request.getParameter("name").trim());
 				session = request.getSession();
 				session.setAttribute(SESSION_ATTRIBUTE_COLOR, mm.findLastPlayerColor());
 				return helper.createResponseJson(0, "You've joined the game!");
-			}
-			else
+			} else
 				return helper.createResponseJson(0, "Welcome back to joining room");
 		}
 	}
-	
+
 	/**
-	 * It allows player to set his game configurations, like map difficulty, objective type ...
-	 * @param request HttpServletRequest with session and game configuration body, with map details and modality
+	 * It allows player to set his game configurations, like map difficulty,
+	 * objective type ...
+	 * 
+	 * @param request HttpServletRequest with session and game configuration body,
+	 *                with map details and modality
 	 * @return JsonObject with positive message or with string error
 	 */
 	@PostMapping("/gameConfig")
 	@ResponseBody
 	public JsonObject gameConfig(HttpServletRequest request) {
-		if(!isAPlayer(request.getSession(false)))
+		if (!isAPlayer(request.getSession(false)))
 			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
 		try {
 			String body = request.getReader().lines().collect(Collectors.joining());
 			JsonObject gameConfig = helper.parseJson(body);
 			MapManager.getInstance().createMap(gameConfig);
 			return helper.createResponseJson(0, "Configuration correctly added");
-		} 
-		catch (JsonSyntaxException e)
-		{
+		} catch (JsonSyntaxException e) {
 			return helper.createResponseJson(-1, "Syntax error: cannot parse json object");
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
 	}
-	
+
 	/**
-	 * It is invoked by the client only one time and it sends to it the information of the match
+	 * It is invoked by the client only one time and it sends to it the information
+	 * of the match
+	 * 
 	 * @return SseEmitter
 	 */
 	@GetMapping("/info")
-    public SseEmitter handleSse() {
+	public SseEmitter handleSse() {
 		SseEmitter emitter = new SseEmitter();
-		nonBlockingService.execute(() -> {
-			try {
-				JsonObject obj = LobbyManager.getInstance().toJson();
-				obj.addProperty("mapReady", MapManager.getInstance().isMapReady());
-				emitter.send(obj);
-				emitter.complete();	
-			} catch (Exception ex) {
-				emitter.completeWithError(ex);
-			}
-		});
+		JsonObject obj = LobbyManager.getInstance().toJson();
+		obj.addProperty("mapReady", MapManager.getInstance().isMapReady());
+		try {
+			obj.addProperty("serverIp", getIp());
+			obj.addProperty("serverPort", 8080);
+			emitter.send(obj);
+		} catch (Exception ex) {
+			emitter.completeWithError(ex);
+		}
+		emitter.complete();
 		return emitter;
 	}
 	
+	private String getIp() {
+		try(final DatagramSocket socket = new DatagramSocket()){
+			socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+			return socket.getLocalAddress().getHostAddress();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	/**
 	 * It allows player to leave correctly the match
+	 * 
 	 * @param request HttpServletRequest with player session
 	 * @return JsonObject with message or with error message
 	 */
@@ -109,24 +120,26 @@ public class MatchController {
 	@ResponseBody
 	public JsonObject exit(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		if(!isAPlayer(session))
+		if (!isAPlayer(session))
 			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
 		LobbyManager.getInstance().exitGame((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
 		session.invalidate();
 		return helper.createResponseJson(0, "You've exited from the game!");
 	}
-	
+
 	/**
-	 * Try to start the game when one player leave the match or when one player is ready
+	 * Try to start the game when one player leave the match or when one player is
+	 * ready
 	 */
-	private void tryToStartGame(){
+	private void tryToStartGame() {
 		LobbyManager mm = LobbyManager.getInstance();
 		if (mm.isEveryoneReady() && MapManager.getInstance().isMapReady() && mm.areThereAtLeastTwoPlayers())
 			LobbyManager.getInstance().initGame();
 	}
-	
+
 	/**
 	 * It allows player to set his status to ready
+	 * 
 	 * @param request HttpServletRequest with player session
 	 * @return JsonObject with message or error message
 	 */
@@ -134,15 +147,16 @@ public class MatchController {
 	@ResponseBody
 	public JsonObject ready(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		if(!isAPlayer(session))
+		if (!isAPlayer(session))
 			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
 		LobbyManager.getInstance().setPlayerReady((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR), true);
 		tryToStartGame();
 		return helper.createResponseJson(0, "The game will start when everyone is ready!");
 	}
-	
+
 	/**
 	 * It allows player to set his status to not ready
+	 * 
 	 * @param request HttpServletRequest with player session
 	 * @return JsonObject with message or error message
 	 */
@@ -150,19 +164,22 @@ public class MatchController {
 	@ResponseBody
 	public JsonObject notReady(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		if(!isAPlayer(session))
+		if (!isAPlayer(session))
 			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
 		LobbyManager.getInstance().setPlayerReady((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR), false);
 		return helper.createResponseJson(0, "The game will start when everyone is ready!");
 	}
-	
+
 	/**
 	 * Check if session belongs to a player or not
+	 * 
 	 * @param session - HttpSession with the color of the player
-	 * @return true if the session is not null and this player is in LobbyManager players list, false otherwise
+	 * @return true if the session is not null and this player is in LobbyManager
+	 *         players list, false otherwise
 	 */
 	private boolean isAPlayer(HttpSession session) {
-		return session != null && LobbyManager.getInstance().findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)) != null;
+		return session != null && LobbyManager.getInstance()
+				.findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)) != null;
 	}
-	
+
 }
