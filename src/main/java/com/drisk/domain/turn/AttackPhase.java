@@ -47,7 +47,7 @@ public class AttackPhase extends Phase {
 	public void nextPhase() {
 		if (canDrawTerritoryCard)
 			drawTerritoryCard();
-		TurnManager.getInstance().setCurrentPhase(new TankMovementPhase());
+		TurnManager.getInstance().setCurrentPhase(new TanksMovementPhase());
 	}
 
 	private void drawTerritoryCard() {
@@ -66,7 +66,7 @@ public class AttackPhase extends Phase {
 			throw new RequestNotValidException("Come on! You can't attack yourself!");
 		if (!territoryAttacker.getNeighbours().contains(territoryDefender))
 			throw new RequestNotValidException(
-					"You can't attack from " + territoryAttacker.getName() + " to " + territoryDefender.getName());
+					"You can't attack from " + territoryAttacker.getName().toUpperCase() + " to " + territoryDefender.getName().toUpperCase());
 		if (attackerTanks <= 0)
 			throw new RequestNotValidException("You must attack at least with one tanks");
 		if (territoryAttacker.getNumberOfTanks() <= 1)
@@ -84,15 +84,15 @@ public class AttackPhase extends Phase {
 		TankManager tm = TankManager.getInstance();
 		tm.removeTanks(territoryAttacker, tanksToRemove[0]);
 		tm.removeTanks(territoryDefender, tanksToRemove[1]);
-		addMessage("Player " + attacker.getColor() + " has attacked " + territoryDefender.getName() + " from "
-				+ territoryAttacker.getName());
+		addMessage("Player " + attacker.getColor() + " has attacked " + territoryDefender.getName().toUpperCase() + " from "
+				+ territoryAttacker.getName().toUpperCase());
 		addMessage("Player " + attacker.getColor() + " has lost " + tanksToRemove[0] + " tanks");
 		addMessage("Player " + territoryDefender.getOwner().getColor() + " has lost " + tanksToRemove[1] + " tanks");
 		if (territoryDefender.getNumberOfTanks() == 0) {
 			territoryDefender.setOwner(attacker);
 			tm.moveTanks(territoryAttacker, territoryDefender, attackerTanks - tanksToRemove[0]);
 			canDrawTerritoryCard = true;
-			addMessage("Player " + attacker.getColor() + " has conquered " + territoryDefender.getName());
+			addMessage("Player " + attacker.getColor() + " has conquered " + territoryDefender.getName().toUpperCase());
 		}
 	}
 

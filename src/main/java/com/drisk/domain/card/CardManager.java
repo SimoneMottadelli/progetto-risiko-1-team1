@@ -14,6 +14,7 @@ public class CardManager {
 
 	private List<Card> missionCards;
 	private List<Card> territoryCards;
+	private List<Card> allCards;
 	private List<Card> discardedCards;
 	private static CardManager instance;
 	
@@ -21,6 +22,7 @@ public class CardManager {
 		missionCards = new LinkedList<>();
 		territoryCards = new LinkedList<>();
 		discardedCards = new LinkedList<>();
+		allCards = new LinkedList<>();
 	}
 	
 	public static CardManager getInstance() {
@@ -35,10 +37,7 @@ public class CardManager {
 	}
 	
 	public TerritoryCard findTerritoryCardByTerritoryName(String territoryName) {
-		for (Card tc : territoryCards)
-			if (((TerritoryCard)tc).getTerritory().getName().equals(territoryName))
-				return (TerritoryCard) tc;
-		for (Card tc : discardedCards)
+		for (Card tc : allCards)
 			if (((TerritoryCard)tc).getTerritory().getName().equals(territoryName))
 				return (TerritoryCard) tc;
 		return null;
@@ -62,8 +61,10 @@ public class CardManager {
 	}
 	
 	private void addTerritoryCard(TerritoryCard tc) {
-		if(!territoryCards.contains(tc))
+		if(!territoryCards.contains(tc)) {
 			territoryCards.add(tc);
+			allCards.add(tc);
+		}
 	}
 	
 	public void initMissionCards(List<Player> players, ObjectiveTypeEnum objective) {

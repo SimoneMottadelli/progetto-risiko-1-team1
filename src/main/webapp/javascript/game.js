@@ -7,9 +7,8 @@ $(document).ready(function() {
 	var myColor = null;
 	var numberOfAvailableTanks = null;
 	var map = {'territories': [], 'neighbourhood': [], 'membership': [], 'continents': []};
-	var cards = [];
-	var jsonResponsePlayPhase = null;
-	var historyMessages = [];
+	var cards = []; // cards drawn after conquering a territory
+	var historyMessages = []; // messages of what's happening in the game
 	var attackPhaseAlreadyInitialized = false;
 	var movementPhaseAlreadyInitialized = false;
 	
@@ -20,7 +19,7 @@ $(document).ready(function() {
 	
 	init();	
 	
-	// this function initializes the web page in order to start the game
+	// this function initializes the map and the player info
 	function init() {
 		initMap();
 		getPlayerInfo();
@@ -40,7 +39,7 @@ $(document).ready(function() {
 					map.continents = JSON.parse(result.responseMessage).continents;
 					fillSVGMapDiv(JSON.parse(result.responseMessage).mapSVG);
 					startRequestingMapLoading();
-					startTankPlacementPhase();
+					startInitialTanksPlacementPhase();
 					updateMyTerritoriesSelect($("#wherePlacementSelect"));
 				}
 				else
@@ -49,13 +48,14 @@ $(document).ready(function() {
 		});
 	}
 	
-	// fillSVGMapDiv is used to show the map return by the server on the web page.
+	// this function is used to show the map return by the server on the web page.
 	function fillSVGMapDiv(mapSVG){
 		$("#mapDiv").html(mapSVG);
 		updateSVGMap();
 		addMouseoverEventToTerritories();
 	}
 	
+	// this function is used to get the player's information
 	function getPlayerInfo() {
 		$.ajax({
 			type : 'GET',
@@ -73,9 +73,10 @@ $(document).ready(function() {
 		});
 	}
 	
-	function startTankPlacementPhase() {
+	// this function is called when the initial tanks placement phase must begin
+	function startInitialTanksPlacementPhase() {
 		$("#availableTanksLabel").html(numberOfAvailableTanks);
-		$("#tankPlacementPhaseDiv").show();
+		$("#tanksPlacementPhaseDiv").show();
 	}
 	
 	
@@ -85,7 +86,7 @@ $(document).ready(function() {
 	// + FUNCTIONS CALLED PERIODICALLY USING SERVER SEND EVENT MECHANISM +
 	// -------------------------------------------------------------------
 	
-	// requestMapLoading creates a link to connect the client to the server, so that the
+	// this function creates a link that connects the client to the server, so that the
 	// server can send map updates using Server Send Event mechanism.
 	function startRequestingMapLoading() {
 		var initialTankPlacementPhaseStarted = false;
@@ -97,7 +98,7 @@ $(document).ready(function() {
 		}
 	}
 	
-	// this function colors the map and updates tanks numbers
+	// this function colors the map territories and it also updates the tanks numbers printed on them
 	function updateSVGMap() {
 		$("path.country").each(function() {
 			for (var i = 0; i < map.territories.length; ++i) {
@@ -110,8 +111,8 @@ $(document).ready(function() {
 	}
 	
 	
-	// used to get information of turn status from the server, invoked only one time
-	// sse emitter was used by the server to send the json response
+	// this function is used to get information of the turn status from the server, using Server Send Event
+	// mechanism. It also shows or hides the GAME DIV, so that the user can play his phase turn.
 	function playerTurnRequest() {
 		var allTanksPlacedWarningShown = false;
 		var source = new EventSource('../game/turnStatus');
@@ -138,19 +139,19 @@ $(document).ready(function() {
 		}
 	}
 	
+	
+	// this function is called every time the client receives information about the turn status and it's actually his turn.
+	// It shows or hides the PHASE DIVS, corresponding to the PHASEID received from the server, as well as updating these PHASE DIVS.
 	function playPhase(phaseId) {
+		hideAllPhaseDivs();
 		switch (phaseId) {
 		case 1:
 			movementPhaseAlreadyInitialized = false;
 			getPlayerInfo();
-			enableCards(true);
-			$("#tankMovementPhaseDiv").hide();
-			$("#assignTanksPhaseDiv").show();
+			$("#tanksAssignmentPhaseDiv").show();
 			break;
 		case 2:
-			enableCards(false);
-			$("#assignTanksPhaseDiv").hide();
-			$("#tankPlacementPhaseDiv").show();
+			$("#tanksPlacementPhaseDiv").show();
 			break;
 		case 3:
 			if (!attackPhaseAlreadyInitialized) {
@@ -158,7 +159,6 @@ $(document).ready(function() {
 				updateToAttackSelect();
 				attackPhaseAlreadyInitialized = true;
 			}
-			$("#tankPlacementPhaseDiv").hide();
 			$("#attackPhaseDiv").show();
 			break;
 		case 4:
@@ -168,8 +168,7 @@ $(document).ready(function() {
 				updateToMovementSelect();
 				movementPhaseAlreadyInitialized = true;
 			}
-			$("#attackPhaseDiv").hide();
-			$("#tankMovementPhaseDiv").show();
+			$("#tanksMovementPhaseDiv").show();
 			break;
 		}
 	}
@@ -179,12 +178,16 @@ $(document).ready(function() {
 	// + UPDATE FUNCTIONS +
 	// --------------------
 	
+	
+	// this function is used to render the new game history messages on the console
 	function updateConsoleText(newHistoryMessages) {
 		for (var i = historyMessages.length; i < newHistoryMessages.length; ++i)
 			$("#consoleText").val(newHistoryMessages[i] + "\n" + $("#consoleText").val());
 		historyMessages = newHistoryMessages;
 	}
 	
+	// this function is used to show all the player's territories.
+	// the parameter SELECT can be: wherePlacementSelect, fromMovementSelect or fromAttackSelect.
 	function updateMyTerritoriesSelect(select) {
 		select.html("");
 		for (var i = 0; i < map.territories.length; ++i) 
@@ -193,36 +196,36 @@ $(document).ready(function() {
 					+ map.territories[i].name + "</option>");
 	}
 	
+	// this function updates the cardsDiv with the player's cards
 	function updateCardsCheckboxes() {
 		$("#cardsDiv").html("");
 		for (var i = 0; i < cards.length; ++i) 
 			$("#cardsDiv").append('<input type="checkbox" id="' + i + '"> (' + cards[i].territory + ', ' + cards[i].symbol +') </input>');	
 	}
-
+	
+	// this function shows a modal window to communicate important information to the player.
 	function showModalWindow(message) {
 		$("div.modal-body").html("<h2>" + message + "</h2>");
 		$("#modalWindow").css("display", "block");
 	}
 	
-	// this function is used to updated the gloabal variable CARDS, which is an array of territory names.
+	// this function is used to updated the global variable CARDS, which is an array of territories names.
 	function updateCards(cardsArray) {
+		cards = [];
 		for (var i = 0; i < cardsArray.length; ++i)
 			cards[i] = {"territory": cardsArray[i].territory, "symbol": cardsArray[i].symbol};
 	}
 	
-	function enableCards(enabled) {
-		$("input:checkbox").each(function() {
-			$(this).attr("enabled", enabled);
-		});
-	}
-	
+	// this function updates the player status: mission card, available tanks and his cards.
 	function updatePlayerStatus(status) {
 		$("#missionCardLabel").html(status.missionCard.mission);
 		numberOfAvailableTanks = status.availableTanks;
 		$("#availableTanksLabel").html(numberOfAvailableTanks);
 		updateCards(status.cards);
+		updateCardsCheckboxes();
 	}
 	
+	// this function is used to update the select that shows the territories names that can be attacked
 	function updateToAttackSelect() {
 		$("#toAttackSelect").html("");
 		var neighbours = findNeighboursOf($("#fromAttackSelect"));
@@ -232,12 +235,12 @@ $(document).ready(function() {
 						+ neighbours[i].name + "</option>");	
 	}
 	
+	// this function is used to update the select that shows the territories that the player can select to move
+	// his tanks to
 	function updateToMovementSelect() {
 		$("#toMovementSelect").html("");
 		var neighbours = findNeighboursOf($("#fromMovementSelect"));
 		for (var i = 0; i < neighbours.length; ++i) {
-			console.log(neighbours[i]);
-			console.log(neighbours[i].territories);
 			if (neighbours[i].owner == myColor) 
 				$("#toMovementSelect").append('<option value="' + neighbours[i].name + '">' 
 						+ neighbours[i].name + "</option>");
@@ -245,7 +248,9 @@ $(document).ready(function() {
 		}
 	}
 		
-	// helper function that returns the list of neighbours of a territory selected in a FROM SELECT
+	// helper function that returns the list of neighbours of a territory.
+	// the parameter FROMSELECT contains the select in which there is the territory name of which we want to know
+	// its neighbours.
 	function findNeighboursOf(fromSelect) {
 		var fromTerritory = fromSelect.val();
 		var fromTerritoryNeighboursFound = false;
@@ -261,19 +266,28 @@ $(document).ready(function() {
 		var neighbours = [];
 		for (var j = 0, k = 0; j < map.territories.length && k < neighboursNames.length; ++j) 
 			if (map.territories[j].name == neighboursNames[k]) {
-				neighbours[k] = map.territories[j];
-				++k;
-				j = 0;
+				neighbours[k++] = map.territories[j];
+				j = -1;
 			}
 		return neighbours;
 	}
 
+	
+	// this function hides all phase divs
+	function hideAllPhaseDivs() {
+		$("#tanksAssignmentPhaseDiv").hide();
+		$("#tanksMovementPhaseDiv").hide();
+		$("#tanksPlacementPhaseDiv").hide();
+		$("#attackPhaseDiv").hide();
+	}
 	
 
 	// ------------------------------------
 	// + FUNCTIONS CALLED BY CLICK EVENTS +
 	// ------------------------------------
 	
+	// this function is called whenever the player wants to play a certain phase.
+	// the phase can be the attack phase, the tanks movement phase, etc...
 	function sendPhaseData(jsonRequestObject) {
 		$.ajax({
 			type : 'POST',
@@ -286,15 +300,15 @@ $(document).ready(function() {
 					showModalWindow(data.responseMessage);
 				else {
 					updatePlayerStatus(JSON.parse(data.responseMessage));
-					updateMyTerritoriesSelect($("#fromAttackSelect"));
-					updateToAttackSelect();
+					attackPhaseAlreadyInitialized = false; // in order to refresh "fromAttackSelect" in case of conquest of a new territory
+					updateCards(JSON.parse(data.responseMessage).cards);
 					updateCardsCheckboxes();
 				}
 			}
 		});
 	}
 	
-	// function used to place tanks to a territory
+	// function used to place tanks on a territory in the INITIAL TANKS PLACEMENT PHASE
 	function placeInitialTanks() {
 		var territory = $("#wherePlacementSelect").val();
 		if (territory == undefined) {
@@ -315,7 +329,7 @@ $(document).ready(function() {
 					showModalWindow(data.responseMessage);
 				else {
 					if (numOfTanks == numberOfAvailableTanks) {
-						$("#tankPlacementPhaseDiv").hide();
+						$("#tanksPlacementPhaseDiv").hide();
 						playerTurnRequest();
 						$("#placeTanksButton").unbind();
 						$("#placeTanksButton").click(function() {
@@ -329,6 +343,7 @@ $(document).ready(function() {
 		});
 	}
 	
+	// function used to make the player get bonus tanks from cards
 	function useTris() {
 		var selectedCards = [];
 		var i = 0;
@@ -340,6 +355,7 @@ $(document).ready(function() {
 		sendPhaseData(jsonRequestObject);
 	}
 	
+	// function used to place tanks in TANKS PLACEMENT PHASE
 	function placeTanks() {
 		var territory = $("#wherePlacementSelect").val();
 		var numOfTanks = parseInt($('#howManyPlacement').val(), 10);
@@ -347,6 +363,7 @@ $(document).ready(function() {
 		sendPhaseData(placeTanksJson(territory, numOfTanks));
 	}
 	
+	// function called when the player attacks a territory
 	function attack() {
 		attackPhaseAlreadyInitialized = false;
 		var fromTerritory = $("#fromAttackSelect").val();
@@ -361,6 +378,7 @@ $(document).ready(function() {
 		sendPhaseData(attackJson(fromTerritory, toTerritory, numOfTanks));
 	}
 	
+	// function called when the player moves his tanks between two territories
 	function moveTanks() {
 		var fromTerritory = $("#fromMovementSelect").val();
 		var toTerritory = $("#toMovementSelect").val();
@@ -374,6 +392,7 @@ $(document).ready(function() {
 		sendPhaseData(moveJson(fromTerritory, toTerritory, numOfTanks));
 	}
 	
+	// function called when the player wants to change the turn phase
 	function nextPhase() {
 		$.getJSON('../game/nextPhase', function(result) {
 			if (result.responseCode == -1)

@@ -1,9 +1,19 @@
-var source = null; // used to open Server Sent Event connection
-var warningAlreadyDisplayed = false;
 
 $(document).ready(
 		function() {
+			
+			// --------------------
+			// + GLOBAL VARIABLES +
+			// --------------------
 
+			var source = null; // used to open Server Sent Event connection
+			var warningAlreadyDisplayed = false;
+	
+			
+			
+			// ----------
+			// + EVENTS +
+			// ----------
 			$("#joinButton").click(function() {
 				joinGame();
 			});
@@ -45,7 +55,13 @@ $(document).ready(
 				else
 					$('#joinButton').attr("disabled", "disabled");
 			});
-
+			
+			
+			// ------------------------------
+			// + FUNCTIONS CALLED BY EVENTS +
+			// ------------------------------
+			
+			// this function asks the server to set the player ready
 			function setReady() {
 				$.get("./match/ready", function(result) {
 					showModalWindow(result.responseMessage);
@@ -55,6 +71,16 @@ $(document).ready(
 				);
 			}
 			
+			function setNotReady() {
+				$.get("./match/notready", function(result) {
+					$("#notReadyButton").attr("class", "hidden");
+					$("#readyButton").attr("class", "shown");
+				});
+				warningAlreadyDisplayed = false;
+			}
+			
+			// this function makes the server apply changes about the player's preferences 
+			// about the map and about the game configuration.
 			function applyChanges() {
 				var isMapDefault = $('input[name=mapConfigRadio]:checked', '#mapForm').val() == "default";
 				var objectiveType = $('input[name=modalityConfigRadio]:checked', '#modalityForm').val();
@@ -78,16 +104,9 @@ $(document).ready(
 						showModalWindow(result.responseMessage);
 					}
 				});
-			}
-
-			function setNotReady() {
-				$.get("./match/notready", function(result) {
-					$("#notReadyButton").attr("class", "hidden");
-					$("#readyButton").attr("class", "shown");
-				});
-				warningAlreadyDisplayed = false;
-			}
-
+			}		
+			
+			// this function is called whenever the player joins the match
 			function joinGame() {
 				var matchStarted = true;
 				$.ajax({
@@ -106,7 +125,8 @@ $(document).ready(
 									source.close();
 									var serverIp = JSON.parse(evt.data).serverIp;
 									var serverPort = JSON.parse(evt.data).serverPort
-									location.replace("http://" + serverIp + ":" + serverPort + "/drisk/pages/game.html");
+									//location.replace("http://" + serverIp + ":" + serverPort + "/drisk/pages/game.html");
+									location.replace("http://localhost:8080/drisk/pages/game.html");
 								}
 								else if (!warningAlreadyDisplayed && isEveryoneReady(playersArray) && !isMapReady){
 									showModalWindow("Everyone is ready but the map hasn't been created yet");
@@ -132,42 +152,7 @@ $(document).ready(
 				});				
 			}
 			
-			function updateMapStatus(ready) {
-				if (ready == true)
-					$("#mapStatusLabel").html(" ready");
-				else
-					$("#mapStatusLabel").html(" not ready");
-			}
-			
-			function showModalWindow(message) {
-				$("div.modal-body").html("<h2>" + message + "</h2>");
-				$("#modalWindow").css("display", "block");
-			}
-			
-			function isEveryoneReady(playersArray) {
-				var ready = true;
-				for (var i = 0; i < playersArray.length; ++i)
-					if (!playersArray[i].ready)
-						ready = false;
-				return ready;
-			}
-			
-			function areThereTwoPlayers(playersArray) {
-				return playersArray.length >= 2;
-			}
-			
-			function refreshPlayersTable(playersArray) {
-				$("tr").remove();
-				$("#playersTable").append("<tr><th>Name</th><th>Color</th><th>Ready</th></tr>");
-				for (var i = 0; i < playersArray.length; ++i) {
-					$("#playersTable").append(
-							"<tr><td>" + playersArray[i].nickname + "</td>" +
-							"<td>" + playersArray[i].color + "</td>" +
-							"<td>" + playersArray[i].ready + "</td></tr>"
-					);
-				}
-			}
-
+			// this function is called whenever the player exits from the match
 			function exitGame() {
 				$.get("./match/exit");
 				if (source != null)
@@ -181,5 +166,51 @@ $(document).ready(
 				$("#readyButton").attr("class", "hidden");
 				$("#playersTable").attr("class", "hidden");
 				$("#rightContentDiv").attr("class", "hidden");
+			}
+			
+			
+			// --------------------
+			// + HELPER FUNCTIONS +
+			// --------------------
+			
+			// this function is used to update the player's ready status
+			function updateMapStatus(ready) {
+				if (ready == true)
+					$("#mapStatusLabel").html(" ready");
+				else
+					$("#mapStatusLabel").html(" not ready");
+			}
+			
+			// function used to communicate important messages to the player
+			function showModalWindow(message) {
+				$("div.modal-body").html("<h2>" + message + "</h2>");
+				$("#modalWindow").css("display", "block");
+			}
+			
+			// this function checks whether every player is ready or not
+			function isEveryoneReady(playersArray) {
+				var ready = true;
+				for (var i = 0; i < playersArray.length; ++i)
+					if (!playersArray[i].ready)
+						ready = false;
+				return ready;
+			}
+			
+			// this function checks whether there are more than two players or not
+			function areThereTwoPlayers(playersArray) {
+				return playersArray.length >= 2;
+			}
+			
+			// this function refreshes the table with the most recent changes
+			function refreshPlayersTable(playersArray) {
+				$("tr").remove();
+				$("#playersTable").append("<tr><th>Name</th><th>Color</th><th>Ready</th></tr>");
+				for (var i = 0; i < playersArray.length; ++i) {
+					$("#playersTable").append(
+							"<tr><td>" + playersArray[i].nickname + "</td>" +
+							"<td>" + playersArray[i].color + "</td>" +
+							"<td>" + playersArray[i].ready + "</td></tr>"
+					);
+				}
 			}
 		});

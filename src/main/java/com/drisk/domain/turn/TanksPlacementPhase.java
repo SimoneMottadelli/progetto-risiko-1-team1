@@ -7,13 +7,13 @@ import com.drisk.domain.map.MapManager;
 import com.drisk.domain.map.Territory;
 import com.google.gson.JsonObject;
 
-public class TankPlacementPhase extends Phase {
+public class TanksPlacementPhase extends Phase {
 	
 	private Territory where;
 	private int howManyTanks;
 	private Player player;
 
-	public TankPlacementPhase(Player player) {
+	public TanksPlacementPhase(Player player) {
 		super(PhaseEnum.TANKPLACEMENT.getValue());
 		this.player = player;
 	}
@@ -27,7 +27,8 @@ public class TankPlacementPhase extends Phase {
 	
 	private void placeTanks() {
 		TankManager.getInstance().placeTanks(where, howManyTanks);
-		addMessage("Player " + player.getColor() + " has placed " + howManyTanks + " tanks in " + where.getName());
+		if (howManyTanks > 0)
+			addMessage("Player " + player.getColor() + " has placed " + howManyTanks + " tanks in " + where.getName().toUpperCase());
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class TankPlacementPhase extends Phase {
 	@Override
 	protected void checkCondition() throws RequestNotValidException {
 		if (!where.getOwner().equals(player))
-			throw new RequestNotValidException(where.getName() + " is not yours");
+			throw new RequestNotValidException(where.getName().toUpperCase() + " is not yours");
 		if(player.getAvailableTanks() < howManyTanks)
 			throw new RequestNotValidException("You don't have " + howManyTanks + " tanks to place");
 	}

@@ -14,7 +14,7 @@ import com.drisk.domain.game.Player;
 import com.drisk.domain.lobby.LobbyManager;
 import com.drisk.domain.map.MapManager;
 import com.drisk.domain.map.Territory;
-import com.drisk.domain.turn.TankMovementPhase;
+import com.drisk.domain.turn.TanksMovementPhase;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -53,7 +53,7 @@ public class TankMovementPhaseTest {
 		obj.addProperty("howMany", 3);
 		System.out.print(obj.get("from").toString());
 		try {
-			new TankMovementPhase().playPhase(p, obj);
+			new TanksMovementPhase().playPhase(p, obj);
 			fail();
 		} catch (RequestNotValidException e) {
 			e.printStackTrace();

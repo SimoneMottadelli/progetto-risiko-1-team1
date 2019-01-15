@@ -29,9 +29,9 @@ public class GameManager {
 
 	public void initGame(List<Player> players, ObjectiveTypeEnum objective) {
 		initPlayers(players);
+		initPlayersTerritories();
 		initCards(objective);
 		initPlayersMission();
-		initPlayersTerritories();
 		initTanks();
 	}
 	

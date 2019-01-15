@@ -19,7 +19,7 @@ public class TurnManager {
 	public void initTurn(List<Player> players) {
 		this.players = players;
 		currentPlayer = nextPlayer();
-		currentPhase = new TankAssignmentPhase(currentPlayer);
+		currentPhase = new TanksAssignmentPhase(currentPlayer);
 	}
 	
 	public static TurnManager getInstance() {

@@ -18,7 +18,7 @@ import com.drisk.domain.game.GameManager;
 import com.drisk.domain.game.Player;
 import com.drisk.domain.lobby.LobbyManager;
 import com.drisk.domain.map.MapManager;
-import com.drisk.domain.turn.TankAssignmentPhase;
+import com.drisk.domain.turn.TanksAssignmentPhase;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -46,7 +46,7 @@ public class TankAssignmentPhaseTest {
 	@Test
 	public void playPhaseTest() {
 		
-		TankAssignmentPhase phase = new TankAssignmentPhase();
+		TanksAssignmentPhase phase = new TanksAssignmentPhase();
 		
 		// getting current player and building the tris he wants to use
 		Player currentPlayer = LobbyManager.getInstance().getPlayers().get(0);

@@ -19,13 +19,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class TankAssignmentPhase extends Phase {
+public class TanksAssignmentPhase extends Phase {
 
 	private static Map<List<TerritoryCardSymbolEnum>, Integer> trisMap;
 	private TerritoryCard[] playerTris;
 	private Player player;
 	
-	public TankAssignmentPhase(Player player) {
+	public TanksAssignmentPhase(Player player) {
 		super(PhaseEnum.TANKASSIGNMENT.getValue());
 		this.player = player;
 		initTris();
@@ -42,7 +42,7 @@ public class TankAssignmentPhase extends Phase {
 
 	@Override
 	public void nextPhase() {
-		TurnManager.getInstance().setCurrentPhase(new TankPlacementPhase(player));
+		TurnManager.getInstance().setCurrentPhase(new TanksPlacementPhase(player));
 	}
 
 	// each player has at least a tank at the beginning of his turn even if he owns
@@ -172,8 +172,9 @@ public class TankAssignmentPhase extends Phase {
 			int i = 0;
 			if (cards.size() != 3)
 				throw new RequestNotValidException("You must select exactly three cards to compose a tris");
-			for (JsonElement e : cards)
+			for (JsonElement e : cards) 
 				tris[i++] = CardManager.getInstance().findTerritoryCardByTerritoryName(e.getAsJsonObject().get("territory").getAsString().toLowerCase().replace("\"", ""));
+			
 			playerTris = tris;
 		}
 	}
@@ -182,8 +183,7 @@ public class TankAssignmentPhase extends Phase {
 	protected void checkCondition() throws RequestNotValidException {
 		for (TerritoryCard t : playerTris)
 			if (!player.getTerritoryCardsHand().contains(t))
-				throw new RequestNotValidException(
-						"You don't have " + t.getTerritory().getName() + " card in your hand");
+				throw new RequestNotValidException("You don't have " + t.getTerritory().getName() + " card in your hand");
 	}
 
 }
