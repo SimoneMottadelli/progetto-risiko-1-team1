@@ -1,5 +1,5 @@
 {
-	"difficulty": "easy",
+	"difficulty": "medium",
 	"territories": [
 		"east_africa",
 		"egypt",
@@ -168,7 +168,7 @@
 			"name": "south_asia",
 			"territories": [
 				"egypt",
-				"east_africa"
+				"east_africa",
 				"ukraine",
 				"southern_europe",
 				"china",
