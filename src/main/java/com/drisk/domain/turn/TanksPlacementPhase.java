@@ -32,7 +32,7 @@ public class TanksPlacementPhase extends Phase {
 	}
 
 	@Override
-	public void nextPhase() throws RequestNotValidException{
+	public void nextPhase() throws RequestNotValidException {
 		if(player.getAvailableTanks() > 0)
 			throw new RequestNotValidException("You must place another " + player.getAvailableTanks() + " tanks");
 		TurnManager.getInstance().setCurrentPhase(new AttackPhase(player));
@@ -49,10 +49,14 @@ public class TanksPlacementPhase extends Phase {
 
 	@Override
 	protected void checkCondition() throws RequestNotValidException {
+		String tanks = "tanks";
 		if (!where.getOwner().equals(player))
 			throw new RequestNotValidException(where.getName().toUpperCase() + " is not yours");
-		if(player.getAvailableTanks() < howManyTanks)
-			throw new RequestNotValidException("You don't have " + howManyTanks + " tanks to place");
+		if(player.getAvailableTanks() < howManyTanks) {
+			if (howManyTanks == 1)
+				tanks = "tank";
+			throw new RequestNotValidException("You don't have " + howManyTanks + " " + tanks + " to place");
+		}
 	}
 
 }

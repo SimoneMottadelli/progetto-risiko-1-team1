@@ -1,9 +1,12 @@
 package com.drisk.domain.turn;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,47 +25,71 @@ public class TankMovementPhaseTest {
 	
 	@Before
 	public void initialize() {
-		
-		String mapStringJson = "{'difficulty' : 'custom', 'continents' : ['africa', 'europe', 'asia'], 'territories' : ['italy', 'france', 'egypt', 'north africa', 'kamchatka', 'china', 'japan', 'india', 'middle east'],"
-				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north africa']}, {'name' : 'asia', 'territories' : ['china', 'kamchatka', 'japan', 'india', 'middle east']}],"
-				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north africa', 'territories' : ['egypt']}, {'name' : 'china', 'territories' : ['india', 'japan']}, {'name' : 'middle east', 'territories' : ['india']}]}";
-		Gson json = new Gson();
-		JsonObject mapConfig = json.fromJson(mapStringJson, JsonObject.class); 
-		try {
-			MapManager.getInstance().createMap(mapConfig);
-		} catch (SyntaxException | FileNotFoundException e) {}
-		for(int i = 1; i <= 6; i++)
+		// initializing players
+		for(int i = 1; i <= 2; i++)
 			LobbyManager.getInstance().joinGame("Player" + i);
+		
+		// creating map
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("default_map_hard.json"));
+			Gson json = new Gson();
+			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class);
+			MapManager.getInstance().createMap(obj);
+		} catch (FileNotFoundException | SyntaxException e) {}
+		
+		// initializing game
 		LobbyManager.getInstance().initGame();
-		System.out.print(MapManager.getInstance().toJson().toString());
 	}
 	
 	@Test
 	public void moveTanksTest() {
 		
-		// Both territories have an initial tank
-		Territory from = MapManager.getInstance().findTerritoryByName("china");
-		Territory to = MapManager.getInstance().findTerritoryByName("japan");
+		// getting current player and building the tris he wants to use
+		Player currentPlayer = LobbyManager.getInstance().getPlayers().get(0);
+		
+		Territory to = null;
+		Territory from = null;
+		int count = 0;
+		
+		// to be sure that "to" territory as at least a neighbour
+		while(to == null) {
+			from = MapManager.getInstance().getMapTerritories(currentPlayer).get(count);
+			for (Territory neighbour: from.getNeighbours()) {
+				if (neighbour.getOwner().equals(from.getOwner()))
+					to = neighbour;
+			}
+			if (to == null)
+				++count;
+		}
+		
+		// adding tanks to territories, remember that both of territories have an initial tank
 		from.addTanks(4);
 		to.addTanks(2);
+				
+		TanksMovementPhase phase = new TanksMovementPhase();
 		
-		Player p = from.getOwner();
-		JsonObject obj = new JsonObject();
-		obj.addProperty("from", from.getName());
-		obj.addProperty("to", to.getName());
-		obj.addProperty("howMany", 3);
-		System.out.print(obj.get("from").toString());
+		// building the json request payload
+		JsonObject phaseConfig = new JsonObject();
+		phaseConfig.addProperty("from", from.getName());
+		phaseConfig.addProperty("to", to.getName());
+		phaseConfig.addProperty("howMany", 3);
+		System.out.print(phaseConfig.get("from").toString());
+		System.out.print(phaseConfig.get("to").toString());
+		
 		try {
-			new TanksMovementPhase().playPhase(p, obj);
-			fail();
+			phase.playPhase(phaseConfig);
+			assertEquals(2, from.getNumberOfTanks());
+			assertEquals(6, to.getNumberOfTanks());
 		} catch (RequestNotValidException e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
+	@After
 	public void destroySingletons() {
 		GameManager.destroy();
 		LobbyManager.destroy();
 	}
+	
 }

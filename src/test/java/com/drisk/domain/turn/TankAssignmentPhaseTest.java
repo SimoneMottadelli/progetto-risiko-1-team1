@@ -46,13 +46,13 @@ public class TankAssignmentPhaseTest {
 	@Test
 	public void playPhaseTest() {
 		
-		TanksAssignmentPhase phase = new TanksAssignmentPhase();
-		
 		// getting current player and building the tris he wants to use
 		Player currentPlayer = LobbyManager.getInstance().getPlayers().get(0);
+		
+		TanksAssignmentPhase phase = new TanksAssignmentPhase(currentPlayer);
 		TerritoryCard card_1 = CardManager.getInstance().findTerritoryCardByTerritoryName("egypt");
-		TerritoryCard card_2 = CardManager.getInstance().findTerritoryCardByTerritoryName("mongolia");
-		TerritoryCard card_3 = CardManager.getInstance().findTerritoryCardByTerritoryName("scandinavia");
+		TerritoryCard card_2 = CardManager.getInstance().findTerritoryCardByTerritoryName("north_east_asia");
+		TerritoryCard card_3 = CardManager.getInstance().findTerritoryCardByTerritoryName("north_east_europe");
 		
 		// building the json request payload
 		JsonObject phaseConfig = new JsonObject();
@@ -62,10 +62,10 @@ public class TankAssignmentPhaseTest {
 		cards.add(card_3.toJson());
 		phaseConfig.add("cards", cards);
 		
-		// it have to throws new RequestNotValidException because CAVALRY, ARTILLERY, ARTILLERY is not a tris
+		// it have to throws new RequestNotValidException because CAVALRY, INFANTRY, INFANTRY is not a tris
 		try {
 			System.out.print(currentPlayer.toJson());
-			phase.playPhase(currentPlayer, phaseConfig);
+			phase.playPhase(phaseConfig);
 			fail();
 		} catch (RequestNotValidException e) {}
 	

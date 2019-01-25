@@ -74,13 +74,16 @@ public class AttackPhase extends Phase {
 	}
 
 	private void attackEnemyTerritory() {
+		
 		int defenderTanks = territoryDefender.getNumberOfTanks();
 		if (defenderTanks > 3)
 			defenderTanks = 3;
 		int maxNumberOfAttackerTanks = 3;
 		if (attackerTanks < 3)
 			maxNumberOfAttackerTanks = attackerTanks;
+		
 		int[] tanksToRemove = rollDices(maxNumberOfAttackerTanks, defenderTanks);
+		
 		TankManager tm = TankManager.getInstance();
 		tm.removeTanks(territoryAttacker, tanksToRemove[0]);
 		tm.removeTanks(territoryDefender, tanksToRemove[1]);
@@ -88,12 +91,14 @@ public class AttackPhase extends Phase {
 				+ territoryAttacker.getName().toUpperCase());
 		addMessage("Player " + attacker.getColor() + " has lost " + tanksToRemove[0] + " tanks");
 		addMessage("Player " + territoryDefender.getOwner().getColor() + " has lost " + tanksToRemove[1] + " tanks");
+		
 		if (territoryDefender.getNumberOfTanks() == 0) {
 			territoryDefender.setOwner(attacker);
 			tm.moveTanks(territoryAttacker, territoryDefender, attackerTanks - tanksToRemove[0]);
 			canDrawTerritoryCard = true;
 			addMessage("Player " + attacker.getColor() + " has conquered " + territoryDefender.getName().toUpperCase());
 		}
+		
 	}
 
 	private int[] rollDices(int attackerTanks, int defenderTanks) {
@@ -117,7 +122,7 @@ public class AttackPhase extends Phase {
 
 	}
 
-	private int[] compareDices(Integer[] attackerDicesResults, Integer[] defenderDicesResults) {
+	protected int[] compareDices(Integer[] attackerDicesResults, Integer[] defenderDicesResults) {
 
 		int attackerTanksLost = 0;
 		int defenderTanksLost = 0;
