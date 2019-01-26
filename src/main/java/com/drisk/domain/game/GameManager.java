@@ -98,6 +98,7 @@ public class GameManager {
 
 	public void checkLoss(Player player) {
 		if(MapManager.getInstance().getMapTerritories(player).isEmpty()) {
+			CardManager.getInstance().changeMission(players, player);
 			CardManager.getInstance().removeCards(player, player.getTerritoryCardsHand());
 			players.remove(player);
 		}

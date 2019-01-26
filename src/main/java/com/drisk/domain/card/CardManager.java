@@ -72,7 +72,11 @@ public class CardManager {
 			missionCards.addAll(createConqerContinentMission());
 			missionCards.addAll(createDestroyEnemyMission(players));
 		}
-		missionCards.add(new ConquerTerritoryMissionCard((MapManager.getInstance().getNumberOfTerritories()*4)/7));
+		missionCards.add(createConquerTerritoryMissionCard());
+	}
+	
+	private MissionCard createConquerTerritoryMissionCard() {
+		return new ConquerTerritoryMissionCard((MapManager.getInstance().getNumberOfTerritories()*4)/7);
 	}
 
 	private List<MissionCard> createConqerContinentMission() {
@@ -170,5 +174,14 @@ public class CardManager {
 
 	public static void destroy() {
 		instance = null;
-	}	
+	}
+	
+	public void changeMission(List<Player> players, Player player) {
+		for(Player p: players)
+			if(p.getMissionCard() instanceof DestroyEnemyMissionCard) {
+				DestroyEnemyMissionCard card = (DestroyEnemyMissionCard) p.getMissionCard();
+				if(card.getEnemy().equals(player)) 
+					p.setMission(createConquerTerritoryMissionCard());
+			}
+	}
 }
