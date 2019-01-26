@@ -52,8 +52,12 @@
      visibility="visible"
      fill="#b3ffff">
     <path
-       d="M 0,0 1024,0 V 792 H 0 Z"
-       id="path258" />
+       style="stroke-width:0.80000001"
+       d="m 0,0 v 533.59961 l 819.19922,0 V 0 Z"
+       transform="scale(1.25)"
+       id="path63"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
     <g
        id="map"
        visibility="visible"
