@@ -31,10 +31,6 @@ public class LobbyManager {
 		return matchStarted;
 	}
 	
-	public void setObjective(ObjectiveTypeEnum objective) {
-		this.objective = objective;
-	}
-	
 	public boolean isMatchFull() {
 		return matchFull;
 	}
@@ -141,6 +137,10 @@ public class LobbyManager {
 			if(p.getColor().equals(color))
 				return p;
 		return null;
+	}
+
+	public void configGame(JsonObject gameConfig) {
+		objective = ObjectiveTypeEnum.valueOf(gameConfig.get("objective").toString().toUpperCase().replace("\"", ""));
 	}
 	
 }

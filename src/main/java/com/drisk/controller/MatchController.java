@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.drisk.domain.game.ColorEnum;
+import com.drisk.domain.game.GameManager;
 import com.drisk.domain.lobby.LobbyManager;
 import com.drisk.domain.map.MapManager;
 import com.drisk.technicalservice.JsonHelper;
@@ -38,13 +39,13 @@ public class MatchController {
 	@ResponseBody
 	public JsonObject join(HttpServletRequest request) {
 		LobbyManager mm = LobbyManager.getInstance();
-		if (mm.isMatchStarted())
-			return helper.createResponseJson(-1, "The match has already started!");
+		if (GameManager.getInstance().isGameStarted())
+			return helper.createResponseJson(-1, "The game has already started!");
 		else if (mm.isMatchFull())
 			return helper.createResponseJson(-1, "There are enough players!");
 		else {
 			HttpSession session = request.getSession(false);
-			if (!isAPlayer(session)) {
+			if (!isAPlayer(session) || mm.findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)) == null) {
 				mm.joinGame(request.getParameter("name").trim());
 				session = request.getSession();
 				session.setAttribute(SESSION_ATTRIBUTE_COLOR, mm.findLastPlayerColor());
@@ -71,6 +72,7 @@ public class MatchController {
 			String body = request.getReader().lines().collect(Collectors.joining());
 			JsonObject gameConfig = helper.parseJson(body);
 			MapManager.getInstance().createMap(gameConfig);
+			LobbyManager.getInstance().configGame(gameConfig);
 			return helper.createResponseJson(0, "Configuration correctly added");
 		} catch (JsonSyntaxException e) {
 			return helper.createResponseJson(-1, "Syntax error: cannot parse json object");
@@ -98,6 +100,13 @@ public class MatchController {
 		}
 		emitter.complete();
 		return emitter;
+	}
+	
+	@GetMapping("/lobbyPage")
+	@ResponseBody
+	public JsonObject resetGame() {
+		GameManager.getInstance().resetGame();
+		return helper.createResponseJson(0, "http://" + getIp() + ":8080/drisk");
 	}
 	
 	private String getIp() {

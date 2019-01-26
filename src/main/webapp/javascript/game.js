@@ -11,6 +11,7 @@ $(document).ready(function() {
 	var historyMessages = []; // messages of what's happening in the game
 	var attackPhaseAlreadyInitialized = false;
 	var movementPhaseAlreadyInitialized = false;
+	var isThereAWinner = false;
 	
 	
 	// ----------------------------------------------------
@@ -92,9 +93,13 @@ $(document).ready(function() {
 		var initialTankPlacementPhaseStarted = false;
 		var source = new EventSource('../game/territories');
 		source.onmessage = function(event) {
-			map.territories = JSON.parse(event.data);
-			initialTankPlacementPhaseStarted = true;			
-			updateSVGMap();
+			if(isThereAWinner)
+				source.close();
+			else {	
+				map.territories = JSON.parse(event.data);
+				initialTankPlacementPhaseStarted = true;			
+				updateSVGMap();
+			}
 		}
 	}
 	
@@ -123,7 +128,7 @@ $(document).ready(function() {
 					showModalWindow("All tanks have been placed! Wait for other players to finish this phase too");
 				}
 			}
-			else {
+			else if(!JSON.parse(event.data).hasOwnProperty('winner')) {
 				updateConsoleText(JSON.parse(event.data).history);
 				var currentPlayer = JSON.parse(event.data).currentPlayerColor;
 				$("#playersTurnLabel").html(currentPlayer);
@@ -135,6 +140,14 @@ $(document).ready(function() {
 					var phaseId = JSON.parse(event.data).currentPhaseId;
 					playPhase(phaseId);
 				}
+			}
+			else {
+				var winner = JSON.parse(event.data).winner;
+				showModalWindow(winner + " has won the game!");
+				isThereAWinner = true;
+				source.close();
+				$("#gameDiv").hide();
+				$("#returnToHomeDiv").show();
 			}
 		}
 	}
@@ -189,6 +202,7 @@ $(document).ready(function() {
 	// this function is used to show all the player's territories.
 	// the parameter SELECT can be: wherePlacementSelect, fromMovementSelect or fromAttackSelect.
 	function updateMyTerritoriesSelect(select) {
+		console.log("ciao");
 		select.html("");
 		for (var i = 0; i < map.territories.length; ++i) 
 			if (map.territories[i].owner == myColor)
@@ -304,6 +318,17 @@ $(document).ready(function() {
 					updateCards(JSON.parse(data.responseMessage).cards);
 					updateCardsCheckboxes();
 				}
+			}
+		});
+	}
+	
+	// function used to return to home when there is a winner
+	function endGame() {
+		$.getJSON('../match/lobbyPage', function(result) {
+			if (result.responseCode == -1)
+				showModalWindow(result.responseMessage);
+			else {
+				location.replace(result.responseMessage);
 			}
 		});
 	}
@@ -428,6 +453,18 @@ $(document).ready(function() {
 		nextPhase();
 	});
 	
+	$("#wherePlacementSelect").on("click", function(){
+		updateMyTerritoriesSelect($("#wherePlacementSelect"));
+	});
+	
+	$("#fromAttackSelect").on("click", function(){
+		updateMyTerritoriesSelect($("#fromAttackSelect"));
+	});
+	
+	$("#fromMovementSelect").on("click", function(){
+		updateMyTerritoriesSelect($("#fromMovementSelect"));
+	});
+	
 	$("#useTrisButton").click(function() {
 		useTris();
 	});
@@ -442,6 +479,10 @@ $(document).ready(function() {
 	
 	$("#attackButton").click(function() {
 		attack();
+	});
+	
+	$("#returnToHomeButton").click(function() {
+		endGame();
 	});
 	
 	$("#moveButton").click(function() {
