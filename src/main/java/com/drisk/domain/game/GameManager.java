@@ -77,14 +77,9 @@ public class GameManager {
 	public boolean checkWin(Player player) {
 		if(player.getMissionCard().isAchievementReached(player)) {
 			winner = player;
-			endGame();
 			return true;
 		}
 		return false;
-	}
-	
-	private void endGame() {
-		
 	}
 	
 	public void tryToStartGame() {
@@ -96,12 +91,14 @@ public class GameManager {
 		instance = null;
 	}
 
-	public void checkLoss(Player player) {
+	public boolean checkLoss(Player player) {
 		if(MapManager.getInstance().getMapTerritories(player).isEmpty()) {
 			CardManager.getInstance().changeMission(players, player);
 			CardManager.getInstance().removeCards(player, player.getTerritoryCardsHand());
 			players.remove(player);
+			return true;
 		}
+		return false;
 	}	
 	
 	public ColorEnum getColorOfWinner() {

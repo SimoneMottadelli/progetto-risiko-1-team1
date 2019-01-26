@@ -83,16 +83,16 @@ public class CardManager {
 		
 		Continent asia = MapManager.getInstance().findContinentByName("asia");
 		Continent africa = MapManager.getInstance().findContinentByName("africa");
-		Continent north_america = MapManager.getInstance().findContinentByName("north_america");
-		Continent south_america = MapManager.getInstance().findContinentByName("south_america");
+		Continent northAmerica = MapManager.getInstance().findContinentByName("north_america");
+		Continent southAmerica = MapManager.getInstance().findContinentByName("south_america");
 		Continent australia = MapManager.getInstance().findContinentByName("australia");
 		
 		List<MissionCard> missions = new LinkedList<>();
 		
 		missions.add(new ConquerContinentMissionCard(asia, africa));
-		missions.add(new ConquerContinentMissionCard(asia, south_america));
-		missions.add(new ConquerContinentMissionCard(north_america, africa));
-		missions.add(new ConquerContinentMissionCard(north_america, australia));
+		missions.add(new ConquerContinentMissionCard(asia, southAmerica));
+		missions.add(new ConquerContinentMissionCard(northAmerica, africa));
+		missions.add(new ConquerContinentMissionCard(northAmerica, australia));
 		
 		return missions;
 	}

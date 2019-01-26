@@ -50,7 +50,8 @@ public class MatchController {
 				session = request.getSession();
 				session.setAttribute(SESSION_ATTRIBUTE_COLOR, mm.findLastPlayerColor());
 				return helper.createResponseJson(0, "You've joined the game!");
-			} else
+			} 
+			else
 				return helper.createResponseJson(0, "Welcome back to joining room");
 		}
 	}

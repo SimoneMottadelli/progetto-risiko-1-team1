@@ -19,6 +19,8 @@ public class AttackPhase extends Phase {
 	private Territory territoryDefender;
 	private int attackerTanks;
 	private boolean canDrawTerritoryCard;
+	private static final String TANKS = " tanks";
+	private static final String PLAYER = "Player ";
 
 	public AttackPhase(Player player) {
 		super(PhaseEnum.ATTACK.getValue());
@@ -32,15 +34,18 @@ public class AttackPhase extends Phase {
 		checkCondition();
 		attackEnemyTerritory();
 		if (!checkWin())
-			checkLoss();
+			if(checkLoss())
+				addMessage(PLAYER + territoryDefender.getOwner().getColor() + " has lost");
+		else
+			addMessage(PLAYER + attacker.getColor() + " has won the game");
 	}
 
 	private boolean checkWin() {
 		return GameManager.getInstance().checkWin(attacker);
 	}
 
-	private void checkLoss() {
-		GameManager.getInstance().checkLoss(territoryDefender.getOwner());
+	private boolean checkLoss() {
+		return GameManager.getInstance().checkLoss(territoryDefender.getOwner());
 	}
 
 	@Override
@@ -58,7 +63,7 @@ public class AttackPhase extends Phase {
 	protected void checkCondition() throws RequestNotValidException {
 		if (attackerTanks > territoryAttacker.getNumberOfTanks())
 			throw new RequestNotValidException(
-					"You don't have " + attackerTanks + " tanks");
+					"You don't have " + attackerTanks + TANKS);
 		if (attackerTanks == territoryAttacker.getNumberOfTanks())
 			throw new RequestNotValidException(
 					"You can't attack with " + attackerTanks + " because a tank must remain in your territory!");
@@ -87,16 +92,16 @@ public class AttackPhase extends Phase {
 		TankManager tm = TankManager.getInstance();
 		tm.removeTanks(territoryAttacker, tanksToRemove[0]);
 		tm.removeTanks(territoryDefender, tanksToRemove[1]);
-		addMessage("Player " + attacker.getColor() + " has attacked " + territoryDefender.getName().toUpperCase() + " from "
+		addMessage(PLAYER + attacker.getColor() + " has attacked " + territoryDefender.getName().toUpperCase() + " from "
 				+ territoryAttacker.getName().toUpperCase());
-		addMessage("Player " + attacker.getColor() + " has lost " + tanksToRemove[0] + " tanks");
-		addMessage("Player " + territoryDefender.getOwner().getColor() + " has lost " + tanksToRemove[1] + " tanks");
+		addMessage(PLAYER + attacker.getColor() + " has lost " + tanksToRemove[0] + TANKS);
+		addMessage(PLAYER + territoryDefender.getOwner().getColor() + " has lost " + tanksToRemove[1] + TANKS);
 		
 		if (territoryDefender.getNumberOfTanks() == 0) {
 			territoryDefender.setOwner(attacker);
 			tm.moveTanks(territoryAttacker, territoryDefender, attackerTanks - tanksToRemove[0]);
 			canDrawTerritoryCard = true;
-			addMessage("Player " + attacker.getColor() + " has conquered " + territoryDefender.getName().toUpperCase());
+			addMessage(PLAYER + attacker.getColor() + " has conquered " + territoryDefender.getName().toUpperCase());
 		}
 		
 	}
