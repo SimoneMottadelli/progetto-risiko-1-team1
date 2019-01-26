@@ -11,6 +11,8 @@ $(document).ready(function() {
 	var historyMessages = []; // messages of what's happening in the game
 	var attackPhaseAlreadyInitialized = false;
 	var movementPhaseAlreadyInitialized = false;
+	var tanksAssignmentPhaseAlreadyInitialized = false;
+	var tanksPlacementPhaseAlreadyInitialized = false;
 	
 	
 	// ----------------------------------------------------
@@ -147,13 +149,22 @@ $(document).ready(function() {
 		switch (phaseId) {
 		case 1:
 			movementPhaseAlreadyInitialized = false;
-			getPlayerInfo();
+			if (!tanksAssignmentPhaseAlreadyInitialized) {
+				getPlayerInfo();
+				tanksAssignmentPhaseAlreadyInitialized = true;
+			}
 			$("#tanksAssignmentPhaseDiv").show();
 			break;
 		case 2:
+			tanksAssignmentPhaseAlreadyInitialized = false;
+			if (!tanksPlacementPhaseAlreadyInitialized) {
+				updateMyTerritoriesSelect($("#wherePlacementSelect"));
+				tanksPlacementPhaseAlreadyInitialized = true;
+			}
 			$("#tanksPlacementPhaseDiv").show();
 			break;
 		case 3:
+			tanksPlacementPhaseAlreadyInitialized = false;
 			if (!attackPhaseAlreadyInitialized) {
 				updateMyTerritoriesSelect($("#fromAttackSelect"));
 				updateToAttackSelect();
