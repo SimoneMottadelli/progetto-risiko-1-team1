@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class CardManagerTest {
 		// initializing the game
 		LobbyManager.getInstance().initGame();
 	}
-	
+
 	@Test
 	public void initTerritoryCardsTest() {
 		assertEquals(4, CardManager.getInstance().getTerritoryCards().size());

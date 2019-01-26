@@ -91,8 +91,7 @@ public class MatchController {
 		JsonObject obj = LobbyManager.getInstance().toJson();
 		obj.addProperty("mapReady", MapManager.getInstance().isMapReady());
 		try {
-			obj.addProperty("serverIp", getIp());
-			obj.addProperty("serverPort", 8080);
+			obj.addProperty("gamePage", "http://" + getIp() + ":8080/drisk/pages/game.html");
 			emitter.send(obj);
 		} catch (Exception ex) {
 			emitter.completeWithError(ex);

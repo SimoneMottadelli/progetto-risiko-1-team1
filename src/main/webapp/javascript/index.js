@@ -123,10 +123,7 @@ $(document).ready(
 								var isMapReady = JSON.parse(evt.data).mapReady;
 								if (isEveryoneReady(playersArray) && isMapReady && areThereTwoPlayers(playersArray)) {
 									source.close();
-									var serverIp = JSON.parse(evt.data).serverIp;
-									var serverPort = JSON.parse(evt.data).serverPort
-									//location.replace("http://" + serverIp + ":" + serverPort + "/drisk/pages/game.html");
-									location.replace("http://localhost:8080/drisk/pages/game.html");
+									location.replace(JSON.parse(evt.data).gamePage);
 								}
 								else if (!warningAlreadyDisplayed && isEveryoneReady(playersArray) && !isMapReady){
 									showModalWindow("Everyone is ready but the map hasn't been created yet");
