@@ -94,14 +94,12 @@ $(document).ready(function() {
 	// this function creates a link that connects the client to the server, so that the
 	// server can send map updates using Server Send Event mechanism.
 	function startRequestingMapLoading() {
-		var initialTankPlacementPhaseStarted = false;
 		var source = new EventSource('../game/territories');
 		source.onmessage = function(event) {
 			if(isThereAWinner)
 				source.close();
 			else {	
-				map.territories = JSON.parse(event.data);
-				initialTankPlacementPhaseStarted = true;			
+				map.territories = JSON.parse(event.data);		
 				updateSVGMap();
 				
 				if (!attackPhaseAlreadyRefreshed) {

@@ -34,7 +34,8 @@ public class CardManager {
 	}	
 	
 	public void initPlayersMission(List<Player> players) {	
-		for (int i = 0; i < players.size(); ++i) {
+		int i = 0;
+		while(i < players.size()) {
 			MissionCard mc = (MissionCard) missionCards.get(new SecureRandom().nextInt(missionCards.size()));
 			if (mc instanceof DestroyEnemyMissionCard) {
 				if (!((DestroyEnemyMissionCard) mc).getEnemy().equals(players.get(i)))
@@ -44,6 +45,7 @@ public class CardManager {
 			}
 			else
 				players.get(i).setMission(mc);
+			++i;
 		}
 	}
 	
