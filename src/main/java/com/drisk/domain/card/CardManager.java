@@ -1,12 +1,14 @@
 package com.drisk.domain.card;
 
 import java.util.LinkedList;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
 
 import com.drisk.domain.game.ObjectiveTypeEnum;
 import com.drisk.domain.game.Player;
 import com.drisk.domain.map.Continent;
+import com.drisk.domain.map.DifficultyEnum;
 import com.drisk.domain.map.MapManager;
 import com.drisk.domain.map.Territory;
 
@@ -32,8 +34,17 @@ public class CardManager {
 	}	
 	
 	public void initPlayersMission(List<Player> players) {	
-		for(int i = 0; i < players.size(); ++i) 
-			players.get(i).setMission((MissionCard) missionCards.get(i % missionCards.size()));
+		for (int i = 0; i < players.size(); ++i) {
+			MissionCard mc = (MissionCard) missionCards.get(new SecureRandom().nextInt(missionCards.size()));
+			if (mc instanceof DestroyEnemyMissionCard) {
+				if (!((DestroyEnemyMissionCard) mc).getEnemy().equals(players.get(i)))
+					players.get(i).setMission(mc);
+				else
+					--i; // to avoid that this player remains without a missioncard	
+			}
+			else
+				players.get(i).setMission(mc);
+		}
 	}
 	
 	public TerritoryCard findTerritoryCardByTerritoryName(String territoryName) {
@@ -80,19 +91,19 @@ public class CardManager {
 	}
 
 	private List<MissionCard> createConqerContinentMission() {
-		
-		Continent asia = MapManager.getInstance().findContinentByName("asia");
-		Continent africa = MapManager.getInstance().findContinentByName("africa");
-		Continent northAmerica = MapManager.getInstance().findContinentByName("north_america");
-		Continent southAmerica = MapManager.getInstance().findContinentByName("south_america");
-		Continent australia = MapManager.getInstance().findContinentByName("australia");
-		
-		List<MissionCard> missions = new LinkedList<>();
-		
-		missions.add(new ConquerContinentMissionCard(asia, africa));
-		missions.add(new ConquerContinentMissionCard(asia, southAmerica));
-		missions.add(new ConquerContinentMissionCard(northAmerica, africa));
-		missions.add(new ConquerContinentMissionCard(northAmerica, australia));
+		List<MissionCard> missions = new LinkedList<>();		
+		if(!MapManager.getInstance().getMapDifficulty().equals(DifficultyEnum.CUSTOM)) {
+			Continent asia = MapManager.getInstance().findContinentByName("asia");
+			Continent africa = MapManager.getInstance().findContinentByName("africa");
+			Continent northAmerica = MapManager.getInstance().findContinentByName("north_america");
+			Continent southAmerica = MapManager.getInstance().findContinentByName("south_america");
+			Continent australia = MapManager.getInstance().findContinentByName("australia");
+			
+			missions.add(new ConquerContinentMissionCard(asia, africa));
+			missions.add(new ConquerContinentMissionCard(asia, southAmerica));
+			missions.add(new ConquerContinentMissionCard(northAmerica, africa));
+			missions.add(new ConquerContinentMissionCard(northAmerica, australia));
+		}
 		
 		return missions;
 	}
@@ -176,11 +187,11 @@ public class CardManager {
 		instance = null;
 	}
 	
-	public void changeMission(List<Player> players, Player player) {
+	public void changeMission(List<Player> players, Player loser) {
 		for(Player p: players)
 			if(p.getMissionCard() instanceof DestroyEnemyMissionCard) {
 				DestroyEnemyMissionCard card = (DestroyEnemyMissionCard) p.getMissionCard();
-				if(card.getEnemy().equals(player)) 
+				if(card.getEnemy().equals(loser)) 
 					p.setMission(createConquerTerritoryMissionCard());
 			}
 	}
