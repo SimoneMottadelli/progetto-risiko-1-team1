@@ -7,16 +7,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import com.drisk.domain.map.DifficultyEnum;
+import com.drisk.domain.DifficultyEnum;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class FileLoader {
 	
-	public JsonObject readDefaultMapFile(DifficultyEnum difficulty) throws FileNotFoundException {
+	public JsonObject readDefaultMapFile(String difficultyStr) throws FileNotFoundException {
 		BufferedReader bufferedReader;
 		FileReader file;
-		String difficultyStr = difficulty.toString().toLowerCase();
 		try {
 			file = new FileReader("default_map_" + difficultyStr + ".json");
 		} catch (FileNotFoundException e) {

@@ -13,12 +13,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.drisk.domain.ColorEnum;
+import com.drisk.domain.GameManager;
+import com.drisk.domain.LobbyManager;
+import com.drisk.domain.MapManager;
+import com.drisk.domain.Player;
 import com.drisk.domain.exceptions.SyntaxException;
-import com.drisk.domain.game.ColorEnum;
-import com.drisk.domain.game.GameManager;
-import com.drisk.domain.game.Player;
-import com.drisk.domain.lobby.LobbyManager;
-import com.drisk.domain.map.MapManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -59,7 +59,7 @@ public class GameManagerTest {
 	public void initPlayersTerritoriesTest() {
 		List<Player> players = GameManager.getInstance().getPlayers();
 		for(Player p : players)
-			if(MapManager.getInstance().getMapTerritories(p).size() < 4)
+			if(MapManager.getInstance().getPlayerTerritories(p).size() < 4)
 				fail();
 	}
 

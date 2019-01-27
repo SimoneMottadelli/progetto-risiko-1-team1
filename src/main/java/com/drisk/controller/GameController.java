@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import com.drisk.domain.ColorEnum;
+import com.drisk.domain.GameManager;
+import com.drisk.domain.MapManager;
+import com.drisk.domain.TankManager;
+import com.drisk.domain.TurnManager;
 import com.drisk.domain.exceptions.RequestNotValidException;
-import com.drisk.domain.game.ColorEnum;
-import com.drisk.domain.game.GameManager;
-import com.drisk.domain.game.TankManager;
-import com.drisk.domain.map.MapManager;
-import com.drisk.domain.turn.TurnManager;
 import com.drisk.technicalservice.JsonHelper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -37,7 +37,7 @@ public class GameController {
 	@GetMapping("/territories")
     public SseEmitter getMapTerritories() {
 		SseEmitter emitter = new SseEmitter();
-		JsonArray territories = MapManager.getInstance().toJson().getAsJsonArray("territories");
+		JsonArray territories = MapManager.getInstance().getMap().toJson().getAsJsonArray("territories");
 		try {
 			emitter.send(territories);
 		} catch (IOException ex) {
@@ -55,7 +55,7 @@ public class GameController {
 	@GetMapping("/map")
 	@ResponseBody
     public JsonObject getMap() {
-		JsonObject responseObj = MapManager.getInstance().toJson();
+		JsonObject responseObj = MapManager.getInstance().getMap().toJson();
 		try {
 			responseObj.addProperty("mapSVG", MapManager.getInstance().getSVGMap());
 			return helper.createResponseJson(0, responseObj.toString());
@@ -107,7 +107,7 @@ public class GameController {
 		try {
 			String territoryName = obj.getAsJsonPrimitive("territory").getAsString();
 			ColorEnum color = (ColorEnum) request.getSession(false).getAttribute(SESSION_ATTRIBUTE_COLOR);
-			TankManager.getInstance().tryToPlaceTanks(GameManager.getInstance().findPlayerByColor(color), MapManager.getInstance().findTerritoryByName(territoryName), numOfTanks);
+			TankManager.getInstance().tryToPlaceTanks(GameManager.getInstance().findPlayerByColor(color), MapManager.getInstance().getMap().findTerritoryByName(territoryName), numOfTanks);
 		} catch (RequestNotValidException e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
