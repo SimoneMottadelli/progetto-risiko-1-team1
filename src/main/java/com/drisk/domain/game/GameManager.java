@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.drisk.domain.card.CardManager;
+import com.drisk.domain.lobby.LobbyManager;
 import com.drisk.domain.map.MapManager;
 import com.drisk.domain.turn.TurnManager;
 
@@ -12,13 +13,11 @@ public class GameManager {
 	private List<Player> players;
 	private static GameManager instance;
 	private Player winner;
+	private boolean gameStarted;
 	
 	private GameManager() {
 		players = new LinkedList<>();
-	}
-	
-	public Player getWinner() {
-		return winner;
+		gameStarted = false;
 	}
 	
 	public static GameManager getInstance() {
@@ -26,8 +25,13 @@ public class GameManager {
 			instance = new GameManager();
 		return instance;
 	}
+	
+	public boolean isGameStarted() {
+		return gameStarted;
+	}
 
 	public void initGame(List<Player> players, ObjectiveTypeEnum objective) {
+		gameStarted = true;
 		initPlayers(players);
 		initPlayersTerritories();
 		initCards(objective);
@@ -73,15 +77,9 @@ public class GameManager {
 	public boolean checkWin(Player player) {
 		if(player.getMissionCard().isAchievementReached(player)) {
 			winner = player;
-			endGame();
 			return true;
 		}
 		return false;
-	}
-	
-	private void endGame() {
-		// TODO qualsiasi cosa deve succedere quando il gioco deve terminare
-		System.out.println("Il giocatore " + TurnManager.getInstance().getCurrentPlayer().getColor() + " ha vinto!");
 	}
 	
 	public void tryToStartGame() {
@@ -93,10 +91,30 @@ public class GameManager {
 		instance = null;
 	}
 
-	public void checkLoss(Player player) {
+	public boolean checkLoss(Player player) {
 		if(MapManager.getInstance().getMapTerritories(player).isEmpty()) {
+			CardManager.getInstance().changeMission(players, player);
 			CardManager.getInstance().removeCards(player, player.getTerritoryCardsHand());
 			players.remove(player);
+			return true;
 		}
+		return false;
 	}	
+	
+	public ColorEnum getColorOfWinner() {
+		if(winner != null)
+			return winner.getColor();
+		else
+			return null;
+	}
+
+	public void resetGame() {
+		CardManager.destroy();
+		MapManager.destroy();
+		TurnManager.destroy();
+		TankManager.destroy();
+		LobbyManager.destroy();
+		destroy();
+	}
+	
 }

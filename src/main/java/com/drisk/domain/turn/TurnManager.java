@@ -71,5 +71,9 @@ public class TurnManager {
 		result.addProperty("currentPhaseId", phaseId);
 		return result;
 	}
+	
+	public static void destroy() {
+		instance = null;
+	}
 
 }

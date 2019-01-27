@@ -91,8 +91,6 @@ $(document).ready(
 					jsonRequestPayload += "custom', " + $("#jsonTextArea").val() + ", ";
 					jsonRequestPayload += "'mapSVG': '" + $("#svgTextArea").val() + "'}";
 				}
-				
-				console.log(jsonRequestPayload);
 
 				$.ajax({
 					type : "POST",

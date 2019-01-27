@@ -72,7 +72,10 @@ public class GameController {
 	public SseEmitter handleSseTurn() {
 		SseEmitter emitter = new SseEmitter();
 		try {
-			emitter.send(TurnManager.getInstance().toJson());
+			JsonObject result = TurnManager.getInstance().toJson();
+			if(GameManager.getInstance().getColorOfWinner() != null)
+				result.addProperty("winner", GameManager.getInstance().getColorOfWinner().toString());
+			emitter.send(result);
 		} catch (IOException ex) {
 			emitter.completeWithError(ex);
 		}

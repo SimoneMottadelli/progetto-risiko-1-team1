@@ -172,6 +172,10 @@ public class MapManager {
 		return map.isReady();
 	}
 	
+	public static void destroy() {
+		instance = null;
+	}
+	
 	public DifficultyEnum getMapDifficulty() {
 		return map.getDifficulty();
 	}	

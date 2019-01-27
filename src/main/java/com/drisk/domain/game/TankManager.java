@@ -25,19 +25,19 @@ public class TankManager {
 		int numberOfTanks;
 		switch (players.size()) {
 		case 2:
-			numberOfTanks = ((int)(40 * numberTerritories  / 42));
+			numberOfTanks = 40 * numberTerritories  / 42;
 			break;
 		case 3:
-			numberOfTanks = ((int)(35 * numberTerritories  / 42));
+			numberOfTanks = 35 * numberTerritories  / 42;
 			break;
 		case 4:
-			numberOfTanks = ((int)(30 * numberTerritories  / 42));
+			numberOfTanks = 30 * numberTerritories  / 42;
 			break;
 		case 5:
-			numberOfTanks = ((int)(25 * numberTerritories  / 42));
+			numberOfTanks = 25 * numberTerritories  / 42;
 			break;
 		case 6:
-			numberOfTanks = ((int)(20 * numberTerritories  / 42));
+			numberOfTanks = 20 * numberTerritories  / 42;
 			break;
 		default:
 			numberOfTanks = 0;
