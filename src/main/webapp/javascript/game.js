@@ -13,6 +13,8 @@ $(document).ready(function() {
 	var movementPhaseAlreadyInitialized = false;
 	var tanksAssignmentPhaseAlreadyInitialized = false;
 	var tanksPlacementPhaseAlreadyInitialized = false;
+	var attackPhaseAlreadyRefreshed = false;
+	var tanksPlacementPhaseAlreadyRefreshed = false;
 	var isThereAWinner = false;
 	
 	
@@ -101,6 +103,16 @@ $(document).ready(function() {
 				map.territories = JSON.parse(event.data);
 				initialTankPlacementPhaseStarted = true;			
 				updateSVGMap();
+				
+				if (!attackPhaseAlreadyRefreshed) {
+					updateMyTerritoriesSelect($("#fromAttackSelect"));
+					attackPhaseAlreadyRefreshed = true;
+				}
+				
+				if (!tanksPlacementPhaseAlreadyRefreshed) {
+					updateMyTerritoriesSelect($("#wherePlacementSelect"));
+					tanksPlacementPhaseAlreadyRefreshed = true;
+				}
 			}
 		}
 	}
@@ -213,7 +225,6 @@ $(document).ready(function() {
 	// this function is used to show all the player's territories.
 	// the parameter SELECT can be: wherePlacementSelect, fromMovementSelect or fromAttackSelect.
 	function updateMyTerritoriesSelect(select) {
-		console.log("ciao");
 		select.html("");
 		for (var i = 0; i < map.territories.length; ++i) 
 			if (map.territories[i].owner == myColor)
@@ -325,7 +336,8 @@ $(document).ready(function() {
 					showModalWindow(data.responseMessage);
 				else {
 					updatePlayerStatus(JSON.parse(data.responseMessage));
-					attackPhaseAlreadyInitialized = false; // in order to refresh "fromAttackSelect" in case of conquest of a new territory
+					attackPhaseAlreadyRefreshed = false; // in order to refresh "fromAttackSelect" in case of conquest of a new territory
+					tanksPlacementPhaseAlreadyRefreshed = false; // in order to refresh "fromAttackSelect" in case of conquest of a new territory
 					updateCards(JSON.parse(data.responseMessage).cards);
 					updateCardsCheckboxes();
 				}
