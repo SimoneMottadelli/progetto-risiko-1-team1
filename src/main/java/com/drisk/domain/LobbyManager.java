@@ -111,6 +111,8 @@ public class LobbyManager {
 	
 	public JsonObject toJson() {
 		JsonObject result = new JsonObject();
+		result.addProperty("gameStarted", GameManager.getInstance().isGameStarted());
+		result.addProperty("mapReady", MapManager.getInstance().getMap().isReady());
 		JsonArray jsonArrayPlayers = new JsonArray();
 		for(Player p : players)
 			jsonArrayPlayers.add(p.toJson());

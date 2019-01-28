@@ -12,6 +12,7 @@ public class AttackPhase extends Phase {
 	private Player attacker;
 	private Territory territoryDefender;
 	private int attackerTanks;
+	private Dice dice;
 	private boolean canDrawTerritoryCard;
 	private static final String TANKS = " tanks";
 	private static final String PLAYER = "Player ";
@@ -20,6 +21,7 @@ public class AttackPhase extends Phase {
 		super(PhaseEnum.ATTACK.getValue());
 		canDrawTerritoryCard = false;
 		attacker = player;
+		dice = new Dice();
 	}
 
 	@Override
@@ -27,11 +29,13 @@ public class AttackPhase extends Phase {
 		fromJson(obj);
 		checkCondition();
 		attackEnemyTerritory();
-		if (!checkWin())
+		boolean won = checkWin();
+		if (!won) {
 			if (checkLoss())
-				addMessage(PLAYER + territoryDefender.getOwner().getColor() + " has lost");
-			else
-				addMessage(PLAYER + attacker.getColor() + " has won the game");
+				addMessage(PLAYER + territoryDefender.getOwner().getColor() + " has lost");	
+		}
+		else
+			addMessage(PLAYER + attacker.getColor() + " has won the game");
 	}
 
 	private boolean checkWin() {
@@ -103,7 +107,6 @@ public class AttackPhase extends Phase {
 
 		Integer[] attackerDicesResults = new Integer[attackerTanks];
 		Integer[] defenderDicesResults = new Integer[defenderTanks];
-		Dice dice = new Dice();
 
 		for (int i = 0; i < attackerDicesResults.length; ++i) {
 			attackerDicesResults[i] = dice.extractNumber();

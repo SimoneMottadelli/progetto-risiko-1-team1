@@ -119,7 +119,8 @@ $(document).ready(
 							source.onmessage = function(evt) {
 								var playersArray = JSON.parse(evt.data).players;
 								var isMapReady = JSON.parse(evt.data).mapReady;
-								if (isEveryoneReady(playersArray) && isMapReady && areThereTwoPlayers(playersArray)) {
+								var gameStarted = JSON.parse(evt.data).gameStarted;
+								if (gameStarted) {
 									source.close();
 									location.replace(JSON.parse(evt.data).gamePage);
 								}

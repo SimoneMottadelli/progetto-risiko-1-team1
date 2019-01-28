@@ -92,7 +92,6 @@ public class LobbyController {
 	public SseEmitter handleSse() {
 		SseEmitter emitter = new SseEmitter();
 		JsonObject obj = LobbyManager.getInstance().toJson();
-		obj.addProperty("mapReady", MapManager.getInstance().getMap().isReady());
 		try {
 			obj.addProperty("gamePage", "http://" + getIp() + ":8080/drisk/pages/game.html");
 			emitter.send(obj);
