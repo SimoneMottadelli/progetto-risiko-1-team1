@@ -9,7 +9,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="80%"
    height="80%"
-   viewBox="0 0 1024 792"
+   viewBox="0 0 1024 660"
    version="1.1"
    id="svg192"
    sodipodi:docname="map_default_hard.svg"
@@ -54,8 +54,7 @@
      style="visibility:visible;fill:#b3ffff">
      <path
        style="stroke-width:0.80000001"
-       d="m 0,0 v 533.59961 l 819.19922,0 V 0 Z"
-       transform="scale(1.25)"
+       d="m 0,0 v 660 l 1024,0 V 0 Z"
        id="path63"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
