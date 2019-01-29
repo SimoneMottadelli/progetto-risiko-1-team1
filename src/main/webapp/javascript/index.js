@@ -91,7 +91,7 @@ $(document).ready(
 					jsonRequestPayload += "custom', " + $("#jsonTextArea").val() + ", ";
 					jsonRequestPayload += "'mapSVG': '" + $("#svgTextArea").val() + "'}";
 				}
-
+		
 				$.ajax({
 					type : "POST",
 					url : "./match/gameConfig",

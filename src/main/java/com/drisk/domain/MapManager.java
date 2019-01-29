@@ -54,8 +54,10 @@ public class MapManager {
 	public void createMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
 		map = new com.drisk.domain.Map();
 		map.setDifficulty(new JsonHelper().difficultyFromJson(gameConfig));
-		if (map.getDifficulty().equals(DifficultyEnum.CUSTOM))
+		if (map.getDifficulty().equals(DifficultyEnum.CUSTOM)) {
 			createMapComponents(gameConfig);
+			map.setRepresentationSVG(new JsonHelper().mapSVGFromJson(gameConfig));
+		} 
 		else
 			createMapComponents(new FileLoader().readDefaultMapFile(map.getDifficulty().toString().toLowerCase()));
 		map.setReady(true);
@@ -147,7 +149,10 @@ public class MapManager {
 	 */
 
 	public String getSVGMap() throws IOException {
-		return new FileLoader().readSVGMapFile(map.getDifficulty());
+		if (map.getDifficulty().equals(DifficultyEnum.CUSTOM)) 
+			return map.getRepresentationSVG();
+		else
+			return new FileLoader().readSVGMapFile(map.getDifficulty());
 	}
 
 	public static void destroy() {

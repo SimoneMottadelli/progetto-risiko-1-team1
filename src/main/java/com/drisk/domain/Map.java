@@ -12,6 +12,7 @@ public class Map {
 	
 	private DifficultyEnum difficulty;
 	private List<Continent> continents;
+	private String representationSVG;
 	private boolean ready;
 	
 	public Map() {
@@ -22,6 +23,11 @@ public class Map {
 	public DifficultyEnum getDifficulty() {
 		return difficulty;
 	}
+	
+	public String getRepresentationSVG() {
+		return representationSVG;
+	}
+
 
 	public void setDifficulty(String difficulty) {
 		this.difficulty = DifficultyEnum.valueOf(difficulty.toUpperCase());
@@ -136,5 +142,9 @@ public class Map {
 			neighbourhoodArray.add(obj);
 		}
 		return neighbourhoodArray;
+	}
+
+	public void setRepresentationSVG(String representationSVG) {
+		this.representationSVG = representationSVG;
 	}
 }
