@@ -100,7 +100,7 @@ public class TankManagerTest {
 		players.add(new Player(null, "Claudio"));
 		players.add(new Player(null, "Simo"));
 
-		for (Territory t : MapManager.getInstance().getMapTerritories())
+		for (Territory t : MapManager.getInstance().getMap().getTerritories())
 			if (t.getNumberOfTanks() != 1)
 				fail();
 

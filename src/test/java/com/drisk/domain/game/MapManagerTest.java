@@ -40,8 +40,8 @@ public class MapManagerTest {
 			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class);
 			MapManager.getInstance().createMap(obj);
 
-			assertEquals(3, MapManager.getInstance().getMapContinents().size());
-			assertEquals(25, MapManager.getInstance().getMapTerritories().size());
+			assertEquals(3, MapManager.getInstance().getMap().getContinents().size());
+			assertEquals(25, MapManager.getInstance().getMap().getTerritories().size());
 		} catch (FileNotFoundException | SyntaxException e) {
 		}
 	}
@@ -53,34 +53,34 @@ public class MapManagerTest {
 			Gson json = new Gson();
 			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class);
 			MapManager.getInstance().createMap(obj);
-			assertEquals(6, MapManager.getInstance().getMapContinents().size());
-			assertEquals(42, MapManager.getInstance().getMapTerritories().size());
+			assertEquals(6, MapManager.getInstance().getMap().getContinents().size());
+			assertEquals(42, MapManager.getInstance().getMap().getTerritories().size());
 		} catch (FileNotFoundException | SyntaxException e) {
 		}
 	}
 
 	@Test
 	public void createContinentTest() {
-		assertEquals(3, MapManager.getInstance().getMapContinents().size());
+		assertEquals(3, MapManager.getInstance().getMap().getContinents().size());
 	}
 
 	@Test
 	public void createTerritoriesTest() {
-		assertEquals(25, MapManager.getInstance().getMapTerritories().size());
-		Continent c = MapManager.getInstance().findContinentByName("europe");
+		assertEquals(25, MapManager.getInstance().getMap().getTerritories().size());
+		Continent c = MapManager.getInstance().getMap().findContinentByName("europe");
 		assertEquals(7, c.getTerritories().size());
-		Territory t = MapManager.getInstance().findTerritoryByName("congo");
+		Territory t = MapManager.getInstance().getMap().findTerritoryByName("congo");
 		assertEquals(3, t.getNeighbours().size());
-		t = MapManager.getInstance().findTerritoryByName("egypt");
+		t = MapManager.getInstance().getMap().findTerritoryByName("egypt");
 		assertTrue(t.getNeighbours().contains(new Territory("north_africa")));
 	}
 
 	@Test
 	public void toJsonTest() {
 		Player p = new Player(ColorEnum.RED, "Simone");
-		for (Territory t : MapManager.getInstance().getMapTerritories())
+		for (Territory t : MapManager.getInstance().getMap().getTerritories())
 			t.setOwner(p);
-		JsonObject obj = MapManager.getInstance().toJson();
+		JsonObject obj = MapManager.getInstance().getMap().toJson();
 		assertEquals("EASY", obj.get("difficulty").toString().replace("\"", ""));
 		assertEquals(3, obj.getAsJsonArray("continents").size());
 		assertEquals(25, obj.getAsJsonArray("neighbourhood").size());

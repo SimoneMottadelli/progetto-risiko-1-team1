@@ -42,8 +42,8 @@ public class GameManagerTest {
 	@Test
 	public void startGameTest() {
 		assertTrue(GameManager.getInstance().getPlayers().size() == 6);
-		assertTrue(MapManager.getInstance().getMapContinents().size() == 3);
-		assertTrue(MapManager.getInstance().getMapTerritories().size() == 25);
+		assertTrue(MapManager.getInstance().getMap().getContinents().size() == 3);
+		assertTrue(MapManager.getInstance().getMap().getTerritories().size() == 25);
 	}
 	
 	@Test

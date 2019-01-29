@@ -77,11 +77,6 @@ public class MatchManagerTest {
 		assertEquals(0, LobbyManager.getInstance().getPlayers().size());
 	}
 	
-	@Test
-	public void isMatchStartedTest() {
-		assertFalse(LobbyManager.getInstance().isMatchStarted());
-	}
-	
 	@After
 	public void destroySingletons() {
 		LobbyManager.destroy();
