@@ -103,7 +103,7 @@ public class AttackPhase extends Phase {
 
 	}
 
-	private int[] rollDices(int attackerTanks, int defenderTanks) {
+	public int[] rollDices(int attackerTanks, int defenderTanks) {
 
 		Integer[] attackerDicesResults = new Integer[attackerTanks];
 		Integer[] defenderDicesResults = new Integer[defenderTanks];

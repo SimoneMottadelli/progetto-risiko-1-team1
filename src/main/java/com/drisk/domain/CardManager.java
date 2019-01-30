@@ -35,7 +35,8 @@ public class CardManager {
 					players.get(i).setMission(mc);
 				else
 					--i; // to avoid that this player remains without a missioncard
-			} else
+			} 
+			else
 				players.get(i).setMission(mc);
 			++i;
 		}
