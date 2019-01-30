@@ -41,3 +41,4 @@ public abstract class Phase {
 	public abstract void checkCondition() throws RequestNotValidException;
 
 }
+
