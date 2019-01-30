@@ -132,7 +132,6 @@ public class LobbyController {
 			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
 		LobbyManager.getInstance().exitGame((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
 		session.invalidate();
-		System.out.println("Ciao");
 		return helper.createResponseJson(0, "You've exited from the game!");
 	}
 

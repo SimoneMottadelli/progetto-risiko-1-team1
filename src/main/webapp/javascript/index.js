@@ -48,8 +48,12 @@ $(document).ready(
 				setNotReady();
 			});
 			
-			$(window).unload(function() {
-				exitGame();
+			$(window).on("beforeunload", function(){  
+		        exitGame();  
+		    }); 
+			
+			window.addEventListener("beforeunload", function () {
+				 exitGame();
 			});
 
 			$("#textName").keyup(function() {

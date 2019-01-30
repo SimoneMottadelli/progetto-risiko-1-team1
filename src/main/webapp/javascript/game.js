@@ -140,7 +140,7 @@ $(document).ready(function() {
 					showModalWindow("All tanks have been placed! Wait for other players to finish this phase too");
 				}
 			}
-			else if(!JSON.parse(event.data).hasOwnProperty('winner')) {
+			if(!JSON.parse(event.data).hasOwnProperty('winner')) {
 				updateConsoleText(JSON.parse(event.data).history);
 				var currentPlayer = JSON.parse(event.data).currentPlayerColor;
 				$("#playersTurnLabel").html(currentPlayer);
@@ -354,6 +354,10 @@ $(document).ready(function() {
 		});
 	}
 	
+	function exitGame() {
+		$.getJSON('../game/exitGame');
+	}
+	
 	// function used to place tanks on a territory in the INITIAL TANKS PLACEMENT PHASE
 	function placeInitialTanks() {
 		var territory = $("#wherePlacementSelect").val();
@@ -496,6 +500,14 @@ $(document).ready(function() {
 	
 	$("#moveButton").click(function() {
 		moveTanks();
+	});
+	
+	$(window).on("beforeunload", function(){  
+        exitGame();  
+    }); 
+	
+	window.addEventListener("beforeunload", function () {
+		exitGame();
 	});
 	
 	

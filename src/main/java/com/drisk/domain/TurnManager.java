@@ -18,6 +18,7 @@ public class TurnManager {
 		this.players = players;
 		currentPlayer = nextPlayer();
 		currentPhase = new TanksAssignmentPhase(currentPlayer);
+		
 	}
 	
 	public static TurnManager getInstance() {
@@ -52,10 +53,10 @@ public class TurnManager {
 	}
 	
 	public void exit(Player player) {
-		if(currentPlayer.equals(player))
+		if(currentPlayer != null && currentPlayer.equals(player))
 			currentPhase = new TanksAssignmentPhase(nextPlayer());
-		players.remove(player);
-		
+		if(players != null)
+			players.remove(player);
 	}
 
 	public void setCurrentPhase(Phase currentPhase) {
