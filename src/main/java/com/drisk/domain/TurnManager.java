@@ -79,6 +79,7 @@ public class TurnManager {
 	}
 	
 	public static void destroy() {
+		Phase.destroyHistory();
 		instance = null;
 	}
 

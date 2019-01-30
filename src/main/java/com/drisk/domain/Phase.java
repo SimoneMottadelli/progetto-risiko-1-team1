@@ -31,6 +31,10 @@ public abstract class Phase {
 		history.add(message);
 	}
 	
+	public static void destroyHistory() {
+		history.clear();
+	}
+	
 	public abstract void nextPhase() throws RequestNotValidException;
 	public abstract void playPhase(JsonObject obj) throws RequestNotValidException;
 	public abstract void fromJson(JsonObject obj) throws RequestNotValidException;
