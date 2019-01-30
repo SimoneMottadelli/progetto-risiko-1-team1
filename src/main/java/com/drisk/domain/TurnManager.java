@@ -50,6 +50,13 @@ public class TurnManager {
 	public Phase getCurrentPhase() {
 		return currentPhase;
 	}
+	
+	public void exit(Player player) {
+		if(currentPlayer.equals(player))
+			currentPhase = new TanksAssignmentPhase(nextPlayer());
+		players.remove(player);
+		
+	}
 
 	public void setCurrentPhase(Phase currentPhase) {
 		this.currentPhase = currentPhase;

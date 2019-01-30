@@ -47,6 +47,10 @@ $(document).ready(
 			$("#notReadyButton").click(function() {
 				setNotReady();
 			});
+			
+			$(window).unload(function() {
+				exitGame();
+			});
 
 			$("#textName").keyup(function() {
 				var name = $("#textName").val();

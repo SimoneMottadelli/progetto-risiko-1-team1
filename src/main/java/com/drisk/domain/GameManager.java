@@ -110,5 +110,16 @@ public class GameManager {
 		TankManager.destroy();
 		destroy();
 	}
+
+	public void exitGame(ColorEnum color) {
+		Player p = findPlayerByColor(color);
+		players.remove(p);
+		TurnManager.getInstance().exit(p);
+		if(players.size() < 2) {
+			winner = players.get(0);
+			if(players.size() == 0)
+				resetGame();
+		}
+	}
 	
 }

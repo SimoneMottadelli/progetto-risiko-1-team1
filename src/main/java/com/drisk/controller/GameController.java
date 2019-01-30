@@ -187,5 +187,16 @@ public class GameController {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
 	}
+	
+	@GetMapping("/exitGame")
+	@ResponseBody
+	public JsonObject exit(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (!isAPlayer(session))
+			return helper.createResponseJson(-1, NOT_A_PLAYER);
+		GameManager.getInstance().exitGame((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
+		session.invalidate();
+		return helper.createResponseJson(0, "You've exited from the game!");
+	}
 
 }
