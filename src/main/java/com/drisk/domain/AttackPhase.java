@@ -103,7 +103,7 @@ public class AttackPhase extends Phase {
 
 	}
 
-	private int[] rollDices(int attackerTanks, int defenderTanks) {
+	public int[] rollDices(int attackerTanks, int defenderTanks) {
 
 		Integer[] attackerDicesResults = new Integer[attackerTanks];
 		Integer[] defenderDicesResults = new Integer[defenderTanks];
@@ -123,7 +123,7 @@ public class AttackPhase extends Phase {
 
 	}
 
-	private int[] compareDices(Integer[] attackerDicesResults, Integer[] defenderDicesResults) {
+	public int[] compareDices(Integer[] attackerDicesResults, Integer[] defenderDicesResults) {
 
 		int attackerTanksLost = 0;
 		int defenderTanksLost = 0;

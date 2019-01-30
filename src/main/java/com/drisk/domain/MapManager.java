@@ -187,7 +187,7 @@ public class MapManager {
 
 	private java.util.Map<String, List<String>> getRelationshipFromJson(JsonObject gameConfig, String relation)
 			throws SyntaxException {
-		Map<String, List<String>> map = new HashMap<>();
+		Map<String, List<String>> hashMap = new HashMap<>();
 		JsonArray array = gameConfig.getAsJsonArray(relation);
 		if (array == null)
 			throw new SyntaxException("Syntax error: " + relation + " keyword must exists");
@@ -200,9 +200,9 @@ public class MapManager {
 								+ " It should contain the following keywords: \"name\" and \"territories\"");
 			String continentName = continentElement.toString().replace("\"", "");
 			List<String> territoriesNames = getTerritoriesFromJson(obj);
-			map.put(continentName, territoriesNames);
+			hashMap.put(continentName, territoriesNames);
 		}
-		return map;
+		return hashMap;
 	}
 
 	private java.util.Map<String, List<String>> getNeighbourhoodFromJson(JsonObject gameConfig) throws SyntaxException {
