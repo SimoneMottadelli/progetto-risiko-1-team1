@@ -123,7 +123,7 @@ public class AttackPhase extends Phase {
 
 	}
 
-	private int[] compareDices(Integer[] attackerDicesResults, Integer[] defenderDicesResults) {
+	public int[] compareDices(Integer[] attackerDicesResults, Integer[] defenderDicesResults) {
 
 		int attackerTanksLost = 0;
 		int defenderTanksLost = 0;
