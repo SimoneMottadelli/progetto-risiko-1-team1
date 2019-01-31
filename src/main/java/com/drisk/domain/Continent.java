@@ -48,10 +48,6 @@ public class Continent {
 			territories.add(territory);
 	}
 	
-	/**
-	 * It allows to get owner of this continent, if he exists
-	 * @return Player owner if he exists, null otherwise
-	 */
 	private Player getOwner() {
 		Player p = territories.get(0).getOwner();
 		for(Territory t : territories)
@@ -60,10 +56,6 @@ public class Continent {
 		return p;
 	}
 	
-	/**
-	 * Used to get json representation of the continent
-	 * @return JsonObject with json representation of the continent
-	 */
 	public JsonObject toJson() {
 		JsonObject obj = new JsonObject();
 		obj.addProperty("name", name);

@@ -63,10 +63,6 @@ public class Territory {
 		return neighbours;
 	}
 	
-	/**
-	 * Used to get json representation
-	 * @return JsonObject with json representation
-	 */
 	public JsonObject toJson() {
 		JsonObject obj = new JsonObject();
 		obj.addProperty("name", name);

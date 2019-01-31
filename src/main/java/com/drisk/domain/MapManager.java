@@ -41,16 +41,6 @@ public class MapManager {
 		return map;
 	}
 
-	/**
-	 * It allows to create map with specific features through JsonObject
-	 * configuration object
-	 * 
-	 * @param gameConfig JsonObject with map configuration
-	 * @throws SyntaxException       if the map difficulty is custom and there is an
-	 *                               error during the creation with that JsonObject
-	 * @throws FileNotFoundException if the map difficulty is not custom but the
-	 *                               file with map is not found
-	 */
 	public void createMap(JsonObject gameConfig) throws SyntaxException, FileNotFoundException {
 		map = new com.drisk.domain.Map();
 		map.setDifficulty(new JsonHelper().difficultyFromJson(gameConfig));
@@ -63,24 +53,12 @@ public class MapManager {
 		map.setReady(true);
 	}
 
-	/**
-	 * It allow to create map components, like continents, territories and
-	 * neighbours
-	 * 
-	 * @param gameConfig JsonObject with map configuration
-	 * @throws SyntaxException if some map components isn't written correctly
-	 */
 	private void createMapComponents(JsonObject gameConfig) throws SyntaxException {
 		createContinents(getContinentsFromJson(gameConfig));
 		createTerritories(getMembershipFromJson(gameConfig));
 		createNeighbours(getNeighbourhoodFromJson(gameConfig));
 	}
 
-	/**
-	 * It allows to create continents with their name
-	 * 
-	 * @param continentsNames List<String> with continents's names
-	 */
 	private void createContinents(List<String> continentsNames) {
 		for (String continentName : continentsNames) {
 			Continent c = new Continent(continentName);
@@ -88,13 +66,6 @@ public class MapManager {
 		}
 	}
 
-	/**
-	 * It allows to create territories with their name and their continent's name
-	 * owner
-	 * 
-	 * @param relation Map<String, List<String>> with continent name as key and
-	 *                 territories list as value
-	 */
 	private void createTerritories(java.util.Map<String, List<String>> relation) throws SyntaxException {
 		for (java.util.Map.Entry<String, List<String>> entry : relation.entrySet()) {
 			Continent c = map.findContinentByName(entry.getKey());
@@ -140,13 +111,6 @@ public class MapManager {
 				territoriesOwned.add(t);
 		return territoriesOwned;
 	}
-
-	/**
-	 * It allow to retrieve a territory by his name
-	 * 
-	 * @param territoryName String name of territory
-	 * @return Territory with territoryName or null if it doesn't exist
-	 */
 
 	public String getSVGMap() throws IOException {
 		if (map.getDifficulty().equals(DifficultyEnum.CUSTOM)) 

@@ -28,13 +28,6 @@ public class LobbyController {
 	private static final String IS_NOT_A_PLAYER = "You are not a player";
 	private JsonHelper helper = new JsonHelper();
 
-	/**
-	 * It allows new player to join in the match, or old player to re-join
-	 * 
-	 * @param request HttpServletRequest with the session if it exists, or empty if
-	 *                it doesn't exist
-	 * @return JsonObject with welcome message or error
-	 */
 	@PostMapping("/join")
 	@ResponseBody
 	public JsonObject join(HttpServletRequest request) {
@@ -56,14 +49,6 @@ public class LobbyController {
 		}
 	}
 
-	/**
-	 * It allows player to set his game configurations, like map difficulty,
-	 * objective type ...
-	 * 
-	 * @param request HttpServletRequest with session and game configuration body,
-	 *                with map details and modality
-	 * @return JsonObject with positive message or with string error
-	 */
 	@PostMapping("/gameConfig")
 	@ResponseBody
 	public JsonObject gameConfig(HttpServletRequest request) {
@@ -82,12 +67,6 @@ public class LobbyController {
 		}
 	}
 
-	/**
-	 * It is invoked by the client only one time and it sends to it the information
-	 * of the match
-	 * 
-	 * @return SseEmitter
-	 */
 	@GetMapping("/info")
 	public SseEmitter handleSse() {
 		SseEmitter emitter = new SseEmitter();
@@ -118,12 +97,6 @@ public class LobbyController {
 		}
 	}
 
-	/**
-	 * It allows player to leave correctly the match
-	 * 
-	 * @param request HttpServletRequest with player session
-	 * @return JsonObject with message or with error message
-	 */
 	@GetMapping("/exit")
 	@ResponseBody
 	public JsonObject exit(HttpServletRequest request) {
@@ -135,22 +108,12 @@ public class LobbyController {
 		return helper.createResponseJson(0, "You've exited from the game!");
 	}
 
-	/**
-	 * Try to start the game when one player leave the match or when one player is
-	 * ready
-	 */
 	private void tryToStartGame() {
 		LobbyManager mm = LobbyManager.getInstance();
 		if (mm.isEveryoneReady() && MapManager.getInstance().getMap().isReady() && mm.areThereAtLeastTwoPlayers())
 			LobbyManager.getInstance().initGame();
 	}
 
-	/**
-	 * It allows player to set his status to ready
-	 * 
-	 * @param request HttpServletRequest with player session
-	 * @return JsonObject with message or error message
-	 */
 	@GetMapping("/ready")
 	@ResponseBody
 	public JsonObject ready(HttpServletRequest request) {
@@ -162,12 +125,6 @@ public class LobbyController {
 		return helper.createResponseJson(0, "The game will start when everyone is ready!");
 	}
 
-	/**
-	 * It allows player to set his status to not ready
-	 * 
-	 * @param request HttpServletRequest with player session
-	 * @return JsonObject with message or error message
-	 */
 	@GetMapping("/notready")
 	@ResponseBody
 	public JsonObject notReady(HttpServletRequest request) {
@@ -178,13 +135,6 @@ public class LobbyController {
 		return helper.createResponseJson(0, "The game will start when everyone is ready!");
 	}
 
-	/**
-	 * Check if session belongs to a player or not
-	 * 
-	 * @param session - HttpSession with the color of the player
-	 * @return true if the session is not null and this player is in LobbyManager
-	 *         players list, false otherwise
-	 */
 	private boolean isAPlayer(HttpSession session) {
 		return session != null && LobbyManager.getInstance()
 				.findPlayerByColor((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR)) != null;
