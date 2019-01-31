@@ -120,10 +120,11 @@ public class CardManager {
 	}
 
 	public void giveTerritoryCard(Player player) {
-		if (territoryCards.isEmpty())
-			refillDeck();
-		player.addTerritoryCards((TerritoryCard) drawCard(territoryCards));
-	}
+        if (territoryCards.isEmpty())
+            refillDeck();
+        if(!territoryCards.isEmpty())
+            player.addTerritoryCards((TerritoryCard) drawCard(territoryCards));
+    }
 
 	private Card drawCard(List<Card> cards) {
 		return cards.remove(0);
