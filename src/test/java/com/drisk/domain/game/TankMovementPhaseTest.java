@@ -45,7 +45,7 @@ public class TankMovementPhaseTest {
 	public void moveTanksTest() {
 		
 		// getting current player and building the tris he wants to use
-		Player currentPlayer = LobbyManager.getInstance().getPlayers().get(0);
+		Player currentPlayer = GameManager.getInstance().getPlayers().get(0);
 		
 		Territory to = null;
 		Territory from = null;

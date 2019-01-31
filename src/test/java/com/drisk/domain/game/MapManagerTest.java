@@ -40,7 +40,7 @@ public class MapManagerTest {
 			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class);
 			MapManager.getInstance().createMap(obj);
 
-			assertEquals(3, MapManager.getInstance().getMap().getContinents().size());
+			assertEquals(6, MapManager.getInstance().getMap().getContinents().size());
 			assertEquals(25, MapManager.getInstance().getMap().getTerritories().size());
 		} catch (FileNotFoundException | SyntaxException e) {
 		}
@@ -61,18 +61,18 @@ public class MapManagerTest {
 
 	@Test
 	public void createContinentTest() {
-		assertEquals(3, MapManager.getInstance().getMap().getContinents().size());
+		assertEquals(6, MapManager.getInstance().getMap().getContinents().size());
 	}
 
 	@Test
 	public void createTerritoriesTest() {
 		assertEquals(25, MapManager.getInstance().getMap().getTerritories().size());
 		Continent c = MapManager.getInstance().getMap().findContinentByName("europe");
-		assertEquals(7, c.getTerritories().size());
-		Territory t = MapManager.getInstance().getMap().findTerritoryByName("congo");
+		assertEquals(4, c.getTerritories().size());
+		Territory t = MapManager.getInstance().getMap().findTerritoryByName("venezuela");
 		assertEquals(3, t.getNeighbours().size());
 		t = MapManager.getInstance().getMap().findTerritoryByName("egypt");
-		assertTrue(t.getNeighbours().contains(new Territory("north_africa")));
+		assertTrue(t.getNeighbours().contains(new Territory("north_west_africa")));
 	}
 
 	@Test
@@ -82,10 +82,10 @@ public class MapManagerTest {
 			t.setOwner(p);
 		JsonObject obj = MapManager.getInstance().getMap().toJson();
 		assertEquals("EASY", obj.get("difficulty").toString().replace("\"", ""));
-		assertEquals(3, obj.getAsJsonArray("continents").size());
+		assertEquals(6, obj.getAsJsonArray("continents").size());
 		assertEquals(25, obj.getAsJsonArray("neighbourhood").size());
 		assertEquals(25, obj.getAsJsonArray("territories").size());
-		assertEquals(3, obj.getAsJsonArray("membership").size());
+		assertEquals(6, obj.getAsJsonArray("membership").size());
 		System.out.println(obj);
 	}
 

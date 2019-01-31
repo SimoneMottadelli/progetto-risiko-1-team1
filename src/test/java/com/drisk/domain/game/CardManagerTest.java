@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,14 +34,14 @@ public class CardManagerTest {
 			LobbyManager.getInstance().joinGame("Player" + i);
 		
 		// creating map
-		String s = "{'difficulty' : 'custom', 'continents' : ['africa', 'europe'], 'territories' : ['italy', 'france', 'egypt', 'north_africa'],"
-				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north_africa']}],"
-				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north_africa', 'territories' : ['egypt']}]}";
-		Gson json = new Gson();
-		JsonObject obj = json.fromJson(s, JsonObject.class); 
 		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("default_map_easy.json"));
+			Gson json = new Gson();
+			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class); 
 			MapManager.getInstance().createMap(obj);
-		} catch (SyntaxException | FileNotFoundException e) {}
+		} catch (FileNotFoundException | SyntaxException e) {
+			e.printStackTrace();
+		}
 		
 		// initializing the game
 		LobbyManager.getInstance().initGame();
@@ -47,7 +49,7 @@ public class CardManagerTest {
 
 	@Test
 	public void initTerritoryCardsTest() {
-		assertEquals(4, CardManager.getInstance().getTerritoryCards().size());
+		assertEquals(25, CardManager.getInstance().getTerritoryCards().size());
 	}
 	
 	@Test

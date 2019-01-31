@@ -5,7 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,16 +30,13 @@ public class TankManagerTest {
 
 	@Before
 	public void initialize() {
-		String s = "{'difficulty' : 'custom', 'continents' : ['africa', 'europe', 'asia'], 'territories' : ['italy', 'france', 'egypt', 'north_africa', 'kamchatka', 'china', 'japan', 'india', 'middle_east'],"
-				+ " 'membership' : [{'name' : 'europe', 'territories' : ['italy', 'france']}, {'name' : 'africa', 'territories' : ['egypt', 'north_africa']}, {'name' : 'asia', 'territories' : ['china', 'kamchatka', 'japan', 'india', 'middle_east']}],"
-				+ " 'neighbourhood' : [{'name' : 'italy', 'territories' : ['france', 'egypt']}, {'name' : 'north_africa', 'territories' : ['egypt']}, {'name' : 'china', 'territories' : ['india', 'japan']}, {'name' : 'middle_east', 'territories' : ['india']}]}";
-		Gson json = new Gson();
-		JsonObject obj = json.fromJson(s, JsonObject.class);
 		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("default_map_easy.json"));
+			Gson json = new Gson();
+			JsonObject obj = json.fromJson(bufferedReader, JsonObject.class);
 			MapManager.getInstance().createMap(obj);
-		} catch (FileNotFoundException | SyntaxException e) {
-			e.printStackTrace();
-		}
+		} catch (FileNotFoundException | SyntaxException e) {}
+		
 		for (int i = 1; i <= 6; i++)
 			LobbyManager.getInstance().joinGame("Player" + i);
 		LobbyManager.getInstance().initGame();
@@ -45,13 +44,14 @@ public class TankManagerTest {
 
 	@Test
 	public void areAllTanksPlacedTest() {
-		assertFalse(TankManager.getInstance().areAllTanksPlaced(LobbyManager.getInstance().getPlayers()));
-		for (Player p : LobbyManager.getInstance().getPlayers())
-			while (p.getAvailableTanks() > 0)
-				for (Territory t : MapManager.getInstance().getPlayerTerritories(p))
+		assertFalse(TankManager.getInstance().areAllTanksPlaced(GameManager.getInstance().getPlayers()));
+		for (Player p : GameManager.getInstance().getPlayers()) 
+			while (p.getAvailableTanks() > 0) {
+				System.out.println(p.getAvailableTanks());
+				Territory t = MapManager.getInstance().getPlayerTerritories(p).get(0);
 					TankManager.getInstance().placeTanks(t, 1);
-
-		assertTrue(TankManager.getInstance().areAllTanksPlaced(LobbyManager.getInstance().getPlayers()));
+			}
+		assertTrue(TankManager.getInstance().areAllTanksPlaced(GameManager.getInstance().getPlayers()));
 	}
 
 	@Test
@@ -105,24 +105,24 @@ public class TankManagerTest {
 				fail();
 
 		TankManager.getInstance().initTanks(players);
-		assertEquals(6, players.get(0).getAvailableTanks());
+		assertEquals(17, players.get(0).getAvailableTanks());
 
 		for (Player p : players)
-			p.removeAvailableTanks(6);
+			p.removeAvailableTanks(17);
 
 		players.add(new Player(null, "Ale"));
 		TankManager.getInstance().initTanks(players);
-		assertEquals(5, players.get(1).getAvailableTanks());
+		assertEquals(14, players.get(1).getAvailableTanks());
 
 		for (Player p : players)
-			p.removeAvailableTanks(5);
+			p.removeAvailableTanks(14);
 
 		players.add(new Player(null, "Burt"));
 		TankManager.getInstance().initTanks(players);
-		assertEquals(4, players.get(0).getAvailableTanks());
+		assertEquals(11, players.get(0).getAvailableTanks());
 
 		for (Player p : players)
-			p.removeAvailableTanks(4);
+			p.removeAvailableTanks(11);
 
 		players.add(new Player(null, "Andrea"));
 		TankManager.getInstance().initTanks(players);

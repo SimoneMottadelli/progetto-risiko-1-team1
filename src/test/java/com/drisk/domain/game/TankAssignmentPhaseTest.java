@@ -47,7 +47,7 @@ public class TankAssignmentPhaseTest {
 	public void playPhaseTest() {
 		
 		// getting current player and building the tris he wants to use
-		Player currentPlayer = LobbyManager.getInstance().getPlayers().get(0);
+		Player currentPlayer = GameManager.getInstance().getPlayers().get(0);
 		
 		TanksAssignmentPhase phase = new TanksAssignmentPhase(currentPlayer);
 		TerritoryCard card_1 = CardManager.getInstance().findTerritoryCardByTerritoryName("egypt");
