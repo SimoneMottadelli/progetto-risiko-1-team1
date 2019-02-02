@@ -417,6 +417,12 @@
     <path
        d="m 497.00001,178.00001 9,23 z"
        id="scandinavia-northern_europe" />
+	<path
+       d="M 26,115 0,114.70588 Z"
+       id="alaska-kamchatka" />
+    <path
+       d="m 1013,123 11.1176,-0.0588 z"
+       id="kamchatka-alaska" />
   </g>
   <g id="circle" fill="#f9f9f9">
   <circle

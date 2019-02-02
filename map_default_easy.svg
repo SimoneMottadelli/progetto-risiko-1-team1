@@ -544,5 +544,11 @@
     <path
        d="m 582.06324,393.66442 -10.54913,9.30805 z"
        id="east_africa-south_asia" />
+	<path
+       d="M 26,115 0,114.70588 Z"
+       id="alaska-north_west_asia" />
+    <path
+       d="m 1013,123 11.1176,-0.0588 z"
+       id="north_west_asia-alaska" />
   </g>
 </svg>
