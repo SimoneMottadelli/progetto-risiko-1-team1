@@ -153,7 +153,6 @@ public class GameController {
 	@GetMapping("/exitGame")
 	@ResponseBody
 	public JsonObject exit(HttpServletRequest request) {
-		System.out.println("/exitGame");
 		HttpSession session = request.getSession(false);
 		if (!isAPlayer(session))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
