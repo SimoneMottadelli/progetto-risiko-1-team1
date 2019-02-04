@@ -28,7 +28,8 @@ public class TurnManager {
 	}
 	
 	public Player nextPlayer() {
-		currentPlayer = players.get((players.indexOf(currentPlayer) + 1) % players.size());
+		if (!players.isEmpty())
+			currentPlayer = players.get((players.indexOf(currentPlayer) + 1) % players.size());
 		return currentPlayer;
 	}
 
@@ -53,10 +54,11 @@ public class TurnManager {
 	}
 	
 	public void exit(Player player) {
-		if(currentPlayer != null && currentPlayer.equals(player))
+		if(currentPlayer != null && currentPlayer.equals(player)) 
 			currentPhase = new TanksAssignmentPhase(nextPlayer());
 		if(players != null)
 			players.remove(player);
+		currentPhase.addMessage(player.getColor() + " has left the game");
 	}
 
 	public void setCurrentPhase(Phase currentPhase) {

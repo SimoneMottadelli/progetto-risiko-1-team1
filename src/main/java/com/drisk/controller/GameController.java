@@ -157,6 +157,7 @@ public class GameController {
 		if (!isAPlayer(session))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
 		GameManager.getInstance().exitGame((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
+		GameManager.getInstance().tryToStartGame();
 		session.invalidate();
 		return helper.createResponseJson(0, "You've exited from the game!");
 	}
