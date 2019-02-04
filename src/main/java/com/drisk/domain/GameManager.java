@@ -114,14 +114,15 @@ public class GameManager {
 	public void exitGame(ColorEnum color) {
 		Player p = findPlayerByColor(color);
 		players.remove(p);
-		if(TurnManager.getInstance().getCurrentPlayer() == null)
+		if(TurnManager.getInstance().getCurrentPlayer() == null && players.size() >= 1)
 			tryToStartGame();
 		if(!players.isEmpty()) {
 			TurnManager.getInstance().exit(p);
 			if(players.size() == 1)
 				winner = players.get(0);			
 		}
-		else
+		else 
 			resetGame();
+
 	}
 }

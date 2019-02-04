@@ -58,7 +58,8 @@ public class TurnManager {
 			currentPhase = new TanksAssignmentPhase(nextPlayer());
 		if(players != null)
 			players.remove(player);
-		currentPhase.addMessage(player.getColor() + " has left the game");
+		if (currentPhase != null)
+			currentPhase.addMessage(player.getColor() + " has left the game");
 	}
 
 	public void setCurrentPhase(Phase currentPhase) {

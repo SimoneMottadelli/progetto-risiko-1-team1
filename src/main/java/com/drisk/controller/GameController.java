@@ -153,11 +153,11 @@ public class GameController {
 	@GetMapping("/exitGame")
 	@ResponseBody
 	public JsonObject exit(HttpServletRequest request) {
+		System.out.println("/exitGame");
 		HttpSession session = request.getSession(false);
 		if (!isAPlayer(session))
 			return helper.createResponseJson(-1, NOT_A_PLAYER);
 		GameManager.getInstance().exitGame((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR));
-		GameManager.getInstance().tryToStartGame();
 		session.invalidate();
 		return helper.createResponseJson(0, "You've exited from the game!");
 	}
