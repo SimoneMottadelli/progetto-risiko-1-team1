@@ -47,10 +47,15 @@ public class GameController {
 	@GetMapping("/map")
 	@ResponseBody
     public JsonObject getMap() {
-		JsonObject responseObj = MapManager.getInstance().getMap().toJson();
+		JsonObject responseObj = null;
+		if (MapManager.getInstance().getMap() != null && MapManager.getInstance().getMap().isReady())
+			responseObj = MapManager.getInstance().getMap().toJson();
 		try {
-			responseObj.addProperty("mapSVG", MapManager.getInstance().getSVGMap());
-			return helper.createResponseJson(0, responseObj.toString());
+			if (responseObj != null) {
+				responseObj.addProperty("mapSVG", MapManager.getInstance().getSVGMap());
+				return helper.createResponseJson(0, responseObj.toString());
+			}
+			return  helper.createResponseJson(-1, "You are not a player!");
 		} catch (IOException e) {
 			return helper.createResponseJson(-1, e.getMessage());
 		}
