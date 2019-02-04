@@ -120,6 +120,8 @@ public class LobbyController {
 		HttpSession session = request.getSession(false);
 		if (!isAPlayer(session))
 			return helper.createResponseJson(-1, IS_NOT_A_PLAYER);
+		if(MapManager.getInstance().getMap().getDifficulty() == null)
+			return helper.createResponseJson(-1, "The game configurations are not set, please sets them before making ready");
 		LobbyManager.getInstance().setPlayerReady((ColorEnum) session.getAttribute(SESSION_ATTRIBUTE_COLOR), true);
 		tryToStartGame();
 		return helper.createResponseJson(0, "The game will start when everyone is ready!");
