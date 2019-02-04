@@ -214,6 +214,7 @@ li{
 }
 
 #consoleText{
+	resize: none;
 	overflow-y: scroll;
 	position: absolute;
 	width: 31vw;
