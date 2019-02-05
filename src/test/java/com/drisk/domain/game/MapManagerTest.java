@@ -7,6 +7,9 @@ import static org.junit.Assert.fail;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,6 +35,40 @@ public class MapManagerTest {
 		}
 	}
 
+	@Test
+	public void initPlayersTerritoriesTest() {
+		
+		List<Player> players = new LinkedList<>();
+		Player player1 = new Player(ColorEnum.BLACK, "Player1");
+		players.add(player1);
+		Player player2 = new Player(ColorEnum.BLUE, "Player2");
+		players.add(player2);
+		
+		MapManager mm = MapManager.getInstance();
+		mm.initPlayersTerritories(players);
+		
+		List<Territory> tmp1 = mm.getPlayerTerritories(player1);
+		List<Territory> tmp2 = mm.getPlayerTerritories(player2);
+		List<Territory> territories = mm.getPlayerTerritories(player1);
+		for (Territory t: territories)
+			System.out.print(t.getName() + ", ");
+		System.out.println();
+		
+		for (Territory t1: tmp1) 
+			t1.setOwner(null);
+		for (Territory t2: tmp2)
+			t2.setOwner(null);
+		
+		mm.initPlayersTerritories(players);
+		
+		List<Territory> territoriesAfter = mm.getPlayerTerritories(player1);
+		for (Territory t: territoriesAfter)
+			System.out.print(t.getName() + ", ");
+		
+		assertTrue("Territories not shuffled!", !territoriesAfter.containsAll(territories));
+		
+	}
+	
 	@Test
 	public void initMapEasyTest() {
 		try {

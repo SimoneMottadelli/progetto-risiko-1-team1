@@ -96,9 +96,10 @@ public class MapManager {
 	}
 
 	public void initPlayersTerritories(List<Player> players) {
-		Collections.shuffle(map.getTerritories());
+		List<Territory> territories = map.getTerritories();
+		Collections.shuffle(territories);
 		int i = 0;
-		for (Territory t : map.getTerritories()) {
+		for (Territory t : territories) {
 			t.setOwner(players.get(i % players.size()));
 			++i;
 		}
