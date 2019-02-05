@@ -114,7 +114,7 @@ public class GameManager {
 	public void exitGame(ColorEnum color) {
 		Player p = findPlayerByColor(color);
 		players.remove(p);
-		if(TurnManager.getInstance().getCurrentPlayer() == null && players.size() >= 1)
+		if(TurnManager.getInstance().getCurrentPlayer() == null && !players.isEmpty())
 			tryToStartGame();
 		if(!players.isEmpty()) {
 			TurnManager.getInstance().exit(p);
