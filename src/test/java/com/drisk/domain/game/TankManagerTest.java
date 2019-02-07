@@ -86,9 +86,7 @@ public class TankManagerTest {
 		try {
 			TankManager.getInstance().tryToPlaceTanks(p, t, 4);
 			fail();
-		} catch (RequestNotValidException e) {
-			e.printStackTrace();
-		}
+		} catch (RequestNotValidException e) {}
 	}
 
 	@Test
